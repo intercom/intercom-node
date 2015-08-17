@@ -145,7 +145,7 @@
         "args": "after-used"
       }
     ],
-    "camelcase": 2,
+    "camelcase": 0,
     "comma-spacing": 2,
     "new-cap": 2,
     "new-parens": 2,

@@ -30,7 +30,8 @@
     "gulp-nsp": "^0.4.5",
     "gulp-babel": "^5.1.0",
     "babel-core": "^5.5.0",
-    "nock" : "*"
+    "nock" : "*",
+    "locus" : "*"
   },
   "scripts": {
     "prepublish": "gulp prepublish",
