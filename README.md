@@ -1,7 +1,7 @@
 # intercom-node
 > Official Node bindings to the Intercom API
 
-[![Build Status](https://travis-ci.org/intercom/intercom-node.svg)](https://travis-ci.org/intercom/intercom-node)
+[![Build Status](https://travis-ci.org/intercom/intercom-node.svg?branch=master)](https://travis-ci.org/intercom/intercom-node)
 
 ## Beta
 
