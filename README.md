@@ -1,6 +1,10 @@
 # intercom-node
 > Official Node bindings to the Intercom API
 
+## Beta
+
+This client library is in active development, and should not be used in production software yet.
+
 ## Testing
 
 ```node
@@ -65,6 +69,18 @@ client.users.find({ id: '1234' }, function (d) {
 // Delete user by id
 client.users.delete({ id: '1234' }, function (d) {
   console.log(d.body)
+});
+```
+## Events
+
+```node
+// Create a event
+client.events.create({
+  event_name: 'Foo',
+  created_at: 1439826340,
+  user_id: 'bar'
+}, function (d) {
+  console.log(d);
 });
 ```
 
