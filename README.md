@@ -1,6 +1,8 @@
 # intercom-node
 > Official Node bindings to the Intercom API
 
+[![Build Status](https://travis-ci.org/intercom/intercom-node.svg)](https://travis-ci.org/intercom/intercom-node)
+
 ## Beta
 
 This client library is in active development, and should not be used in production software yet.
