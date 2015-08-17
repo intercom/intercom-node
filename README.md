@@ -48,28 +48,22 @@ client.users.create({ email: "jayne@serenity.io" }, function (r) {
 
 ```node
 // List users
-client.users.list(function (d) { console.log(d.body.users.length) });
+client.users.list(callback);
 ```
 
 ```node
 // List users by tag or segment
-client.users.listBy({ tag_id: 'haven' }, function (d) {
-  console.log(d.body.users.length)
-});
+client.users.listBy({ tag_id: 'haven' }, callback);
 ```
 
 ```node
 // Find user by id
-client.users.find({ id: '1234' }, function (d) {
-  console.log(d.body)
-});
+client.users.find({ id: '1234' }, callback);
 ```
 
 ```node
 // Delete user by id
-client.users.delete({ id: '1234' }, function (d) {
-  console.log(d.body)
-});
+client.users.delete({ id: '1234' }, callback);
 ```
 ## Events
 
