@@ -1,0 +1,40 @@
+{
+  "name": "intercom-node",
+  "version": "0.0.0",
+  "description": "Official Node bindings to the Intercom API",
+  "homepage": "https://github.com/intercom/intercom-node",
+  "repository": "intercom/intercom-node",
+  "author": {
+    "name": "Bob Long",
+    "email": "bob@intercom.io",
+    "url": ""
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "keywords": [
+    "intercom",
+    "api"
+  ],
+  "dependencies": {
+    "unirest": "*"
+  },
+  "devDependencies": {
+    "gulp": "^3.6.0",
+    "gulp-eslint": "^0.15.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-istanbul": "^0.9.0",
+    "gulp-mocha": "^2.0.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-nsp": "^0.4.5",
+    "gulp-babel": "^5.1.0",
+    "babel-core": "^5.5.0",
+    "nock" : "*"
+  },
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
+  },
+  "license": "Apache-2.0"
+}
