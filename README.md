@@ -68,6 +68,50 @@ client.users.find({ id: '1234' }, callback);
 client.users.delete({ id: '1234' }, callback);
 ```
 
+## Contacts
+
+```node
+// Create a contact
+client.contacts.create(function (r) {
+  console.log(r);
+});
+```
+
+```node
+// Update a contact by id
+client.contacts.update({ id: '5435345', email: 'wash@serenity.io' }, callback);
+```
+
+```node
+// List contacts
+client.contacts.list(callback);
+```
+
+```node
+// List contacts by email
+client.contacts.listBy({ email: 'wash@serenity.io' }, callback);
+```
+
+
+```node
+// Find contact by id
+client.contacts.find({ id: '5342423' }, callback);
+```
+
+```node
+// Delete contact by id
+client.contacts.find({ id: '5342423' }, callback);
+```
+
+```node
+// Convert Contacts into Users
+var conversion = {
+  contact: { user_id: '1234-5678-9876' },
+  user: { email: 'mal@serenity.io' }
+};
+client.contacts.convert(conversion, callback);
+```
+
 ## Companies
 
 ```node
@@ -94,8 +138,9 @@ client.companies.find({ id: '1234' }, callback);
 
 ```node
 // List company users
-client.company.listUsers({ id: '1234' }, callback);
+client.companies.listUsers({ id: '1234' }, callback);
 ```
+
 ## Events
 
 ```node

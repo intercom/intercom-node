@@ -27,7 +27,7 @@ describe('users', function () {
       done();
     });
   });
-  it('find users by id', function (done) {
+  it('should find users by id', function (done) {
     nock('https://api.intercom.io').get('/users/baz').reply(200, {});
     let client = new Client('foo', 'bar');
     client.users.find({ id: 'baz' }, function (r) {
@@ -35,7 +35,7 @@ describe('users', function () {
       done();
     });
   });
-  it('deletes users by id', function (done) {
+  it('should delete users by id', function (done) {
     nock('https://api.intercom.io').delete('/users/baz').reply(200, {});
     let client = new Client('foo', 'bar');
     client.users.delete({ id: 'baz' }, function (r) {
