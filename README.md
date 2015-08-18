@@ -154,6 +154,26 @@ client.events.create({
 });
 ```
 
+## Counts
+
+```node
+this.client.appCounts(callback);
+
+this.client.conversationCounts(callback);
+
+this.client.conversationAdminCounts(callback);
+
+this.client.userTagCounts(callback);
+
+this.client.userSegmentCounts(callback);
+
+this.client.companyTagCounts(callback);
+
+this.client.companySegmentCounts(callback);
+
+this.client.companyUserCounts(callback);
+```
+
 ## Pagination
 
 When listing, the Intercom API may return a pagination object:
