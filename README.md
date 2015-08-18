@@ -157,21 +157,21 @@ client.events.create({
 ## Counts
 
 ```node
-client.appCounts(callback);
+client.counts.appCounts(callback);
 
-client.conversationCounts(callback);
+client.counts.conversationCounts(callback);
 
-client.conversationAdminCounts(callback);
+client.counts.conversationAdminCounts(callback);
 
-client.userTagCounts(callback);
+client.counts.userTagCounts(callback);
 
-client.userSegmentCounts(callback);
+client.counts.userSegmentCounts(callback);
 
-client.companyTagCounts(callback);
+client.counts.companyTagCounts(callback);
 
-client.companySegmentCounts(callback);
+client.counts.companySegmentCounts(callback);
 
-client.companyUserCounts(callback);
+client.counts.companyUserCounts(callback);
 ```
 
 ## Pagination
