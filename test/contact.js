@@ -12,7 +12,7 @@ describe('contacts', function () {
     });
   });
   it('should be updated', function (done) {
-    nock('https://api.intercom.io').post('/contacts/baz', { email: 'foo@intercom.io' }).reply(200, {});
+    nock('https://api.intercom.io').post('/contacts', { id: 'baz', email: 'foo@intercom.io' }).reply(200, {});
     let client = new Client('foo', 'bar');
     client.contacts.update({ id: 'baz', email: 'foo@intercom.io' }, function (r) {
       assert.equal(200, r.status);
