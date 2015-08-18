@@ -16,4 +16,13 @@ describe('clients', function () {
       done();
     });
   });
+  it('paginate', function (done) {
+    nock('https://api.intercom.io').get('/foo/bar/baz').query({ blue: 'red' }).reply(200, { foo: 'bar' });
+    let client = new Client('foo', 'bar');
+    let paginationObject = { next: 'https://api.intercom.io/foo/bar/baz?blue=red' };
+    client.nextPage(paginationObject, function (r) {
+      assert.deepEqual({foo: 'bar'}, r.body);
+      done();
+    });
+  });
 });
