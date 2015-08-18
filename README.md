@@ -80,6 +80,24 @@ client.events.create({
 });
 ```
 
+## Pagination
+
+When listing, the Intercom API may return a pagination object:
+
+```json
+{
+  "pages": {
+    "next": "..."
+  }
+}
+```
+
+You can grab the next page of results using the client:
+
+```
+client.nextPage(response.pages, callback);
+```
+
 ## License
 
 Apache-2.0
