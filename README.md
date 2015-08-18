@@ -67,6 +67,35 @@ client.users.find({ id: '1234' }, callback);
 // Delete user by id
 client.users.delete({ id: '1234' }, callback);
 ```
+
+## Companies
+
+```node
+// Create/update a company
+client.companies.create({ company_id: "1234", name: "serenity" }, function (r) {
+  console.log(r);
+});
+```
+
+```node
+// List companies
+client.companies.list(callback);
+```
+
+```node
+// List companies by tag or segment
+client.companies.listBy({ tag_id: 'haven' }, callback);
+```
+
+```node
+// Find company by id
+client.companies.find({ id: '1234' }, callback);
+```
+
+```node
+// List company users
+client.company.listUsers({ id: '1234' }, callback);
+```
 ## Events
 
 ```node
