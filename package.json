@@ -1,6 +1,6 @@
 {
   "name": "intercom-node",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Official Node bindings to the Intercom API",
   "homepage": "https://github.com/intercom/intercom-node",
   "repository": "intercom/intercom-node",
@@ -30,8 +30,8 @@
     "gulp-nsp": "^0.4.5",
     "gulp-babel": "^5.1.0",
     "babel-core": "^5.5.0",
-    "nock" : "*",
-    "locus" : "*"
+    "nock": "*",
+    "locus": "*"
   },
   "scripts": {
     "prepublish": "gulp prepublish",
