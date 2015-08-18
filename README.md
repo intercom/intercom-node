@@ -100,7 +100,7 @@ client.contacts.find({ id: '5342423' }, callback);
 
 ```node
 // Delete contact by id
-client.contacts.find({ id: '5342423' }, callback);
+client.contacts.delete({ id: '5342423' }, callback);
 ```
 
 ```node
