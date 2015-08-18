@@ -39,7 +39,6 @@ gulp.task('test', ['pre-test'], function (cb) {
     .on('error', function (err) {
       mochaErr = err;
     })
-    .pipe(istanbul.writeReports())
     .on('end', function () {
       cb(mochaErr);
     });
