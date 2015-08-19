@@ -174,6 +174,12 @@ client.counts.companySegmentCounts(callback);
 client.counts.companyUserCounts(callback);
 ```
 
+## Admins
+
+```node
+client.admins.list(callback);
+```
+
 ## Pagination
 
 When listing, the Intercom API may return a pagination object:
