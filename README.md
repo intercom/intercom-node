@@ -177,7 +177,40 @@ client.counts.companyUserCounts(callback);
 ## Admins
 
 ```node
+// List admins
 client.admins.list(callback);
+```
+
+## Tags
+
+```node
+// Create a tag
+client.tags.create({ name: 'haven' }, callback);
+```
+
+```node
+// Tag a user by id
+client.tags.tag({ name: 'haven', users: [{ id: '54645654' }] }, callback);
+```
+
+```node
+// Tag a company by id
+client.tags.tag({ name: 'haven', companies: [{ id: '54645654' }] }, callback);
+```
+
+```node
+// Untag a user by id
+client.tags.untag({ name: 'haven', users: [{ id: '5345342' }] }, callback);
+```
+
+```node
+// List tags
+client.tags.list(callback);
+```
+
+```node
+// Delete a tag by id
+client.tags.delete({ id: '130963' }, callback);
 ```
 
 ## Pagination
