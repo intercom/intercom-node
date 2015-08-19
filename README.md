@@ -213,6 +213,18 @@ client.tags.list(callback);
 client.tags.delete({ id: '130963' }, callback);
 ```
 
+## Segments
+
+```node
+// List segments
+client.segments.list(callback);
+```
+
+```node
+// Find segment by id
+client.segments.find({ id: '55719a4a' }, callback);
+```
+
 ## Pagination
 
 When listing, the Intercom API may return a pagination object:
