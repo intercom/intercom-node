@@ -5,7 +5,7 @@
 
 ## Beta
 
-This client library is in active development, and should not be used in production software yet.
+This client library is in active development. Full API documentation can be found [here](https://doc.intercom.io/api/).
 
 ## Testing
 
