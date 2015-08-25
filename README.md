@@ -7,6 +7,12 @@
 
 This client library is in active development. Full API documentation can be found [here](https://doc.intercom.io/api/).
 
+## Installation
+
+```node
+npm install intercom-client
+```
+
 ## Testing
 
 ```node
