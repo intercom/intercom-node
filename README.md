@@ -225,6 +225,18 @@ client.segments.list(callback);
 client.segments.find({ id: '55719a4a' }, callback);
 ```
 
+## Bulk users
+
+The [Bulk APIs](https://doc.intercom.io/api/#bulk-apis) are themselves in Beta, but allow for the
+asynchronous creation and deletion of users:
+
+```node
+client.users.bulk([
+  { create: { email: 'wash@serenity.io' }},
+  { create: { email: 'mal@serenity.io'}}
+], callback);
+```
+
 ## Pagination
 
 When listing, the Intercom API may return a pagination object:
