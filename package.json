@@ -18,7 +18,7 @@
     "api"
   ],
   "dependencies": {
-    "unirest": "*"
+    "unirest": "^0.4.2"
   },
   "devDependencies": {
     "gulp": "^3.6.0",
