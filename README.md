@@ -9,13 +9,13 @@ This client library is in active development. Full API documentation can be foun
 
 ## Installation
 
-```node
+```bash
 npm install intercom-client
 ```
 
 ## Testing
 
-```node
+```bash
 npm test
 ```
 
@@ -23,14 +23,8 @@ npm test
 
 Compile using babel:
 
-```
+```bash
 gulp babel
-```
-
-Start a repl:
-
-```
-node
 ```
 
 Require Intercom:
@@ -39,17 +33,25 @@ Require Intercom:
 var Intercom = require('./dist/index');
 ```
 
+## Usage
+
+Require Intercom:
+
+```node
+var Intercom = require('intercom-node');
+```
+
 Create a client:
 
 ```node
-var client = new Intercom.Client("app_id", "app_api_key");
+var client = new Intercom.Client('app_id', 'app_api_key');
 ```
 
 ## Users
 
 ```node
 // Create/update a user
-client.users.create({ email: "jayne@serenity.io" }, function (r) {
+client.users.create({ email: 'jayne@serenity.io' }, function (r) {
   console.log(r);
 });
 ```
@@ -122,7 +124,7 @@ client.contacts.convert(conversion, callback);
 
 ```node
 // Create/update a company
-client.companies.create({ company_id: "1234", name: "serenity" }, function (r) {
+client.companies.create({ company_id: '1234', name: 'serenity' }, function (r) {
   console.log(r);
 });
 ```
