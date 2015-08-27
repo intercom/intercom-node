@@ -245,6 +245,19 @@ client.users.bulk([
 ], callback);
 ```
 
+## Bulk events
+
+```node
+var event = {
+  event_name: 'foo',
+  created: 1438944979,
+  email: 'wash@serenity.io',
+  metadata: { bar: 'baz' }
+};
+
+client.events.bulk([{ create: event }], callback);
+```
+
 ## Pagination
 
 When listing, the Intercom API may return a pagination object:
