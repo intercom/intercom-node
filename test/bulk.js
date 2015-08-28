@@ -31,4 +31,32 @@ describe('bulk', function () {
       done();
     });
   });
+  it('should send bulk events', function (done) {
+    nock('https://api.intercom.io').post('/bulk/events', {
+      items: [
+        {
+          method: 'post',
+          data_type: 'event',
+          data: {
+            foo: 'bar'
+          }
+        },
+        {
+          method: 'post',
+          data_type: 'event',
+          data: {
+            bar: 'baz'
+          }
+        }
+      ]
+    }).reply(200, {});
+    let client = new Client('foo', 'bar');
+    client.events.bulk([
+      { create: { foo: 'bar' }},
+      { create: { bar: 'baz'}}
+    ], function (r) {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
 });
