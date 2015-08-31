@@ -47,6 +47,23 @@ Create a client:
 var client = new Intercom.Client('app_id', 'app_api_key');
 ```
 
+## Callbacks
+
+This client library supports two kinds of callbacks:
+
+```node
+client.users.list(function (d) {
+  // d is the response from the server
+});
+
+// Or
+
+client.users.list(function (err, d) {
+  // err is an error response object, or null
+  // d is a successful response object, or null
+});
+```
+
 ## Users
 
 ```node
