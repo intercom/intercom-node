@@ -286,12 +286,12 @@ var message = {
   body: "Ponies, cute small horses or something more sinister?",
   template: "plain",
   from: {
-    "type": "admin",
-    "id": "21599"
+    type: "admin",
+    id: "21599"
   },
   to: {
-    "type": "user",
-    "id": "55c1ce1def857c31f80001af"
+    type: "user",
+    id: "55c1ce1def857c31f80001af"
   }
 }
 
@@ -301,15 +301,17 @@ client.messages.create(message, callback);
 ```node
 // Creating a user-initiated message:
 var message = {
-  "from": {
-    "type": "user",
-    "id": "55c1ce1def857c31f80001af"
+  from: {
+    type: "user",
+    id: "55c1ce1def857c31f80001af"
   },
-  "body": "Howdy"
+  body: "Howdy"
 }
 
 client.messages.create(message, callback);
 ```
+
+## Conversations
 
 Listing conversations ([documentation](https://doc.intercom.io/api/#list-conversations)):
 
