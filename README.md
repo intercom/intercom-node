@@ -275,6 +275,72 @@ var event = {
 client.events.bulk([{ create: event }], callback);
 ```
 
+## Messages
+
+```node
+// Admin initiated messages:
+// Sending an email to a User
+var message = {
+  message_type: "email",
+  subject: "Hey",
+  body: "Ponies, cute small horses or something more sinister?",
+  template: "plain",
+  from: {
+    "type": "admin",
+    "id": "21599"
+  },
+  to: {
+    "type": "user",
+    "id": "55c1ce1def857c31f80001af"
+  }
+}
+
+client.messages.create(message, callback);
+```
+
+```node
+// Creating a user-initiated message:
+var message = {
+  "from": {
+    "type": "user",
+    "id": "55c1ce1def857c31f80001af"
+  },
+  "body": "Howdy"
+}
+
+client.messages.create(message, callback);
+```
+
+Listing conversations ([documentation](https://doc.intercom.io/api/#list-conversations)):
+
+```node
+client.conversations.list({ type: 'admin', admin_id: 21599 }, callback);
+```
+
+
+```node
+// Fetching a conversation
+client.conversations.find({ id: '1062682196' }, callback);
+```
+
+```node
+// Replying to a conversation
+var reply = {
+  id: '1039067180',
+  intercom_user_id: '55b26822ce97179e52001334',
+  body: 'Some reply :)',
+  type: 'user',
+  message_type: 'comment'
+};
+
+client.conversations.reply(reply, callback);
+```
+
+```node
+// Marking a conversation as read
+client.conversations.markAsRead({ id: '1039067180' }, callback);
+```
+
 ## Pagination
 
 When listing, the Intercom API may return a pagination object:
