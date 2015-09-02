@@ -321,12 +321,12 @@ client.conversations.list({ type: 'admin', admin_id: 21599 }, callback);
 
 
 ```node
-// Fetching a conversation
+// Fetch a conversation
 client.conversations.find({ id: '1062682196' }, callback);
 ```
 
 ```node
-// Replying to a conversation
+// Reply to a conversation
 var reply = {
   id: '1039067180',
   intercom_user_id: '55b26822ce97179e52001334',
@@ -339,8 +339,33 @@ client.conversations.reply(reply, callback);
 ```
 
 ```node
-// Marking a conversation as read
+// Mark a conversation as read
 client.conversations.markAsRead({ id: '1039067180' }, callback);
+```
+
+## Notes
+
+```node
+// Create a note
+var note = {
+  admin_id: 21599,
+  body: 'Hello notes!',
+  user: {
+    id: '55b26822ce97179e52001334'
+  }
+};
+
+client.notes.create(note, callback);
+```
+
+```node
+// List notes by user
+client.notes.list({ email: 'bob@intercom.io' }, callback);
+```
+
+```node
+//Fetch a note
+client.notes.find({ id: '3342887' }, callback);
 ```
 
 ## Pagination
