@@ -3,10 +3,6 @@
 
 [![Build Status](https://travis-ci.org/intercom/intercom-node.svg?branch=master)](https://travis-ci.org/intercom/intercom-node)
 
-## Beta
-
-This client library is in active development. Full API documentation can be found [here](https://doc.intercom.io/api/).
-
 ## Installation
 
 ```bash
