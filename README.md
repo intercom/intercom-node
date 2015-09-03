@@ -34,7 +34,7 @@ var Intercom = require('./dist/index');
 Require Intercom:
 
 ```node
-var Intercom = require('intercom-node');
+var Intercom = require('intercom-client');
 ```
 
 Create a client:
