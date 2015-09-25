@@ -11,6 +11,14 @@ describe('contacts', function () {
       done();
     });
   });
+  it('should be created with parameters', function (done) {
+    nock('https://api.intercom.io').post('/contacts', { foo: 'bar' }).reply(200, {});
+    let client = new Client('foo', 'bar');
+    client.contacts.create({ foo: 'bar' }, function (r) {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
   it('should be updated', function (done) {
     nock('https://api.intercom.io').post('/contacts', { id: 'baz', email: 'foo@intercom.io' }).reply(200, {});
     let client = new Client('foo', 'bar');
