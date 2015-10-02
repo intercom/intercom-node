@@ -46,7 +46,7 @@ var client = new Intercom.Client('app_id', 'app_api_key');
 
 // Or
 
-var client = new Client({ appId: 'app_id', appApiKey: 'app_api_key' });
+var client = new Intercom.Client({ appId: 'app_id', appApiKey: 'app_api_key' });
 ```
 
 ## Callbacks
