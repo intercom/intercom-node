@@ -42,7 +42,10 @@ var Intercom = require('intercom-client');
 Create a client:
 
 ```node
-var client = new Intercom.Client('app_id', 'app_api_key');
+var client = new Intercom.Client({
+    apiKey: 'apiKey',
+    appId: 'appId'
+});
 ```
 
 ## Callbacks
