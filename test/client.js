@@ -1,7 +1,7 @@
 import assert from 'assert';
 import {Client} from '../lib';
 
-describe('users', function () {
+describe('clients', function () {
   it('should callback with errors', function (done) {
     let callback = function (err, d) {
       assert.equal('error.list', err.body.type);
