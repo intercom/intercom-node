@@ -11,6 +11,12 @@ describe('users', function () {
     let client = new Client('foo', 'bar');
     client.callback(callback, { body: { type: 'error.list' }});
   });
+  it('should not crash if the callback is missing', function () {
+    let client = new Client('foo', 'bar');
+    assert.doesNotThrow(function () {
+      client.callback();
+    });
+  });
   it('should construct with two fields', function () {
     let client = new Client('foo', 'bar');
     assert.equal('foo', client.appId);
