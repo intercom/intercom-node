@@ -1,6 +1,6 @@
 import assert from 'assert';
 import {Client} from '../lib';
-var nock = require('nock');
+import nock from 'nock';
 
 describe('counts', function () {
   it('app counts', function (done) {
