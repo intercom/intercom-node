@@ -3,6 +3,7 @@
   "version": "1.1.4",
   "description": "Official Node bindings to the Intercom API",
   "homepage": "https://github.com/intercom/intercom-node",
+  "bugs:": "https://github.com/intercom/intercom-node/issues",
   "repository": "intercom/intercom-node",
   "author": {
     "name": "Bob Long",
