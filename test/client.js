@@ -5,7 +5,7 @@ import nock from 'nock';
 describe('clients', function () {
   it('should resolve promises', function (done) {
     nock('https://api.intercom.io').get('/users').reply(200, {});
-    let client = new Client('foo', 'bar').usePromises();
+    const client = new Client('foo', 'bar').usePromises();
     assert.equal(true, client.promises);
     client.users.list().then(function (r) {
       assert.equal(200, r.status);
@@ -14,7 +14,7 @@ describe('clients', function () {
   });
   it('should reject promises', function (done) {
     nock('https://api.intercom.io').get('/users').reply(200, {type: 'error.list'});
-    let client = new Client('foo', 'bar').usePromises();
+    const client = new Client('foo', 'bar').usePromises();
     assert.equal(true, client.promises);
     client.users.list().catch(err => {
       assert.equal('error.list', err.body.type);
@@ -22,33 +22,33 @@ describe('clients', function () {
     });
   });
   it('should callback with errors', function (done) {
-    let callback = function (err, d) {
+    const callback = function (err, d) {
       assert.equal('error.list', err.body.type);
       assert.equal(null, d);
       done();
     };
-    let client = new Client('foo', 'bar');
+    const client = new Client('foo', 'bar');
     client.callback(callback, { body: { type: 'error.list' }});
   });
   it('should not crash if the callback is missing', function () {
-    let client = new Client('foo', 'bar');
+    const client = new Client('foo', 'bar');
     assert.doesNotThrow(function () {
       client.callback();
     });
   });
   it('should construct with two fields', function () {
-    let client = new Client('foo', 'bar');
+    const client = new Client('foo', 'bar');
     assert.equal('foo', client.appId);
     assert.equal('bar', client.appApiKey);
   });
   it('should construct with an object', function () {
-    let client = new Client({ appId: 'foo', appApiKey: 'bar' });
+    const client = new Client({ appId: 'foo', appApiKey: 'bar' });
     assert.equal('foo', client.appId);
     assert.equal('bar', client.appApiKey);
   });
   it('should throw if no credentials found', function () {
     assert.throws(function () {
-      let client = new Client('baz');
+      const client = new Client('baz');
       console.log(client.appId);
     }, /Could not construct a client with those parameters/);
   });
