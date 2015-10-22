@@ -22,7 +22,7 @@ describe('bulk', function () {
         }
       ]
     }).reply(200, {});
-    let client = new Client('foo', 'bar');
+    const client = new Client('foo', 'bar');
     client.users.bulk([
       { create: { email: 'wash@serenity.io' }},
       { create: { email: 'mal@serenity.io'}}
@@ -50,7 +50,7 @@ describe('bulk', function () {
         }
       ]
     }).reply(200, {});
-    let client = new Client('foo', 'bar');
+    const client = new Client('foo', 'bar');
     client.events.bulk([
       { create: { foo: 'bar' }},
       { create: { bar: 'baz'}}
