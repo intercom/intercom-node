@@ -6,8 +6,7 @@
   "repository": "intercom/intercom-node",
   "author": {
     "name": "Bob Long",
-    "email": "bob@intercom.io",
-    "url": ""
+    "email": "bob@intercom.io"
   },
   "files": [
     "dist"
