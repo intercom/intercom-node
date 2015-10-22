@@ -22,11 +22,11 @@ describe('bulk', function () {
         }
       ]
     }).reply(200, {});
-    let client = new Client('foo', 'bar');
+    let client = new Client('foo', 'bar').usePromises();
     client.users.bulk([
       { create: { email: 'wash@serenity.io' }},
       { create: { email: 'mal@serenity.io'}}
-    ], function (r) {
+    ]).then(function (r) {
       assert.equal(200, r.status);
       done();
     });
@@ -50,11 +50,11 @@ describe('bulk', function () {
         }
       ]
     }).reply(200, {});
-    let client = new Client('foo', 'bar');
+    let client = new Client('foo', 'bar').usePromises();
     client.events.bulk([
       { create: { foo: 'bar' }},
       { create: { bar: 'baz'}}
-    ], function (r) {
+    ]).then(function (r) {
       assert.equal(200, r.status);
       done();
     });
