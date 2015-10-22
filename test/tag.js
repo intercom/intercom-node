@@ -1,6 +1,6 @@
 import assert from 'assert';
 import {Client} from '../lib';
-var nock = require('nock');
+import nock from 'nock';
 
 describe('tags', function () {
   it('should be created/updated', function (done) {
