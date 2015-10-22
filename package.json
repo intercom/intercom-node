@@ -1,13 +1,13 @@
 {
   "name": "intercom-client",
-  "version": "1.1.4",
+  "version": "2.0.0",
   "description": "Official Node bindings to the Intercom API",
   "homepage": "https://github.com/intercom/intercom-node",
+  "bugs:": "https://github.com/intercom/intercom-node/issues",
   "repository": "intercom/intercom-node",
   "author": {
     "name": "Bob Long",
-    "email": "bob@intercom.io",
-    "url": ""
+    "email": "bob@intercom.io"
   },
   "files": [
     "dist"
@@ -36,6 +36,9 @@
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
+  },
+  "engines": {
+    "node": ">= v0.10.0"
   },
   "license": "Apache-2.0"
 }

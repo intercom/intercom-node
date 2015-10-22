@@ -66,6 +66,17 @@ client.users.list(function (err, d) {
 });
 ```
 
+## Promises
+
+This client library also supports using Promises instead of callbacks by calling `usePromises` on the client object:
+
+```node
+let client = new Client('foo', 'bar').usePromises();
+client.users.create({ email: 'foo@bar.com' }).then(function (r) {
+  // ...
+});
+```
+
 ## Users
 
 ```node
