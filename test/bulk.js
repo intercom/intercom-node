@@ -2,8 +2,8 @@ import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
 
-describe('bulk', function () {
-  it('should send bulk users', function (done) {
+describe('bulk', () => {
+  it('should send bulk users', done => {
     nock('https://api.intercom.io').post('/bulk/users', {
       items: [
         {
@@ -26,12 +26,12 @@ describe('bulk', function () {
     client.users.bulk([
       { create: { email: 'wash@serenity.io' }},
       { create: { email: 'mal@serenity.io'}}
-    ]).then(function (r) {
+    ]).then(r => {
       assert.equal(200, r.status);
       done();
     });
   });
-  it('should send bulk events', function (done) {
+  it('should send bulk events', done => {
     nock('https://api.intercom.io').post('/bulk/events', {
       items: [
         {
@@ -54,7 +54,7 @@ describe('bulk', function () {
     client.events.bulk([
       { create: { foo: 'bar' }},
       { create: { bar: 'baz'}}
-    ]).then(function (r) {
+    ]).then(r => {
       assert.equal(200, r.status);
       done();
     });
