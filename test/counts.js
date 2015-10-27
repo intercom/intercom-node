@@ -2,67 +2,67 @@ import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
 
-describe('counts', function () {
-  it('app counts', function (done) {
+describe('counts', () => {
+  it('app counts', done => {
     nock('https://api.intercom.io').get('/counts').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.counts.appCounts().then(function (r) {
+    client.counts.appCounts().then(r => {
       assert.equal(200, r.status);
       done();
     });
   });
-  it('conversation app counts', function (done) {
+  it('conversation app counts', done => {
     nock('https://api.intercom.io').get('/counts').query({ type: 'conversation' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.counts.conversationCounts().then(function (r) {
+    client.counts.conversationCounts().then(r => {
       assert.equal(200, r.status);
       done();
     });
   });
-  it('conversation admin counts', function (done) {
+  it('conversation admin counts', done => {
     nock('https://api.intercom.io').get('/counts').query({ type: 'conversation', count: 'admin' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.counts.conversationAdminCounts().then(function (r) {
+    client.counts.conversationAdminCounts().then(r => {
       assert.equal(200, r.status);
       done();
     });
   });
-  it('user tag counts', function (done) {
+  it('user tag counts', done => {
     nock('https://api.intercom.io').get('/counts').query({ type: 'user', count: 'tag' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.counts.userTagCounts().then(function (r) {
+    client.counts.userTagCounts().then(r => {
       assert.equal(200, r.status);
       done();
     });
   });
-  it('user segment counts', function (done) {
+  it('user segment counts', done => {
     nock('https://api.intercom.io').get('/counts').query({ type: 'user', count: 'segment' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.counts.userSegmentCounts().then(function (r) {
+    client.counts.userSegmentCounts().then(r => {
       assert.equal(200, r.status);
       done();
     });
   });
-  it('company tag counts', function (done) {
+  it('company tag counts', done => {
     nock('https://api.intercom.io').get('/counts').query({ type: 'company', count: 'tag' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.counts.companyTagCounts().then(function (r) {
+    client.counts.companyTagCounts().then(r => {
       assert.equal(200, r.status);
       done();
     });
   });
-  it('company segment counts', function (done) {
+  it('company segment counts', done => {
     nock('https://api.intercom.io').get('/counts').query({ type: 'company', count: 'segment' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.counts.companySegmentCounts().then(function (r) {
+    client.counts.companySegmentCounts().then(r => {
       assert.equal(200, r.status);
       done();
     });
   });
-  it('company user counts', function (done) {
+  it('company user counts', done => {
     nock('https://api.intercom.io').get('/counts').query({ type: 'company', count: 'user' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.counts.companyUserCounts().then(function (r) {
+    client.counts.companyUserCounts().then(r => {
       assert.equal(200, r.status);
       done();
     });
