@@ -20,7 +20,7 @@ gulp.task('static', function () {
 });
 
 gulp.task('nsp', function (cb) {
-  nsp('package.json', cb);
+  nsp({package: __dirname + '/package.json'}, cb);
 });
 
 gulp.task('pre-test', function () {
