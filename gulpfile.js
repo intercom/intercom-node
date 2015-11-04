@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var path = require('path');
 var eslint = require('gulp-eslint');
 var excludeGitignore = require('gulp-exclude-gitignore');
 var mocha = require('gulp-mocha');
@@ -20,7 +21,7 @@ gulp.task('static', function () {
 });
 
 gulp.task('nsp', function (cb) {
-  nsp({package: __dirname + '/package.json'}, cb);
+  nsp({ package: path.resolve(__dirname, 'package.json') }, cb);
 });
 
 gulp.task('pre-test', function () {
