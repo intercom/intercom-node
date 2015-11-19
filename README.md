@@ -404,6 +404,14 @@ You can grab the next page of results using the client:
 client.nextPage(response.pages, callback);
 ```
 
+## Secure mode
+
+`intercom-node` provides a helper for using [Secure Mode](https://docs.intercom.io/configuring-intercom/enable-secure-mode):
+
+```
+SecureMode.userHash({secretKey: 's3cre7', identifier: 'jayne@serenity.io'});
+```
+
 ## License
 
 Apache-2.0
