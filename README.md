@@ -271,8 +271,7 @@ client.segments.find({ id: '55719a4a' }, callback);
 
 ## Bulk users
 
-The [Bulk APIs](https://doc.intercom.io/api/#bulk-apis) are themselves in Beta, but allow for the
-asynchronous creation and deletion of users:
+The Bulk APIs allow for the asynchronous creation and deletion of users:
 
 ```node
 client.users.bulk([
