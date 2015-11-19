@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {Client} from '../lib';
+import {Client, SecureMode} from '../lib';
 import nock from 'nock';
 
 describe('clients', () => {
@@ -24,5 +24,8 @@ describe('clients', () => {
       assert.deepEqual({foo: 'bar'}, r.body);
       done();
     });
+  });
+  it('should compute user hashes', () => {
+    assert.equal('c8acc43edc084edb8207a50320ba4ec5d113686cf8050274a305480c98512e45', SecureMode.userHash({secretKey: 'bar', identifier: 'baz'}));
   });
 });
