@@ -98,7 +98,13 @@ client.users.listBy({ tag_id: 'haven' }, callback);
 
 ```node
 // Find user by id
-client.users.find({ id: '1234' }, callback);
+client.users.find({ id: '55b9eaf' }, callback);
+
+// Find user by user_id
+client.users.find({ user_id: 'foobar' }, callback);
+
+// Find user by email
+client.users.find({ email: 'jayne@serenity.io' }, callback);
 ```
 
 ```node

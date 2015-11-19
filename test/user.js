@@ -35,6 +35,22 @@ describe('users', () => {
       done();
     });
   });
+  it('should find users by user_id', done => {
+    nock('https://api.intercom.io').get('/users').query({ user_id: 'foo' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.find({ user_id: 'foo' }).then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
+  it('should find users by email', done => {
+    nock('https://api.intercom.io').get('/users').query({ email: 'foo' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.find({ email: 'foo' }).then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
   it('should delete users by id', done => {
     nock('https://api.intercom.io').delete('/users/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
