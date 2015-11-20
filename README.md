@@ -187,6 +187,8 @@ client.companies.listUsers({ id: '1234' }, callback);
 
 ## Events
 
+Note: events will work when identified by 'email'.
+
 ```node
 // Create a event
 client.events.create({
