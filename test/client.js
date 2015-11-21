@@ -21,6 +21,15 @@ describe('clients', () => {
       done();
     });
   });
+  it('should reject promises with error objects', done => {
+    nock('https://api.intercom.io').get('/users').reply(200, {type: 'error.list'});
+    const client = new Client('foo', 'bar').usePromises();
+    assert.equal(true, client.promises);
+    client.users.list().catch(err => {
+      assert.equal(true, err instanceof Error);
+      done();
+    });
+  });
   it('should callback with errors', done => {
     const callback = function (err, d) {
       assert.equal('error.list', err.body.type);
