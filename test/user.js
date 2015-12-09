@@ -59,4 +59,20 @@ describe('users', () => {
       done();
     });
   });
+  it('should delete users by user_id', done => {
+    nock('https://api.intercom.io').delete('/users').query({ user_id: 'foo' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.delete({ user_id: 'foo' }).then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
+  it('should delete users by email', done => {
+    nock('https://api.intercom.io').delete('/users').query({ email: 'foo' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.delete({ email: 'foo' }).then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
 });
