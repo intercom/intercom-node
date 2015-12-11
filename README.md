@@ -356,6 +356,18 @@ var reply = {
 };
 
 client.conversations.reply(reply, callback);
+
+// Reply to a conversation with attachments
+var reply = {
+  id: '1039067180',
+  intercom_user_id: '55b26822ce97179e52001334',
+  body: 'Some reply :)',
+  type: 'user',
+  message_type: 'comment',
+  attachment_urls: ['http://www.example.com/myattachment.jpg']
+};
+
+client.conversations.reply(reply, callback);
 ```
 
 ```node
