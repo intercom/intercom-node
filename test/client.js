@@ -17,7 +17,15 @@ describe('clients', () => {
     const client = new Client('foo', 'bar').usePromises();
     assert.equal(true, client.promises);
     client.users.list().catch(err => {
-      assert.equal('error.list', err.body.type);
+      assert.equal(true, err.message.indexOf('error.list') !== -1);
+      done();
+    });
+  });
+  it('should reject promises with error objects', done => {
+    nock('https://api.intercom.io').get('/users').reply(200, {type: 'error.list'});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.list().catch(err => {
+      assert.equal(true, err instanceof Error);
       done();
     });
   });
