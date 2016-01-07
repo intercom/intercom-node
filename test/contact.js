@@ -3,6 +3,11 @@ import {Client} from '../lib';
 import nock from 'nock';
 
 describe('contacts', () => {
+  it('keep the Contacts alias', () => {
+    nock('https://api.intercom.io').post('/contacts').reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    assert.deepEqual(client.leads, client.contacts);
+  });
   it('should be created', done => {
     nock('https://api.intercom.io').post('/contacts').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
