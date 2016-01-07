@@ -3,10 +3,15 @@ import {Client} from '../lib';
 import nock from 'nock';
 
 describe('contacts', () => {
+  it('keep the Contacts alias', () => {
+    nock('https://api.intercom.io').post('/contacts').reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    assert.deepEqual(client.leads, client.contacts);
+  });
   it('should be created', done => {
     nock('https://api.intercom.io').post('/contacts').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.contacts.create().then(r => {
+    client.leads.create().then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -14,7 +19,7 @@ describe('contacts', () => {
   it('should be created with parameters', done => {
     nock('https://api.intercom.io').post('/contacts', { foo: 'bar' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.contacts.create({ foo: 'bar' }).then(r => {
+    client.leads.create({ foo: 'bar' }).then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -22,7 +27,7 @@ describe('contacts', () => {
   it('should be updated', done => {
     nock('https://api.intercom.io').post('/contacts', { id: 'baz', email: 'foo@intercom.io' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.contacts.update({ id: 'baz', email: 'foo@intercom.io' }).then(r => {
+    client.leads.update({ id: 'baz', email: 'foo@intercom.io' }).then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -30,7 +35,7 @@ describe('contacts', () => {
   it('should list', done => {
     nock('https://api.intercom.io').get('/contacts').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.contacts.list().then(r => {
+    client.leads.list().then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -38,7 +43,7 @@ describe('contacts', () => {
   it('should list by params', done => {
     nock('https://api.intercom.io').get('/contacts').query({ email: 'jayne@serenity.io' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.contacts.listBy({ email: 'jayne@serenity.io' }).then(r => {
+    client.leads.listBy({ email: 'jayne@serenity.io' }).then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -46,7 +51,7 @@ describe('contacts', () => {
   it('should find by id', done => {
     nock('https://api.intercom.io').get('/contacts/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.contacts.find({ id: 'baz' }).then(r => {
+    client.leads.find({ id: 'baz' }).then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -54,7 +59,7 @@ describe('contacts', () => {
   it('delete by id', done => {
     nock('https://api.intercom.io').delete('/contacts/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.contacts.delete({ id: 'baz' }).then(r => {
+    client.leads.delete({ id: 'baz' }).then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -66,7 +71,7 @@ describe('contacts', () => {
     };
     nock('https://api.intercom.io').post('/contacts/convert', conversionObject).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.contacts.convert(conversionObject).then(r => {
+    client.leads.convert(conversionObject).then(r => {
       assert.equal(200, r.status);
       done();
     });
