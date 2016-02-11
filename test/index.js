@@ -3,11 +3,6 @@ import {Client, SecureMode} from '../lib';
 import nock from 'nock';
 
 describe('clients', () => {
-  it('should be constructed', () => {
-    const client = new Client('foo', 'bar');
-    assert.equal('foo', client.appId);
-    assert.equal('bar', client.appApiKey);
-  });
   it('ping', done => {
     nock('https://api.intercom.io').get('/admins').reply(200, {});
     const client = new Client('foo', 'bar');
