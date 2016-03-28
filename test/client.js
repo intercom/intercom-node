@@ -12,6 +12,14 @@ describe('clients', () => {
       done();
     });
   });
+  it('should use promises when callbacks are absent', done => {
+    nock('https://api.intercom.io').get('/users').reply(200, {});
+    const client = new Client('foo', 'bar');
+    client.users.list().then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
   it('should reject promises', done => {
     nock('https://api.intercom.io').get('/users').reply(200, {type: 'error.list'});
     const client = new Client('foo', 'bar').usePromises();
