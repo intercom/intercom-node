@@ -54,18 +54,23 @@ describe('clients', () => {
   });
   it('should construct with two fields', () => {
     const client = new Client('foo', 'bar');
-    assert.equal('foo', client.appId);
-    assert.equal('bar', client.appApiKey);
+    assert.equal('foo', client.usernamePart);
+    assert.equal('bar', client.passwordPart);
   });
   it('should construct with an object', () => {
     const client = new Client({ appId: 'foo', appApiKey: 'bar' });
-    assert.equal('foo', client.appId);
-    assert.equal('bar', client.appApiKey);
+    assert.equal('foo', client.usernamePart);
+    assert.equal('bar', client.passwordPart);
+  });
+  it('should construct with an object containing an OAuth token', () => {
+    const client = new Client({ token: 'foo' });
+    assert.equal('foo', client.usernamePart);
+    assert.equal('', client.passwordPart);
   });
   it('should throw if no credentials found', () => {
     assert.throws(() => {
       const client = new Client('baz');
-      console.log(client.appId);
+      console.log(client.usernamePart);
     }, /Could not construct a client with those parameters/);
   });
 });
