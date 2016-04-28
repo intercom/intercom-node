@@ -191,14 +191,15 @@ client.companies.listUsers({ id: '1234' }, callback);
 
 ## Events
 
-Note: events will work when identified by 'email'.
+Note: events will work when identified by 'email'. The `event_name` and `created_at` params are both required. Either `user_id` OR `email` is required.
 
 ```node
 // Create a event
 client.events.create({
   event_name: 'Foo',
   created_at: 1439826340,
-  user_id: 'bar'
+  user_id: 'bar',
+  metadata: { type: 'baz' }
 }, function (d) {
   console.log(d);
 });
