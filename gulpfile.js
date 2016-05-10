@@ -51,5 +51,5 @@ gulp.task('babel', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('prepublish', ['babel']);
+gulp.task('prepublish', ['nsp', 'babel']);
 gulp.task('default', ['static', 'test']);
