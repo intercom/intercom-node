@@ -419,7 +419,7 @@ When listing, the Intercom API may return a pagination object:
 
 You can grab the next page of results using the client:
 
-```
+```node
 client.nextPage(response.pages, callback);
 ```
 
@@ -427,7 +427,7 @@ client.nextPage(response.pages, callback);
 
 `intercom-node` provides a helper for using [Secure Mode](https://docs.intercom.io/configuring-intercom/enable-secure-mode):
 
-```
+```node
 import {SecureMode} from 'intercom-client';
 
 SecureMode.userHash({secretKey: 's3cre7', identifier: 'jayne@serenity.io'});
