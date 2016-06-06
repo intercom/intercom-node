@@ -88,6 +88,14 @@ client.users.create({ email: 'foo@bar.com' }).then(function (r) {
 client.users.create({ email: 'jayne@serenity.io' }, function (r) {
   console.log(r);
 });
+
+// Create/update a user with custom attributes
+client.users.create({
+  email: 'jayne@serenity.io',
+  custom_attributes: {
+    foo: 'bar'
+  }
+}, callback);
 ```
 
 ```node
