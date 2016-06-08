@@ -14,7 +14,7 @@ describe('companies', () => {
   it('should list', done => {
     nock('https://api.intercom.io').get('/companies').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.companies.list().then(r => {
+    client.companies.list({}).then(r => {
       assert.equal(200, r.status);
       done();
     });

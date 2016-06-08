@@ -35,7 +35,7 @@ describe('contacts', () => {
   it('should list', done => {
     nock('https://api.intercom.io').get('/contacts').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.leads.list().then(r => {
+    client.leads.list({}).then(r => {
       assert.equal(200, r.status);
       done();
     });

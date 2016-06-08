@@ -140,7 +140,7 @@ client.leads.update({ id: '5435345', email: 'wash@serenity.io' }, callback);
 
 ```node
 // List contacts
-client.leads.list(callback);
+client.leads.list({}, callback);
 ```
 
 ```node
@@ -179,7 +179,7 @@ client.companies.create({ company_id: '1234', name: 'serenity' }, function (r) {
 
 ```node
 // List companies
-client.companies.list(callback);
+client.companies.list({}, callback);
 ```
 
 ```node
@@ -276,7 +276,7 @@ client.tags.delete({ id: '130963' }, callback);
 
 ```node
 // List segments
-client.segments.list(callback);
+client.segments.list({}, callback);
 ```
 
 ```node

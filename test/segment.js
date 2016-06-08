@@ -6,7 +6,7 @@ describe('segments', () => {
   it('should be listed', done => {
     nock('https://api.intercom.io').get('/segments').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.segments.list().then(r => {
+    client.segments.list({}).then(r => {
       assert.equal(200, r.status);
       done();
     });
