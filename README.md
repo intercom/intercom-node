@@ -100,7 +100,7 @@ client.users.create({
 
 ```node
 // List users
-client.users.list(callback);
+client.users.list({}, callback);
 ```
 
 ```node
