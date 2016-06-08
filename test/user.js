@@ -14,7 +14,7 @@ describe('users', () => {
   it('should list', done => {
     nock('https://api.intercom.io').get('/users').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.users.list().then(r => {
+    client.users.list({}).then(r => {
       assert.equal(200, r.status);
       done();
     });

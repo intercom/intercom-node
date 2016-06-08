@@ -7,7 +7,7 @@ describe('clients', () => {
     nock('https://api.intercom.io').get('/users').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     assert.equal(true, client.promises);
-    client.users.list().then(r => {
+    client.users.list({}).then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -15,7 +15,7 @@ describe('clients', () => {
   it('should use promises when callbacks are absent', done => {
     nock('https://api.intercom.io').get('/users').reply(200, {});
     const client = new Client('foo', 'bar');
-    client.users.list().then(r => {
+    client.users.list({}).then(r => {
       assert.equal(200, r.status);
       done();
     });
@@ -24,7 +24,7 @@ describe('clients', () => {
     nock('https://api.intercom.io').get('/users').reply(200, {type: 'error.list'});
     const client = new Client('foo', 'bar').usePromises();
     assert.equal(true, client.promises);
-    client.users.list().catch(err => {
+    client.users.list({}).catch(err => {
       assert.equal(true, err.message.indexOf('error.list') !== -1);
       done();
     });
@@ -32,7 +32,7 @@ describe('clients', () => {
   it('should reject promises with error objects', done => {
     nock('https://api.intercom.io').get('/users').reply(200, {type: 'error.list'});
     const client = new Client('foo', 'bar').usePromises();
-    client.users.list().catch(err => {
+    client.users.list({}).catch(err => {
       assert.equal(true, err instanceof Error);
       done();
     });
