@@ -213,6 +213,14 @@ client.events.create({
 });
 ```
 
+```node
+// List events by user
+client.events.listBy({
+    type: 'user',
+    user_id: 'bar'
+}, callback);
+```
+
 ## Counts
 
 ```node

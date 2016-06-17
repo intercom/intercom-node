@@ -15,4 +15,12 @@ describe('events', () => {
       done();
     });
   });
+  it('should list by params', done => {
+    nock('https://api.intercom.io').get('/events').query({ type: 'user', user_id: '1234' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.events.listBy({ type: 'user', user_id: '1234' }).then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
 });
