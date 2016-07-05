@@ -131,6 +131,11 @@ client.users.delete({ id: '1234' }, callback);
 client.leads.create(function (r) {
   console.log(r);
 });
+
+// Create a contact with attributes
+client.leads.create({ email: 'jayne@serenity.io' }, function (r) {
+  console.log(r);
+});
 ```
 
 ```node
