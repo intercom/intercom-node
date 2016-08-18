@@ -11,7 +11,7 @@
 Try out our [Docker Image (Beta)](https://hub.docker.com/r/cathalhoran/intercom-node/) to help you get started more quickly. <br>
 It should make it easier to get setup with the SDK and start interacting with the API. <br>
 (Note, this is in Beta and is for testing purposes only, it should not be used in production)
- 
+
 ```bash
 npm install intercom-client
 ```
@@ -88,13 +88,16 @@ client.users.create({ email: 'foo@bar.com' }).then(function (r) {
 ## Users
 
 ```node
-// Create/update a user
-client.users.create({ email: 'jayne@serenity.io' }, function (r) {
-  console.log(r);
-});
-
-// Create/update a user with custom attributes
+// Create a user
 client.users.create({
+  email: 'jayne@serenity.io',
+  custom_attributes: {
+    foo: 'bar'
+  }
+}, callback);
+
+// Update a user
+client.users.update({
   email: 'jayne@serenity.io',
   custom_attributes: {
     foo: 'bar'
