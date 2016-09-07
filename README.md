@@ -88,13 +88,16 @@ client.users.create({ email: 'foo@bar.com' }).then(function (r) {
 ## Users
 
 ```node
-// Create/update a user
-client.users.create({ email: 'jayne@serenity.io' }, function (r) {
-  console.log(r);
-});
-
-// Create/update a user with custom attributes
+// Create a user
 client.users.create({
+  email: 'jayne@serenity.io',
+  custom_attributes: {
+    foo: 'bar'
+  }
+}, callback);
+
+// Update a user
+client.users.update({
   email: 'jayne@serenity.io',
   custom_attributes: {
     foo: 'bar'

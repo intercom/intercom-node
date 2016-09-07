@@ -11,6 +11,14 @@ describe('users', () => {
       done();
     });
   });
+  it('should be updated', done => {
+    nock('https://api.intercom.io').post('/users', { email: 'foo@bar.com' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.create({ email: 'foo@bar.com' }).then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
   it('should list', done => {
     nock('https://api.intercom.io').get('/users').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
