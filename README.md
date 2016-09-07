@@ -11,7 +11,7 @@
 Try out our [Docker Image (Beta)](https://hub.docker.com/r/cathalhoran/intercom-node/) to help you get started more quickly. <br>
 It should make it easier to get setup with the SDK and start interacting with the API. <br>
 (Note, this is in Beta and is for testing purposes only, it should not be used in production)
- 
+
 ```bash
 npm install intercom-client
 ```
@@ -185,14 +185,9 @@ client.visitors.update({ id: '5435345', email: 'wash@serenity.io' }, callback);
 ```
 
 ```node
-// List visitors by user_id
-client.visitors.listBy({ user_id: '1234-5678-9876' }, callback);
-```
-
-
-```node
-// Find visitor by id
+// Find visitor by id or user_id
 client.visitors.find({ id: '5342423' }, callback);
+client.visitors.find({ user_id: '5b868511-ca3b-4eac-8d26-cfd82a83ac76' }, callback);
 ```
 
 ```node

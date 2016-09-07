@@ -11,10 +11,10 @@ describe('visitors', () => {
       done();
     });
   });
-  it('should list by params', done => {
+  it('should find by user_id', done => {
     nock('https://api.intercom.io').get('/visitors').query({ user_id: '1234-5678-9876' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
-    client.visitors.listBy({ user_id: '1234-5678-9876' }).then(r => {
+    client.visitors.find({ user_id: '1234-5678-9876' }).then(r => {
       assert.equal(200, r.status);
       done();
     });
