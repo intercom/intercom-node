@@ -11,7 +11,7 @@
 Try out our [Docker Image (Beta)](https://hub.docker.com/r/cathalhoran/intercom-node/) to help you get started more quickly. <br>
 It should make it easier to get setup with the SDK and start interacting with the API. <br>
 (Note, this is in Beta and is for testing purposes only, it should not be used in production)
- 
+
 ```bash
 npm install intercom-client
 ```
@@ -247,6 +247,11 @@ client.counts.companyUserCounts(callback);
 ```node
 // List admins
 client.admins.list(callback);
+```
+
+```node
+// Find current admin (only works with OAuth tokens)
+client.admins.me(callback);
 ```
 
 ## Tags
