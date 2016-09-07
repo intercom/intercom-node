@@ -177,6 +177,44 @@ var conversion = {
 client.leads.convert(conversion, callback);
 ```
 
+## Visitors
+
+```node
+// Update a visitor by id
+client.visitors.update({ id: '5435345', email: 'wash@serenity.io' }, callback);
+```
+
+```node
+// Find visitor by id or user_id
+client.visitors.find({ id: '5342423' }, callback);
+client.visitors.find({ user_id: '5b868511-ca3b-4eac-8d26-cfd82a83ac76' }, callback);
+```
+
+```node
+// Delete visitor by id
+client.visitors.delete({ id: '5342423' }, callback);
+```
+
+```node
+// Convert visitors into Users
+var conversion = {
+  visitor: { user_id: '1234-5678-9876' },
+  user: { email: 'mal@serenity.io' },
+  type: "user"
+};
+client.visitors.convert(conversion, callback);
+```
+
+```node
+// Convert visitors into Lead
+var conversion = {
+  visitor: { user_id: '1234-5678-9876' },
+  type: "lead"
+};
+client.visitors.convert(conversion, callback);
+```
+
+
 ## Companies
 
 ```node
