@@ -56,6 +56,14 @@ describe('contacts', () => {
       done();
     });
   });
+  it('should find by user_id', done => {
+    nock('https://api.intercom.io').get('/contacts?user_id=baz').reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.leads.find({ user_id: 'baz' }).then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
   it('delete by id', done => {
     nock('https://api.intercom.io').delete('/contacts/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
