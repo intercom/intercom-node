@@ -106,6 +106,11 @@ client.users.update({
 ```
 
 ```node
+// Create/update a user with custom attributes
+client.users.create({ email: 'jayne@serenity.io', custom_attributes: { invited_friend: true } }, callback);
+```
+
+```node
 // List users
 client.users.list(callback);
 ```
