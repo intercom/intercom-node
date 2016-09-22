@@ -53,7 +53,7 @@ var client = new Intercom.Client('app_id', 'app_api_key');
 
 var client = new Intercom.Client({ appId: 'app_id', appApiKey: 'app_api_key' });
 
-// Or with an OAuth token:
+// Or with an OAuth or Personal Access token:
 
 var client = new Intercom.Client({ token: 'my_token' });
 ```
