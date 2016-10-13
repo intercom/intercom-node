@@ -124,6 +124,13 @@ client.users.listBy({ tag_id: 'haven' }, callback);
 ```
 
 ```node
+// Scroll through users list
+client.users.scroll.each({}, function(d) {
+  console.log(d.body.users);
+});
+```
+
+```node
 // Find user by id
 client.users.find({ id: '55b9eaf' }, callback);
 
@@ -161,6 +168,13 @@ client.leads.update({ id: '5435345', email: 'wash@serenity.io' }, callback);
 ```node
 // List contacts
 client.leads.list(callback);
+```
+
+```node
+// Scroll through contacts list
+client.leads.scroll.each({}, function(d) {
+  console.log(d.body.contacts);
+});
 ```
 
 ```node
