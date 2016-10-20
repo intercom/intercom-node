@@ -125,11 +125,18 @@ client.users.listBy({ tag_id: 'haven' }, callback);
 
 ```node
 // Scroll through users list
-client.users.scroll.each({}, function(d) {
-  console.log(d.body.users);
+client.users.scroll.each({}, function(res) {
   // if you return a promise from your callback, the client will only scroll
   // after this promise has resolved
+  new Bluebird((resolve) => {
+    setTimeout(() => {
+      console.log(res.body.users.length);
+      // Your custom logic
+      resolve();
+   }, 500)
+ })
 });
+
 ```
 
 ```node
@@ -174,8 +181,16 @@ client.leads.list(callback);
 
 ```node
 // Scroll through contacts list
-client.leads.scroll.each({}, function(d) {
-  console.log(d.body.contacts);
+client.leads.scroll.each({}, function(res) {
+  // if you return a promise from your callback, the client will only scroll
+  // after this promise has resolved
+  new Bluebird((resolve) => {
+    setTimeout(() => {
+      console.log(res.body.users.length);
+      // Your custom logic
+      resolve();
+   }, 500)
+ })
 });
 ```
 
