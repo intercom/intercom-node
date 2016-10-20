@@ -3,7 +3,7 @@ import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
 
-describe.only('scroll', () => {
+describe('scroll', () => {
   before(function () {
     nock('https://api.intercom.io').get('/users/scroll').times(3).reply(200, {
       type: 'user.list',
