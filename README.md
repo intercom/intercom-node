@@ -127,6 +127,8 @@ client.users.listBy({ tag_id: 'haven' }, callback);
 // Scroll through users list
 client.users.scroll.each({}, function(d) {
   console.log(d.body.users);
+  // if you return a promise from your callback, the client will only scroll
+  // after this promise has resolved
 });
 ```
 
