@@ -54,21 +54,17 @@ describe('scroll', () => {
     const client = new Client('foo', 'bar');
     let nbCalls = 0;
 
-    const promise = client.users.scroll.each({}, function (res) {
+    client.users.scroll.each({}, function (res) {
       nbCalls++;
 
       return res.body.users.length === 0 ?
-        null :
+        done() :
         new Bluebird((resolve) => {
           setTimeout(() => {
             assert.equal(1, nbCalls, 'hasn\'t re-scrolled before resolve');
             resolve();
           }, 500);
         });
-    });
-
-    promise.then(() => {
-      done();
     });
   });
 });
