@@ -19,4 +19,12 @@ describe('admins', () => {
       done();
     });
   });
+  it('should find admins by id', done => {
+    nock('https://api.intercom.io').get('/admins/baz').reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.admins.find('baz').then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
 });
