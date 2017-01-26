@@ -45,20 +45,10 @@ var Intercom = require('intercom-client');
 ```
 
 Create a client:
-#### Using Personal Access Tokens
+#### Using Access Tokens
+
 ```node
 var client = new Intercom.Client({ token: 'my_token' });
-```
-
-#### Using App ID & API Key
-> Warning: API Keys are being deprecated - you should use a [personal access token](https://app.intercom.io/a/apps/_/settings/personal-access-token) instead. [Learn more](https://developers.intercom.io/docs/personal-access-tokens) about API Keys deprecation
-
-```node
-var client = new Intercom.Client('app_id', 'app_api_key');
-
-// Or
-
-var client = new Intercom.Client({ appId: 'app_id', appApiKey: 'app_api_key' });
 ```
 
 ## Callbacks
