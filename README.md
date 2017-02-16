@@ -267,6 +267,21 @@ client.companies.listBy({ tag_id: 'haven' }, callback);
 ```
 
 ```node
+// Scroll through companies list
+client.companies.scroll.each({}, function(res) {
+  // if you return a promise from your callback, the client will only scroll
+  // after this promise has resolved
+  new Bluebird((resolve) => {
+    setTimeout(() => {
+      console.log(res.body.companies.length);
+      // Your custom logic
+      resolve();
+   }, 500)
+ })
+});
+
+
+```node
 // Find company by id
 client.companies.find({ id: '1234' }, callback);
 ```
