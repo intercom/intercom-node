@@ -287,9 +287,11 @@ client.companies.find({ id: '1234' }, callback);
 ```
 
 ```node
-// List company users
+// List company users by id or company_id
 client.companies.listUsers({ id: '1234' }, callback);
+client.companies.listUsers({ company_id: '1234' }, callback);
 ```
+
 
 ## Events
 

@@ -43,4 +43,12 @@ describe('companies', () => {
       done();
     });
   });
+  it('list company users by company_id', done => {
+    nock('https://api.intercom.io').get('/companies').query({type: 'user', company_id: 'baz'}).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.companies.listUsers({ company_id: 'baz' }).then(r => {
+      assert.equal(200, r.status);
+      done();
+    });
+  });
 });
