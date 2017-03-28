@@ -279,6 +279,7 @@ client.companies.scroll.each({}, function(res) {
    }, 500)
  })
 });
+```
 
 
 ```node
