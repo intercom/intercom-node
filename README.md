@@ -454,7 +454,7 @@ client.messages.create(message, callback);
 
 ## Conversations
 
-Listing conversations ([documentation](https://doc.intercom.io/api/#list-conversations)):
+Listing conversations ([documentation](https://developers.intercom.com/reference#list-conversations)):
 
 ```node
 client.conversations.list({ type: 'admin', admin_id: 21599 }, callback);
