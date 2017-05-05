@@ -90,7 +90,7 @@ client.users.create({
 }, callback);
 
 // Update a user
-client.users.update({
+client.users.create({
   email: 'jayne@serenity.io',
   custom_attributes: {
     foo: 'bar'
