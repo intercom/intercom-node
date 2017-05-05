@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/intercom/intercom-node.svg?branch=master)](https://travis-ci.org/intercom/intercom-node)
 
-[![npm version](https://badge.fury.io/js/intercom-client.svg)](http://badge.fury.io/js/intercom-client)
+[![NPM](https://nodei.co/npm/intercom-client.png?downloads=true)](https://www.npmjs.com/package/intercom-client)
 
 ## Installation
 
