@@ -539,9 +539,9 @@ You can grab the next page of results using the client:
 client.nextPage(response.pages, callback);
 ```
 
-## Secure mode
+## Identity verification
 
-`intercom-node` provides a helper for using [Secure Mode](https://docs.intercom.io/configuring-intercom/enable-secure-mode):
+`intercom-node` provides a helper for using [identity verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product):
 
 ```node
 import {SecureMode} from 'intercom-client';
