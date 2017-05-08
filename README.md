@@ -543,10 +543,10 @@ client.nextPage(response.pages, callback);
 
 `intercom-node` provides a helper for using [identity verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product):
 
-```node
-import {SecureMode} from 'intercom-client';
+``` node
+import { IdentityVerification } from 'intercom-client';
 
-SecureMode.userHash({secretKey: 's3cre7', identifier: 'jayne@serenity.io'});
+IdentityVerification.userHash({secretKey: 's3cre7', identifier: 'jayne@serenity.io'});
 ```
 
 ## License

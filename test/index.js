@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {Client, SecureMode} from '../lib';
+import {Client, IdentityVerification} from '../lib';
 import nock from 'nock';
 
 describe('clients', () => {
@@ -21,6 +21,6 @@ describe('clients', () => {
     });
   });
   it('should compute user hashes', () => {
-    assert.equal('c8acc43edc084edb8207a50320ba4ec5d113686cf8050274a305480c98512e45', SecureMode.userHash({secretKey: 'bar', identifier: 'baz'}));
+    assert.equal('c8acc43edc084edb8207a50320ba4ec5d113686cf8050274a305480c98512e45', IdentityVerification.userHash({secretKey: 'bar', identifier: 'baz'}));
   });
 });
