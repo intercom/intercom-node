@@ -392,30 +392,6 @@ client.segments.list(callback);
 client.segments.find({ id: '55719a4a' }, callback);
 ```
 
-## Bulk users
-
-The Bulk APIs allow for the asynchronous creation and deletion of users:
-
-```node
-client.users.bulk([
-  { create: { email: 'wash@serenity.io' }},
-  { create: { email: 'mal@serenity.io'}}
-], callback);
-```
-
-## Bulk events
-
-```node
-var event = {
-  event_name: 'foo',
-  created: 1438944979,
-  email: 'wash@serenity.io',
-  metadata: { bar: 'baz' }
-};
-
-client.events.bulk([{ create: event }], callback);
-```
-
 ## Messages
 
 ```node
