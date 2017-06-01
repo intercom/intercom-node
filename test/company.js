@@ -51,30 +51,6 @@ describe('companies', () => {
       done();
     });
   });
-  it('should delete companies by id', done => {
-    nock('https://api.intercom.io').delete('/companies/baz').reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.companies.delete({ id: 'baz' }).then(r => {
-      assert.equal(200, r.status);
-      done();
-    });
-  });
-  it('should delete companies by company_id', done => {
-    nock('https://api.intercom.io').delete('/companies').query({ company_id: 'baz' }).reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.companies.delete({ company_id: 'baz' }).then(r => {
-      assert.equal(200, r.status);
-      done();
-    });
-  });
-  it('should delete companies by name', done => {
-    nock('https://api.intercom.io').delete('/companies').query({ name: 'baz' }).reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.companies.delete({ name: 'baz' }).then(r => {
-      assert.equal(200, r.status);
-      done();
-    });
-  });
   it('should list company users by id', done => {
     nock('https://api.intercom.io').get('/companies/baz/users').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
