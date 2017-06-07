@@ -16,6 +16,8 @@ It should make it easier to get setup with the SDK and start interacting with th
 npm install intercom-client
 ```
 
+**This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/v2.0/docs/intercom-javascript) for client-side operations.**
+
 ## Testing
 
 ```bash
