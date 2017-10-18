@@ -7,7 +7,7 @@ describe('admins', () => {
     nock('https://api.intercom.io').get('/admins').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.admins.list().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -15,7 +15,7 @@ describe('admins', () => {
     nock('https://api.intercom.io').get('/me').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.admins.me().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -23,7 +23,7 @@ describe('admins', () => {
     nock('https://api.intercom.io').get('/admins/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.admins.find('baz').then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });

@@ -28,7 +28,7 @@ describe('scroll', () => {
     const client = new Client('foo', 'bar');
 
     client.users.scroll.each({}, function (res) {
-      assert.equal(200, res.status);
+      assert.equal(200, res.statusCode);
       if (res.body.users.length === 0) {
         done();
       }

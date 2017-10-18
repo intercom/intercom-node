@@ -7,7 +7,7 @@ describe('segments', () => {
     nock('https://api.intercom.io').get('/segments').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.segments.list().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -15,7 +15,7 @@ describe('segments', () => {
     nock('https://api.intercom.io').get('/segments/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.segments.find({ id: 'baz' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
