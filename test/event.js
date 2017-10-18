@@ -11,7 +11,7 @@ describe('events', () => {
       created_at: 1234,
       user_id: 'bar'
     }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -19,7 +19,7 @@ describe('events', () => {
     nock('https://api.intercom.io').get('/events').query({ type: 'user', user_id: '1234' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.events.listBy({ type: 'user', user_id: '1234' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });

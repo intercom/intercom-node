@@ -10,7 +10,7 @@ describe('base-url', () => {
       .useBaseUrl('http://local.test-server.com');
 
     client.admins.list().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });

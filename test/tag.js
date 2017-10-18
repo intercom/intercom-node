@@ -7,7 +7,7 @@ describe('tags', () => {
     nock('https://api.intercom.io').post('/tags').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.tags.create({ name: 'haven' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -15,7 +15,7 @@ describe('tags', () => {
     nock('https://api.intercom.io').post('/tags', { name: 'haven', users: [{ id: '5534534' }] }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.tags.tag({ name: 'haven', users: [{ id: '5534534' }] }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -23,7 +23,7 @@ describe('tags', () => {
     nock('https://api.intercom.io').post('/tags', { name: 'haven', users: [{ id: '5534534', untag: true }] }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.tags.untag({ name: 'haven', users: [{ id: '5534534' }] }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -31,7 +31,7 @@ describe('tags', () => {
     nock('https://api.intercom.io').post('/tags', { name: 'haven', companies: [{ id: '5534534', untag: true }] }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.tags.untag({ name: 'haven', companies: [{ id: '5534534' }] }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -39,7 +39,7 @@ describe('tags', () => {
     nock('https://api.intercom.io').delete('/tags/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.tags.delete({ id: 'baz' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -47,7 +47,7 @@ describe('tags', () => {
     nock('https://api.intercom.io').get('/tags').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.tags.list().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });

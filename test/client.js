@@ -8,7 +8,7 @@ describe('clients', () => {
     const client = new Client('foo', 'bar').usePromises();
     assert.equal(true, client.promises);
     client.users.list().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -16,7 +16,7 @@ describe('clients', () => {
     nock('https://api.intercom.io').get('/users').reply(200, {});
     const client = new Client('foo', 'bar');
     client.users.list().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });

@@ -12,7 +12,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').post('/contacts').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.create().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -20,7 +20,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').post('/contacts', { foo: 'bar' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.create({ foo: 'bar' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -28,7 +28,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').post('/contacts', { id: 'baz', email: 'foo@intercom.io' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.update({ id: 'baz', email: 'foo@intercom.io' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -36,7 +36,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').get('/contacts').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.list().then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -44,7 +44,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').get('/contacts').query({ email: 'jayne@serenity.io' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.listBy({ email: 'jayne@serenity.io' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -52,7 +52,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').get('/contacts/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.find({ id: 'baz' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -60,7 +60,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').get('/contacts?user_id=baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.find({ user_id: 'baz' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -68,7 +68,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').delete('/contacts/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.delete({ id: 'baz' }).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -80,7 +80,7 @@ describe('contacts', () => {
     nock('https://api.intercom.io').post('/contacts/convert', conversionObject).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.leads.convert(conversionObject).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });

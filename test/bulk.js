@@ -27,7 +27,7 @@ describe('bulk', () => {
       { create: { email: 'wash@serenity.io' }},
       { create: { email: 'mal@serenity.io'}}
     ]).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
@@ -55,7 +55,7 @@ describe('bulk', () => {
       { create: { foo: 'bar' }},
       { create: { bar: 'baz'}}
     ]).then(r => {
-      assert.equal(200, r.status);
+      assert.equal(200, r.statusCode);
       done();
     });
   });
