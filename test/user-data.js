@@ -1,5 +1,6 @@
 import UserData from '../lib/user-data';
 import assert from 'assert';
+import sinon from 'sinon';
 
 describe('userData', () => {
   it('should be able to grab the verification secret', () => {
@@ -108,6 +109,20 @@ describe('userData', () => {
     const userData = new UserData(settings);
     const result = userData.json();
     assert.equal(Object.keys(result).indexOf(settings.verificationSecret), -1);
+  });
+
+  it('should skip setUserHash if user_hash is already defined', () => {
+    const settings = {
+      verificationSecret: 'abc123',
+      app_id: 'xyz789',
+      user_id: 1
+    };
+    const userData = new UserData(settings);
+    const setUserHash = sinon.spy(userData, 'setUserHash');
+    userData.json();
+    userData.json();
+    setUserHash.restore();
+    sinon.assert.calledOnce(setUserHash);
   });
 
   it('should return the userData', () => {
