@@ -1,4 +1,5 @@
 import UserData from '../lib/user-data';
+import { IdentityVerification } from '../lib/index';
 import assert from 'assert';
 import sinon from 'sinon';
 
@@ -21,7 +22,13 @@ describe('userData', () => {
       email: 'jess@intercom.io'
     };
     const userData = new UserData(settings);
-    assert.equal(userData.getIdentifier(), 1);
+    const userHash = sinon.spy(IdentityVerification, 'userHash');
+    userData.json();
+    userHash.restore();
+    sinon.assert.calledWith(userHash, {
+      secretKey: 'abc123',
+      identifier: '1'
+    });
   });
 
   it('should grab the email as the identifier if no user_id', () => {
@@ -31,7 +38,13 @@ describe('userData', () => {
       email: 'jess@intercom.io'
     };
     const userData = new UserData(settings);
-    assert.equal(userData.getIdentifier(), 'jess@intercom.io');
+    const userHash = sinon.spy(IdentityVerification, 'userHash');
+    userData.json();
+    userHash.restore();
+    sinon.assert.calledWith(userHash, {
+      secretKey: 'abc123',
+      identifier: 'jess@intercom.io'
+    });
   });
 
   it('should throw an error if there\'s no verification secret', () => {
@@ -118,11 +131,11 @@ describe('userData', () => {
       user_id: 1
     };
     const userData = new UserData(settings);
-    const setUserHash = sinon.spy(userData, 'setUserHash');
+    const userHash = sinon.spy(IdentityVerification, 'userHash');
     userData.json();
     userData.json();
-    setUserHash.restore();
-    sinon.assert.calledOnce(setUserHash);
+    userHash.restore();
+    sinon.assert.calledOnce(userHash);
   });
 
   it('should return the userData', () => {
