@@ -472,6 +472,30 @@ client.conversations.reply(reply, callback);
 ```
 
 ```node
+// Assign a conversation to an admin
+var assignment = {
+  id: '13879167940',
+  type: 'admin',
+  admin_id: '1309092',
+  assignee_id: '1723471',
+  message_type: 'assignment'
+};
+
+client.conversations.reply(assignment, callback);
+
+// Assign a conversation to unassigned
+var assignment = {
+  id: '13879167940',
+  type: 'admin',
+  admin_id: '1309092',
+  assignee_id: '0',
+  message_type: 'assignment'
+}
+
+client.conversations.reply(assignment, callback);
+```
+
+```node
 // Mark a conversation as read
 client.conversations.markAsRead({ id: '1039067180' }, callback);
 ```
