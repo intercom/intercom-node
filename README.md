@@ -352,6 +352,11 @@ client.admins.list(callback);
 client.admins.me(callback);
 ```
 
+```
+// Find admin by ID
+client.admins.find('123456789', callback);
+```
+
 ## Tags
 
 ```node
