@@ -107,4 +107,13 @@ describe('users', () => {
       done();
     });
   });
+  it('should permanently delete users by intercom user ID', done => {
+    nock('https://api.intercom.io').post('/user_delete_requests', { intercom_user_id: 'foo' }).reply(200, { id: 10 });
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.requestPermanentDeletion('foo').then(r => {
+      assert.equal(200, r.statusCode);
+      assert.deepStrictEqual({ id: 10 }, r.body);
+      done();
+    });
+  });
 });
