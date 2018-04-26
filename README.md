@@ -143,8 +143,8 @@ client.users.find({ email: 'jayne@serenity.io' }, callback);
 ```
 
 ```node
-// Delete user by id
-client.users.delete({ id: '1234' }, callback);
+// Archive user by id (https://developers.intercom.com/v2.0/reference#archive-a-user)
+client.users.archive({ id: '1234' }, callback);
 ```
 
 ## Leads

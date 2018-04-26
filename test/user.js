@@ -59,7 +59,31 @@ describe('users', () => {
       done();
     });
   });
-  it('should delete users by id', done => {
+  it('should archive users by id', done => {
+    nock('https://api.intercom.io').delete('/users/baz').reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.archive({ id: 'baz' }).then(r => {
+      assert.equal(200, r.statusCode);
+      done();
+    });
+  });
+  it('should archive users by user_id', done => {
+    nock('https://api.intercom.io').delete('/users').query({ user_id: 'foo' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.archive({ user_id: 'foo' }).then(r => {
+      assert.equal(200, r.statusCode);
+      done();
+    });
+  });
+  it('should archive users by email', done => {
+    nock('https://api.intercom.io').delete('/users').query({ email: 'foo' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.archive({ email: 'foo' }).then(r => {
+      assert.equal(200, r.statusCode);
+      done();
+    });
+  });
+  it('should archive (using old delete function) users by id', done => {
     nock('https://api.intercom.io').delete('/users/baz').reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.users.delete({ id: 'baz' }).then(r => {
@@ -67,7 +91,7 @@ describe('users', () => {
       done();
     });
   });
-  it('should delete users by user_id', done => {
+  it('should archive (using old delete function) users by user_id', done => {
     nock('https://api.intercom.io').delete('/users').query({ user_id: 'foo' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.users.delete({ user_id: 'foo' }).then(r => {
@@ -75,7 +99,7 @@ describe('users', () => {
       done();
     });
   });
-  it('should delete users by email', done => {
+  it('should archive (using old delete function) users by email', done => {
     nock('https://api.intercom.io').delete('/users').query({ email: 'foo' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
     client.users.delete({ email: 'foo' }).then(r => {
