@@ -2,7 +2,7 @@ import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
 
-describe.only('errors', () => {
+describe('errors', () => {
   describe('with promises', () => {
     it('should fail with ESOCKETTIMEDOUT error', () => {
 
