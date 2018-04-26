@@ -25,7 +25,7 @@ describe('clients', () => {
     const client = new Client('foo', 'bar').usePromises();
     assert.equal(true, client.promises);
     client.users.list().catch(err => {
-      assert.equal(true, err.message.indexOf('error.list') !== -1);
+      assert.deepStrictEqual({ type: 'error.list' }, err.body);
       done();
     });
   });
