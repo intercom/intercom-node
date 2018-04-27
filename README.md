@@ -178,7 +178,7 @@ client.leads.scroll.each({}, function(res) {
   // after this promise has resolved
   new Bluebird((resolve) => {
     setTimeout(() => {
-      console.log(res.body.users.length);
+      console.log(res.body.contacts.length);
       // Your custom logic
       resolve();
    }, 500)
