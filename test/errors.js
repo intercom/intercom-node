@@ -45,6 +45,7 @@ describe('errors', () => {
         assert.strictEqual(err.statusCode, 401);
         assert.strictEqual(err.body.request_id, 'b2i3ri5909msvfqskol0');
         assert.deepStrictEqual(err.body.errors, [{ code: 'token_unauthorized', message: 'Not authorized to access resource' }]);
+        assert.deepStrictEqual(err.message, 'Not authorized to access resource');
         assert.strictEqual(err.headers['x-request-id'], 'b2i3ri5909msvfqskol0');
       });
     });
@@ -76,6 +77,7 @@ describe('errors', () => {
         assert.strictEqual(err.statusCode, 429);
         assert.strictEqual(err.body.request_id, 'b2i3mhcboc6pcbe33q80');
         assert.deepStrictEqual(err.body.errors, [{ code: 'rate_limit_exceeded', message: 'Exceeded rate limit of 83 in 10_seconds' }]);
+        assert.deepStrictEqual(err.message, 'Exceeded rate limit of 83 in 10_seconds');
         assert.strictEqual(err.headers['x-request-id'], 'b2i3mhcboc6pcbe33q80');
         assert.strictEqual(err.headers['x-ratelimit-reset'], '1522849880');
       });
@@ -204,6 +206,7 @@ describe('errors', () => {
           assert.strictEqual(err.statusCode, 401);
           assert.strictEqual(err.body.request_id, 'b2i3ri5909msvfqskol0');
           assert.deepStrictEqual(err.body.errors, [{ code: 'token_unauthorized', message: 'Not authorized to access resource' }]);
+          assert.deepStrictEqual(err.message, 'Not authorized to access resource');
           assert.strictEqual(err.headers['x-request-id'], 'b2i3ri5909msvfqskol0');
 
           done();
@@ -237,6 +240,7 @@ describe('errors', () => {
           assert.strictEqual(err.statusCode, 429);
           assert.strictEqual(err.body.request_id, 'b2i3mhcboc6pcbe33q80');
           assert.deepStrictEqual(err.body.errors, [{ code: 'rate_limit_exceeded', message: 'Exceeded rate limit of 83 in 10_seconds' }]);
+          assert.deepStrictEqual(err.message, 'Exceeded rate limit of 83 in 10_seconds');
           assert.strictEqual(err.headers['x-request-id'], 'b2i3mhcboc6pcbe33q80');
           assert.strictEqual(err.headers['x-ratelimit-reset'], '1522849880');
 
