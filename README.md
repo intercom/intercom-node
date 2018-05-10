@@ -147,6 +147,12 @@ client.users.find({ email: 'jayne@serenity.io' }, callback);
 client.users.archive({ id: '1234' }, callback);
 ```
 
+```node
+// Permanently delete a user user by id (https://developers.intercom.com/v2.0/reference#delete-users)
+const intercomUserId = '123'
+client.users.requestPermanentDeletion(intercomUserId, callback);
+```
+
 ## Leads
 
 ```node
