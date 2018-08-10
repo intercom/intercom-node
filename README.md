@@ -1,7 +1,7 @@
 # intercom-node
 > Official Node bindings to the Intercom API
 
-[![Build Status](https://travis-ci.org/intercom/intercom-node.svg?branch=master)](https://travis-ci.org/intercom/intercom-node)
+[![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=badge)](https://circleci.com/gh/intercom/intercom-node)
 
 [![npm version](https://badge.fury.io/js/intercom-client.svg)](http://badge.fury.io/js/intercom-client)
 
