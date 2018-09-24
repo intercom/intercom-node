@@ -148,9 +148,20 @@ client.users.archive({ id: '1234' }, callback);
 ```
 
 ```node
-// Permanently delete a user user by id (https://developers.intercom.com/v2.0/reference#delete-users)
+// Permanently delete a user by id (https://developers.intercom.com/v2.0/reference#delete-users)
 const intercomUserId = '123'
 client.users.requestPermanentDeletion(intercomUserId, callback);
+```
+
+```node
+// Permanently delete a user by id in params
+client.users.requestPermanentDeletionByParams({ id: '55b9eaf' }, callback);
+
+// Permanently delete a user by user_id
+client.users.requestPermanentDeletionByParams({ user_id: 'foobar' }, callback);
+
+// Permanently delete a user by email
+client.users.requestPermanentDeletionByParams({ email: 'jayne@serenity.io' }, callback);
 ```
 
 ## Leads
