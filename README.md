@@ -1,7 +1,7 @@
 # intercom-node
 > Official Node bindings to the Intercom API
 
-[![Build Status](https://travis-ci.org/intercom/intercom-node.svg?branch=master)](https://travis-ci.org/intercom/intercom-node)
+[![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=badge)](https://circleci.com/gh/intercom/intercom-node)
 
 [![npm version](https://badge.fury.io/js/intercom-client.svg)](http://badge.fury.io/js/intercom-client)
 
@@ -143,8 +143,14 @@ client.users.find({ email: 'jayne@serenity.io' }, callback);
 ```
 
 ```node
-// Delete user by id
-client.users.delete({ id: '1234' }, callback);
+// Archive user by id (https://developers.intercom.com/v2.0/reference#archive-a-user)
+client.users.archive({ id: '1234' }, callback);
+```
+
+```node
+// Permanently delete a user user by id (https://developers.intercom.com/v2.0/reference#delete-users)
+const intercomUserId = '123'
+client.users.requestPermanentDeletion(intercomUserId, callback);
 ```
 
 ## Leads

@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8-browsers
+
+    working_directory: ~/intercom-node
+
+    environment:
+      - YARN_VERSION: 1.7.0
+
+    steps:
+      - checkout
+      - run: export PATH="${PATH}:/home/circleci/.yarn/bin"
+      - run:
+          name: Install Yarn
+          command: |
+            if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}"  ]]; then
+              echo "Download and install Yarn."
+              curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+            else
+              echo "The correct version of Yarn is already installed."
+            fi
+      - run: yarn
+      - run: yarn test
+
+notify:
+  webhooks:
+    - url: https://muster.intercom.io/circle_webhooks
