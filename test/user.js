@@ -116,4 +116,65 @@ describe('users', () => {
       done();
     });
   });
+  it('should permanently delete users by Intercom user ID in params', (done) => {
+    nock('https://api.intercom.io')
+      .post('/user_delete_requests', { intercom_user_id: 'foo' })
+      .reply(200, { id: 10 });
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.requestPermanentDeletionByParams({id: 'foo'}).then((r) => {
+      assert.equal(200, r.statusCode);
+      assert.deepStrictEqual({ id: 10 }, r.body);
+      done();
+    });
+  });
+  it('should permanently delete users by user_id', (done) => {
+    nock('https://api.intercom.io')
+      .get('/users')
+      .query({ user_id: 'foo' })
+      .reply(200, { id: 10 })
+      .post('/user_delete_requests', { intercom_user_id: 10 })
+      .reply(200, { id: 10 });
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.requestPermanentDeletionByParams({user_id: 'foo'}).then((r) => {
+      assert.equal(200, r.statusCode);
+      assert.deepStrictEqual({ id: 10 }, r.body);
+      done();
+    });
+  });
+  it('should permanently delete users by email', (done) => {
+    nock('https://api.intercom.io')
+      .get('/users')
+      .query({ email: 'foo' })
+      .reply(200, { id: 10 })
+      .post('/user_delete_requests', { intercom_user_id: 10 })
+      .reply(200, { id: 10 });
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.requestPermanentDeletionByParams({email: 'foo'}).then((r) => {
+      assert.equal(200, r.statusCode);
+      assert.deepStrictEqual({ id: 10 }, r.body);
+      done();
+    });
+  });
+  it('should callback with errors if calls fail', (done) => {
+    nock('https://api.intercom.io')
+      .get('/users')
+      .query({ email: 'foo' })
+      .reply(200, {type: 'error.list'});
+    const client = new Client('foo', 'bar');
+    client.users.requestPermanentDeletionByParams({email: 'foo'}, (err) => {
+      assert.equal(true, err instanceof Error);
+      done();
+    });
+  });
+  it('should reject promises if calls fail', (done) => {
+    nock('https://api.intercom.io')
+      .get('/users')
+      .query({ email: 'foo' })
+      .reply(200, {type: 'error.list'});
+    const client = new Client('foo', 'bar').usePromises();
+    client.users.requestPermanentDeletionByParams({email: 'foo'}).catch(err => {
+      assert.equal(true, err instanceof Error);
+      done();
+    });
+  });
 });
