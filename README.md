@@ -143,12 +143,12 @@ client.users.find({ email: 'jayne@serenity.io' }, callback);
 ```
 
 ```node
-// Archive user by id (https://developers.intercom.com/v2.0/reference#archive-a-user)
+// Archive user by id (https://developers.intercom.com/intercom-api-reference/reference#archive-a-user)
 client.users.archive({ id: '1234' }, callback);
 ```
 
 ```node
-// Permanently delete a user by id (https://developers.intercom.com/v2.0/reference#delete-users)
+// Permanently delete a user by id (https://developers.intercom.com/intercom-api-reference/reference#delete-users)
 const intercomUserId = '123'
 client.users.requestPermanentDeletion(intercomUserId, callback);
 ```
@@ -456,7 +456,7 @@ client.messages.create(message, callback);
 
 ## Conversations
 
-Listing conversations ([documentation](https://developers.intercom.com/reference#list-conversations)):
+Listing conversations ([documentation](https://developers.intercom.com/intercom-api-reference/reference#list-conversations)):
 
 ```node
 client.conversations.list({ type: 'admin', admin_id: 21599 }, callback);
