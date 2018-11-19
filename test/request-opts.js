@@ -19,8 +19,8 @@ describe('request-opts', function () {
       sinon.assert.called(jsonReviver);
     });
   });
-  it('should not be able to change request baseUrl option', function () {
-    nock('https://api.intercom.io').get('/admins/baz').reply(200, {});
+  it('should be able to change request baseUrl option', function () {
+    nock('http://local.test-server.com').get('/admins/baz').reply(200, {});
     const client = new Client('foo', 'bar')
       .usePromises()
       .useRequestOpts({
@@ -66,6 +66,20 @@ describe('request-opts', function () {
       // Should include custom header
       sinon.assert.calledOnce(customHeaderCheck);
       sinon.assert.calledWithExactly(customHeaderCheck, 'bar');
+    });
+  });
+});
+
+describe('base-url', function () {
+  it('should be able to change base url (using old .useBaseUrl method)', done => {
+    nock('http://local.test-server.com').get('/admins').reply(200, {});
+    const client = new Client('foo', 'bar')
+      .usePromises()
+      .useBaseUrl('http://local.test-server.com');
+
+    client.admins.list().then(r => {
+      assert.equal(200, r.statusCode);
+      done();
     });
   });
 });

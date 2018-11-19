@@ -87,19 +87,14 @@ This client library also supports passing in [`request` options](https://github.
 ```node
 var client = new Intercom.Client({ token: 'my_token' });
 client.useRequestOpts({
+  baseUrl: 'http://local.test-server.com',
   // Uses the forever-agent / http(s).Agent({keepAlive:true})
   forever: true
 });
 ```
 
-Note that certain request options (such as `json`, and certain `headers` cannot be overriden).
+Note that certain request options (such as `json`, and certain `headers` names cannot be overriden).
 
-To change the `baseUrl` for the client library use:
-
-```node
-var client = new Intercom.Client({ token: 'my_token' });
-client.useBaseUrl('http://local.test-server.com');
-```
 
 ## Users
 
