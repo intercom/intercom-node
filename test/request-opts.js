@@ -3,8 +3,8 @@ import { Client } from '../lib';
 import nock from 'nock';
 import sinon from 'sinon';
 
-describe('request-opts', () => {
-  it('should be able to change request options', () => {
+describe('request-opts', function () {
+  it('should be able to change request options', function () {
     const jsonReviver = sinon.stub().returnsArg(1);
 
     nock('https://api.intercom.io').get('/admins/baz').reply(200, {});
@@ -19,7 +19,7 @@ describe('request-opts', () => {
       sinon.assert.called(jsonReviver);
     });
   });
-  it('should not be able to change request baseUrl option', () => {
+  it('should not be able to change request baseUrl option', function () {
     nock('https://api.intercom.io').get('/admins/baz').reply(200, {});
     const client = new Client('foo', 'bar')
       .usePromises()
@@ -31,7 +31,7 @@ describe('request-opts', () => {
       assert.equal(200, r.statusCode);
     });
   });
-  it('should be able to change request options merging in headers', () => {
+  it('should be able to change request options merging in headers', function () {
     const jsonReviver = sinon.stub().returnsArg(1);
     const customHeaderCheck = sinon.stub().returns(true);
     const userAgentHeaderCheck = sinon.stub().returns(true);
