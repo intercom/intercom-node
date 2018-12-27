@@ -507,6 +507,16 @@ var reply = {
 };
 
 client.conversations.reply(reply, callback);
+
+// Replying to users last conversation
+var reply = {
+  intercom_user_id: '55b26822ce97179e52001334',
+  body: 'Some reply :)',
+  type: "admin",
+  admin_id: "1234",
+  message_type: 'comment'
+};
+client.conversations.replyLast(reply, callback);
 ```
 
 ```node

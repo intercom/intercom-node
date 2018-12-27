@@ -27,6 +27,14 @@ describe('conversations', () => {
       done();
     });
   });
+  it('should reply last', done => {
+    nock('https://api.intercom.io').post('/conversations/last/reply', { intercom_user_id: 'bar', baz: 'bang' }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.conversations.replyLast({ intercom_user_id: 'bar', baz: 'bang' }).then(r => {
+      assert.equal(200, r.statusCode);
+      done();
+    });
+  });
   it('should mark as read', done => {
     nock('https://api.intercom.io').put('/conversations/bar', { read: true }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
