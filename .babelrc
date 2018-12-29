@@ -1,3 +1,4 @@
 {
-  "presets": ["es2015", "stage-1"]
+  "plugins": ["@babel/plugin-proposal-export-default-from"],
+  "presets": ["@babel/env"]
 }
