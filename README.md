@@ -95,6 +95,18 @@ client.useRequestOpts({
 
 Note that certain request options (such as `json`, and certain `headers` names cannot be overriden).
 
+#### Setting the API version
+
+Intercom versions their API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
+
+```node
+var client = new Intercom.Client({ token: 'my_token' });
+client.useRequestOpts({
+  headers: {
+    'Intercom-Version': 1.2
+  }
+});
+```
 
 ## Users
 
