@@ -1,3 +1,5 @@
+#### Responsible Team: Dev Platform
+
 # intercom-node
 > Official Node bindings to the Intercom API
 
