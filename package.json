@@ -34,7 +34,6 @@
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^0.10.3",
     "gulp-mocha": "^2.0.0",
-    "gulp-nsp": "^2.4.2",
     "gulp-plumber": "^1.1.0",
     "nock": "7.5.0",
     "sinon": "^6.1.4"

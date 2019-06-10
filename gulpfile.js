@@ -1,10 +1,8 @@
 var gulp = require('gulp');
-var path = require('path');
 var eslint = require('gulp-eslint');
 var excludeGitignore = require('gulp-exclude-gitignore');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
-var nsp = require('gulp-nsp');
 var plumber = require('gulp-plumber');
 var babel = require('gulp-babel');
 
@@ -18,10 +16,6 @@ gulp.task('static', function () {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
-});
-
-gulp.task('nsp', function (cb) {
-  nsp({ package: path.resolve(__dirname, 'package.json') }, cb);
 });
 
 gulp.task('pre-test', function () {
