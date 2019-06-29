@@ -30,7 +30,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
-    "gulp-eslint": "^0.15.0",
+    "gulp-eslint": "^4.0.2",
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^0.10.3",
     "gulp-mocha": "^2.0.0",
