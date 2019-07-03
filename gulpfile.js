@@ -6,6 +6,8 @@ var istanbul = require('gulp-istanbul');
 var plumber = require('gulp-plumber');
 var babel = require('gulp-babel');
 
+require('@babel/register');
+
 gulp.task('static', function () {
   return gulp
     .src('**/*.js')
@@ -25,18 +27,11 @@ gulp.task('pre-test', function () {
 
 gulp.task(
   'test',
-  gulp.series('pre-test', function (done) {
-    var mochaErr;
-    gulp
+  gulp.series('pre-test', function () {
+    return gulp
       .src('test/**/*.js')
       .pipe(plumber())
-      .pipe(mocha({ reporter: 'spec' }))
-      .on('error', function (err) {
-        mochaErr = err;
-      })
-      .on('end', function () {
-        done(mochaErr);
-      });
+      .pipe(mocha({ reporter: 'spec' }));
   })
 );
 
