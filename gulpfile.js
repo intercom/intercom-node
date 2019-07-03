@@ -6,8 +6,6 @@ var istanbul = require('gulp-istanbul');
 var plumber = require('gulp-plumber');
 var babel = require('gulp-babel');
 
-require('@babel/register');
-
 gulp.task('static', function () {
   return gulp
     .src('**/*.js')
