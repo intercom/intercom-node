@@ -31,7 +31,10 @@ gulp.task(
     return gulp
       .src('test/**/*.js')
       .pipe(plumber())
-      .pipe(mocha({ reporter: 'spec' }));
+      .pipe(mocha({
+        compilers: 'js:@babel/register',
+        reporter: 'spec'
+      }));
   })
 );
 
