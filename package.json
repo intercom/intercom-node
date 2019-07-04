@@ -21,7 +21,7 @@
     "bluebird": "^3.3.4",
     "htmlencode": "^0.0.4",
     "lodash": "^4.17.11",
-    "request": "^2.83.0"
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -37,7 +37,7 @@
     "gulp-mocha": "^6.0.0",
     "gulp-plumber": "^1.1.0",
     "nock": "7.5.0",
-    "sinon": "^6.1.4"
+    "sinon": "^7.3.2"
   },
   "scripts": {
     "prepublish": "gulp prepublish",
