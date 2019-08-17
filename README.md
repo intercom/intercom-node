@@ -97,7 +97,7 @@ Note that certain request options (such as `json`, and certain `headers` names c
 
 #### Setting the API version
 
-Intercom versions their API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
+We version our API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
 
 ```node
 var client = new Intercom.Client({ token: 'my_token' });
