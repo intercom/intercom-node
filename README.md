@@ -265,6 +265,7 @@ client.customers.search({
   sort: { field: 'name', order: 'ascending'},
   pagination: { per_page: 10 }
 }, callback);
+```
 
 ## Visitors
 
