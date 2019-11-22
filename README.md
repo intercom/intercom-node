@@ -148,7 +148,7 @@ client.users.listBy({ tag_id: 'haven' }, callback);
 client.users.scroll.each({}, function(res) {
   // if you return a promise from your callback, the client will only scroll
   // after this promise has resolved
-  new Bluebird((resolve) => {
+  new Promise((resolve) => {
     setTimeout(() => {
       console.log(res.body.users.length);
       // Your custom logic
@@ -221,7 +221,7 @@ client.leads.list(callback);
 client.leads.scroll.each({}, function(res) {
   // if you return a promise from your callback, the client will only scroll
   // after this promise has resolved
-  new Bluebird((resolve) => {
+  new Promise((resolve) => {
     setTimeout(() => {
       console.log(res.body.contacts.length);
       // Your custom logic
@@ -329,7 +329,7 @@ client.companies.listBy({ tag_id: 'haven' }, callback);
 client.companies.scroll.each({}, function(res) {
   // if you return a promise from your callback, the client will only scroll
   // after this promise has resolved
-  new Bluebird((resolve) => {
+  new Promise((resolve) => {
     setTimeout(() => {
       console.log(res.body.companies.length);
       // Your custom logic

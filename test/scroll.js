@@ -1,4 +1,3 @@
-import Bluebird from 'bluebird';
 import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
@@ -59,7 +58,7 @@ describe('scroll', () => {
 
       return res.body.users.length === 0 ?
         done() :
-        new Bluebird((resolve) => {
+        new Promise((resolve) => {
           setTimeout(() => {
             assert.equal(1, nbCalls, 'hasn\'t re-scrolled before resolve');
             resolve();
