@@ -5,7 +5,7 @@
 
 [![npm version](https://badge.fury.io/js/intercom-client.svg)](http://badge.fury.io/js/intercom-client)
 
-### Does not currently support API V2.2
+### Excluding Customer Search (2.0), only supports 1.X
 
 ## Installation
 
