@@ -5,6 +5,8 @@
 
 [![npm version](https://badge.fury.io/js/intercom-client.svg)](http://badge.fury.io/js/intercom-client)
 
+### Does not currently support API V2.2
+
 ## Installation
 
 [![docker_image 1](https://cloud.githubusercontent.com/assets/15954251/17524401/5743439e-5e56-11e6-8567-d3d9da1727da.png)](https://hub.docker.com/r/intercom/sdk-images/) <br>
