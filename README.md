@@ -5,6 +5,8 @@
 
 [![npm version](https://badge.fury.io/js/intercom-client.svg)](http://badge.fury.io/js/intercom-client)
 
+### Excluding Customer Search (2.0), only supports 1.X
+
 ## Installation
 
 [![docker_image 1](https://cloud.githubusercontent.com/assets/15954251/17524401/5743439e-5e56-11e6-8567-d3d9da1727da.png)](https://hub.docker.com/r/intercom/sdk-images/) <br>
