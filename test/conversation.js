@@ -11,6 +11,14 @@ describe('conversations', () => {
       done();
     });
   });
+  it('should search', done => {
+    nock('https://api.intercom.io').post('/conversations/search', { query: { field: 'updated_at', operator: '>', value: 1560436784 } }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.conversations.search({ query: { field: 'updated_at', operator: '>', value: 1560436784 } }).then(r => {
+      assert.equal(200, r.statusCode);
+      done();
+    });
+  });
   it('should find', done => {
     nock('https://api.intercom.io').get('/conversations/bar').query({ id: 'bar' }).reply(200, {});
     const client = new Client('foo', 'bar').usePromises();
