@@ -18,17 +18,17 @@
     "api"
   ],
   "dependencies": {
-    "bluebird": "^3.3.4",
+    "bluebird": "^3.7.2",
     "htmlencode": "^0.0.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/register": "^7.4.4",
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/register": "^7.13.16",
     "babel-eslint": "^10.0.2",
-    "eslint": "^6.0.1",
+    "eslint": "^6.8.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "4.0.2",
