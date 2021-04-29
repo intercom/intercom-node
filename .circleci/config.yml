@@ -2,12 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:14-browsers
 
     working_directory: ~/intercom-node
 
     environment:
-      - YARN_VERSION: 1.7.0
+      - YARN_VERSION: 1.22.10
 
     steps:
       - checkout
