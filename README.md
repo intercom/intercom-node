@@ -415,6 +415,11 @@ client.admins.me(callback);
 client.admins.find('123456789', callback);
 ```
 
+```
+// Update admin away mode and reassign settings
+client.admins.away('123456789', {'away_mode_enabled': true, 'away_mode_reassign': false}, callback);
+```
+
 ## Tags
 
 ```node
