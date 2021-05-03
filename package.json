@@ -1,6 +1,6 @@
 {
   "name": "intercom-client",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "description": "Official Node bindings to the Intercom API",
   "homepage": "https://github.com/intercom/intercom-node",
   "bugs:": "https://github.com/intercom/intercom-node/issues",
@@ -31,6 +31,7 @@
     "eslint": "^6.8.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "gulp-cli": "^2.2.0",
     "gulp-eslint": "4.0.2",
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^1.1.3",
