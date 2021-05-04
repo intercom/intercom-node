@@ -1,21 +1,25 @@
 # intercom-node
-> Official Node bindings to the Intercom API
 
-[![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=badge)](https://circleci.com/gh/intercom/intercom-node)
+[![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=shield)](https://circleci.com/gh/intercom/intercom-node)
+[![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
+![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-1.3-blue)
 
-[![npm version](https://badge.fury.io/js/intercom-client.svg)](http://badge.fury.io/js/intercom-client)
+> Official Node bindings to the [Intercom API](https://api.intercom.io/docs)
 
-### Excluding Customer Search (2.0), only supports 1.X
+## Project Updates
+
+### Maintenance
+
+We're currently building a new team to provide in-depth and dedicated SDK support.
+
+In the meantime, we'll be operating on limited capacity, meaning all pull requests will be evaluated on a best effort basis and will be limited to critical issues.
+
+We'll communicate all relevant updates as we build this new team and support strategy in the coming months.
 
 ## Installation
 
-[![docker_image 1](https://cloud.githubusercontent.com/assets/15954251/17524401/5743439e-5e56-11e6-8567-d3d9da1727da.png)](https://hub.docker.com/r/intercom/sdk-images/) <br>
-Try out our [Docker Image (Beta)](https://hub.docker.com/r/intercom/sdk-images/) to help you get started more quickly. <br>
-It should make it easier to get setup with the SDK and start interacting with the API. <br>
-(Note, this is in Beta and is for testing purposes only, it should not be used in production)
-
 ```bash
-npm install intercom-client
+yarn add intercom-client
 ```
 
 **This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/v2.0/docs/intercom-javascript) for client-side operations.**
@@ -23,7 +27,7 @@ npm install intercom-client
 ## Testing
 
 ```bash
-npm test
+yarn test
 ```
 
 ## Running the code locally
@@ -31,7 +35,7 @@ npm test
 Compile using babel:
 
 ```bash
-gulp babel
+yarn gulp babel
 ```
 
 Require Intercom:
@@ -48,8 +52,7 @@ Require Intercom:
 var Intercom = require('intercom-client');
 ```
 
-Create a client:
-#### Using Access Tokens
+Create a client using access tokens:
 
 ```node
 var client = new Intercom.Client({ token: 'my_token' });
@@ -63,9 +66,11 @@ This client library supports two kinds of callbacks:
 client.users.list(function (d) {
   // d is the response from the server
 });
+```
 
-// Or
+Or
 
+```node
 client.users.list(function (err, d) {
   // err is an error response object, or null
   // d is a successful response object, or null
@@ -97,7 +102,7 @@ client.useRequestOpts({
 
 Note that certain request options (such as `json`, and certain `headers` names cannot be overriden).
 
-#### Setting the API version
+### Setting the API version
 
 We version our API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
 
@@ -238,7 +243,6 @@ client.leads.scroll.each({}, function(res) {
 client.leads.listBy({ email: 'wash@serenity.io' }, callback);
 ```
 
-
 ```node
 // Find contact by id
 client.leads.find({ id: '5342423' }, callback);
@@ -306,7 +310,6 @@ var conversion = {
 client.visitors.convert(conversion, callback);
 ```
 
-
 ## Companies
 
 ```node
@@ -341,7 +344,6 @@ client.companies.scroll.each({}, function(res) {
 });
 ```
 
-
 ```node
 // Find company by id
 client.companies.find({ id: '1234' }, callback);
@@ -352,7 +354,6 @@ client.companies.find({ id: '1234' }, callback);
 client.companies.listUsers({ id: '1234' }, callback);
 client.companies.listUsers({ company_id: '1234' }, callback);
 ```
-
 
 ## Events
 
@@ -410,12 +411,12 @@ client.admins.list(callback);
 client.admins.me(callback);
 ```
 
-```
+```node
 // Find admin by ID
 client.admins.find('123456789', callback);
 ```
 
-```
+```node
 // Update admin away mode and reassign settings
 client.admins.away('123456789', {'away_mode_enabled': true, 'away_mode_reassign': false}, callback);
 ```
@@ -507,7 +508,6 @@ Listing conversations ([documentation](https://developers.intercom.com/intercom-
 ```node
 client.conversations.list({ type: 'admin', admin_id: 21599 }, callback);
 ```
-
 
 ```node
 // Fetch a conversation
@@ -624,7 +624,6 @@ IdentityVerification.userHash({secretKey: 's3cre7', identifier: 'jayne@serenity.
 ## License
 
 Apache-2.0
-
 
 ## Pull Requests
 
