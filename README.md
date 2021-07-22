@@ -593,6 +593,110 @@ client.notes.list({ email: 'bob@intercom.io' }, callback);
 client.notes.find({ id: '3342887' }, callback);
 ```
 
+## Articles
+```node
+// Create an article
+let article = {
+  title: 'Article title',
+  body: '<p>Article body</p>',
+  author_id: 21599
+}
+client.articles.create(article, callback)
+```
+
+```node
+// Retrieve an article by ID
+client.articles.find(21, callback)
+```
+
+```node
+// Update an article
+let article = {
+  title: 'New title',
+  body: '<p>New body</p>',
+  author_id: 21599
+}
+client.articles.update(21, article, callback)
+```
+
+```node
+// Delete an article
+client.articles.delete(21, callback)
+```
+
+```node
+// List all articles
+client.articles.list(callback)
+```
+
+## Collections
+```node
+// Create a collection
+let collection = {
+  name: 'Collection name',
+  description: 'Description'
+}
+client.collections.create(collection, callback)
+```
+
+```node
+// Retrieve a collection by ID
+client.collections.find(21, callback)
+```
+
+```node
+// Update a collection
+let collection = {
+  name: 'New name',
+  description: 'New description'
+}
+client.collections.update(21, collection, callback)
+```
+
+```node
+// Delete a collection
+client.collections.delete(21, callback)
+```
+
+```node
+// List all collections
+client.collections.list(callback)
+```
+
+## Sections
+```node
+// Create a section
+let section = {
+  name: 'Section name',
+  parent_id: 3
+}
+client.sections.create(section, callback)
+```
+
+```node
+// Retrieve a section by ID
+client.sections.find(21, callback)
+```
+
+```node
+// Update a section
+let section = {
+  name: 'New name',
+  parent_id: 4
+}
+client.sections.update(21, section, callback)
+```
+
+```node
+// Delete a section
+client.sections.delete(21, callback)
+```
+
+```node
+// List all sections
+client.sections.list(callback)
+```
+
 ## Pagination
 
 When listing, the Intercom API may return a pagination object:
