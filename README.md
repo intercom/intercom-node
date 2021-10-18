@@ -58,6 +58,13 @@ Create a client using access tokens:
 var client = new Intercom.Client({ token: 'my_token' });
 ```
 
+If you are using the EU service you can configure like the following:
+
+```node
+var client = new Intercom.Client({token: 'my_token' });
+client.useRequestOpts({ baseUrl: 'https://api.eu.intercom.io' })
+```
+
 ## Callbacks
 
 This client library supports two kinds of callbacks:
