@@ -1,0 +1,3 @@
+# Temporary workaround for Gulp's ESLint
+lib/*.js
+lib/**/*.js
