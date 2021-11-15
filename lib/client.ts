@@ -13,7 +13,9 @@ import Conversation from './conversation';
 import Note from './note';
 import Customer from './customer';
 
-import axios, { Axios, AxiosResponse } from 'axios';
+import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
+import {merge, omit} from 'lodash'
+
 import { BadResponseError } from './errors/badResponse.error';
 
 interface IRequestOptions {
@@ -39,8 +41,9 @@ export default class Client {
   conversations: any;
   notes: any;
   customers: any;
-  requestOpts: { baseURL: string; };
+  requestOpts: Partial<AxiosDefaults>;
   usebaseURL: (baseURL: any) => this;
+  propertiesToOmitInRequestOpts: string[];
 
   // TO-DO: Fix any
   constructor(...args: any) {
@@ -77,6 +80,7 @@ export default class Client {
     this.requestOpts = {
       baseURL: 'https://api.intercom.io'
     };
+    this.propertiesToOmitInRequestOpts = ['headers.common.Accept'];
 
     this.usebaseURL = deprecate(baseURL => this.useRequestOpts({ baseURL }), 'intercom-client - client.usebaseURL(url): Use client.useRequestOpts({ baseURL: url }) instead');
 
@@ -85,19 +89,32 @@ export default class Client {
   initiateAxiosInstance(): Axios {
     // TO-DO: Revise the params
     const defaultHeaders = {
-      Accept: 'application/json',
-      'User-Agent': 'intercom-node-client/2.0.0'
+      'User-Agent': 'intercom-node-client/2.0.0',
+      Accept: 'application/json'
     };
 
-    const axiosInstance = axios.create({headers: defaultHeaders, auth: {username: this.usernamePart as string, password: this.passwordPart as string}, baseURL: this.requestOpts.baseURL});
+    const axiosInstance = axios.create({auth: {username: this.usernamePart as string, password: this.passwordPart as string}, baseURL: this.requestOpts.baseURL});
+
+    axiosInstance.defaults.headers.common = merge(axiosInstance.defaults.headers.common, defaultHeaders);
 
     return axiosInstance;
   }
-  // TO-DO: Fix any
-  useRequestOpts(opts: any) {
-    this.requestOpts = Object.assign(this.requestOpts, opts);
-    this.axiosInstance.defaults = Object.assign(this.axiosInstance.defaults, this.requestOpts);
+
+  useRequestOpts(opts: Partial<AxiosDefaults>) {
+    const filteredOpts = this.filterUnwantedProperties(opts);
+
+    this.requestOpts = merge(this.requestOpts, filteredOpts);
+    this.updateAxiosInstanceDefaults();
+
     return this;
+  }
+
+  updateAxiosInstanceDefaults(): void {
+    this.axiosInstance.defaults = merge(this.axiosInstance.defaults, this.requestOpts);
+  }
+
+  filterUnwantedProperties(opts: Partial<AxiosDefaults>): Partial<AxiosDefaults> {
+    return omit(opts, this.propertiesToOmitInRequestOpts);
   }
 
   async ping(): Promise<AxiosResponse | void> {

@@ -1,38 +1,39 @@
+// TO-DO: Rethink testing framework
+// Workaround for old gulp-mocha to use async functions
+import '@babel/polyfill';
+
 import assert from 'assert';
 import { Client } from '../lib';
 import nock from 'nock';
 import sinon from 'sinon';
 
 describe('request-opts', function () {
-  it('should be able to change request options', function () {
-    const jsonReviver = sinon.stub().returnsArg(1);
-
+  it('should be able to change request options', async () => {
     nock('https://api.intercom.io').get('/admins/baz').reply(200, {});
     const client = new Client('foo', 'bar')
-      .usePromises()
       .useRequestOpts({
-        jsonReviver
+        someParameter: 3
       });
 
-    return client.admins.find('baz').then(r => {
-      assert.equal(200, r.statusCode);
-      sinon.assert.called(jsonReviver);
-    });
+    const response = await client.admins.find('baz');
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
+    assert.deepStrictEqual(client.requestOpts, {baseURL: 'https://api.intercom.io', someParameter: 3});
   });
-  it('should be able to change request baseUrl option', function () {
+  it('should be able to change request baseURL option', async () => {
     nock('http://local.test-server.com').get('/admins/baz').reply(200, {});
     const client = new Client('foo', 'bar')
-      .usePromises()
       .useRequestOpts({
-        baseUrl: 'http://local.test-server.com'
+        baseURL: 'http://local.test-server.com'
       });
 
-    return client.admins.find('baz').then(r => {
-      assert.equal(200, r.statusCode);
-    });
+    const response = await client.admins.find('baz');
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
-  it('should be able to change request options merging in headers', function () {
-    const jsonReviver = sinon.stub().returnsArg(1);
+  it('should be able to change request options merging in headers', async () => {
     const customHeaderCheck = sinon.stub().returns(true);
     const userAgentHeaderCheck = sinon.stub().returns(true);
     const acceptHeaderCheck = sinon.stub().returns(true);
@@ -45,41 +46,39 @@ describe('request-opts', function () {
       }
     }).get('/admins/baz').reply(200, {});
     const client = new Client('foo', 'bar')
-      .usePromises()
       .useRequestOpts({
-        jsonReviver,
-        headers: {
+        headers: {common: {
           Accept: 'text/plain',
           'x-intercom-header': 'bar'
-        }
+        }}
       });
 
-    return client.admins.find('baz').then(r => {
-      assert.equal(200, r.statusCode);
-      sinon.assert.called(jsonReviver);
-      // Should always have a user-agent
-      sinon.assert.calledOnce(userAgentHeaderCheck);
-      sinon.assert.calledWithMatch(userAgentHeaderCheck, sinon.match.string);
-      // Shouldn't allow accept header to be overriden
-      sinon.assert.calledOnce(acceptHeaderCheck);
-      sinon.assert.calledWithExactly(acceptHeaderCheck, 'application/json');
-      // Should include custom header
-      sinon.assert.calledOnce(customHeaderCheck);
-      sinon.assert.calledWithExactly(customHeaderCheck, 'bar');
-    });
+    const response = await client.admins.find('baz');
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
+    // Should always have a user-agent
+    sinon.assert.calledOnce(userAgentHeaderCheck);
+    sinon.assert.calledWithMatch(userAgentHeaderCheck, sinon.match.string);
+    // Shouldn't allow accept header to be overriden
+    sinon.assert.calledOnce(acceptHeaderCheck);
+    sinon.assert.calledWithExactly(acceptHeaderCheck, 'application/json');
+    // Should include custom header
+    sinon.assert.calledOnce(customHeaderCheck);
+    sinon.assert.calledWithExactly(customHeaderCheck, 'bar');
   });
 });
 
 describe('base-url', function () {
-  it('should be able to change base url (using old .useBaseUrl method)', done => {
+  it('should be able to change base url (using old .usebaseURL method)', async () => {
     nock('http://local.test-server.com').get('/admins').reply(200, {});
-    const client = new Client('foo', 'bar')
-      .usePromises()
-      .useBaseUrl('http://local.test-server.com');
 
-    client.admins.list().then(r => {
-      assert.equal(200, r.statusCode);
-      done();
-    });
+    const client = new Client('foo', 'bar')
+      .usebaseURL('http://local.test-server.com');
+
+    const response = await client.admins.list();
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
 });

@@ -1,22 +1,26 @@
+// TO-DO: Rethink testing framework
+// Workaround for old gulp-mocha to use async functions
+import '@babel/polyfill';
+
 import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
 
 describe('segments', () => {
-  it('should be listed', done => {
+  it('should be listed', async () => {
     nock('https://api.intercom.io').get('/segments').reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.segments.list().then(r => {
-      assert.equal(200, r.statusCode);
-      done();
-    });
+    const client = new Client('foo', 'bar');
+    const response = await client.segments.list();
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
-  it('find by id', done => {
+  it('find by id', async () => {
     nock('https://api.intercom.io').get('/segments/baz').reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.segments.find({ id: 'baz' }).then(r => {
-      assert.equal(200, r.statusCode);
-      done();
-    });
+    const client = new Client('foo', 'bar');
+    const response = await client.segments.find({ id: 'baz' });
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
 });
