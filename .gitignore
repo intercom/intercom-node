@@ -24,3 +24,7 @@ node_modules
 
 # Babel
 dist
+
+# Yarn 3.x
+
+.yarn

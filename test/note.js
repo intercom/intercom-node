@@ -1,30 +1,34 @@
+// TO-DO: Rethink testing framework
+// Workaround for old gulp-mocha to use async functions
+import '@babel/polyfill';
+
 import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
 
 describe('notes', () => {
-  it('should be created', done => {
+  it('should be created', async () => {
     nock('https://api.intercom.io').post('/notes', { foo: 'bar' }).reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.notes.create({ foo: 'bar' }).then(r => {
-      assert.equal(200, r.statusCode);
-      done();
-    });
+    const client = new Client('foo', 'bar');
+    const response = await client.notes.create({ foo: 'bar' });
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
-  it('should list', done => {
+  it('should list', async () => {
     nock('https://api.intercom.io').get('/notes').query({ foo: 'bar' }).reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.notes.list({ foo: 'bar' }).then(r => {
-      assert.equal(200, r.statusCode);
-      done();
-    });
+    const client = new Client('foo', 'bar');
+    const response = await client.notes.list({ foo: 'bar' });
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
-  it('should find notes by id', done => {
+  it('should find notes by id', async () => {
     nock('https://api.intercom.io').get('/notes/bar').reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.notes.find({ id: 'bar' }).then(r => {
-      assert.equal(200, r.statusCode);
-      done();
-    });
+    const client = new Client('foo', 'bar');
+    const response = await client.notes.find({ id: 'bar' });
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
 });

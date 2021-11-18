@@ -1,3 +1,7 @@
+// TO-DO: Rethink testing framework
+// Workaround for old gulp-mocha to use async functions
+import '@babel/polyfill';
+
 import UserData from '../lib/user-data';
 import { IdentityVerification } from '../lib/index';
 import assert from 'assert';

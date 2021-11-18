@@ -1,70 +1,81 @@
-import Bluebird from 'bluebird';
+// TO-DO: Rethink testing framework
+// Workaround for old gulp-mocha to use async functions
+import '@babel/polyfill';
 import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
 
+const dummyUsers = {
+  dummyUser:
+  {
+    type: 'user',
+    id: 'abc123',
+    name: 'dummy user'
+  },
+  dummierUser: {
+    type: 'user',
+    id: 'def456',
+    name: 'dummier user'
+  },
+  dummiestUser:
+  {
+    type: 'user',
+    id: 'ghj789',
+    name: 'dummiest user'
+  }
+};
+
+
 describe('scroll', () => {
-  before(function () {
-    nock('https://api.intercom.io').get('/users/scroll').times(3).reply(200, {
+  it('should get users with scroll', async () => {
+    nock('https://api.intercom.io').get('/users/scroll').reply(200, {
       type: 'user.list',
       scroll_param: '123_soleil',
       users: [
-        {
-          type: 'user',
-          id: 'abc123',
-          name: 'dummy user'
-        }
+        dummyUsers.dummyUser
       ]
     });
 
-    nock('https://api.intercom.io').get('/users/scroll?scroll_param=123_soleil').times(3).reply(200, {
+    nock('https://api.intercom.io').get('/users/scroll?scroll_param=123_soleil').reply(200, {
       type: 'user.list',
       scroll_param: '123_soleil',
       users: []
     });
-  });
 
-  it('should get users with scroll', done => {
     const client = new Client('foo', 'bar');
 
-    client.users.scroll.each({}, function (res) {
-      assert.equal(200, res.statusCode);
-      if (res.body.users.length === 0) {
-        done();
-      }
-    });
+    const response = await client.users.scroll.each({});
+
+    assert.equal(1, response.length);
+    assert.deepStrictEqual(dummyUsers.dummyUser, response[0]);
   });
 
-  it('should return a promise that resolves at the end of the scroll', done => {
+  it('should return a promise that resolves at the end of the scroll', async () => {
+    nock('https://api.intercom.io').get('/users/scroll').reply(200, {
+      type: 'user.list',
+      scroll_param: '123_soleil',
+      users: [
+        dummyUsers.dummyUser,
+      ]
+    });
+
+    nock('https://api.intercom.io').get('/users/scroll?scroll_param=123_soleil').reply(200, {
+      type: 'user.list',
+      scroll_param: '456_crimea',
+      users: [ dummyUsers.dummierUser,  dummyUsers.dummiestUser]
+    });
+
+    nock('https://api.intercom.io').get('/users/scroll?scroll_param=456_crimea').reply(200, {
+      type: 'user.list',
+      scroll_param: '456_crimea',
+      users: []
+    });
+
     const client = new Client('foo', 'bar');
-    let nbCalls = 0;
 
-    const promise = client.users.scroll.each({}, function () {
-      nbCalls++;
-    });
+    const response = await client.users.scroll.each({});
 
-    promise.then(() => {
-      assert.equal(2, nbCalls);
-
-      done();
-    });
-  });
-
-  it('should wait for promises returned by the callback before scrolling', done => {
-    const client = new Client('foo', 'bar');
-    let nbCalls = 0;
-
-    client.users.scroll.each({}, function (res) {
-      nbCalls++;
-
-      return res.body.users.length === 0 ?
-        done() :
-        new Bluebird((resolve) => {
-          setTimeout(() => {
-            assert.equal(1, nbCalls, 'hasn\'t re-scrolled before resolve');
-            resolve();
-          }, 500);
-        });
-    });
+    assert.equal(3, response.length);
+    assert.deepStrictEqual([dummyUsers.dummierUser, dummyUsers.dummiestUser, dummyUsers.dummyUser], response);
   });
 });

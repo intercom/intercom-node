@@ -1,26 +1,31 @@
+// TO-DO: Rethink testing framework
+// Workaround for old gulp-mocha to use async functions
+import '@babel/polyfill';
+
 import assert from 'assert';
 import {Client, IdentityVerification} from '../lib';
 import nock from 'nock';
 
 describe('clients', () => {
-  it('ping', done => {
+  it('ping', async () => {
     nock('https://api.intercom.io').get('/admins').reply(200, {});
     const client = new Client('foo', 'bar');
-    client.ping(r => {
-      assert.equal(200, r);
-      done();
-    });
+    const response = await client.ping();
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
-  it('paginate', done => {
+  it('paginate', async () => {
     nock('https://api.intercom.io').get('/foo/bar/baz').query({ blue: 'red' }).reply(200, { foo: 'bar' });
-    const client = new Client('foo', 'bar').usePromises();
+    const client = new Client('foo', 'bar');
     const paginationObject = { next: 'https://api.intercom.io/foo/bar/baz?blue=red' };
-    client.nextPage(paginationObject).then(r => {
-      assert.deepEqual({foo: 'bar'}, r.body);
-      done();
-    });
+    const response = await client.nextPage(paginationObject);
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({foo: 'bar'}, response.data);
   });
   it('should compute user hashes', () => {
+    // TO-DO: Check if hashing algorithm wasn't compromised
     assert.equal('c8acc43edc084edb8207a50320ba4ec5d113686cf8050274a305480c98512e45', IdentityVerification.userHash({secretKey: 'bar', identifier: 'baz'}));
   });
 });

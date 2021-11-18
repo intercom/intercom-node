@@ -1,9 +1,13 @@
+// TO-DO: Rethink testing framework
+// Workaround for old gulp-mocha to use async functions
+import '@babel/polyfill';
+
 import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
 
 describe('bulk', () => {
-  it('should send bulk users', done => {
+  it('should send bulk users', async () => {
     nock('https://api.intercom.io').post('/bulk/users', {
       items: [
         {
@@ -22,16 +26,17 @@ describe('bulk', () => {
         }
       ]
     }).reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.users.bulk([
+
+    const client = new Client('foo', 'bar');
+    const response = await client.users.bulk([
       { create: { email: 'wash@serenity.io' }},
       { create: { email: 'mal@serenity.io'}}
-    ]).then(r => {
-      assert.equal(200, r.statusCode);
-      done();
-    });
+    ]);
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
-  it('should send bulk events', done => {
+  it('should send bulk events', async () => {
     nock('https://api.intercom.io').post('/bulk/events', {
       items: [
         {
@@ -50,13 +55,14 @@ describe('bulk', () => {
         }
       ]
     }).reply(200, {});
-    const client = new Client('foo', 'bar').usePromises();
-    client.events.bulk([
+
+    const client = new Client('foo', 'bar');
+    const response = await client.events.bulk([
       { create: { foo: 'bar' }},
       { create: { bar: 'baz'}}
-    ]).then(r => {
-      assert.equal(200, r.statusCode);
-      done();
-    });
+    ]);
+
+    assert.equal(200, response.status);
+    assert.deepStrictEqual({}, response.data);
   });
 });
