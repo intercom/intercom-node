@@ -18,6 +18,7 @@
     "api"
   ],
   "dependencies": {
+    "@types/mocha": "^9.0.0",
     "axios": "0.24.0",
     "bluebird": "^3.7.2",
     "gulp-sourcemaps": "^3.0.0",

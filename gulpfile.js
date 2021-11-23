@@ -23,6 +23,20 @@ gulp.task('compile_ts', () => {
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./lib'));
 });
+gulp.task('compile_tests_ts', () => {
+  const tsProject = ts.createProject('tsconfig.json', {
+    typescript: require('typescript')
+  });
+  const tsResult = gulp.src([
+    'test/*.ts'
+  ])
+    .pipe(sourcemaps.init())
+    .pipe(tsProject());
+
+  return tsResult.js
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./test'));
+});
 gulp.task('static', function () {
   return gulp
     .src('**/*.js')
@@ -61,4 +75,4 @@ gulp.task('babel', function () {
 });
 
 gulp.task('prepublish', gulp.series('babel'));
-gulp.task('default', gulp.series('compile_ts', 'static', 'test'));
+gulp.task('default', gulp.series('compile_ts', 'compile_tests_ts', 'static', 'test'));

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../test/types_workaround.types.ts"],"names":[],"mappings":"","file":"types_workaround.types.js","sourcesContent":["// TBD: Rewrite every other package to TS https://blog.atomist.com/declaration-file-fix/\ndeclare module '*';\n"]}

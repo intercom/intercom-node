@@ -27,6 +27,8 @@ export interface ConversationObject {
   conversation_parts: ConversationPartObject[],
 }
 
+export type ConversationObjectWithoutParts = Exclude<ConversationObject, 'conversation_parts'>;
+
 interface SourceObject {
   type: ConversationSourceType,
   id: string,
@@ -122,7 +124,7 @@ enum ConversationSourceType {
   EMAIL = 'email',
 }
 
-enum ContactType {
+export enum ContactType {
   USER = 'user',
   LEAD = 'lead',
 }
