@@ -35,4 +35,42 @@ describe('conversations', () => {
       done();
     });
   });
+  it('should create conversation', done => {
+    nock('https://api.intercom.io').post('/conversations', {
+      from: {
+        type: 'user',
+        id: 'bar'
+      },
+      body: 'bang'
+    }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.conversations.create({
+      from: {
+        type: 'user',
+        id: 'bar'
+      },
+      body: 'bang'
+    }).then(r => {
+      assert.equal(200, r.statusCode);
+      done();
+    });
+  });
+  it('should update conversation', done => {
+    nock('https://api.intercom.io').put('/conversations/bar', {
+      id: 'bar',
+      custom_attributes: {
+        baz: 'bang'
+      }
+    }).reply(200, {});
+    const client = new Client('foo', 'bar').usePromises();
+    client.conversations.update({
+      id: 'bar',
+      custom_attributes: {
+        baz: 'bang'
+      }
+    }).then(r => {
+      assert.equal(200, r.statusCode);
+      done();
+    });
+  });
 });
