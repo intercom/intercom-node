@@ -10,10 +10,10 @@ export default class Conversation {
   constructor(private readonly client: Client) {
     this.client = client;
   }
-  create({id, body}: CreateConversationData) {
+  create({userId, body}: CreateConversationData) {
     const requestData: CreateConversationRequest = {
       from: {
-        id,
+        id: userId,
         type: 'user'
       },
       body
@@ -178,7 +178,7 @@ interface CreateConversationRequest {
 }
 
 interface CreateConversationData {
-  id: string,
+  userId: string,
   body: string
 }
 //

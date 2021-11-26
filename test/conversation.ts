@@ -28,7 +28,7 @@ describe('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.create({id, body: message.body});
+    const response = await client.conversations.create({userId: id, body: message.body});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);

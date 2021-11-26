@@ -2,7 +2,7 @@
 
 ## Added
 
-1. Method to create Conversation `conversation.create({id, body})`
+1. Method to create Conversation `conversation.create({userId, body})`
 2. New param to find Conversation – `display_as` –> `conversation.find({id, inPlainText})`
 3. Method to update Conversation `conversation.update({id, markRead, customAttributes})`
 4. Method to assign Conversaton `conversation.assign({id, type, adminId, assigneeId, body, withRunningAssignmentRules})`
