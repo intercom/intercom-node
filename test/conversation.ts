@@ -3,10 +3,17 @@ import {Client} from '../lib';
 import nock from 'nock';
 import { AssignToConversationMessageType, AssignToConversationUserType, CloseConversationMessageType, CloseConversationType, OpenConversationMessageType, Operators, Order, RedactConversationPartType, ReplyToConversationMessageType, ReplyToConversationUserType, SnoozeConversationMessageType, SortBy } from '../lib/conversation';
 
-describe.only('conversations', () => {
+describe('conversations', () => {
   it('should create a conversation', async () => {
     const id = '536e564f316c83104c000020'
-    const body = 'Hello darkness my old friend'
+
+    const message = {
+      from: {
+        type: 'user',
+        id,
+      },
+      body: 'Hello darkness my old friend',
+    };
 
     const expectedReply = {
       "type": "user_message",
@@ -17,11 +24,11 @@ describe.only('conversations', () => {
       "conversation_id": "36000324324"
     }
 
-    nock('https://api.intercom.io').post('/conversations', {id, body, type: 'user'}).reply(200, expectedReply);
+    nock('https://api.intercom.io').post('/conversations', message).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.create({id, body});
+    const response = await client.conversations.create({id, body: message.body});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -150,11 +157,10 @@ describe.only('conversations', () => {
   });
 
   it('should reply as admin to last conversation', async () => {
-    const id = '536e564f316c83104c000020';
     const adminId = '536e564f316c83104c000021';
 
     const adminRequestBody = {
-      admin_id: id,
+      admin_id: adminId,
       message_type: ReplyToConversationMessageType.NOTE,
       type: ReplyToConversationUserType.ADMIN,
       body: '<b>blablbalba</b>',

@@ -21,6 +21,7 @@ import { BadResponseError } from './errors/badResponse.error';
 interface IRequestOptions {
   url: string;
   data?: any;
+  params?: any
 }
 
 export default class Client {
@@ -187,9 +188,9 @@ export default class Client {
     }
   }
 
-  async delete({url, data}: IRequestOptions): Promise<AxiosResponse | void> {
+  async delete({url, data, params}: IRequestOptions): Promise<AxiosResponse | void> {
     try {
-      const response = await this.axiosInstance.delete(url, {params: data});
+      const response = await this.axiosInstance.delete(url, {data, params});
       this.checkOnErrorInResponse(response);
       return response;
     }

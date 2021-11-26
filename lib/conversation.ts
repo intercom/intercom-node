@@ -80,7 +80,7 @@ export default class Conversation {
     return this.client.post({url: `/${this.conversationBaseUrl}/last/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsAdmin>>;
   }
   assign({id, type, adminId, assigneeId, body, withRunningAssignmentRules = false}: AssignConversationData) {
-    const url = `/${this.conversationBaseUrl}/${id}/${withRunningAssignmentRules ? 'run_assignment_rules' : ''}`;
+    const url = `/${this.conversationBaseUrl}/${id}${withRunningAssignmentRules ? '/run_assignment_rules' : ''}`;
     const data: AssignConversationRequest | undefined = withRunningAssignmentRules ? undefined : {
       message_type: AssignToConversationMessageType.ASSIGNMENT,
       type,
@@ -164,7 +164,7 @@ export default class Conversation {
       source_id: sourceId,
       type
     };
-    
+
     return this.client.post({url: `/${this.conversationBaseUrl}/redact`, data}) as Promise<AxiosResponse<Conversation, RedactConversationPartRequest>>;
   }
 }
