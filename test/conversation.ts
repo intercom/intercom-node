@@ -5,13 +5,8 @@ import { AssignToConversationMessageType, AssignToConversationUserType, CloseCon
 
 describe.only('conversations', () => {
   it('should create a conversation', async () => {
-    const message = {
-      from: {
-        type: 'user',
-        id: '536e564f316c83104c000020'
-      },
-      body: 'Hello darkness my old friend',
-    };
+    const id = '536e564f316c83104c000020'
+    const body = 'Hello darkness my old friend'
 
     const expectedReply = {
       "type": "user_message",
@@ -22,11 +17,11 @@ describe.only('conversations', () => {
       "conversation_id": "36000324324"
     }
 
-    nock('https://api.intercom.io').post('/conversations', message).reply(200, expectedReply);
+    nock('https://api.intercom.io').post('/conversations', {id, body, type: 'user'}).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.create({data: message});
+    const response = await client.conversations.create({id, body});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -56,7 +51,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.find({id,  query: {display_as: 'plaintext'}});
+    const response = await client.conversations.find({id, inPlainText: true});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -71,19 +66,20 @@ describe.only('conversations', () => {
         yey: 'in the bay'
       }
     }
+
     const expectedReply = {}
 
     nock('https://api.intercom.io').put(`/conversations/${id}`, requestBody).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.update({id, data: requestBody});
+    const response = await client.conversations.update({id, markRead: requestBody.read, customAttributes: requestBody.custom_attributes});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
   });
 
-  it('should reply by user to a conversation by id', async () => {
+  it('should reply as user to a conversation by id', async () => {
     const id = '536e564f316c83104c000020';
 
     const userRequestBody = {
@@ -100,17 +96,18 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.replyById({id, data: userRequestBody});
+    const response = await client.conversations.replyByIdAsUser({id, body: userRequestBody.body, intercomUserId: userRequestBody.intercom_user_id, attachmentUrls: userRequestBody.attachment_urls});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
   });
 
-  it('should reply by admin to a conversation by id', async () => {
+  it('should reply as admin to a conversation by id', async () => {
     const id = '536e564f316c83104c000020';
+    const adminId = '536e564f316c83104c000020';
 
     const adminRequestBody = {
-      admin_id: id,
+      admin_id: adminId,
       message_type: ReplyToConversationMessageType.NOTE,
       type: ReplyToConversationUserType.ADMIN,
       body: '<b>blablbalba</b>',
@@ -123,13 +120,13 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.replyById({id, data: adminRequestBody});
+    const response = await client.conversations.replyByIdAsAdmin({id, adminId, messageType: adminRequestBody.message_type, body: adminRequestBody.body, attachmentUrls: adminRequestBody.attachment_urls});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
   });
 
-  it('should reply by user to last conversation', async () => {
+  it('should reply as user to last conversation', async () => {
     const id = '536e564f316c83104c000020';
 
     const userRequestBody = {
@@ -146,14 +143,15 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.replyByLast({data: userRequestBody});
+    const response = await client.conversations.replyByLastAsUser({body: userRequestBody.body, intercomUserId: userRequestBody.intercom_user_id, attachmentUrls: userRequestBody.attachment_urls});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
   });
 
-  it('should reply by admin to last conversation', async () => {
+  it('should reply as admin to last conversation', async () => {
     const id = '536e564f316c83104c000020';
+    const adminId = '536e564f316c83104c000021';
 
     const adminRequestBody = {
       admin_id: id,
@@ -169,7 +167,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.replyByLast({data: adminRequestBody});
+    const response = await client.conversations.replyByLastAsAdmin({adminId, messageType: adminRequestBody.message_type, body: adminRequestBody.body, attachmentUrls: adminRequestBody.attachment_urls});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -182,6 +180,7 @@ describe.only('conversations', () => {
       message_type: AssignToConversationMessageType.ASSIGNMENT,
       type: AssignToConversationUserType.TEAM,
       assignee_id: id,
+      admin_id: id,
       body: '<b>blablbalba</b>',
     }
 
@@ -191,7 +190,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.assign({id, data: userRequestBody});
+    const response = await client.conversations.assign({id, type: userRequestBody.type, adminId: userRequestBody.admin_id, assigneeId: userRequestBody.assignee_id, body: userRequestBody.body});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -213,7 +212,6 @@ describe.only('conversations', () => {
   });
 
   it('should snooze a conversation', async () => {
-    // TO-DO: refactor request body in whole file
     const id = '536e564f316c83104c000020';
 
     const adminRequestBody = {
@@ -228,7 +226,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.snooze({id, data: adminRequestBody});
+    const response = await client.conversations.snooze({id, adminId: adminRequestBody.admin_id, snoozedUntil: adminRequestBody.snoozed_until});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -250,7 +248,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.close({id, data: adminRequestBody});
+    const response = await client.conversations.close({id, adminId: adminRequestBody.admin_id, body: adminRequestBody.body});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -270,7 +268,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.open({id, data: adminRequestBody});
+    const response = await client.conversations.open({id, adminId: adminRequestBody.admin_id});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -292,7 +290,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.attachContact({id, data: adminRequestBody});
+    const response = await client.conversations.attachContactAsAdmin({id, adminId: adminRequestBody.admin_id, customer: {intercomUserId: adminRequestBody.customer.intercom_user_id}});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -314,7 +312,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.attachContact({id, data: contactRequestBody});
+    const response = await client.conversations.attachContactAsContact({id, userId: contactRequestBody.user_id, customer: {intercomUserId: contactRequestBody.customer.intercom_user_id}});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -335,7 +333,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.detachContact({conversationId, contactId, data: adminRequestBody});
+    const response = await client.conversations.detachContactAsAdmin({conversationId, contactId, adminId: adminRequestBody.admin_id});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);
@@ -421,7 +419,7 @@ describe.only('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.redactConversationPart({data: requestBody});
+    const response = await client.conversations.redactConversationPart({type: requestBody.type, conversationId: requestBody.conversation_id, conversationPartId: requestBody.conversation_part_id});
 
     assert.equal(200, response?.status);
     assert.deepStrictEqual(expectedReply, response?.data);

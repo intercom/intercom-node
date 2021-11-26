@@ -9,8 +9,8 @@
 5. Method to snooze Conversation `conversation.snooze({id, data})`
 6. Method to close Conversation `conversation.close({id, data})`
 7. Method to open Conversation `conversation.open({id, data})`
-8. Method to attach contact to Conversation `conversation.attach({id, data})`
-9. Method to detach contact from Conversation `conversation.detach({conversationId, contactId, data})`
+8. Method to attach contact to Conversation `conversation.attachContact({id, data})`
+9. Method to detach contact from Conversation `conversation.detachContact({conversationId, contactId, data})`
 10. Method to search Conversation using nested/flat filters `conversation.search({data})`
 11. Method to redact Conversation's part `conversation.redactConversationPart({data})`
 

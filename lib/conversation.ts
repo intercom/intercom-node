@@ -10,41 +10,146 @@ export default class Conversation {
   constructor(private readonly client: Client) {
     this.client = client;
   }
-  create({data}: CreateConversationRequest) {
-    return this.client.post({url: `/${this.conversationBaseUrl}`, data}) as Promise<AxiosResponse<MessageObject, CreateConversationRequest['data']>>;
+  create({id, body}: CreateConversationData) {
+    const requestData: CreateConversationRequest = {
+      from: {
+        id,
+        type: 'user'
+      },
+      body
+    }
+    return this.client.post({url: `/${this.conversationBaseUrl}`, data: requestData}) as Promise<AxiosResponse<MessageObject, CreateConversationRequest>>;
   }
-  find({id, query}: RetrieveConversationRequest) {
-    return this.client.get({url: `/${this.conversationBaseUrl}/${id}`, data: query}) as Promise<AxiosResponse<ConversationObject, void>>;;
-  }
-  update({id, data}: UpdateConversationRequest) {
-    return this.client.put({url: `/${this.conversationBaseUrl}/${id}`, data}) as Promise<AxiosResponse<ConversationObject, UpdateConversationRequest['data']>>;
-  }
-  replyById({id, data}: ReplyByIdConversationRequest) {
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyByIdConversationRequest['data']>>;
-  }
-  replyByLast({data}: ReplyByLastConversationRequest) {
-    return this.client.post({url: `/${this.conversationBaseUrl}/last/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyByLastConversationRequest['data']>>;
-  }
-  assign({id, data: requestData, withRunningAssignmentRules = false}: AssignConversationRequest) {
-    const url = `/${this.conversationBaseUrl}/${id}/${withRunningAssignmentRules ? 'run_assignment_rules' : ''}`;
-    const data = withRunningAssignmentRules ? undefined : requestData;
+  find({id, inPlainText}: RetrieveConversationData) {
+    const data = inPlainText ? {
+      display_as: 'plaintext'
+    } : undefined;
 
-    return this.client.post({url, data}) as Promise<AxiosResponse<ConversationObject, AssignConversationRequest['data']>>;
+    return this.client.get({url: `/${this.conversationBaseUrl}/${id}`, data}) as Promise<AxiosResponse<ConversationObject, void>>;;
   }
-  snooze({id, data}: SnoozeConversationRequest) {
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/reply`, data}) as Promise<AxiosResponse<ConversationObject, SnoozeConversationRequest['data']>>;
+  update({id, markRead, customAttributes}: UpdateConversationData) {
+    const data: UpdateConversationRequest = {
+      read: markRead,
+      custom_attributes: customAttributes,
+    }
+
+    return this.client.put({url: `/${this.conversationBaseUrl}/${id}`, data}) as Promise<AxiosResponse<ConversationObject, UpdateConversationRequest>>;
   }
-  close({id, data}: CloseConversationRequest) {
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/parts`, data}) as Promise<AxiosResponse<ConversationObject, CloseConversationRequest['data']>>
+  replyByIdAsUser({id, body, intercomUserId, userId, email, attachmentUrls}: ReplyByIdAsUserData) {
+    const data: ReplyToConversationAsUser = {
+      message_type: ReplyToConversationMessageType.COMMENT,
+      type: ReplyToConversationUserType.USER,
+      body,
+      intercom_user_id: intercomUserId,
+      user_id: userId,
+      email: email,
+      attachment_urls: attachmentUrls,
+    }
+    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsUser>>;
   }
-  open({id, data}: OpenConversationRequest) {
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/parts`, data}) as Promise<AxiosResponse<ConversationObject, OpenConversationRequest['data']>>
+  replyByIdAsAdmin({id, adminId, messageType, body, attachmentUrls}: ReplyByIdAsAdminData) {
+    const data: ReplyToConversationAsAdmin = {
+      admin_id: adminId,
+      message_type: messageType,
+      type: ReplyToConversationUserType.ADMIN,
+      body,
+      attachment_urls: attachmentUrls,
+    }
+    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsAdmin>>;
   }
-  attachContact({id, data}: AttachContactToConversationRequest) {
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/customers`, data}) as Promise<AxiosResponse<AttachContactToConversationResponse, AttachContactToConversationRequest['data']>>
+  replyByLastAsUser({body, intercomUserId, userId, email, attachmentUrls}: ReplyByLastAsUserData) {
+    const data: ReplyToConversationAsUser = {
+      message_type: ReplyToConversationMessageType.COMMENT,
+      type: ReplyToConversationUserType.USER,
+      body,
+      intercom_user_id: intercomUserId,
+      user_id: userId,
+      email: email,
+      attachment_urls: attachmentUrls,
+    }
+    return this.client.post({url: `/${this.conversationBaseUrl}/last/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsUser>>;
   }
-  detachContact({conversationId, contactId, data}: DetachContactFromConversationRequest) {
-    return this.client.delete({url: `/${this.conversationBaseUrl}/${conversationId}/customers/${contactId}`, data}) as Promise<AxiosResponse<ConversationObject, DetachContactFromConversationRequest['data']>>
+  replyByLastAsAdmin({adminId, messageType, body, attachmentUrls}: ReplyByLastAsAdminData) {
+    const data: ReplyToConversationAsAdmin = {
+      admin_id: adminId,
+      message_type: messageType,
+      type: ReplyToConversationUserType.ADMIN,
+      body,
+      attachment_urls: attachmentUrls,
+    }
+    return this.client.post({url: `/${this.conversationBaseUrl}/last/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsAdmin>>;
+  }
+  assign({id, type, adminId, assigneeId, body, withRunningAssignmentRules = false}: AssignConversationData) {
+    const url = `/${this.conversationBaseUrl}/${id}/${withRunningAssignmentRules ? 'run_assignment_rules' : ''}`;
+    const data: AssignConversationRequest | undefined = withRunningAssignmentRules ? undefined : {
+      message_type: AssignToConversationMessageType.ASSIGNMENT,
+      type,
+      admin_id: adminId,
+      assignee_id: assigneeId,
+      body,
+    };
+
+    return this.client.post({url, data}) as Promise<AxiosResponse<ConversationObject, AssignConversationRequest>>;
+  }
+  snooze({id, adminId, snoozedUntil}: SnoozeConversationData) {
+    const data: SnoozeConversationRequest = {
+      message_type: SnoozeConversationMessageType.SNOOZED,
+      admin_id: adminId,
+      snoozed_until: snoozedUntil
+    };
+
+    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/reply`, data}) as Promise<AxiosResponse<ConversationObject, SnoozeConversationRequest>>;
+  }
+  close({id, adminId, body}: CloseConversationData) {
+    const data: CloseConversationRequest = {
+      message_type: CloseConversationMessageType.CLOSED,
+      type: CloseConversationType.ADMIN,
+      admin_id: adminId,
+      body,
+    }
+
+    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/parts`, data}) as Promise<AxiosResponse<ConversationObject, CloseConversationRequest>>
+  }
+  open({id, adminId}: OpenConversationData) {
+    const data: OpenConversationRequest = {
+      message_type: OpenConversationMessageType.OPEN,
+      admin_id: adminId,
+    }
+
+    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/parts`, data}) as Promise<AxiosResponse<ConversationObject, OpenConversationRequest>>
+  }
+  attachContactAsAdmin({id, adminId, customer}: AttachContactToConversationAsAdminData) {
+    const data: AttachContactToConversationAdminRequest = {
+      admin_id: adminId,
+      customer: {
+        intercom_user_id: customer.intercomUserId,
+        user_id: customer.userId,
+        email: customer.email
+      }
+    }
+
+    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/customers`, data}) as Promise<AxiosResponse<AttachContactToConversationResponse, AttachContactToConversationAdminRequest>>
+  }
+  attachContactAsContact({id, userId, intercomUserId, email, customer}: AttachContactToConversationAsContactData) {
+    const data: AttachContactToConversationContactRequest = {
+      intercom_user_id: intercomUserId,
+      user_id: userId,
+      email,
+      customer: {
+        intercom_user_id: customer.intercomUserId,
+        user_id: customer.userId,
+        email: customer.email,
+      }
+    }
+
+    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/customers`, data}) as Promise<AxiosResponse<AttachContactToConversationResponse, AttachContactToConversationContactRequest>>
+  }
+  detachContactAsAdmin({conversationId, contactId, adminId}: DetachContactFromConversationData) {
+    const data: DetachContactFromConversationRequest = {
+      admin_id: adminId,
+    }
+
+    return this.client.delete({url: `/${this.conversationBaseUrl}/${conversationId}/customers/${contactId}`, data}) as Promise<AxiosResponse<ConversationObject, DetachContactFromConversationRequest>>
   }
   search({data}: SearchConversationRequest){
     return this.client.post({url: `/${this.conversationBaseUrl}/search`, data}) as Promise<AxiosResponse<SearchConversationResponse, SearchConversationRequest['data']>>
@@ -52,32 +157,44 @@ export default class Conversation {
   list({query}: ListConversationRequest) {
     return this.client.get({url: `/${this.conversationBaseUrl}`, data: query}) as Promise<AxiosResponse<ListConversationResponse, void>>;
   }
-  redactConversationPart({data}: RedactConversationPartRequest) {
+  redactConversationPart({conversationId, conversationPartId, sourceId, type}: RedactConversationPartData) {
+    const data: RedactConversationPartRequest = {
+      conversation_id: conversationId,
+      conversation_part_id: conversationPartId,
+      source_id: sourceId,
+      type
+    };
+    
     return this.client.post({url: `/${this.conversationBaseUrl}/redact`, data}) as Promise<AxiosResponse<Conversation, RedactConversationPartRequest>>;
   }
 }
 
 interface CreateConversationRequest {
-  data:
-  {from: {
+  from: {
     type: 'user' | string,
     id: string,
   },
   body: string
-  }
+}
+
+interface CreateConversationData {
+  id: string,
+  body: string
 }
 //
-interface RetrieveConversationRequest {
+interface RetrieveConversationData {
   id: string,
-  query?:  { display_as?: 'plaintext' | string }
+  inPlainText?: boolean;
 }
 //
 interface UpdateConversationRequest {
+  custom_attributes: object,
+  read?: boolean
+}
+interface UpdateConversationData {
   id: string,
-  data?: {
-    read?: boolean,
-    custom_attributes: object
-  }
+  markRead?: boolean,
+  customAttributes: object,
 }
 //
 export enum ReplyToConversationMessageType {
@@ -101,20 +218,33 @@ interface ReplyToConversationAsUser {
 }
 
 interface ReplyToConversationAsAdmin {
+  admin_id: string,
   message_type: ReplyToConversationMessageType,
   type: ReplyToConversationUserType,
   body: string,
   attachment_urls?: Array<string>,
 }
 
-interface ReplyByIdConversationRequest {
-  id: string;
-  data?: ReplyToConversationAsUser | ReplyToConversationAsAdmin
+interface ReplyByIdAsUserData {
+  id: string,
+  body: string,
+  intercomUserId?: string,
+  userId?: string,
+  email?: string,
+  attachmentUrls?: Array<string>,
 };
 
-interface ReplyByLastConversationRequest {
-  data?: ReplyToConversationAsUser | ReplyToConversationAsAdmin
-}
+interface ReplyByIdAsAdminData {
+  id: string;
+  adminId: string;
+  messageType: ReplyToConversationMessageType,
+  body: string,
+  attachmentUrls?: Array<string>,
+};
+
+type ReplyByLastAsUserData = Omit<ReplyByIdAsUserData, 'id'>;
+
+type ReplyByLastAsAdminData = Omit<ReplyByIdAsAdminData, 'id'>;
 //
 export enum AssignToConversationMessageType {
   ASSIGNMENT = 'assignment'
@@ -125,14 +255,19 @@ export enum AssignToConversationUserType {
 }
 
 interface AssignConversationRequest {
+  message_type: AssignToConversationMessageType,
+  type?: AssignToConversationUserType,
+  admin_id?: string,
+  assignee_id?: string | 0,
+  body?: string,
+}
+
+interface AssignConversationData {
   id: string,
-  data?: {
-    message_type: AssignToConversationMessageType,
-    type: AssignToConversationUserType,
-    admin_id?: string,
-    assignee_id?: string | 0,
-    body?: string,
-  },
+  type?: AssignToConversationUserType,
+  adminId?: string,
+  assigneeId?: string | 0,
+  body?: string,
   withRunningAssignmentRules?: boolean
 }
 //
@@ -141,12 +276,15 @@ export enum SnoozeConversationMessageType {
 }
 
 interface SnoozeConversationRequest {
+  message_type: SnoozeConversationMessageType,
+  admin_id: string,
+  snoozed_until: StringifiedTimestamp
+}
+
+interface SnoozeConversationData {
   id: string,
-  data: {
-    message_type: SnoozeConversationMessageType,
-    admin_id: string,
-    snoozed_until: StringifiedTimestamp
-  }
+  adminId: string,
+  snoozedUntil: StringifiedTimestamp
 }
 //
 export enum CloseConversationMessageType {
@@ -157,13 +295,16 @@ export enum CloseConversationType {
 }
 
 interface CloseConversationRequest {
+  message_type: CloseConversationMessageType,
+  type: CloseConversationType,
+  admin_id: string,
+  body?: string
+}
+
+interface CloseConversationData {
   id: string,
-  data: {
-    message_type: CloseConversationMessageType,
-    type: CloseConversationType,
-    admin_id: string,
-    body?: string
-  }
+  adminId: string,
+  body?: string
 }
 //
 export enum OpenConversationMessageType {
@@ -171,17 +312,25 @@ export enum OpenConversationMessageType {
 }
 
 interface OpenConversationRequest {
+  message_type: OpenConversationMessageType,
+  admin_id: string,
+}
+
+interface OpenConversationData {
   id: string,
-  data: {
-    message_type: OpenConversationMessageType,
-    admin_id: string,
-  }
+  adminId: string,
 }
 //
 interface CustomerObject {
   intercom_user_id?: string;
   user_id?: string;
   email?: string;
+}
+
+interface NormalizedCustomerObject {
+  intercomUserId?: string
+  userId?: string
+  email?: string
 }
 
 interface AttachContactToConversationAdminRequest {
@@ -193,9 +342,15 @@ interface AttachContactToConversationContactRequest extends CustomerObject {
   customer: CustomerObject;
 }
 
-interface AttachContactToConversationRequest {
+interface AttachContactToConversationAsAdminData {
   id: string,
-  data: AttachContactToConversationAdminRequest | AttachContactToConversationContactRequest
+  adminId: string,
+  customer: NormalizedCustomerObject
+}
+
+interface AttachContactToConversationAsContactData extends NormalizedCustomerObject {
+  id: string,
+  customer: NormalizedCustomerObject
 }
 
 interface AttachContactToConversationResponse {
@@ -203,11 +358,13 @@ interface AttachContactToConversationResponse {
 }
 //
 interface DetachContactFromConversationRequest {
+  admin_id: string
+}
+
+interface DetachContactFromConversationData {
   conversationId: string,
   contactId: string,
-  data: {
-    admin_id: string
-  }
+  adminId: string
 }
 //
 export enum Operators {
@@ -273,10 +430,15 @@ export enum RedactConversationPartType {
 }
 
 interface RedactConversationPartRequest {
-  data: {
-    type: RedactConversationPartType,
-    conversation_id: string,
-    conversation_part_id?: string,
-    source_id?: string,
-  }
+  type: RedactConversationPartType,
+  conversation_id: string,
+  conversation_part_id?: string,
+  source_id?: string,
+}
+
+interface RedactConversationPartData {
+  type: RedactConversationPartType,
+  conversationId: string,
+  conversationPartId?: string,
+  sourceId?: string,
 }
