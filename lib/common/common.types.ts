@@ -3,7 +3,7 @@ export type Timestamp = number;
 export type Seconds = number;
 export type JavascriptObject = Record<string | number, unknown>;
 
-export type Paginated<T> = {
+export type Paginated = {
   type: string,
   pages: {
     type: string,
@@ -13,7 +13,6 @@ export type Paginated<T> = {
     total_pages: number,
   }
   total_count: number,
-  conversations: Array<T>
 };
 
 type Join<K, P> = K extends string | number ?

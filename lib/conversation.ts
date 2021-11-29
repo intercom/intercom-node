@@ -422,7 +422,7 @@ interface ListConversationRequest {
   },
 }
 
-type ListConversationResponse = Paginated<ConversationObjectWithoutParts>
+type ListConversationResponse = Paginated & {conversations: Array<ConversationObjectWithoutParts>};
 //
 export enum RedactConversationPartType {
   CONVERSATION_PART = 'conversation_part',
