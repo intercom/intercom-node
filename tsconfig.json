@@ -19,11 +19,12 @@
       "pretty": true,
       "strictNullChecks": true,
       "noUnusedLocals": true,
-      "downlevelIteration": true
+      "downlevelIteration": true,
+      "rootDir": "."
   },
   "include": [
-    "lib",
-    "test"
+    "lib/**/*",
+    "test/**/*"
   ],
   "exclude": [
     "node_modules",

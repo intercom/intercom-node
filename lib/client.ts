@@ -20,7 +20,8 @@ import { BadResponseError } from './errors/badResponse.error';
 
 interface IRequestOptions {
   url: string;
-  data?: Record<string, unknown>
+  data?: any;
+  params?: any
 }
 
 export default class Client {
@@ -38,7 +39,7 @@ export default class Client {
   tags: any;
   segments: any;
   messages: any;
-  conversations: any;
+  conversations: Conversation;
   notes: any;
   customers: any;
   requestOpts: Partial<AxiosDefaults>;
@@ -187,9 +188,9 @@ export default class Client {
     }
   }
 
-  async delete({url, data}: IRequestOptions): Promise<AxiosResponse | void> {
+  async delete({url, data, params}: IRequestOptions): Promise<AxiosResponse | void> {
     try {
-      const response = await this.axiosInstance.delete(url, {params: data});
+      const response = await this.axiosInstance.delete(url, {data, params});
       this.checkOnErrorInResponse(response);
       return response;
     }
@@ -201,7 +202,7 @@ export default class Client {
     }
   }
 
-  private checkOnErrorInResponse ({data, headers, status}: AxiosResponse): void {
+  private checkOnErrorInResponse({data, headers, status}: AxiosResponse): void {
     if (data.type !== 'error.list') {
       return;
     }
