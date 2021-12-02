@@ -1,7 +1,8 @@
 import assert from 'assert';
 import {Client} from '../lib';
 import nock from 'nock';
-import { AssignToConversationMessageType, AssignToConversationUserType, CloseConversationMessageType, CloseConversationType, OpenConversationMessageType, Operators, Order, RedactConversationPartType, ReplyToConversationMessageType, ReplyToConversationUserType, SnoozeConversationMessageType, SortBy } from '../lib/conversation';
+import { AssignToConversationMessageType, AssignToConversationUserType, CloseConversationMessageType, CloseConversationType, OpenConversationMessageType, Order, RedactConversationPartType, ReplyToConversationMessageType, ReplyToConversationUserType, SnoozeConversationMessageType, SortBy } from '../lib/conversation';
+import { Operators } from '../lib/common/common.types';
 
 describe('conversations', () => {
   it('should create a conversation', async () => {

@@ -34,3 +34,25 @@
   }
 }
 ```
+
+# [Contacts API]
+
+## Added
+
+1. Method to archive Contact -> `contacts.archive({id})`
+2. Method to unarchive Contact -> `contacts.unarchive({id})`
+3. Method to list attached companies -> `contacts.listAttachedCompanies({id})`
+4. Method to list attached tags -> `contacts.listAttachedTags({id})`
+5. Method to list attached segments -> `contacts.listAttachedSegments({id})`
+6. Method to list attached email subscriptions -> `contacts.listAttachedEmailSubscriptions({id})`
+7. Method to search Contact by filters `contacts.search({data})`
+
+## Changed
+
+1. Methods to create Contact:
+1.1. Create User -> `contacts.createUser({externalId phone, name, avatar, signedUpAt, lastSeenAt, ownerId, isUnsubscribedFromEmails, customAttributes})`
+1.2. Create Lead -> `contacts.createLead({phone, name, avatar, signedUpAt, lastSeenAt, ownerId, isUnsubscribedFromEmails, customAttributes})`
+2. Method to find Contact –> `contact.find({id})`
+3. Method to update Contact -> `contact.update({id, role, externalId, phone, name, avatar, signedUpAt, lastSeenAt, ownerId, isUnsubscribedFromMails, customAttributes})`
+4. Removed `listBy` method
+5. Removed `convert` method

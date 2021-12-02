@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import Client from './client'
-import { Leaves, Paginated, StringifiedTimestamp } from './common/common.types';
+import { Paginated, StringifiedTimestamp, GenericSearchFilters } from './common/common.types';
 import { ContactType, ConversationObject, ConversationObjectWithoutParts } from './conversation/conversation.types';
 import { MessageObject } from './message/message.types';
 
@@ -367,37 +367,8 @@ interface DetachContactFromConversationData {
   adminId: string
 }
 //
-export enum Operators {
-  AND = "AND",
-  OR = "OR",
-  EQUALS = "=",
-  NOT_EQUALS = "!=",
-  IN = "IN",
-  NIN = "NIN",
-  GREATER_THAN = ">",
-  LESS_THAN = "<",
-  CONTAINS = "~",
-  NOT_CONTAINS = "!~",
-  STARTS_WITH = "^",
-  ENDS_WITH = "$",
-}
-
-interface FlatQuery {
-  field: Leaves<ConversationObject>,
-  operator: Operators,
-  value: string | number;
-}
-
-interface NestedQueries {
-  operator: Operators,
-  value: Array<FlatQuery | NestedQueries> | string | number,
-}
-
-interface SearchFilters {
-  query: FlatQuery | NestedQueries
-}
 interface SearchConversationRequest {
-  data: SearchFilters
+  data: GenericSearchFilters<ConversationObject>;
 }
 
 interface SearchConversationResponse extends ConversationObject {
