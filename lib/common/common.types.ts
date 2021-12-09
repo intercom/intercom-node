@@ -31,3 +31,34 @@ export type Paths<T, D extends number = 10> = [D] extends [never] ? never : T ex
 
 export type Leaves<T, D extends number = 10> = [D] extends [never] ? never : T extends object ?
     { [K in keyof T]-?: Join<K, Leaves<T[K], Prev[D]>> }[keyof T] : "";
+
+
+export enum Operators {
+  AND = "AND",
+  OR = "OR",
+  EQUALS = "=",
+  NOT_EQUALS = "!=",
+  IN = "IN",
+  NIN = "NIN",
+  GREATER_THAN = ">",
+  LESS_THAN = "<",
+  CONTAINS = "~",
+  NOT_CONTAINS = "!~",
+  STARTS_WITH = "^",
+  ENDS_WITH = "$",
+}
+
+interface FlatQuery<T> {
+  field: Leaves<T>,
+  operator: Operators,
+  value: string | number;
+}
+
+interface NestedQueries<T> {
+  operator: Operators,
+  value: Array<FlatQuery<T> | NestedQueries<T>> | string | number,
+}
+
+export interface GenericSearchFilters<T> {
+  query: FlatQuery<T> | NestedQueries<T>
+}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../lib/segment/segment.types.ts"],"names":[],"mappings":";AAAA,kCAAkC","file":"segment.types.js","sourcesContent":["//TO-DO: Detail type SegmentObject\n\nexport type SegmentObject = any;\n"]}

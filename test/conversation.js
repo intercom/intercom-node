@@ -5,6 +5,7 @@ var assert_1 = (0, tslib_1.__importDefault)(require("assert"));
 var lib_1 = require("../lib");
 var nock_1 = (0, tslib_1.__importDefault)(require("nock"));
 var conversation_1 = require("../lib/conversation");
+var common_types_1 = require("../lib/common/common.types");
 describe('conversations', function () {
     it('should create a conversation', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var id, message, expectedReply, client, response;
@@ -29,7 +30,7 @@ describe('conversations', function () {
                     };
                     (0, nock_1.default)('https://api.intercom.io').post('/conversations', message).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.conversations.create({ id: id, body: message.body })];
+                    return [4 /*yield*/, client.conversations.create({ userId: id, body: message.body })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
@@ -389,34 +390,34 @@ describe('conversations', function () {
                 case 0:
                     requestBody = {
                         "query": {
-                            "operator": conversation_1.Operators.AND,
+                            "operator": common_types_1.Operators.AND,
                             "value": [
                                 {
-                                    "operator": conversation_1.Operators.AND,
+                                    "operator": common_types_1.Operators.AND,
                                     "value": [
                                         {
                                             "field": "updated_at",
-                                            "operator": conversation_1.Operators.GREATER_THAN,
+                                            "operator": common_types_1.Operators.GREATER_THAN,
                                             "value": 1560436650
                                         },
                                         {
                                             "field": "conversation_rating.rating",
-                                            "operator": conversation_1.Operators.EQUALS,
+                                            "operator": common_types_1.Operators.EQUALS,
                                             "value": 1
                                         }
                                     ]
                                 },
                                 {
-                                    "operator": conversation_1.Operators.OR,
+                                    "operator": common_types_1.Operators.OR,
                                     "value": [
                                         {
                                             "field": "updated_at",
-                                            "operator": conversation_1.Operators.GREATER_THAN,
+                                            "operator": common_types_1.Operators.GREATER_THAN,
                                             "value": 1560436650
                                         },
                                         {
                                             "field": "conversation_rating.rating",
-                                            "operator": conversation_1.Operators.EQUALS,
+                                            "operator": common_types_1.Operators.EQUALS,
                                             "value": 2
                                         }
                                     ]

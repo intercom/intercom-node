@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../lib/tag/tag.types.ts"],"names":[],"mappings":";AAAA,yBAAyB","file":"tag.types.js","sourcesContent":["//TO-DO: Detail TagObject\n\nexport type TagObject = any;\n"]}

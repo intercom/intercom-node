@@ -31,7 +31,7 @@ export default class Client {
   users: any;
   events: any;
   companies: any;
-  contacts: any;
+  contacts: Contact;
   leads: any;
   visitors: any;
   counts: any;
