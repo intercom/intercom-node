@@ -383,7 +383,15 @@ describe('conversations', () => {
                ]
              }
            ]
-         }
+         },
+         "pagination": {
+          "per_page": 5,
+          "starting_after": "WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0="
+        },
+        "sort": {
+          "field": "name",
+          "order": "ascending",
+        }
        }
 
     const expectedReply = {}
@@ -392,8 +400,7 @@ describe('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.search({data: requestBody});
-
+    const response = await client.conversations.search({data: {query: requestBody.query, pagination: requestBody.pagination, sort: requestBody.sort as any}});
 
     assert.deepStrictEqual(expectedReply, response);
   });
@@ -406,7 +413,6 @@ describe('conversations', () => {
     const client = new Client('foo', 'bar');
 
     const response = await client.conversations.list({query: {order: Order.DESC, sort: SortBy.UpdatedAt}});
-
 
     assert.deepStrictEqual(expectedReply, response);
   });

@@ -367,7 +367,7 @@ describe('conversations', function () {
             }
         });
     }); });
-    it('should search for conversations using filters', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
+    it.only('should search for conversations using filters', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var requestBody, expectedReply, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {
@@ -407,12 +407,20 @@ describe('conversations', function () {
                                     ]
                                 }
                             ]
+                        },
+                        "pagination": {
+                            "per_page": 5,
+                            "starting_after": "WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0="
+                        },
+                        "sort": {
+                            "field": "name",
+                            "order": "ascending",
                         }
                     };
                     expectedReply = {};
                     (0, nock_1.default)('https://api.intercom.io').post("/conversations/search", requestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.conversations.search({ data: requestBody })];
+                    return [4 /*yield*/, client.conversations.search({ data: { query: requestBody.query, pagination: requestBody.pagination, sort: requestBody.sort } })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual(expectedReply, response);

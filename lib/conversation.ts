@@ -1,5 +1,5 @@
 import Client from './client'
-import { Paginated, StringifiedTimestamp, GenericSearchFilters } from './common/common.types';
+import { Paginated, StringifiedTimestamp, GenericSearchFilters, Leaves } from './common/common.types';
 import { ContactType, ConversationObject, ConversationObjectWithoutParts } from './conversation/conversation.types';
 import { MessageObject } from './message/message.types';
 
@@ -366,13 +366,29 @@ interface DetachContactFromConversationData {
   adminId: string
 }
 //
-interface SearchConversationRequest {
-  data: GenericSearchFilters<ConversationObject>;
+export enum SearchConversationOrderBy {
+  ASC = "ascending",
+  DESC = "descending"
+}
+interface SearchConversationPagination {
+  pagination: {
+    per_page: number,
+    starting_after?: string,
+  }
 }
 
-interface SearchConversationResponse extends ConversationObject {
-  total_count: number
+interface SearchConversationOrder {
+  sort: {
+    field: Leaves<ConversationObject>,
+    order: SearchConversationOrderBy,
+  }
 }
+
+interface SearchConversationRequest {
+  data: GenericSearchFilters<ConversationObject> & Partial<SearchConversationPagination> & Partial<SearchConversationOrder>;
+}
+
+type SearchConversationResponse = Paginated<ConversationObject>;
 //
 export enum Order {
   DESC = 'desc',

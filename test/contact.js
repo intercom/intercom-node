@@ -244,7 +244,7 @@ describe('contacts', function () {
             }
         });
     }); });
-    it.only('should list attached companies of contact by id', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
+    it('should list attached companies of contact by id', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var id, expectedReply, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {
