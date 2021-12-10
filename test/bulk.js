@@ -33,8 +33,8 @@ describe('bulk', () => {
       { create: { email: 'mal@serenity.io'}}
     ]);
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should send bulk events', async () => {
     nock('https://api.intercom.io').post('/bulk/events', {
@@ -62,7 +62,7 @@ describe('bulk', () => {
       { create: { bar: 'baz'}}
     ]);
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 });

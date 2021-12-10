@@ -12,15 +12,15 @@ describe('segments', () => {
     const client = new Client('foo', 'bar');
     const response = await client.segments.list();
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('find by id', async () => {
     nock('https://api.intercom.io').get('/segments/baz').reply(200, {});
     const client = new Client('foo', 'bar');
     const response = await client.segments.find({ id: 'baz' });
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 });

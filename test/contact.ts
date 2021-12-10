@@ -28,8 +28,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.createUser({externalId: contact.external_id, phone: contact.phone, name: contact.name, avatar: contact.avatar, signedUpAt: contact.signed_up_at, lastSeenAt: contact.last_seen_at, ownerId: contact.owner_id, isUnsubscribedFromEmails: contact.unsubscribed_from_emails});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should create a contact with lead role', async () => {
@@ -45,8 +45,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.createLead();
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should retrieve a contact by id', async () => {
@@ -60,8 +60,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.find({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should update a contact', async () => {
@@ -83,8 +83,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.update({id, role: requestBody.role, name: requestBody.name, customAttributes: requestBody.custom_attributes});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should delete a contact by id', async () => {
@@ -98,8 +98,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.delete({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should archive a contact by id', async () => {
@@ -113,8 +113,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.archive({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should unarchive a contact by id', async () => {
@@ -128,8 +128,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.unarchive({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should merge two contacts', async () => {
@@ -149,11 +149,11 @@ describe('contacts', () => {
 
     const response = await client.contacts.mergeLeadInUser({leadId, userId});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
-  it('should search for contacts using filters', async () => {
+  it('should search for contacts using filters, sorts ascending by name, paginates 5 pages per page on page 2', async () => {
     const requestBody =
       {
         "query":  {
@@ -190,7 +190,15 @@ describe('contacts', () => {
                ]
              }
            ]
-         }
+        },
+        "pagination": {
+          "per_page": 5,
+          "starting_after": "WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0="
+        },
+        "sort": {
+          "field": "name",
+          "order": "ascending",
+        }
        }
 
     const expectedReply = {}
@@ -199,10 +207,9 @@ describe('contacts', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.contacts.search({data: requestBody});
+    const response = await client.contacts.search({data: {query: requestBody.query, pagination: requestBody.pagination, sort: {field: 'name', order: "ascending" as any}}});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should list all contacts', async () => {
@@ -211,8 +218,8 @@ describe('contacts', () => {
     const response = await client.contacts.list();
 
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 
   it('should list attached companies of contact by id', async () => {
@@ -226,8 +233,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.listAttachedCompanies({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should list attached tags of contact by id', async () => {
@@ -241,8 +248,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.listAttachedTags({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should list attached segments of contact by id', async () => {
@@ -256,8 +263,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.listAttachedSegments({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should list attached email subscriptions of contact by id', async () => {
@@ -271,8 +278,8 @@ describe('contacts', () => {
 
     const response = await client.contacts.listAttachedEmailSubscriptions({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
 });

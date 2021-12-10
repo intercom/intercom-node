@@ -12,8 +12,8 @@ describe('clients', () => {
     const client = new Client('foo', 'bar');
     const response = await client.ping();
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('paginate', async () => {
     nock('https://api.intercom.io').get('/foo/bar/baz').query({ blue: 'red' }).reply(200, { foo: 'bar' });
@@ -21,8 +21,8 @@ describe('clients', () => {
     const paginationObject = { next: 'https://api.intercom.io/foo/bar/baz?blue=red' };
     const response = await client.nextPage(paginationObject);
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({foo: 'bar'}, response.data);
+
+    assert.deepStrictEqual({foo: 'bar'}, response);
   });
   it('should compute user hashes', () => {
     // TO-DO: Check if hashing algorithm wasn't compromised

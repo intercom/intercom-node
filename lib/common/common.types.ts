@@ -51,12 +51,12 @@ export enum Operators {
 interface FlatQuery<T> {
   field: Leaves<T>,
   operator: Operators,
-  value: string | number;
+  value: string | number | null;
 }
 
 interface NestedQueries<T> {
   operator: Operators,
-  value: Array<FlatQuery<T> | NestedQueries<T>> | string | number,
+  value: Array<FlatQuery<T> | NestedQueries<T>> | string | number | null,
 }
 
 export interface GenericSearchFilters<T> {

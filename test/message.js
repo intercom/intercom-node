@@ -12,7 +12,7 @@ describe('messages', () => {
     const client = new Client('foo', 'bar');
     const response = await client.messages.create({ message_type: 'foo' });
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 });

@@ -118,11 +118,11 @@ export default class Client {
     return omit(opts, this.propertiesToOmitInRequestOpts);
   }
 
-  async ping(): Promise<AxiosResponse | void> {
+  async ping<T>(): Promise<T | void> {
     try {
       const response = await this.axiosInstance.get('/admins');
       this.checkOnErrorInResponse(response);
-      return response;
+      return response.data;
     }
     catch(err) {
       if (!err.response) {
@@ -132,11 +132,11 @@ export default class Client {
     }
   }
 
-  async put({url, data}: IRequestOptions): Promise<AxiosResponse | void> {
+  async put<T>({url, data}: IRequestOptions): Promise<T | void> {
     try {
       const response = await this.axiosInstance.put(url, data);
       this.checkOnErrorInResponse(response);
-      return response;
+      return response.data;
     }
     catch(err) {
       if (!err.response) {
@@ -146,11 +146,11 @@ export default class Client {
     }
   }
 
-  async post({url, data}: IRequestOptions): Promise<AxiosResponse | void> {
+  async post<T>({url, data}: IRequestOptions): Promise<T | void> {
     try {
       const response = await this.axiosInstance.post(url, data);
       this.checkOnErrorInResponse(response);
-      return response;
+      return response.data;
     }
     catch(err) {
       if (!err.response) {
@@ -160,11 +160,11 @@ export default class Client {
     }
   }
 
-  async get({url, data}: IRequestOptions): Promise<AxiosResponse | void> {
+  async get<T>({url, data}: IRequestOptions): Promise<T | void> {
     try {
       const response = await this.axiosInstance.get(url, {params: data});
       this.checkOnErrorInResponse(response);
-      return response;
+      return response.data;
     }
     catch(err) {
       if (!err.response) {
@@ -174,11 +174,11 @@ export default class Client {
     }
   }
 
-  async nextPage(paginationObject: {next: string}): Promise<AxiosResponse | void> {
+  async nextPage<T>(paginationObject: {next: string}): Promise<T | void> {
     try {
       const response = await this.axiosInstance.get(paginationObject.next, {baseURL: undefined});
       this.checkOnErrorInResponse(response);
-      return response;
+      return response.data;
     }
     catch(err) {
       if (!err.response) {
@@ -188,11 +188,11 @@ export default class Client {
     }
   }
 
-  async delete({url, data, params}: IRequestOptions): Promise<AxiosResponse | void> {
+  async delete<T>({url, data, params}: IRequestOptions): Promise<T | void> {
     try {
       const response = await this.axiosInstance.delete(url, {data, params});
       this.checkOnErrorInResponse(response);
-      return response;
+      return response.data;
     }
     catch(err) {
       if (!err.response) {

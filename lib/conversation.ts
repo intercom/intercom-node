@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import Client from './client'
 import { Paginated, StringifiedTimestamp, GenericSearchFilters } from './common/common.types';
 import { ContactType, ConversationObject, ConversationObjectWithoutParts } from './conversation/conversation.types';
@@ -18,14 +17,14 @@ export default class Conversation {
       },
       body
     }
-    return this.client.post({url: `/${this.conversationBaseUrl}`, data: requestData}) as Promise<AxiosResponse<MessageObject, CreateConversationRequest>>;
+    return this.client.post<MessageObject>({url: `/${this.conversationBaseUrl}`, data: requestData});
   }
   find({id, inPlainText}: RetrieveConversationData) {
     const data = inPlainText ? {
       display_as: 'plaintext'
     } : undefined;
 
-    return this.client.get({url: `/${this.conversationBaseUrl}/${id}`, data}) as Promise<AxiosResponse<ConversationObject, void>>;;
+    return this.client.get<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}`, data});
   }
   update({id, markRead, customAttributes}: UpdateConversationData) {
     const data: UpdateConversationRequest = {
@@ -33,7 +32,7 @@ export default class Conversation {
       custom_attributes: customAttributes,
     }
 
-    return this.client.put({url: `/${this.conversationBaseUrl}/${id}`, data}) as Promise<AxiosResponse<ConversationObject, UpdateConversationRequest>>;
+    return this.client.put<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}`, data});
   }
   replyByIdAsUser({id, body, intercomUserId, userId, email, attachmentUrls}: ReplyByIdAsUserData) {
     const data: ReplyToConversationAsUser = {
@@ -45,7 +44,7 @@ export default class Conversation {
       email: email,
       attachment_urls: attachmentUrls,
     }
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsUser>>;
+    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/reply`, data});
   }
   replyByIdAsAdmin({id, adminId, messageType, body, attachmentUrls}: ReplyByIdAsAdminData) {
     const data: ReplyToConversationAsAdmin = {
@@ -55,7 +54,7 @@ export default class Conversation {
       body,
       attachment_urls: attachmentUrls,
     }
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsAdmin>>;
+    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/reply`, data});
   }
   replyByLastAsUser({body, intercomUserId, userId, email, attachmentUrls}: ReplyByLastAsUserData) {
     const data: ReplyToConversationAsUser = {
@@ -67,7 +66,7 @@ export default class Conversation {
       email: email,
       attachment_urls: attachmentUrls,
     }
-    return this.client.post({url: `/${this.conversationBaseUrl}/last/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsUser>>;
+    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/last/reply`, data});
   }
   replyByLastAsAdmin({adminId, messageType, body, attachmentUrls}: ReplyByLastAsAdminData) {
     const data: ReplyToConversationAsAdmin = {
@@ -77,10 +76,10 @@ export default class Conversation {
       body,
       attachment_urls: attachmentUrls,
     }
-    return this.client.post({url: `/${this.conversationBaseUrl}/last/reply`, data}) as Promise<AxiosResponse<ConversationObject, ReplyToConversationAsAdmin>>;
+    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/last/reply`, data});
   }
   assign({id, type, adminId, assigneeId, body, withRunningAssignmentRules = false}: AssignConversationData) {
-    const url = `/${this.conversationBaseUrl}/${id}${withRunningAssignmentRules ? '/run_assignment_rules' : ''}`;
+    const url = `/${this.conversationBaseUrl}/${id}${withRunningAssignmentRules ? '/run_assignment_rules' : ''}/parts`;
     const data: AssignConversationRequest | undefined = withRunningAssignmentRules ? undefined : {
       message_type: AssignToConversationMessageType.ASSIGNMENT,
       type,
@@ -89,7 +88,7 @@ export default class Conversation {
       body,
     };
 
-    return this.client.post({url, data}) as Promise<AxiosResponse<ConversationObject, AssignConversationRequest>>;
+    return this.client.post<ConversationObject>({url, data});
   }
   snooze({id, adminId, snoozedUntil}: SnoozeConversationData) {
     const data: SnoozeConversationRequest = {
@@ -98,17 +97,17 @@ export default class Conversation {
       snoozed_until: snoozedUntil
     };
 
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/reply`, data}) as Promise<AxiosResponse<ConversationObject, SnoozeConversationRequest>>;
+    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/reply`, data});
   }
   close({id, adminId, body}: CloseConversationData) {
     const data: CloseConversationRequest = {
-      message_type: CloseConversationMessageType.CLOSED,
+      message_type: CloseConversationMessageType.CLOSE,
       type: CloseConversationType.ADMIN,
       admin_id: adminId,
       body,
     }
 
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/parts`, data}) as Promise<AxiosResponse<ConversationObject, CloseConversationRequest>>
+    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/parts`, data});
   }
   open({id, adminId}: OpenConversationData) {
     const data: OpenConversationRequest = {
@@ -116,7 +115,7 @@ export default class Conversation {
       admin_id: adminId,
     }
 
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/parts`, data}) as Promise<AxiosResponse<ConversationObject, OpenConversationRequest>>
+    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/parts`, data});
   }
   attachContactAsAdmin({id, adminId, customer}: AttachContactToConversationAsAdminData) {
     const data: AttachContactToConversationAdminRequest = {
@@ -128,7 +127,7 @@ export default class Conversation {
       }
     }
 
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/customers`, data}) as Promise<AxiosResponse<AttachContactToConversationResponse, AttachContactToConversationAdminRequest>>
+    return this.client.post<AttachContactToConversationResponse>({url: `/${this.conversationBaseUrl}/${id}/customers`, data});
   }
   attachContactAsContact({id, userId, intercomUserId, email, customer}: AttachContactToConversationAsContactData) {
     const data: AttachContactToConversationContactRequest = {
@@ -142,20 +141,20 @@ export default class Conversation {
       }
     }
 
-    return this.client.post({url: `/${this.conversationBaseUrl}/${id}/customers`, data}) as Promise<AxiosResponse<AttachContactToConversationResponse, AttachContactToConversationContactRequest>>
+    return this.client.post<AttachContactToConversationResponse>({url: `/${this.conversationBaseUrl}/${id}/customers`, data});
   }
   detachContactAsAdmin({conversationId, contactId, adminId}: DetachContactFromConversationData) {
     const data: DetachContactFromConversationRequest = {
       admin_id: adminId,
     }
 
-    return this.client.delete({url: `/${this.conversationBaseUrl}/${conversationId}/customers/${contactId}`, data}) as Promise<AxiosResponse<ConversationObject, DetachContactFromConversationRequest>>
+    return this.client.delete<ConversationObject>({url: `/${this.conversationBaseUrl}/${conversationId}/customers/${contactId}`, data});
   }
   search({data}: SearchConversationRequest){
-    return this.client.post({url: `/${this.conversationBaseUrl}/search`, data}) as Promise<AxiosResponse<SearchConversationResponse, SearchConversationRequest['data']>>
+    return this.client.post<SearchConversationResponse>({url: `/${this.conversationBaseUrl}/search`, data});
   }
   list({query}: ListConversationRequest) {
-    return this.client.get({url: `/${this.conversationBaseUrl}`, data: query}) as Promise<AxiosResponse<ListConversationResponse, void>>;
+    return this.client.get<ListConversationResponse>({url: `/${this.conversationBaseUrl}`, data: query});
   }
   redactConversationPart({conversationId, conversationPartId, sourceId, type}: RedactConversationPartData) {
     const data: RedactConversationPartRequest = {
@@ -165,7 +164,7 @@ export default class Conversation {
       type
     };
 
-    return this.client.post({url: `/${this.conversationBaseUrl}/redact`, data}) as Promise<AxiosResponse<Conversation, RedactConversationPartRequest>>;
+    return this.client.post<Conversation>({url: `/${this.conversationBaseUrl}/redact`, data});
   }
 }
 
@@ -188,13 +187,13 @@ interface RetrieveConversationData {
 }
 //
 interface UpdateConversationRequest {
-  custom_attributes: object,
+  custom_attributes?: object,
   read?: boolean
 }
 interface UpdateConversationData {
   id: string,
   markRead?: boolean,
-  customAttributes: object,
+  customAttributes?: object,
 }
 //
 export enum ReplyToConversationMessageType {
@@ -288,7 +287,7 @@ interface SnoozeConversationData {
 }
 //
 export enum CloseConversationMessageType {
-  CLOSED = 'closed'
+  CLOSE = 'close'
 }
 export enum CloseConversationType {
   ADMIN = 'admin'
@@ -393,7 +392,8 @@ interface ListConversationRequest {
   },
 }
 
-type ListConversationResponse = Paginated & {conversations: Array<ConversationObjectWithoutParts>};
+// TO-DO: Refactor to generic Paginated
+type ListConversationResponse = Paginated & {data: Array<ConversationObjectWithoutParts>};
 //
 export enum RedactConversationPartType {
   CONVERSATION_PART = 'conversation_part',

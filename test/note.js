@@ -12,23 +12,23 @@ describe('notes', () => {
     const client = new Client('foo', 'bar');
     const response = await client.notes.create({ foo: 'bar' });
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should list', async () => {
     nock('https://api.intercom.io').get('/notes').query({ foo: 'bar' }).reply(200, {});
     const client = new Client('foo', 'bar');
     const response = await client.notes.list({ foo: 'bar' });
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should find notes by id', async () => {
     nock('https://api.intercom.io').get('/notes/bar').reply(200, {});
     const client = new Client('foo', 'bar');
     const response = await client.notes.find({ id: 'bar' });
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 });

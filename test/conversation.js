@@ -33,8 +33,7 @@ describe('conversations', function () {
                     return [4 /*yield*/, client.conversations.create({ userId: id, body: message.body })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -46,13 +45,12 @@ describe('conversations', function () {
                 case 0:
                     id = '536e564f316c83104c000020';
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').get("/conversations/" + id).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').get("/conversations/".concat(id)).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.find({ id: id })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -64,13 +62,12 @@ describe('conversations', function () {
                 case 0:
                     id = '536e564f316c83104c000020';
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').get("/conversations/" + id).query({ display_as: 'plaintext' }).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').get("/conversations/".concat(id)).query({ display_as: 'plaintext' }).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.find({ id: id, inPlainText: true })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -88,13 +85,12 @@ describe('conversations', function () {
                         }
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').put("/conversations/" + id, requestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').put("/conversations/".concat(id), requestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.update({ id: id, markRead: requestBody.read, customAttributes: requestBody.custom_attributes })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -113,13 +109,12 @@ describe('conversations', function () {
                         attachment_urls: ['https://definitely-sfw-site.org/bebra.jpg']
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id + "/reply", userRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/reply"), userRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.replyByIdAsUser({ id: id, body: userRequestBody.body, intercomUserId: userRequestBody.intercom_user_id, attachmentUrls: userRequestBody.attachment_urls })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -139,13 +134,12 @@ describe('conversations', function () {
                         attachment_urls: ['https://definitely-sfw-site.org/bebra.jpg']
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id + "/reply", adminRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/reply"), adminRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.replyByIdAsAdmin({ id: id, adminId: adminId, messageType: adminRequestBody.message_type, body: adminRequestBody.body, attachmentUrls: adminRequestBody.attachment_urls })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -169,8 +163,7 @@ describe('conversations', function () {
                     return [4 /*yield*/, client.conversations.replyByLastAsUser({ body: userRequestBody.body, intercomUserId: userRequestBody.intercom_user_id, attachmentUrls: userRequestBody.attachment_urls })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -194,8 +187,7 @@ describe('conversations', function () {
                     return [4 /*yield*/, client.conversations.replyByLastAsAdmin({ adminId: adminId, messageType: adminRequestBody.message_type, body: adminRequestBody.body, attachmentUrls: adminRequestBody.attachment_urls })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -214,13 +206,12 @@ describe('conversations', function () {
                         body: '<b>blablbalba</b>',
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id, userRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id), userRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.assign({ id: id, type: userRequestBody.type, adminId: userRequestBody.admin_id, assigneeId: userRequestBody.assignee_id, body: userRequestBody.body })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -232,13 +223,12 @@ describe('conversations', function () {
                 case 0:
                     id = '536e564f316c83104c000020';
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id + "/run_assignment_rules").reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/run_assignment_rules")).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.assign({ id: id, withRunningAssignmentRules: true })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -255,13 +245,12 @@ describe('conversations', function () {
                         snoozed_until: "1501512795"
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id + "/reply", adminRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/reply"), adminRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.snooze({ id: id, adminId: adminRequestBody.admin_id, snoozedUntil: adminRequestBody.snoozed_until })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -273,19 +262,18 @@ describe('conversations', function () {
                 case 0:
                     id = '536e564f316c83104c000020';
                     adminRequestBody = {
-                        message_type: conversation_1.CloseConversationMessageType.CLOSED,
+                        message_type: conversation_1.CloseConversationMessageType.CLOSE,
                         type: conversation_1.CloseConversationType.ADMIN,
                         admin_id: id,
                         body: "Closed conversation because of X."
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id + "/parts", adminRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/parts"), adminRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.close({ id: id, adminId: adminRequestBody.admin_id, body: adminRequestBody.body })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -301,13 +289,12 @@ describe('conversations', function () {
                         admin_id: id,
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id + "/parts", adminRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/parts"), adminRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.open({ id: id, adminId: adminRequestBody.admin_id })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -325,13 +312,12 @@ describe('conversations', function () {
                         }
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id + "/customers", adminRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/customers"), adminRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.attachContactAsAdmin({ id: id, adminId: adminRequestBody.admin_id, customer: { intercomUserId: adminRequestBody.customer.intercom_user_id } })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -349,13 +335,12 @@ describe('conversations', function () {
                         }
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/" + id + "/customers", contactRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/customers"), contactRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.attachContactAsContact({ id: id, userId: contactRequestBody.user_id, customer: { intercomUserId: contactRequestBody.customer.intercom_user_id } })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -372,13 +357,12 @@ describe('conversations', function () {
                         admin_id: id,
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').delete("/conversations/" + conversationId + "/customers/" + contactId, adminRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').delete("/conversations/".concat(conversationId, "/customers/").concat(contactId), adminRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.detachContactAsAdmin({ conversationId: conversationId, contactId: contactId, adminId: adminRequestBody.admin_id })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -431,8 +415,7 @@ describe('conversations', function () {
                     return [4 /*yield*/, client.conversations.search({ data: requestBody })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -448,8 +431,7 @@ describe('conversations', function () {
                     return [4 /*yield*/, client.conversations.list({ query: { order: conversation_1.Order.DESC, sort: conversation_1.SortBy.UpdatedAt } })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });
@@ -472,8 +454,7 @@ describe('conversations', function () {
                     return [4 /*yield*/, client.conversations.redactConversationPart({ type: requestBody.type, conversationId: requestBody.conversation_id, conversationPartId: requestBody.conversation_part_id })];
                 case 1:
                     response = _a.sent();
-                    assert_1.default.equal(200, response === null || response === void 0 ? void 0 : response.status);
-                    assert_1.default.deepStrictEqual(expectedReply, response === null || response === void 0 ? void 0 : response.data);
+                    assert_1.default.deepStrictEqual(expectedReply, response);
                     return [2 /*return*/];
             }
         });

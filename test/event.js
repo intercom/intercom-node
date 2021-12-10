@@ -16,15 +16,15 @@ describe('events', () => {
       user_id: 'bar'
     });
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should list by params', async () => {
     nock('https://api.intercom.io').get('/events').query({ type: 'user', user_id: '1234' }).reply(200, {});
     const client = new Client('foo', 'bar');
     const response = await client.events.listBy({ type: 'user', user_id: '1234' });
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 });
