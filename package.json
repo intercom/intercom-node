@@ -20,7 +20,6 @@
   "dependencies": {
     "@types/mocha": "^9.0.0",
     "axios": "0.24.0",
-    "bluebird": "^3.7.2",
     "gulp-sourcemaps": "^3.0.0",
     "htmlencode": "^0.0.4",
     "lodash": "^4.17.19",
@@ -29,8 +28,10 @@
   "devDependencies": {
     "@babel/core": "^7.13.16",
     "@babel/eslint-parser": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.13.15",
+    "@babel/preset-typescript": "7.16.0",
     "@babel/register": "^7.13.16",
     "@types/lodash": "^4.14.176",
     "@types/node": "^16.11.6",
@@ -46,9 +47,10 @@
     "gulp-mocha": "^6.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "merge2": "1.4.1",
     "nock": "^13.0.11",
     "sinon": "^7.3.2",
-    "typescript": "4.4.4"
+    "typescript": "4.5.3"
   },
   "scripts": {
     "prepublish": "gulp prepublish",

@@ -26,5 +26,11 @@ node_modules
 dist
 
 # Yarn 3.x
-
 .yarn
+
+# Typescript mappings
+# TO-DO: fix regex
+lib/*.*.map
+lib/**/*.map
+test/*.map
+test/**/*.map
