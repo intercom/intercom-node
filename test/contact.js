@@ -168,7 +168,7 @@ describe('contacts', function () {
             }
         });
     }); });
-    it.only('should search for contacts using filters, sorts ascending by name, paginates 5 pages per page on page 2', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
+    it('should search for contacts using filters, sorts ascending by name, paginates 5 pages per page on page 2', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var requestBody, expectedReply, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {
@@ -229,14 +229,14 @@ describe('contacts', function () {
             }
         });
     }); });
-    it('should list all contacts', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
+    it('should list all contacts, with per page = 5 and cursor set to next page', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    (0, nock_1.default)('https://api.intercom.io').get('/contacts').reply(200, {});
+                    (0, nock_1.default)('https://api.intercom.io').get('/contacts?per_page=5&starting_after=WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=').reply(200, {});
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.contacts.list()];
+                    return [4 /*yield*/, client.contacts.list({ perPage: 5, startingAfter: 'WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=' })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual({}, response);
@@ -244,16 +244,16 @@ describe('contacts', function () {
             }
         });
     }); });
-    it('should list attached companies of contact by id', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
+    it.only('should list attached companies of contact by id', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var id, expectedReply, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     id = '536e564f316c83104c000020';
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').get("/contacts/".concat(id, "/companies")).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').get("/contacts/".concat(id, "/companies?per_page=5&starting_after=WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=")).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.contacts.listAttachedCompanies({ id: id })];
+                    return [4 /*yield*/, client.contacts.listAttachedCompanies({ id: id, perPage: 5, startingAfter: 'WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=' })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual(expectedReply, response);

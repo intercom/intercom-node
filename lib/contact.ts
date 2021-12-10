@@ -90,8 +90,12 @@ export default class Contact {
   search({data}: SearchContactRequest){
     return this.client.post<SearchContactResponse>({url: `/${this.contactBaseUrl}/search`, data});
   }
-  list() {
-    return this.client.get<ListContactsResponse>({url: `/${this.contactBaseUrl}`});
+  list({perPage, startingAfter}:ListAllContactsData) {
+    const queryData: ListAllContactsRequest = {
+      per_page: perPage,
+      starting_after: startingAfter
+    }
+    return this.client.get<ListContactsResponse>({url: `/${this.contactBaseUrl}`, data: queryData});
   }
   delete({id}: DeleteContactData) {
     return this.client.delete<DeleteContactResponse>({url: `/${this.contactBaseUrl}/${id}`});
@@ -102,8 +106,12 @@ export default class Contact {
   unarchive({id}: UnarchiveContactData) {
     return this.client.post<UnarchiveContactResponse>({url: `/${this.contactBaseUrl}/${id}/unarchive`});
   }
-  listAttachedCompanies({id}: RetrieveContactData) {
-    return this.client.get<ListCompaniesResponse>({url: `/${this.contactBaseUrl}/${id}/companies`});
+  listAttachedCompanies({id, perPage, startingAfter}: ListAttachedCompaniesData) {
+  const queryData: ListAttachedCompaniesRequest = {
+    per_page: perPage,
+    starting_after: startingAfter
+  }
+    return this.client.get<ListCompaniesResponse>({url: `/${this.contactBaseUrl}/${id}/companies`, data: queryData});
   }
   listAttachedTags({id}: RetrieveContactData) {
     return this.client.get<ListAttachedTagsResponse>({url: `/${this.contactBaseUrl}/${id}/tags`});
@@ -217,24 +225,19 @@ interface SearchContactRequest {
   data: GenericSearchFilters<ContactObject> & Partial<SearchContactPagination> & Partial<SearchContactOrder>;
 }
 
-interface SearchContactResponse {
-  type: 'list',
-  data: ContactObject[],
-  total_count: number,
-  pages: {
-    type: 'pages',
-    next?: {
-        page: number,
-        starting_after?: string,
-    },
-    page?: number,
-    per_page: number,
-    total_pages: number
-  ,}
-}
+type SearchContactResponse = Paginated<ContactObject>;
 //
-// TO-DO: Refactor to generic Paginated
-type ListContactsResponse = Paginated & {data: Array<ContactObject>};
+interface ListAllContactsRequest {
+  per_page?: number,
+  starting_after?: string
+}
+
+interface ListAllContactsData {
+  perPage?: number,
+  startingAfter?: string
+}
+
+type ListContactsResponse = Paginated<ContactObject>;
 //
 type ListAttachedTagsResponse = {
   type: string,
@@ -250,3 +253,7 @@ type ListAttachedEmailSubscriptionsResponse = {
   type: string,
   data: Array<SubscriptionObject>
 }
+//
+type ListAttachedCompaniesData = ListAllContactsData & {id: string};
+type ListAttachedCompaniesRequest = ListAllContactsRequest;
+

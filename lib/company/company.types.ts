@@ -4,4 +4,4 @@ import { Paginated } from "../common/common.types";
 type CompanyObject = any;
 
 // TO-DO: Refactor to generic Paginated
-export type ListCompaniesResponse = Paginated & {data: Array<CompanyObject>};
+export type ListCompaniesResponse = Paginated<CompanyObject>;

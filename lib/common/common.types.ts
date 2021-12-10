@@ -3,14 +3,18 @@ export type Timestamp = number;
 export type Seconds = number;
 export type JavascriptObject = Record<string | number, unknown>;
 
-export type Paginated = {
+export type Paginated<T> = {
   type: string,
+  data: T[],
   pages: {
-    type: string,
-    next: any,
-    page: number,
-    per_page: number,
-    total_pages: number,
+      type: 'pages',
+      next?: {
+          page: number,
+          starting_after?: string
+      },
+      page: number,
+      per_page: number,
+      total_pages: number
   }
   total_count: number,
 };

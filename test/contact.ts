@@ -212,12 +212,10 @@ describe('contacts', () => {
     assert.deepStrictEqual(expectedReply, response);
   });
 
-  it('should list all contacts', async () => {
-    nock('https://api.intercom.io').get('/contacts').reply(200, {});
+  it('should list all contacts, with per page = 5 and cursor set to next page', async () => {
+    nock('https://api.intercom.io').get('/contacts?per_page=5&starting_after=WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=').reply(200, {});
     const client = new Client('foo', 'bar');
-    const response = await client.contacts.list();
-
-
+    const response = await client.contacts.list({perPage: 5, startingAfter: 'WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0='});
 
     assert.deepStrictEqual({}, response);
   });
@@ -227,12 +225,11 @@ describe('contacts', () => {
 
     const expectedReply = {}
 
-    nock('https://api.intercom.io').get(`/contacts/${id}/companies`).reply(200, expectedReply);
+    nock('https://api.intercom.io').get(`/contacts/${id}/companies?per_page=5&starting_after=WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=`).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.contacts.listAttachedCompanies({id});
-
+    const response = await client.contacts.listAttachedCompanies({id, perPage: 5, startingAfter: 'WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0='});
 
     assert.deepStrictEqual(expectedReply, response);
   });

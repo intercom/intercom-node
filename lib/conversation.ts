@@ -392,8 +392,7 @@ interface ListConversationRequest {
   },
 }
 
-// TO-DO: Refactor to generic Paginated
-type ListConversationResponse = Paginated & {data: Array<ConversationObjectWithoutParts>};
+type ListConversationResponse = Paginated<ConversationObjectWithoutParts>;
 //
 export enum RedactConversationPartType {
   CONVERSATION_PART = 'conversation_part',
