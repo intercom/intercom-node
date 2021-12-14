@@ -75,7 +75,40 @@ client.useRequestOpts({
 });
 ```
 
-## Users
+## New Version
+
+### Contacts
+
+```typescript
+// Create a contact with user role
+const user = await client.contacts.createUser({
+  externalId: '536e564f316c83104c000020',
+  phone: '+48370044567', 
+  name: 'Niko Bellic',
+  avatar: 'https://nico-from-gta-iv.com/lets_go_bowling.jpg',
+  signedUpAt: 1638203719, 
+  lastSeenAt: 1638203720, 
+  ownerId: '536e564f316c83104c000021', 
+  isUnsubscribedFromEmails: true
+});
+```
+
+```typescript
+// Create a contact with lead role
+const user = await client.contacts.createLead({
+  phone: '+48370044567', 
+  name: 'Roman Bellic',
+  avatar: 'https://nico-from-gta-iv.com/lets_go_bowling_yey.jpg',
+  signedUpAt: 1638203719, 
+  lastSeenAt: 1638203720, 
+  ownerId: '536e564f316c83104c000021', 
+  isUnsubscribedFromEmails: true
+});
+```
+
+## Old Version (to be removed progressively)
+
+### Users
 
 ```node
 // Create a user
@@ -159,7 +192,7 @@ client.users.requestPermanentDeletionByParams({ user_id: 'foobar' }, callback);
 client.users.requestPermanentDeletionByParams({ email: 'jayne@serenity.io' }, callback);
 ```
 
-## Leads
+### Leads
 
 ```node
 // Create a contact
@@ -222,7 +255,7 @@ var conversion = {
 client.leads.convert(conversion, callback);
 ```
 
-## Customers
+### Customers
 
 ```node
 // Search for customers
@@ -233,7 +266,7 @@ client.customers.search({
 }, callback);
 ```
 
-## Visitors
+### Visitors
 
 ```node
 // Update a visitor by id
@@ -270,7 +303,7 @@ var conversion = {
 client.visitors.convert(conversion, callback);
 ```
 
-## Companies
+### Companies
 
 ```node
 // Create/update a company
@@ -315,7 +348,7 @@ client.companies.listUsers({ id: '1234' }, callback);
 client.companies.listUsers({ company_id: '1234' }, callback);
 ```
 
-## Events
+### Events
 
 Note: events will work when identified by 'email'. The `event_name` and `created_at` params are both required. Either `user_id` OR `email` is required.
 
@@ -339,7 +372,7 @@ client.events.listBy({
 }, callback);
 ```
 
-## Counts
+### Counts
 
 ```node
 client.counts.appCounts(callback);
@@ -359,7 +392,7 @@ client.counts.companySegmentCounts(callback);
 client.counts.companyUserCounts(callback);
 ```
 
-## Admins
+### Admins
 
 ```node
 // List admins
@@ -381,7 +414,7 @@ client.admins.find('123456789', callback);
 client.admins.away('123456789', {'away_mode_enabled': true, 'away_mode_reassign': false}, callback);
 ```
 
-## Tags
+### Tags
 
 ```node
 // Create a tag
@@ -413,7 +446,7 @@ client.tags.list(callback);
 client.tags.delete({ id: '130963' }, callback);
 ```
 
-## Segments
+### Segments
 
 ```node
 // List segments
@@ -425,7 +458,7 @@ client.segments.list(callback);
 client.segments.find({ id: '55719a4a' }, callback);
 ```
 
-## Messages
+### Messages
 
 ```node
 // Admin initiated messages:
@@ -461,7 +494,7 @@ var message = {
 client.messages.create(message, callback);
 ```
 
-## Conversations
+### Conversations
 
 Listing conversations ([documentation](https://developers.intercom.com/intercom-api-reference/reference#list-conversations)):
 
@@ -528,7 +561,7 @@ client.conversations.reply(assignment, callback);
 client.conversations.markAsRead({ id: '1039067180' }, callback);
 ```
 
-## Notes
+### Notes
 
 ```node
 // Create a note
@@ -553,7 +586,7 @@ client.notes.list({ email: 'bob@intercom.io' }, callback);
 client.notes.find({ id: '3342887' }, callback);
 ```
 
-## Pagination
+### Pagination
 
 When listing, the Intercom API may return a pagination object:
 
@@ -571,7 +604,7 @@ You can grab the next page of results using the client:
 client.nextPage(response.pages, callback);
 ```
 
-## Identity verification
+### Identity verification
 
 `intercom-node` provides a helper for using [identity verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product):
 
