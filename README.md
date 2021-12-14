@@ -1,8 +1,9 @@
-# intercom-node
+# intercom-node-v2
 
 [![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=shield)](https://circleci.com/gh/intercom/intercom-node)
 [![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
-![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-1.3-blue)
+![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.3-blue)
+![Typescript Supported](https://img.shields.io/badge/Typescript-Supported-lightgrey)
 
 > Official Node bindings to the [Intercom API](https://api.intercom.io/docs)
 
@@ -10,11 +11,7 @@
 
 ### Maintenance
 
-We're currently building a new team to provide in-depth and dedicated SDK support.
-
-In the meantime, we'll be operating on limited capacity, meaning all pull requests will be evaluated on a best effort basis and will be limited to critical issues.
-
-We'll communicate all relevant updates as we build this new team and support strategy in the coming months.
+Current repository is a new WIP version of Node SDK, that supports latest API version (v2.3 as of 14/12/2021)
 
 ## Installation
 
@@ -35,68 +32,31 @@ yarn test
 Compile using babel:
 
 ```bash
-yarn gulp babel
-```
-
-Require Intercom:
-
-```node
-var Intercom = require('./dist/index');
+yarn prepublish
 ```
 
 ## Usage
 
-Require Intercom:
+Import Intercom:
 
-```node
-var Intercom = require('intercom-client');
+```typescript
+import {Client} from './dist/index';
 ```
 
 Create a client using access tokens:
 
-```node
-var client = new Intercom.Client({ token: 'my_token' });
-```
-
-## Callbacks
-
-This client library supports two kinds of callbacks:
-
-```node
-client.users.list(function (d) {
-  // d is the response from the server
-});
-```
-
-Or
-
-```node
-client.users.list(function (err, d) {
-  // err is an error response object, or null
-  // d is a successful response object, or null
-});
-```
-
-## Promises
-
-This client library also supports using Promises instead of callbacks:
-
-```node
-client.users.create({ email: 'foo@bar.com' }).then(function (r) {
-  // ...
-});
+```typescript
+const client = new Client({ token: 'my_token' });
 ```
 
 ## Request Options
 
-This client library also supports passing in [`request` options](https://github.com/request/request#requestoptions-callback):
+This client library also supports passing in [`request` options](https://github.com/axios/axios#request-config):
 
-```node
-var client = new Intercom.Client({ token: 'my_token' });
+```typescript
+const client = new Client({ token: 'my_token' });
 client.useRequestOpts({
   baseURL: 'http://local.test-server.com',
-  // Uses the forever-agent / http(s).Agent({keepAlive:true})
-  forever: true
 });
 ```
 
@@ -106,11 +66,11 @@ Note that certain request options (such as `json`, and certain `headers` names c
 
 We version our API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
 
-```node
-var client = new Intercom.Client({ token: 'my_token' });
+```typescript
+const client = new Client({ token: 'my_token' });
 client.useRequestOpts({
   headers: {
-    'Intercom-Version': 1.2
+    'Intercom-Version': 2.3
   }
 });
 ```
