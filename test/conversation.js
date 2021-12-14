@@ -434,9 +434,9 @@ describe('conversations', function () {
             switch (_a.label) {
                 case 0:
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').get("/conversations?order=desc&sort=updated_at").reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').get("/conversations?order=desc&sort=updated_at&page=1&per_page=10").reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.conversations.list({ query: { order: conversation_1.Order.DESC, sort: conversation_1.SortBy.UpdatedAt } })];
+                    return [4 /*yield*/, client.conversations.list({ query: { order: conversation_1.Order.DESC, sort: conversation_1.SortBy.UpdatedAt, page: 1, perPage: 10 } })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual(expectedReply, response);

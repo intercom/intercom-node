@@ -251,9 +251,9 @@ describe('contacts', function () {
                 case 0:
                     id = '536e564f316c83104c000020';
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').get("/contacts/".concat(id, "/companies?per_page=5&starting_after=WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=")).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').get("/contacts/".concat(id, "/companies?per_page=5&page=1")).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.contacts.listAttachedCompanies({ id: id, perPage: 5, startingAfter: 'WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=' })];
+                    return [4 /*yield*/, client.contacts.listAttachedCompanies({ id: id, perPage: 5, page: 1 })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual(expectedReply, response);

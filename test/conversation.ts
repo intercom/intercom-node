@@ -408,11 +408,11 @@ describe('conversations', () => {
   it('should list all conversations', async () => {
     const expectedReply = {}
 
-    nock('https://api.intercom.io').get(`/conversations?order=desc&sort=updated_at`).reply(200, expectedReply);
+    nock('https://api.intercom.io').get(`/conversations?order=desc&sort=updated_at&page=1&per_page=10`).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.list({query: {order: Order.DESC, sort: SortBy.UpdatedAt}});
+    const response = await client.conversations.list({query: {order: Order.DESC, sort: SortBy.UpdatedAt, page: 1, perPage: 10}});
 
     assert.deepStrictEqual(expectedReply, response);
   });

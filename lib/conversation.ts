@@ -153,8 +153,10 @@ export default class Conversation {
   search({data}: SearchConversationRequest){
     return this.client.post<SearchConversationResponse>({url: `/${this.conversationBaseUrl}/search`, data});
   }
-  list({query}: ListConversationRequest) {
-    return this.client.get<ListConversationResponse>({url: `/${this.conversationBaseUrl}`, data: query});
+  list({query: {order, sort, page, perPage: per_page}}: ListConversationData) {
+    const data = {order, sort, page, per_page};
+
+    return this.client.get<ListConversationResponse>({url: `/${this.conversationBaseUrl}`, data});
   }
   redactConversationPart({conversationId, conversationPartId, sourceId, type}: RedactConversationPartData) {
     const data: RedactConversationPartRequest = {
@@ -393,6 +395,7 @@ type SearchConversationResponse = Paginated<ConversationObject>;
 export enum Order {
   DESC = 'desc',
   ASC = 'asc',
+  WAITING_SINCE = 'waiting_since'
 }
 
 export enum SortBy {
@@ -401,11 +404,13 @@ export enum SortBy {
   WaitingSince = 'waiting_since'
 }
 
-interface ListConversationRequest {
+interface ListConversationData {
   query: {
     order: Order,
     sort: SortBy
-  },
+    page?: number,
+    perPage?: number,
+  }
 }
 
 type ListConversationResponse = Paginated<ConversationObjectWithoutParts>;
