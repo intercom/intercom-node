@@ -106,6 +106,8 @@ const user = await client.contacts.createLead({
 });
 ```
 
+TO-DO: add rest endpoints...
+
 ## Old Version (to be removed progressively)
 
 ### Users
