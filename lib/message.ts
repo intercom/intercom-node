@@ -1,5 +1,5 @@
 import { Client } from ".";
-import { MessageType } from "./message/message.types";
+import { MessageObject, MessageType } from "./message/message.types";
 
 export default class Message {
   private messagesBaseUrl = 'messages'
@@ -7,7 +7,7 @@ export default class Message {
   constructor(private readonly client: Client) {
     this.client = client;
   }
-  
+
   create({ messageType: message_type, subject, body, template, from, to }: ICreateMessageBody) {
     const data: ICreateMessageRequest = {
       message_type,
@@ -18,7 +18,7 @@ export default class Message {
       to,
     };
 
-    return this.client.post({url: `/${this.messagesBaseUrl}`, data});
+    return this.client.post<MessageObject>({url: `/${this.messagesBaseUrl}`, data});
   }
 }
 
