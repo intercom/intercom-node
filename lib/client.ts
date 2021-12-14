@@ -118,96 +118,90 @@ export default class Client {
     return omit(opts, this.propertiesToOmitInRequestOpts);
   }
 
-  async ping<T>(): Promise<T | void> {
+  async ping<T>(): Promise<T> {
     try {
       const response = await this.axiosInstance.get('/admins');
-      this.checkOnErrorInResponse(response);
+
       return response.data;
     }
     catch(err) {
-      if (!err.response) {
-        throw err;
-      }
-      this.checkOnErrorInResponse(err.response)
+      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
+
+      throw error;
     }
   }
 
-  async put<T>({url, data}: IRequestOptions): Promise<T | void> {
+  async put<T>({url, data}: IRequestOptions): Promise<T> {
     try {
       const response = await this.axiosInstance.put(url, data);
-      this.checkOnErrorInResponse(response);
+
       return response.data;
     }
     catch(err) {
-      if (!err.response) {
-        throw err;
-      }
-      this.checkOnErrorInResponse(err.response)
+      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
+
+      throw error;
     }
   }
 
-  async post<T>({url, data}: IRequestOptions): Promise<T | void> {
+  async post<T>({url, data}: IRequestOptions): Promise<T> {
     try {
       const response = await this.axiosInstance.post(url, data);
-      this.checkOnErrorInResponse(response);
+
       return response.data;
     }
     catch(err) {
-      if (!err.response) {
-        throw err;
-      }
-      this.checkOnErrorInResponse(err.response)
+      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
+
+      throw error;
     }
   }
 
-  async get<T>({url, data}: IRequestOptions): Promise<T | void> {
+  async get<T>({url, data}: IRequestOptions): Promise<T> {
     try {
       const response = await this.axiosInstance.get(url, {params: data});
-      this.checkOnErrorInResponse(response);
+
       return response.data;
     }
     catch(err) {
-      if (!err.response) {
-        throw err;
-      }
-      this.checkOnErrorInResponse(err.response)
+      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
+
+      throw error;
     }
   }
 
-  async nextPage<T>(paginationObject: {next: string}): Promise<T | void> {
+  async nextPage<T>(paginationObject: {next: string}): Promise<T> {
     try {
       const response = await this.axiosInstance.get(paginationObject.next, {baseURL: undefined});
-      this.checkOnErrorInResponse(response);
+
       return response.data;
     }
     catch(err) {
-      if (!err.response) {
-        throw err;
-      }
-      this.checkOnErrorInResponse(err.response)
+      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
+
+      throw error;
     }
   }
 
-  async delete<T>({url, data, params}: IRequestOptions): Promise<T | void> {
+  async delete<T>({url, data, params}: IRequestOptions): Promise<T> {
     try {
       const response = await this.axiosInstance.delete(url, {data, params});
-      this.checkOnErrorInResponse(response);
+
       return response.data;
     }
     catch(err) {
-      if (!err.response) {
-        throw err;
-      }
-      this.checkOnErrorInResponse(err.response)
+      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
+
+      throw error;
     }
   }
 
-  private checkOnErrorInResponse({data, headers, status}: AxiosResponse): void {
+  private checkOnErrorInResponse({data, headers, status}: AxiosResponse): Error | undefined {
     if (data.type !== 'error.list') {
-      return;
+      return undefined;
     }
 
     const message = Array.isArray(data.errors) && data.errors[0].message ? data.errors[0].message : null;
-    throw new BadResponseError(message || 'Response error', data, headers, status);
+    return new BadResponseError(message || 'Response error', data, headers, status);
   }
 }

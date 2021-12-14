@@ -193,7 +193,7 @@ describe('conversations', () => {
 
     const expectedReply = {}
 
-    nock('https://api.intercom.io').post(`/conversations/${id}`, userRequestBody).reply(200, expectedReply);
+    nock('https://api.intercom.io').post(`/conversations/${id}/parts`, userRequestBody).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
@@ -208,7 +208,7 @@ describe('conversations', () => {
 
     const expectedReply = {}
 
-    nock('https://api.intercom.io').post(`/conversations/${id}/run_assignment_rules`).reply(200, expectedReply);
+    nock('https://api.intercom.io').post(`/conversations/${id}/run_assignment_rules/parts`).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
@@ -243,7 +243,7 @@ describe('conversations', () => {
     const id = '536e564f316c83104c000020';
 
     const adminRequestBody = {
-      message_type: CloseConversationMessageType.CLOSE,
+      message_type: CloseConversationMessageType.CLOSED,
       type: CloseConversationType.ADMIN,
       admin_id: id,
       body: "Closed conversation because of X."

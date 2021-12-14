@@ -206,7 +206,7 @@ describe('conversations', function () {
                         body: '<b>blablbalba</b>',
                     };
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id), userRequestBody).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/parts"), userRequestBody).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.assign({ id: id, type: userRequestBody.type, adminId: userRequestBody.admin_id, assigneeId: userRequestBody.assignee_id, body: userRequestBody.body })];
                 case 1:
@@ -223,7 +223,7 @@ describe('conversations', function () {
                 case 0:
                     id = '536e564f316c83104c000020';
                     expectedReply = {};
-                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/run_assignment_rules")).reply(200, expectedReply);
+                    (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(id, "/run_assignment_rules/parts")).reply(200, expectedReply);
                     client = new lib_1.Client('foo', 'bar');
                     return [4 /*yield*/, client.conversations.assign({ id: id, withRunningAssignmentRules: true })];
                 case 1:
@@ -262,7 +262,7 @@ describe('conversations', function () {
                 case 0:
                     id = '536e564f316c83104c000020';
                     adminRequestBody = {
-                        message_type: conversation_1.CloseConversationMessageType.CLOSE,
+                        message_type: conversation_1.CloseConversationMessageType.CLOSED,
                         type: conversation_1.CloseConversationType.ADMIN,
                         admin_id: id,
                         body: "Closed conversation because of X."
@@ -367,7 +367,7 @@ describe('conversations', function () {
             }
         });
     }); });
-    it.only('should search for conversations using filters', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
+    it('should search for conversations using filters', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var requestBody, expectedReply, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {

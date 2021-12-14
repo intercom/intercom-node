@@ -101,7 +101,7 @@ export default class Conversation {
   }
   close({id, adminId, body}: CloseConversationData) {
     const data: CloseConversationRequest = {
-      message_type: CloseConversationMessageType.CLOSE,
+      message_type: CloseConversationMessageType.CLOSED,
       type: CloseConversationType.ADMIN,
       admin_id: adminId,
       body,
@@ -287,7 +287,7 @@ interface SnoozeConversationData {
 }
 //
 export enum CloseConversationMessageType {
-  CLOSE = 'close'
+  CLOSED = 'closed'
 }
 export enum CloseConversationType {
   ADMIN = 'admin'
