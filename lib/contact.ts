@@ -7,7 +7,7 @@ import { TagObject } from './tag/tag.types';
 import { SubscriptionObject } from './subscription/subscription.types';
 
 export default class Contact {
-  private contactBaseUrl = 'contacts';
+  public readonly baseUrl = 'contacts';
 
   constructor(private readonly client: Client) {
     this.client = client;
@@ -34,7 +34,7 @@ export default class Contact {
       custom_attributes: customAttributes,
     }
 
-    return this.client.post<ContactObject>({url: `/${this.contactBaseUrl}`, data: requestData});
+    return this.client.post<ContactObject>({url: `/${this.baseUrl}`, data: requestData});
   }
   createLead(data?: CreateLeadData) {
     const requestData: CreateContactRequest = {
@@ -48,10 +48,10 @@ export default class Contact {
       unsubscribed_from_emails: data?.isUnsubscribedFromMails,
       custom_attributes: data?.customAttributes,
     }
-    return this.client.post<ContactObject>({url: `/${this.contactBaseUrl}`, data: requestData});
+    return this.client.post<ContactObject>({url: `/${this.baseUrl}`, data: requestData});
   }
   find({id}: RetrieveContactData) {
-    return this.client.get<ContactObject>({url: `/${this.contactBaseUrl}/${id}`});
+    return this.client.get<ContactObject>({url: `/${this.baseUrl}/${id}`});
   }
   update({id,
     role,
@@ -77,7 +77,7 @@ export default class Contact {
       custom_attributes: customAttributes,
     }
 
-    return this.client.put<ContactObject>({url: `/${this.contactBaseUrl}/${id}`, data});
+    return this.client.put<ContactObject>({url: `/${this.baseUrl}/${id}`, data});
   }
   mergeLeadInUser({leadId, userId}: MergeLeadInUserContactData) {
     const data: MergeLeadInUserContactRequest = {
@@ -85,42 +85,42 @@ export default class Contact {
       into: userId
     }
 
-    return this.client.post<ContactObject>({url: `/${this.contactBaseUrl}/merge`, data});
+    return this.client.post<ContactObject>({url: `/${this.baseUrl}/merge`, data});
   }
   search({data}: SearchContactRequest){
-    return this.client.post<SearchContactResponse>({url: `/${this.contactBaseUrl}/search`, data});
+    return this.client.post<SearchContactResponse>({url: `/${this.baseUrl}/search`, data});
   }
   list({perPage, startingAfter}:ListAllContactsData) {
     const queryData: ListAllContactsRequest = {
       per_page: perPage,
       starting_after: startingAfter
     }
-    return this.client.get<ListContactsResponse>({url: `/${this.contactBaseUrl}`, data: queryData});
+    return this.client.get<ListContactsResponse>({url: `/${this.baseUrl}`, data: queryData});
   }
   delete({id}: DeleteContactData) {
-    return this.client.delete<DeleteContactResponse>({url: `/${this.contactBaseUrl}/${id}`});
+    return this.client.delete<DeleteContactResponse>({url: `/${this.baseUrl}/${id}`});
   }
   archive({id}: ArchiveContactData) {
-    return this.client.post<ArchiveContactResponse>({url: `/${this.contactBaseUrl}/${id}/archive`});
+    return this.client.post<ArchiveContactResponse>({url: `/${this.baseUrl}/${id}/archive`});
   }
   unarchive({id}: UnarchiveContactData) {
-    return this.client.post<UnarchiveContactResponse>({url: `/${this.contactBaseUrl}/${id}/unarchive`});
+    return this.client.post<UnarchiveContactResponse>({url: `/${this.baseUrl}/${id}/unarchive`});
   }
   listAttachedCompanies({id, perPage, startingAfter}: ListAttachedCompaniesData) {
   const queryData: ListAttachedCompaniesRequest = {
     per_page: perPage,
     starting_after: startingAfter
   }
-    return this.client.get<ListCompaniesResponse>({url: `/${this.contactBaseUrl}/${id}/companies`, data: queryData});
+    return this.client.get<ListCompaniesResponse>({url: `/${this.baseUrl}/${id}/companies`, data: queryData});
   }
   listAttachedTags({id}: RetrieveContactData) {
-    return this.client.get<ListAttachedTagsResponse>({url: `/${this.contactBaseUrl}/${id}/tags`});
+    return this.client.get<ListAttachedTagsResponse>({url: `/${this.baseUrl}/${id}/tags`});
   }
   listAttachedSegments({id}: RetrieveContactData) {
-    return this.client.get<ListAttachedSegmentsResponse>({url: `/${this.contactBaseUrl}/${id}/segments`});
+    return this.client.get<ListAttachedSegmentsResponse>({url: `/${this.baseUrl}/${id}/segments`});
   }
   listAttachedEmailSubscriptions({id}: RetrieveContactData) {
-    return this.client.get<ListAttachedEmailSubscriptionsResponse>({url: `/${this.contactBaseUrl}/${id}/subscriptions`});
+    return this.client.get<ListAttachedEmailSubscriptionsResponse>({url: `/${this.baseUrl}/${id}/subscriptions`});
   }
 }
 

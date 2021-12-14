@@ -36,7 +36,7 @@ export default class Client {
   visitors: any;
   counts: any;
   admins: any;
-  tags: any;
+  tags: Tag;
   segments: any;
   messages: any;
   conversations: Conversation;
@@ -72,12 +72,12 @@ export default class Client {
     this.visitors = new Visitor(this);
     this.counts = new Counts(this);
     this.admins = new Admin(this);
-    this.tags = new Tag(this);
     this.segments = new Segment(this);
     this.messages = new Message(this);
     this.conversations = new Conversation(this);
     this.notes = new Note(this);
     this.customers = new Customer(this);
+    this.tags = new Tag(this);
     this.requestOpts = {
       baseURL: 'https://api.intercom.io'
     };

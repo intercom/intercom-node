@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../lib/tag/tag.types.ts"],"names":[],"mappings":";AAAA,yBAAyB","file":"tag.types.js","sourcesContent":["//TO-DO: Detail TagObject\n\nexport type TagObject = any;\n"]}
+{"version":3,"sources":["../../lib/tag/tag.types.ts"],"names":[],"mappings":"","file":"tag.types.js","sourcesContent":["export interface TagObject {\n  id: string,\n  name: string,\n  type: \"tag\"\n}\n"]}
