@@ -68,8 +68,6 @@
 5. Method to tag Companies -> `tags.tagCompanies({name, companiesIds})`
 6. Method to untag Companies -> `tags.untagCompanies({name, companiesIds})`
 
-
-
 ## Changed
 
 1. Methods to Create/Update Tag:

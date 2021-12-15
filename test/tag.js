@@ -96,7 +96,7 @@ describe('tags', function () {
             }
         });
     }); });
-    it.only('should tag companies', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
+    it('should tag companies', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var requestBody, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {
@@ -151,7 +151,7 @@ describe('tags', function () {
             }
         });
     }); });
-    it.only('should untag companies', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
+    it('should untag companies', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var requestBody, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {

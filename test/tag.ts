@@ -110,7 +110,6 @@ describe('tags', () => {
     const client = new Client('foo', 'bar');
     const response = await client.tags.list();
 
-
     assert.deepStrictEqual({}, response);
   });
 });

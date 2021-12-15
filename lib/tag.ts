@@ -54,7 +54,7 @@ export default class Tag {
     return this.client.post<TagObject>({url: `/${this.tagsBaseUrl}`, data});
   }
   list() {
-    return this.client.get({url: `/${this.tagsBaseUrl}`});
+    return this.client.get<IListAllTagsResponse>({url: `/${this.tagsBaseUrl}`});
   }
 }
 
@@ -94,3 +94,8 @@ interface IUntagConversationData {
 }
 //
 type IUntagCompaniesData = ITagCompaniesData;
+//
+interface IListAllTagsResponse {
+  type: "list",
+  data: Array<TagObject>
+}
