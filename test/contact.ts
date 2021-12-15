@@ -28,7 +28,6 @@ describe('contacts', () => {
 
     const response = await client.contacts.createUser({externalId: contact.external_id, phone: contact.phone, name: contact.name, avatar: contact.avatar, signedUpAt: contact.signed_up_at, lastSeenAt: contact.last_seen_at, ownerId: contact.owner_id, isUnsubscribedFromEmails: contact.unsubscribed_from_emails});
 
-
     assert.deepStrictEqual(expectedReply, response);
   });
 
@@ -225,11 +224,11 @@ describe('contacts', () => {
 
     const expectedReply = {}
 
-    nock('https://api.intercom.io').get(`/contacts/${id}/companies?per_page=5&starting_after=WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=`).reply(200, expectedReply);
+    nock('https://api.intercom.io').get(`/contacts/${id}/companies?per_page=5&page=1`).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.contacts.listAttachedCompanies({id, perPage: 5, startingAfter: 'WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0='});
+    const response = await client.contacts.listAttachedCompanies({id, perPage: 5, page: 1});
 
     assert.deepStrictEqual(expectedReply, response);
   });

@@ -1,8 +1,9 @@
-# intercom-node
+# intercom-node-v2
 
 [![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=shield)](https://circleci.com/gh/intercom/intercom-node)
 [![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
-![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-1.3-blue)
+![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.3-blue)
+![Typescript Supported](https://img.shields.io/badge/Typescript-Supported-lightgrey)
 
 > Official Node bindings to the [Intercom API](https://api.intercom.io/docs)
 
@@ -10,11 +11,7 @@
 
 ### Maintenance
 
-We're currently building a new team to provide in-depth and dedicated SDK support.
-
-In the meantime, we'll be operating on limited capacity, meaning all pull requests will be evaluated on a best effort basis and will be limited to critical issues.
-
-We'll communicate all relevant updates as we build this new team and support strategy in the coming months.
+Current repository is a new WIP version of Node SDK, that supports latest API version (v2.3 as of 14/12/2021)
 
 ## Installation
 
@@ -35,68 +32,31 @@ yarn test
 Compile using babel:
 
 ```bash
-yarn gulp babel
-```
-
-Require Intercom:
-
-```node
-var Intercom = require('./dist/index');
+yarn prepublish
 ```
 
 ## Usage
 
-Require Intercom:
+Import Intercom:
 
-```node
-var Intercom = require('intercom-client');
+```typescript
+import {Client} from './dist/index';
 ```
 
 Create a client using access tokens:
 
-```node
-var client = new Intercom.Client({ token: 'my_token' });
-```
-
-## Callbacks
-
-This client library supports two kinds of callbacks:
-
-```node
-client.users.list(function (d) {
-  // d is the response from the server
-});
-```
-
-Or
-
-```node
-client.users.list(function (err, d) {
-  // err is an error response object, or null
-  // d is a successful response object, or null
-});
-```
-
-## Promises
-
-This client library also supports using Promises instead of callbacks:
-
-```node
-client.users.create({ email: 'foo@bar.com' }).then(function (r) {
-  // ...
-});
+```typescript
+const client = new Client({ token: 'my_token' });
 ```
 
 ## Request Options
 
-This client library also supports passing in [`request` options](https://github.com/request/request#requestoptions-callback):
+This client library also supports passing in [`request` options](https://github.com/axios/axios#request-config):
 
-```node
-var client = new Intercom.Client({ token: 'my_token' });
+```typescript
+const client = new Client({ token: 'my_token' });
 client.useRequestOpts({
   baseURL: 'http://local.test-server.com',
-  // Uses the forever-agent / http(s).Agent({keepAlive:true})
-  forever: true
 });
 ```
 
@@ -106,16 +66,51 @@ Note that certain request options (such as `json`, and certain `headers` names c
 
 We version our API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
 
-```node
-var client = new Intercom.Client({ token: 'my_token' });
+```typescript
+const client = new Client({ token: 'my_token' });
 client.useRequestOpts({
   headers: {
-    'Intercom-Version': 1.2
+    'Intercom-Version': 2.3
   }
 });
 ```
 
-## Users
+## New Version
+
+### Contacts
+
+```typescript
+// Create a contact with user role
+const user = await client.contacts.createUser({
+  externalId: '536e564f316c83104c000020',
+  phone: '+48370044567', 
+  name: 'Niko Bellic',
+  avatar: 'https://nico-from-gta-iv.com/lets_go_bowling.jpg',
+  signedUpAt: 1638203719, 
+  lastSeenAt: 1638203720, 
+  ownerId: '536e564f316c83104c000021', 
+  isUnsubscribedFromEmails: true
+});
+```
+
+```typescript
+// Create a contact with lead role
+const user = await client.contacts.createLead({
+  phone: '+48370044567', 
+  name: 'Roman Bellic',
+  avatar: 'https://nico-from-gta-iv.com/lets_go_bowling_yey.jpg',
+  signedUpAt: 1638203719, 
+  lastSeenAt: 1638203720, 
+  ownerId: '536e564f316c83104c000021', 
+  isUnsubscribedFromEmails: true
+});
+```
+
+TO-DO: add rest endpoints...
+
+## Old Version (to be removed progressively)
+
+### Users
 
 ```node
 // Create a user
@@ -199,7 +194,7 @@ client.users.requestPermanentDeletionByParams({ user_id: 'foobar' }, callback);
 client.users.requestPermanentDeletionByParams({ email: 'jayne@serenity.io' }, callback);
 ```
 
-## Leads
+### Leads
 
 ```node
 // Create a contact
@@ -262,7 +257,7 @@ var conversion = {
 client.leads.convert(conversion, callback);
 ```
 
-## Customers
+### Customers
 
 ```node
 // Search for customers
@@ -273,7 +268,7 @@ client.customers.search({
 }, callback);
 ```
 
-## Visitors
+### Visitors
 
 ```node
 // Update a visitor by id
@@ -310,7 +305,7 @@ var conversion = {
 client.visitors.convert(conversion, callback);
 ```
 
-## Companies
+### Companies
 
 ```node
 // Create/update a company
@@ -355,7 +350,7 @@ client.companies.listUsers({ id: '1234' }, callback);
 client.companies.listUsers({ company_id: '1234' }, callback);
 ```
 
-## Events
+### Events
 
 Note: events will work when identified by 'email'. The `event_name` and `created_at` params are both required. Either `user_id` OR `email` is required.
 
@@ -379,7 +374,7 @@ client.events.listBy({
 }, callback);
 ```
 
-## Counts
+### Counts
 
 ```node
 client.counts.appCounts(callback);
@@ -399,7 +394,7 @@ client.counts.companySegmentCounts(callback);
 client.counts.companyUserCounts(callback);
 ```
 
-## Admins
+### Admins
 
 ```node
 // List admins
@@ -421,7 +416,7 @@ client.admins.find('123456789', callback);
 client.admins.away('123456789', {'away_mode_enabled': true, 'away_mode_reassign': false}, callback);
 ```
 
-## Tags
+### Tags
 
 ```node
 // Create a tag
@@ -453,7 +448,7 @@ client.tags.list(callback);
 client.tags.delete({ id: '130963' }, callback);
 ```
 
-## Segments
+### Segments
 
 ```node
 // List segments
@@ -465,7 +460,7 @@ client.segments.list(callback);
 client.segments.find({ id: '55719a4a' }, callback);
 ```
 
-## Messages
+### Messages
 
 ```node
 // Admin initiated messages:
@@ -501,7 +496,7 @@ var message = {
 client.messages.create(message, callback);
 ```
 
-## Conversations
+### Conversations
 
 Listing conversations ([documentation](https://developers.intercom.com/intercom-api-reference/reference#list-conversations)):
 
@@ -568,7 +563,7 @@ client.conversations.reply(assignment, callback);
 client.conversations.markAsRead({ id: '1039067180' }, callback);
 ```
 
-## Notes
+### Notes
 
 ```node
 // Create a note
@@ -593,7 +588,7 @@ client.notes.list({ email: 'bob@intercom.io' }, callback);
 client.notes.find({ id: '3342887' }, callback);
 ```
 
-## Pagination
+### Pagination
 
 When listing, the Intercom API may return a pagination object:
 
@@ -611,7 +606,7 @@ You can grab the next page of results using the client:
 client.nextPage(response.pages, callback);
 ```
 
-## Identity verification
+### Identity verification
 
 `intercom-node` provides a helper for using [identity verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product):
 
