@@ -106,10 +106,10 @@ export default class Contact {
   unarchive({id}: UnarchiveContactData) {
     return this.client.post<UnarchiveContactResponse>({url: `/${this.baseUrl}/${id}/unarchive`});
   }
-  listAttachedCompanies({id, perPage, startingAfter}: ListAttachedCompaniesData) {
-  const queryData: ListAttachedCompaniesRequest = {
+  listAttachedCompanies({id, perPage, page}: ListAttachedCompaniesData) {
+  const queryData = {
     per_page: perPage,
-    starting_after: startingAfter
+    page,
   }
     return this.client.get<ListCompaniesResponse>({url: `/${this.baseUrl}/${id}/companies`, data: queryData});
   }
@@ -254,6 +254,5 @@ type ListAttachedEmailSubscriptionsResponse = {
   data: Array<SubscriptionObject>
 }
 //
-type ListAttachedCompaniesData = ListAllContactsData & {id: string};
-type ListAttachedCompaniesRequest = ListAllContactsRequest;
+type ListAttachedCompaniesData = {id: string, perPage?: number, page?: number};
 
