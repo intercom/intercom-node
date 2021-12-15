@@ -1,5 +1,5 @@
 export interface TagObject {
-  id: string,
-  name: string,
-  type: "tag"
+    id: string;
+    name: string;
+    type: 'tag';
 }

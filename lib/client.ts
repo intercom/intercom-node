@@ -14,194 +14,239 @@ import Note from './note';
 import Customer from './customer';
 
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
-import {merge, omit} from 'lodash'
+import { merge, omit } from 'lodash';
 
 import { BadResponseError } from './errors/badResponse.error';
 
 interface IRequestOptions {
-  url: string;
-  data?: any;
-  params?: any
+    url: string;
+    data?: any;
+    params?: any;
 }
 
 export default class Client {
-  axiosInstance: Axios;
-  usernamePart?: string;
-  passwordPart?: string;
-  users: any;
-  events: any;
-  companies: any;
-  contacts: Contact;
-  leads: any;
-  visitors: any;
-  counts: any;
-  admins: any;
-  tags: Tag;
-  segments: any;
-  messages: any;
-  conversations: Conversation;
-  notes: any;
-  customers: any;
-  requestOpts: Partial<AxiosDefaults>;
-  usebaseURL: (baseURL: any) => this;
-  propertiesToOmitInRequestOpts: string[];
+    axiosInstance: Axios;
+    usernamePart?: string;
+    passwordPart?: string;
+    users: any;
+    events: any;
+    companies: any;
+    contacts: Contact;
+    leads: any;
+    visitors: any;
+    counts: any;
+    admins: any;
+    tags: Tag;
+    segments: any;
+    messages: any;
+    conversations: Conversation;
+    notes: any;
+    customers: any;
+    requestOpts: Partial<AxiosDefaults>;
+    usebaseURL: (baseURL: any) => this;
+    propertiesToOmitInRequestOpts: string[];
 
-  // TO-DO: Fix any
-  constructor(...args: any) {
-    // TO-DO: Refactor it!
-    if (args.length === 2) {
-      this.usernamePart = args[0];
-      this.passwordPart = args[1];
-    } else if (args.length === 1) {
-      if (args[0].token) {
-        this.usernamePart = args[0].token;
-        this.passwordPart = '';
-      } else {
-        this.usernamePart = args[0].appId;
-        this.passwordPart = args[0].appApiKey;
-      }
+    // TO-DO: Fix any
+    constructor(...args: any) {
+        // TO-DO: Refactor it!
+        if (args.length === 2) {
+            this.usernamePart = args[0];
+            this.passwordPart = args[1];
+        } else if (args.length === 1) {
+            if (args[0].token) {
+                this.usernamePart = args[0].token;
+                this.passwordPart = '';
+            } else {
+                this.usernamePart = args[0].appId;
+                this.passwordPart = args[0].appApiKey;
+            }
+        }
+        if (!this.usernamePart || this.passwordPart === undefined) {
+            throw new Error(
+                'Could not construct a client with those parameters'
+            );
+        }
+        this.users = new User(this);
+        this.events = new Event(this);
+        this.companies = new Company(this);
+        this.contacts = new Contact(this);
+        this.leads = new Contact(this);
+        this.visitors = new Visitor(this);
+        this.counts = new Counts(this);
+        this.admins = new Admin(this);
+        this.segments = new Segment(this);
+        this.messages = new Message(this);
+        this.conversations = new Conversation(this);
+        this.notes = new Note(this);
+        this.customers = new Customer(this);
+        this.tags = new Tag(this);
+        this.requestOpts = {
+            baseURL: 'https://api.intercom.io',
+        };
+        this.propertiesToOmitInRequestOpts = ['headers.common.Accept'];
+
+        this.usebaseURL = deprecate(
+            (baseURL) => this.useRequestOpts({ baseURL }),
+            'intercom-client - client.usebaseURL(url): Use client.useRequestOpts({ baseURL: url }) instead'
+        );
+
+        this.axiosInstance = this.initiateAxiosInstance();
     }
-    if (!this.usernamePart || this.passwordPart === undefined) {
-      throw new Error('Could not construct a client with those parameters');
-    }
-    this.users = new User(this);
-    this.events = new Event(this);
-    this.companies = new Company(this);
-    this.contacts = new Contact(this);
-    this.leads = new Contact(this);
-    this.visitors = new Visitor(this);
-    this.counts = new Counts(this);
-    this.admins = new Admin(this);
-    this.segments = new Segment(this);
-    this.messages = new Message(this);
-    this.conversations = new Conversation(this);
-    this.notes = new Note(this);
-    this.customers = new Customer(this);
-    this.tags = new Tag(this);
-    this.requestOpts = {
-      baseURL: 'https://api.intercom.io'
-    };
-    this.propertiesToOmitInRequestOpts = ['headers.common.Accept'];
+    initiateAxiosInstance(): Axios {
+        // TO-DO: Revise the params
+        const defaultHeaders = {
+            'User-Agent': 'intercom-node-client/2.0.0',
+            Accept: 'application/json',
+        };
 
-    this.usebaseURL = deprecate(baseURL => this.useRequestOpts({ baseURL }), 'intercom-client - client.usebaseURL(url): Use client.useRequestOpts({ baseURL: url }) instead');
+        const axiosInstance = axios.create({
+            auth: {
+                username: this.usernamePart as string,
+                password: this.passwordPart as string,
+            },
+            baseURL: this.requestOpts.baseURL,
+        });
 
-    this.axiosInstance = this.initiateAxiosInstance();
-  }
-  initiateAxiosInstance(): Axios {
-    // TO-DO: Revise the params
-    const defaultHeaders = {
-      'User-Agent': 'intercom-node-client/2.0.0',
-      Accept: 'application/json'
-    };
+        axiosInstance.defaults.headers.common = merge(
+            axiosInstance.defaults.headers.common,
+            defaultHeaders
+        );
 
-    const axiosInstance = axios.create({auth: {username: this.usernamePart as string, password: this.passwordPart as string}, baseURL: this.requestOpts.baseURL});
-
-    axiosInstance.defaults.headers.common = merge(axiosInstance.defaults.headers.common, defaultHeaders);
-
-    return axiosInstance;
-  }
-
-  useRequestOpts(opts: Partial<AxiosDefaults>) {
-    const filteredOpts = this.filterUnwantedProperties(opts);
-
-    this.requestOpts = merge(this.requestOpts, filteredOpts);
-    this.updateAxiosInstanceDefaults();
-
-    return this;
-  }
-
-  updateAxiosInstanceDefaults(): void {
-    this.axiosInstance.defaults = merge(this.axiosInstance.defaults, this.requestOpts);
-  }
-
-  filterUnwantedProperties(opts: Partial<AxiosDefaults>): Partial<AxiosDefaults> {
-    return omit(opts, this.propertiesToOmitInRequestOpts);
-  }
-
-  async ping<T>(): Promise<T> {
-    try {
-      const response = await this.axiosInstance.get('/admins');
-
-      return response.data;
-    }
-    catch(err) {
-      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
-
-      throw error;
-    }
-  }
-
-  async put<T>({url, data}: IRequestOptions): Promise<T> {
-    try {
-      const response = await this.axiosInstance.put(url, data);
-
-      return response.data;
-    }
-    catch(err) {
-      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
-
-      throw error;
-    }
-  }
-
-  async post<T>({url, data}: IRequestOptions): Promise<T> {
-    try {
-      const response = await this.axiosInstance.post(url, data);
-
-      return response.data;
-    }
-    catch(err) {
-      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
-
-      throw error;
-    }
-  }
-
-  async get<T>({url, data}: IRequestOptions): Promise<T> {
-    try {
-      const response = await this.axiosInstance.get(url, {params: data});
-
-      return response.data;
-    }
-    catch(err) {
-      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
-
-      throw error;
-    }
-  }
-
-  async nextPage<T>(paginationObject: {next: string}): Promise<T> {
-    try {
-      const response = await this.axiosInstance.get(paginationObject.next, {baseURL: undefined});
-
-      return response.data;
-    }
-    catch(err) {
-      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
-
-      throw error;
-    }
-  }
-
-  async delete<T>({url, data, params}: IRequestOptions): Promise<T> {
-    try {
-      const response = await this.axiosInstance.delete(url, {data, params});
-
-      return response.data;
-    }
-    catch(err) {
-      const error = err.response ? this.checkOnErrorInResponse(err.response) : err;
-
-      throw error;
-    }
-  }
-
-  private checkOnErrorInResponse({data, headers, status}: AxiosResponse): Error | undefined {
-    if (data.type !== 'error.list') {
-      return undefined;
+        return axiosInstance;
     }
 
-    const message = Array.isArray(data.errors) && data.errors[0].message ? data.errors[0].message : null;
-    return new BadResponseError(message || 'Response error', data, headers, status);
-  }
+    useRequestOpts(opts: Partial<AxiosDefaults>) {
+        const filteredOpts = this.filterUnwantedProperties(opts);
+
+        this.requestOpts = merge(this.requestOpts, filteredOpts);
+        this.updateAxiosInstanceDefaults();
+
+        return this;
+    }
+
+    updateAxiosInstanceDefaults(): void {
+        this.axiosInstance.defaults = merge(
+            this.axiosInstance.defaults,
+            this.requestOpts
+        );
+    }
+
+    filterUnwantedProperties(
+        opts: Partial<AxiosDefaults>
+    ): Partial<AxiosDefaults> {
+        return omit(opts, this.propertiesToOmitInRequestOpts);
+    }
+
+    async ping<T>(): Promise<T> {
+        try {
+            const response = await this.axiosInstance.get('/admins');
+
+            return response.data;
+        } catch (err) {
+            const error = err.response
+                ? this.checkOnErrorInResponse(err.response)
+                : err;
+
+            throw error;
+        }
+    }
+
+    async put<T>({ url, data }: IRequestOptions): Promise<T> {
+        try {
+            const response = await this.axiosInstance.put(url, data);
+
+            return response.data;
+        } catch (err) {
+            const error = err.response
+                ? this.checkOnErrorInResponse(err.response)
+                : err;
+
+            throw error;
+        }
+    }
+
+    async post<T>({ url, data }: IRequestOptions): Promise<T> {
+        try {
+            const response = await this.axiosInstance.post(url, data);
+
+            return response.data;
+        } catch (err) {
+            const error = err.response
+                ? this.checkOnErrorInResponse(err.response)
+                : err;
+
+            throw error;
+        }
+    }
+
+    async get<T>({ url, data }: IRequestOptions): Promise<T> {
+        try {
+            const response = await this.axiosInstance.get(url, {
+                params: data,
+            });
+
+            return response.data;
+        } catch (err) {
+            const error = err.response
+                ? this.checkOnErrorInResponse(err.response)
+                : err;
+
+            throw error;
+        }
+    }
+
+    async nextPage<T>(paginationObject: { next: string }): Promise<T> {
+        try {
+            const response = await this.axiosInstance.get(
+                paginationObject.next,
+                { baseURL: undefined }
+            );
+
+            return response.data;
+        } catch (err) {
+            const error = err.response
+                ? this.checkOnErrorInResponse(err.response)
+                : err;
+
+            throw error;
+        }
+    }
+
+    async delete<T>({ url, data, params }: IRequestOptions): Promise<T> {
+        try {
+            const response = await this.axiosInstance.delete(url, {
+                data,
+                params,
+            });
+
+            return response.data;
+        } catch (err) {
+            const error = err.response
+                ? this.checkOnErrorInResponse(err.response)
+                : err;
+
+            throw error;
+        }
+    }
+
+    private checkOnErrorInResponse({
+        data,
+        headers,
+        status,
+    }: AxiosResponse): Error | undefined {
+        if (data.type !== 'error.list') {
+            return undefined;
+        }
+
+        const message =
+            Array.isArray(data.errors) && data.errors[0].message
+                ? data.errors[0].message
+                : null;
+        return new BadResponseError(
+            message || 'Response error',
+            data,
+            headers,
+            status
+        );
+    }
 }
