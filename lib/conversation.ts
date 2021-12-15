@@ -395,7 +395,6 @@ type SearchConversationResponse = Paginated<ConversationObject>;
 export enum Order {
   DESC = 'desc',
   ASC = 'asc',
-  WAITING_SINCE = 'waiting_since'
 }
 
 export enum SortBy {

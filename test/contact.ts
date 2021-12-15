@@ -28,7 +28,6 @@ describe('contacts', () => {
 
     const response = await client.contacts.createUser({externalId: contact.external_id, phone: contact.phone, name: contact.name, avatar: contact.avatar, signedUpAt: contact.signed_up_at, lastSeenAt: contact.last_seen_at, ownerId: contact.owner_id, isUnsubscribedFromEmails: contact.unsubscribed_from_emails});
 
-
     assert.deepStrictEqual(expectedReply, response);
   });
 
