@@ -3,3 +3,6 @@ lib/*.js
 lib/**/*.js
 test/*.js
 test/**/*.js
+dist/
+node_modules/
+gulpfile.js

@@ -60,7 +60,7 @@ gulp.task('compile_tests_ts', () => {
 
 gulp.task('static', function () {
   return gulp
-    .src('**/*.js')
+    .src('**/*.ts')
     .pipe(excludeGitignore())
     .pipe(eslint({fix: true}))
     .pipe(eslint.format())
@@ -95,5 +95,5 @@ gulp.task('babel', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('prepublish', gulp.series('compile_ts', 'generate_type_declarations_ts', 'babel'));
-gulp.task('default', gulp.series('compile_ts', 'compile_tests_ts', 'static', 'test'));
+gulp.task('prepublish', gulp.series('static', 'compile_ts', 'generate_type_declarations_ts', 'babel'));
+gulp.task('default', gulp.series('static', 'compile_ts', 'compile_tests_ts', 'test'));

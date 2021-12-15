@@ -33,7 +33,7 @@ export default class Tag {
   }
   tagCompanies({name, companiesIds}: ITagCompaniesData) {
     const data = {
-      name,
+       name,
       companies: companiesIds.map(id => ({id}))
     };
 
