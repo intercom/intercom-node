@@ -13,8 +13,8 @@ describe('clients', () => {
 
     const response = await client.admins.list();
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should reject promises', async () => {
     nock('https://api.intercom.io').get('/admins').reply(200, {type: 'error.list'});

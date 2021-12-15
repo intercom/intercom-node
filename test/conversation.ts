@@ -31,8 +31,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.create({userId: id, body: message.body});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should retrieve a conversation as is', async () => {
@@ -46,8 +46,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.find({id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should retrieve a conversation as plain text', async () => {
@@ -61,8 +61,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.find({id, inPlainText: true});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should update a conversation', async () => {
@@ -83,8 +83,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.update({id, markRead: requestBody.read, customAttributes: requestBody.custom_attributes});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should reply as user to a conversation by id', async () => {
@@ -106,8 +106,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.replyByIdAsUser({id, body: userRequestBody.body, intercomUserId: userRequestBody.intercom_user_id, attachmentUrls: userRequestBody.attachment_urls});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should reply as admin to a conversation by id', async () => {
@@ -130,8 +130,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.replyByIdAsAdmin({id, adminId, messageType: adminRequestBody.message_type, body: adminRequestBody.body, attachmentUrls: adminRequestBody.attachment_urls});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should reply as user to last conversation', async () => {
@@ -153,8 +153,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.replyByLastAsUser({body: userRequestBody.body, intercomUserId: userRequestBody.intercom_user_id, attachmentUrls: userRequestBody.attachment_urls});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should reply as admin to last conversation', async () => {
@@ -176,8 +176,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.replyByLastAsAdmin({adminId, messageType: adminRequestBody.message_type, body: adminRequestBody.body, attachmentUrls: adminRequestBody.attachment_urls});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should assign a conversation as team without assignment_rules', async () => {
@@ -193,14 +193,14 @@ describe('conversations', () => {
 
     const expectedReply = {}
 
-    nock('https://api.intercom.io').post(`/conversations/${id}`, userRequestBody).reply(200, expectedReply);
+    nock('https://api.intercom.io').post(`/conversations/${id}/parts`, userRequestBody).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
     const response = await client.conversations.assign({id, type: userRequestBody.type, adminId: userRequestBody.admin_id, assigneeId: userRequestBody.assignee_id, body: userRequestBody.body});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should assign a conversation as team with assignment_rules', async () => {
@@ -208,14 +208,14 @@ describe('conversations', () => {
 
     const expectedReply = {}
 
-    nock('https://api.intercom.io').post(`/conversations/${id}/run_assignment_rules`).reply(200, expectedReply);
+    nock('https://api.intercom.io').post(`/conversations/${id}/run_assignment_rules/parts`).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
     const response = await client.conversations.assign({id, withRunningAssignmentRules: true});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should snooze a conversation', async () => {
@@ -235,8 +235,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.snooze({id, adminId: adminRequestBody.admin_id, snoozedUntil: adminRequestBody.snoozed_until});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should close a conversation', async () => {
@@ -257,8 +257,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.close({id, adminId: adminRequestBody.admin_id, body: adminRequestBody.body});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should open a conversation', async () => {
@@ -277,8 +277,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.open({id, adminId: adminRequestBody.admin_id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should attach a contact to the conversation as admin', async () => {
@@ -299,8 +299,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.attachContactAsAdmin({id, adminId: adminRequestBody.admin_id, customer: {intercomUserId: adminRequestBody.customer.intercom_user_id}});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should attach a contact to the conversation as contact', async () => {
@@ -321,8 +321,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.attachContactAsContact({id, userId: contactRequestBody.user_id, customer: {intercomUserId: contactRequestBody.customer.intercom_user_id}});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should detach a contact from the conversation as admin', async () => {
@@ -342,8 +342,8 @@ describe('conversations', () => {
 
     const response = await client.conversations.detachContactAsAdmin({conversationId, contactId, adminId: adminRequestBody.admin_id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should search for conversations using filters', async () => {
@@ -383,7 +383,15 @@ describe('conversations', () => {
                ]
              }
            ]
-         }
+         },
+         "pagination": {
+          "per_page": 5,
+          "starting_after": "WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0="
+        },
+        "sort": {
+          "field": "name",
+          "order": "ascending",
+        }
        }
 
     const expectedReply = {}
@@ -392,23 +400,21 @@ describe('conversations', () => {
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.search({data: requestBody});
+    const response = await client.conversations.search({data: {query: requestBody.query, pagination: requestBody.pagination, sort: requestBody.sort as any}});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should list all conversations', async () => {
     const expectedReply = {}
 
-    nock('https://api.intercom.io').get(`/conversations?order=desc&sort=updated_at`).reply(200, expectedReply);
+    nock('https://api.intercom.io').get(`/conversations?order=desc&sort=updated_at&page=1&per_page=10`).reply(200, expectedReply);
 
     const client = new Client('foo', 'bar');
 
-    const response = await client.conversations.list({query: {order: Order.DESC, sort: SortBy.UpdatedAt}});
+    const response = await client.conversations.list({query: {order: Order.DESC, sort: SortBy.UpdatedAt, page: 1, perPage: 10}});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+    assert.deepStrictEqual(expectedReply, response);
   });
 
   it('should redact a conversation part', async () => {
@@ -428,7 +434,7 @@ describe('conversations', () => {
 
     const response = await client.conversations.redactConversationPart({type: requestBody.type, conversationId: requestBody.conversation_id, conversationPartId: requestBody.conversation_part_id});
 
-    assert.equal(200, response?.status);
-    assert.deepStrictEqual(expectedReply, response?.data);
+
+    assert.deepStrictEqual(expectedReply, response);
   });
 });

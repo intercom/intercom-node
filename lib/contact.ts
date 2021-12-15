@@ -1,6 +1,5 @@
-import { AxiosResponse } from 'axios';
 import { Client } from '.';
-import { GenericSearchFilters, Paginated } from './common/common.types';
+import { GenericSearchFilters, Leaves, Paginated } from './common/common.types';
 import { ListCompaniesResponse } from './company/company.types';
 import { ContactObject, Role } from './contact/contact.types';
 import { SegmentObject } from './segment/segment.types';
@@ -35,7 +34,7 @@ export default class Contact {
       custom_attributes: customAttributes,
     }
 
-    return this.client.post({url: `/${this.contactBaseUrl}`, data: requestData}) as Promise<AxiosResponse<ContactObject, CreateContactRequest>>;
+    return this.client.post<ContactObject>({url: `/${this.contactBaseUrl}`, data: requestData});
   }
   createLead(data?: CreateLeadData) {
     const requestData: CreateContactRequest = {
@@ -49,10 +48,10 @@ export default class Contact {
       unsubscribed_from_emails: data?.isUnsubscribedFromMails,
       custom_attributes: data?.customAttributes,
     }
-    return this.client.post({url: `/${this.contactBaseUrl}`, data: requestData}) as Promise<AxiosResponse<ContactObject, CreateContactRequest>>;
+    return this.client.post<ContactObject>({url: `/${this.contactBaseUrl}`, data: requestData});
   }
   find({id}: RetrieveContactData) {
-    return this.client.get({url: `/${this.contactBaseUrl}/${id}`}) as Promise<AxiosResponse<ContactObject, void>>;;
+    return this.client.get<ContactObject>({url: `/${this.contactBaseUrl}/${id}`});
   }
   update({id,
     role,
@@ -78,7 +77,7 @@ export default class Contact {
       custom_attributes: customAttributes,
     }
 
-    return this.client.put({url: `/${this.contactBaseUrl}/${id}`, data}) as Promise<AxiosResponse<ContactObject, UpdateContactRequest>>;
+    return this.client.put<ContactObject>({url: `/${this.contactBaseUrl}/${id}`, data});
   }
   mergeLeadInUser({leadId, userId}: MergeLeadInUserContactData) {
     const data: MergeLeadInUserContactRequest = {
@@ -86,34 +85,42 @@ export default class Contact {
       into: userId
     }
 
-    return this.client.post({url: `/${this.contactBaseUrl}/merge`, data}) as Promise<AxiosResponse<ContactObject, MergeLeadInUserContactRequest>>;
+    return this.client.post<ContactObject>({url: `/${this.contactBaseUrl}/merge`, data});
   }
   search({data}: SearchContactRequest){
-    return this.client.post({url: `/${this.contactBaseUrl}/search`, data}) as Promise<AxiosResponse<SearchContactResponse, SearchContactRequest['data']>>
+    return this.client.post<SearchContactResponse>({url: `/${this.contactBaseUrl}/search`, data});
   }
-  list() {
-    return this.client.get({url: `/${this.contactBaseUrl}`}) as Promise<AxiosResponse<ListContactsResponse, void>>;
+  list({perPage, startingAfter}:ListAllContactsData) {
+    const queryData: ListAllContactsRequest = {
+      per_page: perPage,
+      starting_after: startingAfter
+    }
+    return this.client.get<ListContactsResponse>({url: `/${this.contactBaseUrl}`, data: queryData});
   }
   delete({id}: DeleteContactData) {
-    return this.client.delete({url: `/${this.contactBaseUrl}/${id}`}) as Promise<AxiosResponse<DeleteContactResponse, void>>;;
+    return this.client.delete<DeleteContactResponse>({url: `/${this.contactBaseUrl}/${id}`});
   }
   archive({id}: ArchiveContactData) {
-    return this.client.post({url: `/${this.contactBaseUrl}/${id}/archive`}) as Promise<AxiosResponse<ArchiveContactResponse, void>>;;
+    return this.client.post<ArchiveContactResponse>({url: `/${this.contactBaseUrl}/${id}/archive`});
   }
   unarchive({id}: UnarchiveContactData) {
-    return this.client.post({url: `/${this.contactBaseUrl}/${id}/unarchive`}) as Promise<AxiosResponse<UnarchiveContactResponse, void>>;;
+    return this.client.post<UnarchiveContactResponse>({url: `/${this.contactBaseUrl}/${id}/unarchive`});
   }
-  listAttachedCompanies({id}: RetrieveContactData) {
-    return this.client.get({url: `/${this.contactBaseUrl}/${id}/companies`}) as Promise<AxiosResponse<ListCompaniesResponse, void>>;;
+  listAttachedCompanies({id, perPage, page}: ListAttachedCompaniesData) {
+  const queryData = {
+    per_page: perPage,
+    page,
+  }
+    return this.client.get<ListCompaniesResponse>({url: `/${this.contactBaseUrl}/${id}/companies`, data: queryData});
   }
   listAttachedTags({id}: RetrieveContactData) {
-    return this.client.get({url: `/${this.contactBaseUrl}/${id}/tags`}) as Promise<AxiosResponse<ListAttachedTagsResponse, void>>;;
+    return this.client.get<ListAttachedTagsResponse>({url: `/${this.contactBaseUrl}/${id}/tags`});
   }
   listAttachedSegments({id}: RetrieveContactData) {
-    return this.client.get({url: `/${this.contactBaseUrl}/${id}/segments`}) as Promise<AxiosResponse<ListAttachedSegmentsResponse, void>>;;
+    return this.client.get<ListAttachedSegmentsResponse>({url: `/${this.contactBaseUrl}/${id}/segments`});
   }
   listAttachedEmailSubscriptions({id}: RetrieveContactData) {
-    return this.client.get({url: `/${this.contactBaseUrl}/${id}/subscriptions`}) as Promise<AxiosResponse<ListAttachedEmailSubscriptionsResponse, void>>;;
+    return this.client.get<ListAttachedEmailSubscriptionsResponse>({url: `/${this.contactBaseUrl}/${id}/subscriptions`});
   }
 }
 
@@ -196,15 +203,41 @@ interface MergeLeadInUserContactData {
   userId: string
 }
 //
-interface SearchContactRequest {
-  data: GenericSearchFilters<ContactObject>;
+export enum SearchContactOrderBy {
+  ASC = "ascending",
+  DESC = "descending"
+}
+interface SearchContactPagination {
+  pagination: {
+    per_page: number,
+    starting_after?: string,
+  }
 }
 
-interface SearchContactResponse extends ContactObject {
-  total_count: number
+interface SearchContactOrder {
+  sort: {
+    field: Leaves<ContactObject>,
+    order: SearchContactOrderBy,
+  }
 }
+
+interface SearchContactRequest {
+  data: GenericSearchFilters<ContactObject> & Partial<SearchContactPagination> & Partial<SearchContactOrder>;
+}
+
+type SearchContactResponse = Paginated<ContactObject>;
 //
-type ListContactsResponse = Paginated & {contacts: Array<ContactObject>};
+interface ListAllContactsRequest {
+  per_page?: number,
+  starting_after?: string
+}
+
+interface ListAllContactsData {
+  perPage?: number,
+  startingAfter?: string
+}
+
+type ListContactsResponse = Paginated<ContactObject>;
 //
 type ListAttachedTagsResponse = {
   type: string,
@@ -220,3 +253,6 @@ type ListAttachedEmailSubscriptionsResponse = {
   type: string,
   data: Array<SubscriptionObject>
 }
+//
+type ListAttachedCompaniesData = {id: string, perPage?: number, page?: number};
+

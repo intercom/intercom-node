@@ -17,8 +17,8 @@ describe('request-opts', function () {
 
     const response = await client.admins.find('baz');
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
     assert.deepStrictEqual(client.requestOpts, {baseURL: 'https://api.intercom.io', someParameter: 3});
   });
   it('should be able to change request baseURL option', async () => {
@@ -30,8 +30,8 @@ describe('request-opts', function () {
 
     const response = await client.admins.find('baz');
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should be able to change request options merging in headers', async () => {
     const customHeaderCheck = sinon.stub().returns(true);
@@ -55,8 +55,8 @@ describe('request-opts', function () {
 
     const response = await client.admins.find('baz');
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
     // Should always have a user-agent
     sinon.assert.calledOnce(userAgentHeaderCheck);
     sinon.assert.calledWithMatch(userAgentHeaderCheck, sinon.match.string);
@@ -78,7 +78,7 @@ describe('base-url', function () {
 
     const response = await client.admins.list();
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 });

@@ -24,7 +24,7 @@ export interface ConversationObject {
   sla_applied: SLAObject,
   conversation_rating: ConversationRatingObject,
   statistics: StatisticsObject,
-  conversation_parts: ConversationPartObject[],
+  conversation_parts: ConversationPartObject,
 }
 
 export type ConversationObjectWithoutParts = Exclude<ConversationObject, 'conversation_parts'>;
@@ -92,17 +92,19 @@ interface StatisticsObject {
 };
 
 interface ConversationPartObject {
-  type: 'conversation_part',
-  id: string,
-  part_type: string,
-  body: string,
-  created_at: Timestamp,
-  updated_at: Timestamp,
-  notified_at: Timestamp,
-  assigned_to: string | null,
-  author: Author,
-  attachments: JavascriptObject[],
-  redacted: boolean
+  type: 'conversation_part.list',
+  conversation_parts: {
+    id: string,
+    part_type: string,
+    body: string,
+    created_at: Timestamp,
+    updated_at: Timestamp,
+    notified_at: Timestamp,
+    assigned_to: string | null,
+    author: Author,
+    attachments: JavascriptObject[],
+    redacted: boolean
+  }[]
 };
 
 enum ConversationState {

@@ -12,7 +12,7 @@ describe('customers', () => {
     const client = new Client('foo', 'bar');
     const response = await client.customers.search({ query: { field: 'name', operator: '=', name: 'Alice'}, sort: { field: 'name', order: 'ascending'}, pagination: { per_page: 10 }});
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 });

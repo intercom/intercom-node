@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
       "lib": ["es5", "es6"],
-      "outDir": "dist",
+      "outDir": "./dist",
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
       "target": "es5",
@@ -12,7 +12,6 @@
       "experimentalDecorators": true,
       "sourceMap": true,
       "noImplicitAny": true,
-      "declaration": true,
       "noFallthroughCasesInSwitch": true,
       "noImplicitReturns": true,
       "stripInternal": true,
@@ -20,14 +19,15 @@
       "strictNullChecks": true,
       "noUnusedLocals": true,
       "downlevelIteration": true,
-      "rootDir": "."
+      "rootDir": ".",
+      // Ensure that .d.ts files are created by tsc, but not .js files
+      "declaration": true,
+      "declarationMap": true
   },
   "include": [
     "lib/**/*",
-    "test/**/*"
   ],
   "exclude": [
     "node_modules",
-    "dist"
   ]
 }

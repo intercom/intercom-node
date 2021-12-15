@@ -7,6 +7,7 @@ var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 var plumber = require('gulp-plumber');
 var babel = require('gulp-babel');
+var merge = require('merge2');
 
 gulp.task('compile_ts', () => {
   const tsProject = ts.createProject('tsconfig.json', {
@@ -23,6 +24,25 @@ gulp.task('compile_ts', () => {
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./lib'));
 });
+
+gulp.task('generate_type_declarations_ts', () => {
+  const tsProject = ts.createProject('tsconfig.json', {
+    typescript: require('typescript')
+  });
+  const tsResult = gulp.src([
+    'lib/*.ts',
+    'lib/**/*.ts'
+  ])
+    .pipe(sourcemaps.init())
+    .pipe(tsProject());
+
+  return merge([
+    tsResult.dts.pipe(gulp.dest('./dist')),
+    tsResult.js
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('./dist'))]);
+});
+
 gulp.task('compile_tests_ts', () => {
   const tsProject = ts.createProject('tsconfig.json', {
     typescript: require('typescript')
@@ -37,6 +57,7 @@ gulp.task('compile_tests_ts', () => {
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./test'));
 });
+
 gulp.task('static', function () {
   return gulp
     .src('**/*.js')
@@ -74,5 +95,5 @@ gulp.task('babel', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('prepublish', gulp.series('babel'));
+gulp.task('prepublish', gulp.series('compile_ts', 'generate_type_declarations_ts', 'babel'));
 gulp.task('default', gulp.series('compile_ts', 'compile_tests_ts', 'static', 'test'));

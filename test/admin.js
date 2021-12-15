@@ -12,24 +12,24 @@ describe('admins', () => {
     const client = new Client('foo', 'bar');
     const response = await client.admins.list();
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should find current admin', async () => {
     nock('https://api.intercom.io').get('/me').reply(200, {});
     const client = new Client('foo', 'bar');
     const response = await client.admins.me();
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should find admins by id', async () => {
     nock('https://api.intercom.io').get('/admins/baz').reply(200, {});
     const client = new Client('foo', 'bar');
     const response = await client.admins.find('baz');
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
   it('should update admin away mode and reassign settings', async () => {
     const params = { away_mode_enabled: true, away_mode_reassign: false };
@@ -37,7 +37,7 @@ describe('admins', () => {
     const client = new Client('foo', 'bar');
     const response = await client.admins.away('baz', params);
 
-    assert.equal(200, response.status);
-    assert.deepStrictEqual({}, response.data);
+
+    assert.deepStrictEqual({}, response);
   });
 });
