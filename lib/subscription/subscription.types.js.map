@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../lib/subscription/subscription.types.ts"],"names":[],"mappings":";AAAA,uCAAuC","file":"subscription.types.js","sourcesContent":["//TO-DO: Detail type SubscriptionObject\n\nexport type SubscriptionObject = any;\n"]}
