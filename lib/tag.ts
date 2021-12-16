@@ -31,7 +31,7 @@ export default class Tag {
 
     return this.client.post<TagObject>({url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}`, data});
   }
-  tagCompanies({name, companiesIds}: ITagCompaniesData) {
+  tagCompanies({tagName: name, companiesIds}: ITagCompaniesData) {
     const data = {
       name,
       companies: companiesIds.map(id => ({id}))
@@ -45,7 +45,7 @@ export default class Tag {
   untagConversation({conversationId, tagId}: IUntagConversationData) {
     return this.client.delete<TagObject>({url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}/${tagId}`});
   }
-  untagCompanies({name, companiesIds}: IUntagCompaniesData) {
+  untagCompanies({tagName: name, companiesIds}: IUntagCompaniesData) {
     const data = {
       name,
       companies: companiesIds.map(id => ({id, untag: true}))
@@ -82,7 +82,7 @@ interface ITagConversationData {
 }
 //
 interface ITagCompaniesData {
-  name: string,
+  tagName: string,
   companiesIds: string[];
 }
 //

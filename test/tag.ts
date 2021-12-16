@@ -67,7 +67,7 @@ describe('tags', () => {
 
     nock('https://api.intercom.io').post(`/tags`, requestBody).reply(200, {});
     const client = new Client('foo', 'bar');
-    const response = await client.tags.tagCompanies({ name: requestBody.name, companiesIds: ['123', '234', '456'] });
+    const response = await client.tags.tagCompanies({ tagName: requestBody.name, companiesIds: ['123', '234', '456'] });
 
     assert.deepStrictEqual({}, response);
   });
@@ -101,7 +101,7 @@ describe('tags', () => {
 
     nock('https://api.intercom.io').post(`/tags`, requestBody).reply(200, {});
     const client = new Client('foo', 'bar');
-    const response = await client.tags.untagCompanies({ name: requestBody.name, companiesIds: ['123', '234', '456'] });
+    const response = await client.tags.untagCompanies({ tagName: requestBody.name, companiesIds: ['123', '234', '456'] });
 
     assert.deepStrictEqual({}, response);
   });

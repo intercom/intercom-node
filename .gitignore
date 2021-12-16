@@ -34,3 +34,8 @@ lib/**/*.map
 # Typescript mappings for test
 test/*.map
 test/**/*.map
+# Generated Javascript
+lib/*.js
+lib/**/*.js
+test/*.js
+test/**/*.js

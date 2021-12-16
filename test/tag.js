@@ -107,7 +107,7 @@ describe('tags', function () {
                     };
                     (0, nock_1.default)('https://api.intercom.io').post("/tags", requestBody).reply(200, {});
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.tags.tagCompanies({ name: requestBody.name, companiesIds: ['123', '234', '456'] })];
+                    return [4 /*yield*/, client.tags.tagCompanies({ tagName: requestBody.name, companiesIds: ['123', '234', '456'] })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual({}, response);
@@ -162,7 +162,7 @@ describe('tags', function () {
                     };
                     (0, nock_1.default)('https://api.intercom.io').post("/tags", requestBody).reply(200, {});
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.tags.untagCompanies({ name: requestBody.name, companiesIds: ['123', '234', '456'] })];
+                    return [4 /*yield*/, client.tags.untagCompanies({ tagName: requestBody.name, companiesIds: ['123', '234', '456'] })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual({}, response);
