@@ -40,7 +40,7 @@ yarn prepublish
 Import Intercom:
 
 ```typescript
-import {Client} from './dist/index';
+import { Client } from './dist/index';
 ```
 
 Create a client using access tokens:
@@ -56,7 +56,7 @@ This client library also supports passing in [`request` options](https://github.
 ```typescript
 const client = new Client({ token: 'my_token' });
 client.useRequestOpts({
-  baseURL: 'http://local.test-server.com',
+    baseURL: 'http://local.test-server.com',
 });
 ```
 
@@ -69,9 +69,9 @@ We version our API (see the "Choose Version" section of the [API & Webhooks Refe
 ```typescript
 const client = new Client({ token: 'my_token' });
 client.useRequestOpts({
-  headers: {
-    'Intercom-Version': 2.3
-  }
+    headers: {
+        'Intercom-Version': 2.3,
+    },
 });
 ```
 
@@ -82,27 +82,27 @@ client.useRequestOpts({
 ```typescript
 // Create a contact with user role
 const user = await client.contacts.createUser({
-  externalId: '536e564f316c83104c000020',
-  phone: '+48370044567', 
-  name: 'Niko Bellic',
-  avatar: 'https://nico-from-gta-iv.com/lets_go_bowling.jpg',
-  signedUpAt: 1638203719, 
-  lastSeenAt: 1638203720, 
-  ownerId: '536e564f316c83104c000021', 
-  isUnsubscribedFromEmails: true
+    externalId: '536e564f316c83104c000020',
+    phone: '+48370044567',
+    name: 'Niko Bellic',
+    avatar: 'https://nico-from-gta-iv.com/lets_go_bowling.jpg',
+    signedUpAt: 1638203719,
+    lastSeenAt: 1638203720,
+    ownerId: '536e564f316c83104c000021',
+    isUnsubscribedFromEmails: true,
 });
 ```
 
 ```typescript
 // Create a contact with lead role
 const user = await client.contacts.createLead({
-  phone: '+48370044567', 
-  name: 'Roman Bellic',
-  avatar: 'https://nico-from-gta-iv.com/lets_go_bowling_yey.jpg',
-  signedUpAt: 1638203719, 
-  lastSeenAt: 1638203720, 
-  ownerId: '536e564f316c83104c000021', 
-  isUnsubscribedFromEmails: true
+    phone: '+48370044567',
+    name: 'Roman Bellic',
+    avatar: 'https://nico-from-gta-iv.com/lets_go_bowling_yey.jpg',
+    signedUpAt: 1638203719,
+    lastSeenAt: 1638203720,
+    ownerId: '536e564f316c83104c000021',
+    isUnsubscribedFromEmails: true,
 });
 ```
 
@@ -114,25 +114,34 @@ TO-DO: add rest endpoints...
 
 ```node
 // Create a user
-client.users.create({
-  email: 'jayne@serenity.io',
-  custom_attributes: {
-    foo: 'bar'
-  }
-}, callback);
+client.users.create(
+    {
+        email: 'jayne@serenity.io',
+        custom_attributes: {
+            foo: 'bar',
+        },
+    },
+    callback
+);
 
 // Update a user
-client.users.update({
-  email: 'jayne@serenity.io',
-  custom_attributes: {
-    foo: 'bar'
-  }
-}, callback);
+client.users.update(
+    {
+        email: 'jayne@serenity.io',
+        custom_attributes: {
+            foo: 'bar',
+        },
+    },
+    callback
+);
 ```
 
 ```node
 // Create/update a user with custom attributes
-client.users.create({ email: 'jayne@serenity.io', custom_attributes: { invited_friend: true } }, callback);
+client.users.create(
+    { email: 'jayne@serenity.io', custom_attributes: { invited_friend: true } },
+    callback
+);
 ```
 
 ```node
@@ -147,18 +156,17 @@ client.users.listBy({ tag_id: 'haven' }, callback);
 
 ```node
 // Scroll through users list
-client.users.scroll.each({}, function(res) {
-  // if you return a promise from your callback, the client will only scroll
-  // after this promise has resolved
-  new Bluebird((resolve) => {
-    setTimeout(() => {
-      console.log(res.body.users.length);
-      // Your custom logic
-      resolve();
-   }, 500)
- })
+client.users.scroll.each({}, function (res) {
+    // if you return a promise from your callback, the client will only scroll
+    // after this promise has resolved
+    new Bluebird((resolve) => {
+        setTimeout(() => {
+            console.log(res.body.users.length);
+            // Your custom logic
+            resolve();
+        }, 500);
+    });
 });
-
 ```
 
 ```node
@@ -179,7 +187,7 @@ client.users.archive({ id: '1234' }, callback);
 
 ```node
 // Permanently delete a user by id (https://developers.intercom.com/intercom-api-reference/reference#delete-users)
-const intercomUserId = '123'
+const intercomUserId = '123';
 client.users.requestPermanentDeletion(intercomUserId, callback);
 ```
 
@@ -191,7 +199,10 @@ client.users.requestPermanentDeletionByParams({ id: '55b9eaf' }, callback);
 client.users.requestPermanentDeletionByParams({ user_id: 'foobar' }, callback);
 
 // Permanently delete a user by email
-client.users.requestPermanentDeletionByParams({ email: 'jayne@serenity.io' }, callback);
+client.users.requestPermanentDeletionByParams(
+    { email: 'jayne@serenity.io' },
+    callback
+);
 ```
 
 ### Leads
@@ -199,12 +210,12 @@ client.users.requestPermanentDeletionByParams({ email: 'jayne@serenity.io' }, ca
 ```node
 // Create a contact
 client.leads.create(function (r) {
-  console.log(r);
+    console.log(r);
 });
 
 // Create a contact with attributes
 client.leads.create({ email: 'jayne@serenity.io' }, function (r) {
-  console.log(r);
+    console.log(r);
 });
 ```
 
@@ -220,16 +231,16 @@ client.leads.list(callback);
 
 ```node
 // Scroll through contacts list
-client.leads.scroll.each({}, function(res) {
-  // if you return a promise from your callback, the client will only scroll
-  // after this promise has resolved
-  new Bluebird((resolve) => {
-    setTimeout(() => {
-      console.log(res.body.contacts.length);
-      // Your custom logic
-      resolve();
-   }, 500)
- })
+client.leads.scroll.each({}, function (res) {
+    // if you return a promise from your callback, the client will only scroll
+    // after this promise has resolved
+    new Bluebird((resolve) => {
+        setTimeout(() => {
+            console.log(res.body.contacts.length);
+            // Your custom logic
+            resolve();
+        }, 500);
+    });
 });
 ```
 
@@ -251,8 +262,8 @@ client.leads.delete({ id: '5342423' }, callback);
 ```node
 // Convert Leads into Users
 var conversion = {
-  contact: { user_id: '1234-5678-9876' },
-  user: { email: 'mal@serenity.io' }
+    contact: { user_id: '1234-5678-9876' },
+    user: { email: 'mal@serenity.io' },
 };
 client.leads.convert(conversion, callback);
 ```
@@ -261,11 +272,14 @@ client.leads.convert(conversion, callback);
 
 ```node
 // Search for customers
-client.customers.search({
-  query: { field: 'name', operator: '=', name: 'Alice'},
-  sort: { field: 'name', order: 'ascending'},
-  pagination: { per_page: 10 }
-}, callback);
+client.customers.search(
+    {
+        query: { field: 'name', operator: '=', name: 'Alice' },
+        sort: { field: 'name', order: 'ascending' },
+        pagination: { per_page: 10 },
+    },
+    callback
+);
 ```
 
 ### Visitors
@@ -278,7 +292,10 @@ client.visitors.update({ id: '5435345', email: 'wash@serenity.io' }, callback);
 ```node
 // Find visitor by id or user_id
 client.visitors.find({ id: '5342423' }, callback);
-client.visitors.find({ user_id: '5b868511-ca3b-4eac-8d26-cfd82a83ac76' }, callback);
+client.visitors.find(
+    { user_id: '5b868511-ca3b-4eac-8d26-cfd82a83ac76' },
+    callback
+);
 ```
 
 ```node
@@ -289,9 +306,9 @@ client.visitors.delete({ id: '5342423' }, callback);
 ```node
 // Convert visitors into Users
 var conversion = {
-  visitor: { user_id: '1234-5678-9876' },
-  user: { email: 'mal@serenity.io' },
-  type: "user"
+    visitor: { user_id: '1234-5678-9876' },
+    user: { email: 'mal@serenity.io' },
+    type: 'user',
 };
 client.visitors.convert(conversion, callback);
 ```
@@ -299,8 +316,8 @@ client.visitors.convert(conversion, callback);
 ```node
 // Convert visitors into Lead
 var conversion = {
-  visitor: { user_id: '1234-5678-9876' },
-  type: "lead"
+    visitor: { user_id: '1234-5678-9876' },
+    type: 'lead',
 };
 client.visitors.convert(conversion, callback);
 ```
@@ -310,7 +327,7 @@ client.visitors.convert(conversion, callback);
 ```node
 // Create/update a company
 client.companies.create({ company_id: '1234', name: 'serenity' }, function (r) {
-  console.log(r);
+    console.log(r);
 });
 ```
 
@@ -326,16 +343,16 @@ client.companies.listBy({ tag_id: 'haven' }, callback);
 
 ```node
 // Scroll through companies list
-client.companies.scroll.each({}, function(res) {
-  // if you return a promise from your callback, the client will only scroll
-  // after this promise has resolved
-  new Bluebird((resolve) => {
-    setTimeout(() => {
-      console.log(res.body.companies.length);
-      // Your custom logic
-      resolve();
-   }, 500)
- })
+client.companies.scroll.each({}, function (res) {
+    // if you return a promise from your callback, the client will only scroll
+    // after this promise has resolved
+    new Bluebird((resolve) => {
+        setTimeout(() => {
+            console.log(res.body.companies.length);
+            // Your custom logic
+            resolve();
+        }, 500);
+    });
 });
 ```
 
@@ -356,22 +373,28 @@ Note: events will work when identified by 'email'. The `event_name` and `created
 
 ```node
 // Create a event
-client.events.create({
-  event_name: 'Foo',
-  created_at: 1439826340,
-  user_id: 'bar',
-  metadata: { type: 'baz' }
-}, function (d) {
-  console.log(d);
-});
+client.events.create(
+    {
+        event_name: 'Foo',
+        created_at: 1439826340,
+        user_id: 'bar',
+        metadata: { type: 'baz' },
+    },
+    function (d) {
+        console.log(d);
+    }
+);
 ```
 
 ```node
 // List events by user
-client.events.listBy({
-    type: 'user',
-    user_id: 'bar'
-}, callback);
+client.events.listBy(
+    {
+        type: 'user',
+        user_id: 'bar',
+    },
+    callback
+);
 ```
 
 ### Counts
@@ -413,7 +436,11 @@ client.admins.find('123456789', callback);
 
 ```node
 // Update admin away mode and reassign settings
-client.admins.away('123456789', {'away_mode_enabled': true, 'away_mode_reassign': false}, callback);
+client.admins.away(
+    '123456789',
+    { away_mode_enabled: true, away_mode_reassign: false },
+    callback
+);
 ```
 
 ### Tags
@@ -466,19 +493,19 @@ client.segments.find({ id: '55719a4a' }, callback);
 // Admin initiated messages:
 // Sending an email to a User
 var message = {
-  message_type: "email",
-  subject: "Hey",
-  body: "Ponies, cute small horses or something more sinister?",
-  template: "plain",
-  from: {
-    type: "admin",
-    id: "21599"
-  },
-  to: {
-    type: "user",
-    id: "55c1ce1def857c31f80001af"
-  }
-}
+    message_type: 'email',
+    subject: 'Hey',
+    body: 'Ponies, cute small horses or something more sinister?',
+    template: 'plain',
+    from: {
+        type: 'admin',
+        id: '21599',
+    },
+    to: {
+        type: 'user',
+        id: '55c1ce1def857c31f80001af',
+    },
+};
 
 client.messages.create(message, callback);
 ```
@@ -486,12 +513,12 @@ client.messages.create(message, callback);
 ```node
 // Creating a user-initiated message:
 var message = {
-  from: {
-    type: "user",
-    id: "55c1ce1def857c31f80001af"
-  },
-  body: "Howdy"
-}
+    from: {
+        type: 'user',
+        id: '55c1ce1def857c31f80001af',
+    },
+    body: 'Howdy',
+};
 
 client.messages.create(message, callback);
 ```
@@ -512,23 +539,23 @@ client.conversations.find({ id: '1062682196' }, callback);
 ```node
 // Reply to a conversation
 var reply = {
-  id: '1039067180',
-  intercom_user_id: '55b26822ce97179e52001334',
-  body: 'Some reply :)',
-  type: 'user',
-  message_type: 'comment'
+    id: '1039067180',
+    intercom_user_id: '55b26822ce97179e52001334',
+    body: 'Some reply :)',
+    type: 'user',
+    message_type: 'comment',
 };
 
 client.conversations.reply(reply, callback);
 
 // Reply to a conversation with attachments
 var reply = {
-  id: '1039067180',
-  intercom_user_id: '55b26822ce97179e52001334',
-  body: 'Some reply :)',
-  type: 'user',
-  message_type: 'comment',
-  attachment_urls: ['http://www.example.com/myattachment.jpg']
+    id: '1039067180',
+    intercom_user_id: '55b26822ce97179e52001334',
+    body: 'Some reply :)',
+    type: 'user',
+    message_type: 'comment',
+    attachment_urls: ['http://www.example.com/myattachment.jpg'],
 };
 
 client.conversations.reply(reply, callback);
@@ -537,23 +564,23 @@ client.conversations.reply(reply, callback);
 ```node
 // Assign a conversation to an admin
 var assignment = {
-  id: '13879167940',
-  type: 'admin',
-  admin_id: '1309092',
-  assignee_id: '1723471',
-  message_type: 'assignment'
+    id: '13879167940',
+    type: 'admin',
+    admin_id: '1309092',
+    assignee_id: '1723471',
+    message_type: 'assignment',
 };
 
 client.conversations.reply(assignment, callback);
 
 // Assign a conversation to unassigned
 var assignment = {
-  id: '13879167940',
-  type: 'admin',
-  admin_id: '1309092',
-  assignee_id: '0',
-  message_type: 'assignment'
-}
+    id: '13879167940',
+    type: 'admin',
+    admin_id: '1309092',
+    assignee_id: '0',
+    message_type: 'assignment',
+};
 
 client.conversations.reply(assignment, callback);
 ```
@@ -568,11 +595,11 @@ client.conversations.markAsRead({ id: '1039067180' }, callback);
 ```node
 // Create a note
 var note = {
-  admin_id: 21599,
-  body: 'Hello notes!',
-  user: {
-    id: '55b26822ce97179e52001334'
-  }
+    admin_id: 21599,
+    body: 'Hello notes!',
+    user: {
+        id: '55b26822ce97179e52001334',
+    },
 };
 
 client.notes.create(note, callback);
@@ -594,9 +621,9 @@ When listing, the Intercom API may return a pagination object:
 
 ```json
 {
-  "pages": {
-    "next": "..."
-  }
+    "pages": {
+        "next": "..."
+    }
 }
 ```
 
@@ -610,10 +637,13 @@ client.nextPage(response.pages, callback);
 
 `intercom-node` provides a helper for using [identity verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product):
 
-``` node
+```node
 import { IdentityVerification } from 'intercom-client';
 
-IdentityVerification.userHash({secretKey: 's3cre7', identifier: 'jayne@serenity.io'});
+IdentityVerification.userHash({
+    secretKey: 's3cre7',
+    identifier: 'jayne@serenity.io',
+});
 ```
 
 ## License
@@ -622,16 +652,16 @@ Apache-2.0
 
 ## Pull Requests
 
-- **Add tests!** Your patch won't be accepted if it doesn't have tests.
+-   **Add tests!** Your patch won't be accepted if it doesn't have tests.
 
-- **Document any change in behaviour**. Make sure the README and any other
-  relevant documentation are kept up-to-date.
+-   **Document any change in behaviour**. Make sure the README and any other
+    relevant documentation are kept up-to-date.
 
-- **Create topic branches**. Don't ask us to pull from your master branch.
+-   **Create topic branches**. Don't ask us to pull from your master branch.
 
-- **One pull request per feature**. If you want to do more than one thing, send
-  multiple pull requests.
+-   **One pull request per feature**. If you want to do more than one thing, send
+    multiple pull requests.
 
-- **Send coherent history**. Make sure each individual commit in your pull
-  request is meaningful. If you had to make multiple intermediate commits while
-  developing, please squash them before sending them to us.
+-   **Send coherent history**. Make sure each individual commit in your pull
+    request is meaningful. If you had to make multiple intermediate commits while
+    developing, please squash them before sending them to us.
