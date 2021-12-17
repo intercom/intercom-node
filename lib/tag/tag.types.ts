@@ -1,3 +1,5 @@
-//TO-DO: Detail TagObject
-
-export type TagObject = any;
+export interface TagObject {
+  id: string,
+  name: string,
+  type: "tag"
+}

@@ -56,3 +56,20 @@
 3. Method to update Contact -> `contact.update({id, role, externalId, phone, name, avatar, signedUpAt, lastSeenAt, ownerId, isUnsubscribedFromMails, customAttributes})`
 4. Removed `listBy` method
 5. Removed `convert` method
+
+# [Tags API]
+
+## Added
+
+1. Method to tag Contact -> `tags.tagContact({contactId, tagId})`
+2. Method to untag Contact -> `tags.untagContact({contactId, tagId})`
+3. Method to tag Conversation -> `tags.tagConversation({conversationId, tagId, adminId})`
+4. Method to untag Conversation -> `tags.untagConversation({conversationId, tagId})`
+5. Method to tag Companies -> `tags.tagCompanies({companiesIds, tagName})`
+6. Method to untag Companies -> `tags.untagCompanies({companiesIds, tagName})`
+
+## Changed
+
+1. Methods to Create/Update Tag:
+1.1. Create -> `tags.create({name})`
+1.1. Update -> `tags.update({id, name})`

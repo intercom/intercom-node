@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../lib/company/company.types.ts"],"names":[],"mappings":"","file":"company.types.js","sourcesContent":["import { Paginated } from \"../common/common.types\";\n\n// TO-DO: Describe the type\ntype CompanyObject = any;\n\n// TO-DO: Refactor to generic Paginated\nexport type ListCompaniesResponse = Paginated<CompanyObject>;\n"]}

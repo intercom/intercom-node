@@ -4,7 +4,7 @@ var tslib_1 = require("tslib");
 var assert_1 = (0, tslib_1.__importDefault)(require("assert"));
 var lib_1 = require("../lib");
 var nock_1 = (0, tslib_1.__importDefault)(require("nock"));
-describe.only('messages', function () {
+describe('messages', function () {
     it('should be created', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
         var requestBody, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {

@@ -4,7 +4,7 @@ import { ContactType, ConversationObject, ConversationObjectWithoutParts } from 
 import { MessageObject } from './message/message.types';
 
 export default class Conversation {
-  private conversationBaseUrl = 'conversations'
+  public readonly baseUrl = 'conversations'
 
   constructor(private readonly client: Client) {
     this.client = client;
@@ -17,14 +17,14 @@ export default class Conversation {
       },
       body
     }
-    return this.client.post<MessageObject>({url: `/${this.conversationBaseUrl}`, data: requestData});
+    return this.client.post<MessageObject>({url: `/${this.baseUrl}`, data: requestData});
   }
   find({id, inPlainText}: RetrieveConversationData) {
     const data = inPlainText ? {
       display_as: 'plaintext'
     } : undefined;
 
-    return this.client.get<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}`, data});
+    return this.client.get<ConversationObject>({url: `/${this.baseUrl}/${id}`, data});
   }
   update({id, markRead, customAttributes}: UpdateConversationData) {
     const data: UpdateConversationRequest = {
@@ -32,7 +32,7 @@ export default class Conversation {
       custom_attributes: customAttributes,
     }
 
-    return this.client.put<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}`, data});
+    return this.client.put<ConversationObject>({url: `/${this.baseUrl}/${id}`, data});
   }
   replyByIdAsUser({id, body, intercomUserId, userId, email, attachmentUrls}: ReplyByIdAsUserData) {
     const data: ReplyToConversationAsUser = {
@@ -44,7 +44,7 @@ export default class Conversation {
       email: email,
       attachment_urls: attachmentUrls,
     }
-    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/reply`, data});
+    return this.client.post<ConversationObject>({url: `/${this.baseUrl}/${id}/reply`, data});
   }
   replyByIdAsAdmin({id, adminId, messageType, body, attachmentUrls}: ReplyByIdAsAdminData) {
     const data: ReplyToConversationAsAdmin = {
@@ -54,7 +54,7 @@ export default class Conversation {
       body,
       attachment_urls: attachmentUrls,
     }
-    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/reply`, data});
+    return this.client.post<ConversationObject>({url: `/${this.baseUrl}/${id}/reply`, data});
   }
   replyByLastAsUser({body, intercomUserId, userId, email, attachmentUrls}: ReplyByLastAsUserData) {
     const data: ReplyToConversationAsUser = {
@@ -66,7 +66,7 @@ export default class Conversation {
       email: email,
       attachment_urls: attachmentUrls,
     }
-    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/last/reply`, data});
+    return this.client.post<ConversationObject>({url: `/${this.baseUrl}/last/reply`, data});
   }
   replyByLastAsAdmin({adminId, messageType, body, attachmentUrls}: ReplyByLastAsAdminData) {
     const data: ReplyToConversationAsAdmin = {
@@ -76,10 +76,10 @@ export default class Conversation {
       body,
       attachment_urls: attachmentUrls,
     }
-    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/last/reply`, data});
+    return this.client.post<ConversationObject>({url: `/${this.baseUrl}/last/reply`, data});
   }
   assign({id, type, adminId, assigneeId, body, withRunningAssignmentRules = false}: AssignConversationData) {
-    const url = `/${this.conversationBaseUrl}/${id}${withRunningAssignmentRules ? '/run_assignment_rules' : ''}/parts`;
+    const url = `/${this.baseUrl}/${id}${withRunningAssignmentRules ? '/run_assignment_rules' : ''}/parts`;
     const data: AssignConversationRequest | undefined = withRunningAssignmentRules ? undefined : {
       message_type: AssignToConversationMessageType.ASSIGNMENT,
       type,
@@ -97,7 +97,7 @@ export default class Conversation {
       snoozed_until: snoozedUntil
     };
 
-    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/reply`, data});
+    return this.client.post<ConversationObject>({url: `/${this.baseUrl}/${id}/reply`, data});
   }
   close({id, adminId, body}: CloseConversationData) {
     const data: CloseConversationRequest = {
@@ -107,7 +107,7 @@ export default class Conversation {
       body,
     }
 
-    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/parts`, data});
+    return this.client.post<ConversationObject>({url: `/${this.baseUrl}/${id}/parts`, data});
   }
   open({id, adminId}: OpenConversationData) {
     const data: OpenConversationRequest = {
@@ -115,7 +115,7 @@ export default class Conversation {
       admin_id: adminId,
     }
 
-    return this.client.post<ConversationObject>({url: `/${this.conversationBaseUrl}/${id}/parts`, data});
+    return this.client.post<ConversationObject>({url: `/${this.baseUrl}/${id}/parts`, data});
   }
   attachContactAsAdmin({id, adminId, customer}: AttachContactToConversationAsAdminData) {
     const data: AttachContactToConversationAdminRequest = {
@@ -127,7 +127,7 @@ export default class Conversation {
       }
     }
 
-    return this.client.post<AttachContactToConversationResponse>({url: `/${this.conversationBaseUrl}/${id}/customers`, data});
+    return this.client.post<AttachContactToConversationResponse>({url: `/${this.baseUrl}/${id}/customers`, data});
   }
   attachContactAsContact({id, userId, intercomUserId, email, customer}: AttachContactToConversationAsContactData) {
     const data: AttachContactToConversationContactRequest = {
@@ -141,22 +141,22 @@ export default class Conversation {
       }
     }
 
-    return this.client.post<AttachContactToConversationResponse>({url: `/${this.conversationBaseUrl}/${id}/customers`, data});
+    return this.client.post<AttachContactToConversationResponse>({url: `/${this.baseUrl}/${id}/customers`, data});
   }
   detachContactAsAdmin({conversationId, contactId, adminId}: DetachContactFromConversationData) {
     const data: DetachContactFromConversationRequest = {
       admin_id: adminId,
     }
 
-    return this.client.delete<ConversationObject>({url: `/${this.conversationBaseUrl}/${conversationId}/customers/${contactId}`, data});
+    return this.client.delete<ConversationObject>({url: `/${this.baseUrl}/${conversationId}/customers/${contactId}`, data});
   }
   search({data}: SearchConversationRequest){
-    return this.client.post<SearchConversationResponse>({url: `/${this.conversationBaseUrl}/search`, data});
+    return this.client.post<SearchConversationResponse>({url: `/${this.baseUrl}/search`, data});
   }
   list({query: {order, sort, page, perPage: per_page}}: ListConversationData) {
     const data = {order, sort, page, per_page};
 
-    return this.client.get<ListConversationResponse>({url: `/${this.conversationBaseUrl}`, data});
+    return this.client.get<ListConversationResponse>({url: `/${this.baseUrl}`, data});
   }
   redactConversationPart({conversationId, conversationPartId, sourceId, type}: RedactConversationPartData) {
     const data: RedactConversationPartRequest = {
@@ -166,7 +166,7 @@ export default class Conversation {
       type
     };
 
-    return this.client.post<Conversation>({url: `/${this.conversationBaseUrl}/redact`, data});
+    return this.client.post<Conversation>({url: `/${this.baseUrl}/redact`, data});
   }
 }
 

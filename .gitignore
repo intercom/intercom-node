@@ -28,9 +28,14 @@ dist
 # Yarn 3.x
 .yarn
 
-# Typescript mappings
-# TO-DO: fix regex
-lib/*.*.map
+# Typescript mappings for lib
+lib/*.map
 lib/**/*.map
+# Typescript mappings for test
 test/*.map
 test/**/*.map
+# Generated Javascript
+lib/*.js
+lib/**/*.js
+test/*.js
+test/**/*.js
