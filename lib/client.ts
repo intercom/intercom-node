@@ -35,7 +35,7 @@ export default class Client {
   leads: any;
   visitors: any;
   counts: any;
-  admins: any;
+  admins: Admin;
   tags: Tag;
   segments: any;
   messages: any;
