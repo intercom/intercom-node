@@ -66,8 +66,8 @@
 2. Method to untag Contact -> `tags.untagContact({contactId, tagId})`
 3. Method to tag Conversation -> `tags.tagConversation({conversationId, tagId, adminId})`
 4. Method to untag Conversation -> `tags.untagConversation({conversationId, tagId})`
-5. Method to tag Companies -> `tags.tagCompanies({name, companiesIds})`
-6. Method to untag Companies -> `tags.untagCompanies({name, companiesIds})`
+5. Method to tag Companies -> `tags.tagCompanies({companiesIds, tagName})`
+6. Method to untag Companies -> `tags.untagCompanies({companiesIds, tagName})`
 
 ## Changed
 
