@@ -84,11 +84,11 @@ describe('tags', function () {
                     conversationId = 'contactid123';
                     requestBody = {
                         id: 'tagid123',
-                        adminId: 'adminid123',
+                        admin_id: 'adminid123',
                     };
                     (0, nock_1.default)('https://api.intercom.io').post("/conversations/".concat(conversationId, "/tags"), requestBody).reply(200, {});
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.tags.tagConversation({ conversationId: conversationId, tagId: requestBody.id, adminId: requestBody.adminId })];
+                    return [4 /*yield*/, client.tags.tagConversation({ conversationId: conversationId, tagId: requestBody.id, adminId: requestBody.admin_id })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual({}, response);
@@ -135,15 +135,18 @@ describe('tags', function () {
         });
     }); });
     it('should untag conversations', function () { return (0, tslib_1.__awaiter)(void 0, void 0, void 0, function () {
-        var conversationId, tagId, client, response;
+        var conversationId, requestBody, client, response;
         return (0, tslib_1.__generator)(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     conversationId = 'contactid123';
-                    tagId = 'tagid123';
-                    (0, nock_1.default)('https://api.intercom.io').delete("/conversations/".concat(conversationId, "/tags/").concat(tagId)).reply(200, {});
+                    requestBody = {
+                        id: 'tagid123',
+                        admin_id: 'adminid123',
+                    };
+                    (0, nock_1.default)('https://api.intercom.io').delete("/conversations/".concat(conversationId, "/tags/").concat(requestBody.id)).reply(200, {});
                     client = new lib_1.Client('foo', 'bar');
-                    return [4 /*yield*/, client.tags.untagConversation({ conversationId: conversationId, tagId: tagId })];
+                    return [4 /*yield*/, client.tags.untagConversation({ conversationId: conversationId, tagId: requestBody.id, adminId: requestBody.admin_id })];
                 case 1:
                     response = _a.sent();
                     assert_1.default.deepStrictEqual({}, response);

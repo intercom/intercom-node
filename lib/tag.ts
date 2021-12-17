@@ -23,10 +23,10 @@ export default class Tag {
     }
     return this.client.post<TagObject>({url: `/${this.client.contacts.baseUrl}/${contactId}/${this.tagsBaseUrl}`, data});
   }
-  tagConversation({conversationId, tagId, adminId}: ITagConversationData) {
+  tagConversation({conversationId, tagId, adminId: admin_id}: ITagConversationData) {
     const data = {
       id: tagId,
-      adminId,
+      admin_id,
     }
 
     return this.client.post<TagObject>({url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}`, data});
@@ -42,8 +42,13 @@ export default class Tag {
   untagContact({contactId, tagId}: IUntagContactData) {
     return this.client.delete<TagObject>({url: `/${this.client.contacts.baseUrl}/${contactId}/${this.tagsBaseUrl}/${tagId}`})
   }
-  untagConversation({conversationId, tagId}: IUntagConversationData) {
-    return this.client.delete<TagObject>({url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}/${tagId}`});
+  untagConversation({conversationId, tagId, adminId: admin_id}: IUntagConversationData) {
+    const data = {
+      id: tagId,
+      admin_id,
+    };
+
+    return this.client.delete<TagObject>({url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}/${tagId}`, data});
   }
   untagCompanies({tagName: name, companiesIds}: IUntagCompaniesData) {
     const data = {
@@ -91,6 +96,7 @@ type IUntagContactData = ITagContactData;
 interface IUntagConversationData {
   tagId: string,
   conversationId: string,
+  adminId: string,
 }
 //
 type IUntagCompaniesData = ITagCompaniesData;

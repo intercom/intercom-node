@@ -50,12 +50,12 @@ describe('tags', () => {
     const conversationId = 'contactid123'
     const requestBody = {
       id: 'tagid123',
-      adminId: 'adminid123',
+      admin_id: 'adminid123',
     };
 
     nock('https://api.intercom.io').post(`/conversations/${conversationId}/tags`, requestBody).reply(200, {});
     const client = new Client('foo', 'bar');
-    const response = await client.tags.tagConversation({ conversationId, tagId: requestBody.id, adminId: requestBody.adminId });
+    const response = await client.tags.tagConversation({ conversationId, tagId: requestBody.id, adminId: requestBody.admin_id });
 
     assert.deepStrictEqual({}, response);
   });
@@ -84,12 +84,15 @@ describe('tags', () => {
     assert.deepStrictEqual({}, response);
   });
   it('should untag conversations', async () => {
-    const conversationId = 'contactid123'
-    const tagId = 'tagid123'
+    const conversationId = 'contactid123';
+    const requestBody = {
+      id: 'tagid123',
+      admin_id: 'adminid123',
+    };
 
-    nock('https://api.intercom.io').delete(`/conversations/${conversationId}/tags/${tagId}`).reply(200, {});
+    nock('https://api.intercom.io').delete(`/conversations/${conversationId}/tags/${requestBody.id}`).reply(200, {});
     const client = new Client('foo', 'bar');
-    const response = await client.tags.untagConversation({ conversationId, tagId });
+    const response = await client.tags.untagConversation({ conversationId, tagId: requestBody.id, adminId: requestBody.admin_id });
 
     assert.deepStrictEqual({}, response);
   });
