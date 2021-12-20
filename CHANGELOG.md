@@ -72,10 +72,8 @@
 ## Changed
 
 1. Methods to Create/Update Tag:
-2. Create -> `tags.create({name})`
-   2.1. Create -> `tags.create({name})`
-   2.2. Update -> `tags.update({id, name})`
-3. Update -> `tags.update({id, name})`
+   1.1. Create -> `tags.create({name})`
+   1.2. Update -> `tags.update({id, name})`
 
 # [Admin API]
 
