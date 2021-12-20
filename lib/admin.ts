@@ -25,8 +25,8 @@ export default class Admin {
     }
     listAllActivityLogs({ before, after }: IListAllActivityLogsData) {
         const data = {
-            created_at_before: dateToUnixTimestamp(before),
-            created_at_after: after ? dateToUnixTimestamp(after) : undefined,
+            created_at_after: dateToUnixTimestamp(after),
+            created_at_before: before ? dateToUnixTimestamp(before) : undefined,
         };
 
         return this.client.get<IListAllActivityLogsResponse>({
@@ -50,8 +50,8 @@ interface ISetAdminAwayData {
 }
 
 interface IListAllActivityLogsData {
-    before: Date;
-    after?: Date;
+    after: Date;
+    before?: Date;
 }
 
 interface IListAllActivityLogsResponse {
