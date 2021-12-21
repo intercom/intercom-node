@@ -17,6 +17,7 @@ import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
 
 import { BadResponseError } from './errors/badResponse.error';
+import Team from './team';
 
 interface IRequestOptions {
     url: string;
@@ -25,26 +26,27 @@ interface IRequestOptions {
 }
 
 export default class Client {
+    admins: any;
     axiosInstance: Axios;
-    usernamePart?: string;
-    passwordPart?: string;
-    users: any;
-    events: any;
     companies: any;
     contacts: Contact;
-    leads: any;
-    visitors: any;
-    counts: any;
-    admins: any;
-    tags: Tag;
-    segments: any;
-    messages: any;
     conversations: Conversation;
-    notes: any;
+    counts: any;
     customers: any;
-    requestOpts: Partial<AxiosDefaults>;
-    usebaseURL: (baseURL: any) => this;
+    events: any;
+    leads: any;
+    messages: any;
+    notes: any;
+    passwordPart?: string;
     propertiesToOmitInRequestOpts: string[];
+    requestOpts: Partial<AxiosDefaults>;
+    segments: any;
+    tags: Tag;
+    teams: Team;
+    usebaseURL: (baseURL: any) => this;
+    usernamePart?: string;
+    users: any;
+    visitors: any;
 
     // TO-DO: Fix any
     constructor(...args: any) {
@@ -80,6 +82,7 @@ export default class Client {
         this.notes = new Note(this);
         this.customers = new Customer(this);
         this.tags = new Tag(this);
+        this.teams = new Team(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',
         };
