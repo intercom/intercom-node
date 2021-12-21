@@ -26,7 +26,7 @@ interface IRequestOptions {
 }
 
 export default class Client {
-    admins: any;
+    admins: Admin;
     axiosInstance: Axios;
     companies: any;
     contacts: Contact;
