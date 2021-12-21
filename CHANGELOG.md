@@ -73,4 +73,18 @@
 
 1. Methods to Create/Update Tag:
    1.1. Create -> `tags.create({name})`
-   1.1. Update -> `tags.update({id, name})`
+   1.2. Update -> `tags.update({id, name})`
+
+# [Admin API]
+
+## Added
+
+1. List all activities logs `admin.listAllActivities`
+
+## Changed
+
+1. Params for `admin.away` method -> `admin.away({adminId, enableAwayMode, enableReassignMode})`
+
+## Removed
+
+1. `admin.me` method.
