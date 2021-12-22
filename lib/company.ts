@@ -33,8 +33,32 @@ export default class Company {
 
         return this.client.post<ContactObject>({ url: '/companies', data });
     }
-    update(data: any) {
-        return this.create(data);
+    update({
+        createdAt,
+        companyId,
+        name,
+        monthlySpend,
+        plan,
+        size,
+        website,
+        industry,
+        customAttributes,
+    }: IUpdateCompanyData) {
+        const data = {
+            remote_created_at: createdAt,
+            name,
+            monthly_spend: monthlySpend,
+            plan,
+            size,
+            website,
+            industry,
+            custom_attributes: customAttributes,
+        };
+
+        return this.client.put<ContactObject>({
+            url: `/companies/${companyId}`,
+            data,
+        });
     }
     list() {
         return this.client.get({ url: '/companies' });
@@ -85,3 +109,5 @@ interface ICreateCompanyData {
     industry: string;
     customAttributes: JavascriptObject;
 }
+//
+type IUpdateCompanyData = ICreateCompanyData;

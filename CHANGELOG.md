@@ -96,3 +96,4 @@
 ## Changed
 
 1. Method to create Companies `companies.create({createdAt, companyId, name, monthlySpend, plan, size, website, industry, customAttributes})`
+1. Method to update Companies `companies.update({createdAt, name, monthlySpend, plan, size, website, industry, customAttributes})`

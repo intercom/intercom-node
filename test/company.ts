@@ -39,6 +39,37 @@ describe('companies', () => {
 
         assert.deepStrictEqual({}, response);
     });
+    it('should be updated', async () => {
+        const company_id = '46029';
+        const requestBody = {
+            remote_created_at: dateToUnixTimestamp(new Date()),
+            name: 'BestCompanyInc.',
+            monthly_spend: 9001,
+            plan: '1. Get pizzaid',
+            size: 62049,
+            website: 'http://the-best.one',
+            industry: 'The Best One',
+            custom_attributes: {},
+        };
+
+        nock('https://api.intercom.io')
+            .put(`/companies/${company_id}`, requestBody)
+            .reply(200, {});
+
+        const response = await client.companies.update({
+            createdAt: requestBody.remote_created_at,
+            companyId: company_id,
+            name: requestBody.name,
+            monthlySpend: requestBody.monthly_spend,
+            plan: requestBody.plan,
+            size: requestBody.size,
+            website: requestBody.website,
+            industry: requestBody.industry,
+            customAttributes: requestBody.custom_attributes,
+        });
+
+        assert.deepStrictEqual({}, response);
+    });
     it('should list', async () => {
         nock('https://api.intercom.io').get('/companies').reply(200, {});
         const response = await client.companies.list();
