@@ -1,7 +1,3 @@
-// TO-DO: Rethink testing framework
-// Workaround for old gulp-mocha to use async functions
-import '@babel/polyfill';
-
 import assert from 'assert';
 import { Client } from '../lib';
 import nock from 'nock';

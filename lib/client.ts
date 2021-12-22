@@ -30,7 +30,7 @@ export default class Client {
     passwordPart?: string;
     users: any;
     events: any;
-    companies: any;
+    companies: Company;
     contacts: Contact;
     leads: any;
     visitors: any;

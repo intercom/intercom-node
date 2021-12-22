@@ -1,23 +1,24 @@
-import Scroll from './scroll';
+import { Client } from '.';
 
 export default class Company {
-    constructor(client) {
+    public readonly baseUrl = 'companies';
+
+    constructor(private readonly client: Client) {
         this.client = client;
-        this.scroll = new Scroll(this.client, 'companie');
     }
-    create(data) {
+    create(data: any) {
         return this.client.post({ url: '/companies', data });
     }
-    update(data) {
+    update(data: any) {
         return this.create(data);
     }
     list() {
         return this.client.get({ url: '/companies' });
     }
-    listBy(params) {
+    listBy(params: any) {
         return this.client.get({ url: '/companies', data: params });
     }
-    find(params) {
+    find(params: any) {
         if (params.id) {
             return this.client.get({ url: `/companies/${params.id}` });
         } else if (params.company_id) {
@@ -32,7 +33,7 @@ export default class Company {
             });
         }
     }
-    listUsers(params) {
+    listUsers(params: any) {
         if (params.id) {
             return this.client.get({ url: `/companies/${params.id}/users` });
         } else if (params.company_id) {
