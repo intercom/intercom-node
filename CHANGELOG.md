@@ -88,3 +88,11 @@
 ## Removed
 
 1. `admin.me` method.
+
+# [Companies API]
+
+## Added
+
+## Changed
+
+1. Method to create Companies `companies.create({createdAt, companyId, name, monthlySpend, plan, size, website, industry, customAttributes})`

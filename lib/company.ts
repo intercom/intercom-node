@@ -1,4 +1,6 @@
 import { Client } from '.';
+import { JavascriptObject, Timestamp } from './common/common.types';
+import { ContactObject } from './contact/contact.types';
 
 export default class Company {
     public readonly baseUrl = 'companies';
@@ -6,8 +8,30 @@ export default class Company {
     constructor(private readonly client: Client) {
         this.client = client;
     }
-    create(data: any) {
-        return this.client.post({ url: '/companies', data });
+    create({
+        createdAt,
+        companyId,
+        name,
+        monthlySpend,
+        plan,
+        size,
+        website,
+        industry,
+        customAttributes,
+    }: ICreateCompanyData) {
+        const data = {
+            remote_created_at: createdAt,
+            company_id: companyId,
+            name,
+            monthly_spend: monthlySpend,
+            plan,
+            size,
+            website,
+            industry,
+            custom_attributes: customAttributes,
+        };
+
+        return this.client.post<ContactObject>({ url: '/companies', data });
     }
     update(data: any) {
         return this.create(data);
@@ -18,7 +42,7 @@ export default class Company {
     listBy(params: any) {
         return this.client.get({ url: '/companies', data: params });
     }
-    find(params: any) {
+    find(params: any): any {
         if (params.id) {
             return this.client.get({ url: `/companies/${params.id}` });
         } else if (params.company_id) {
@@ -33,7 +57,7 @@ export default class Company {
             });
         }
     }
-    listUsers(params: any) {
+    listUsers(params: any): any {
         if (params.id) {
             return this.client.get({ url: `/companies/${params.id}/users` });
         } else if (params.company_id) {
@@ -48,4 +72,16 @@ export default class Company {
             });
         }
     }
+}
+
+interface ICreateCompanyData {
+    createdAt: Timestamp;
+    companyId: string;
+    name: string;
+    monthlySpend: number;
+    plan: string;
+    size: number;
+    website: string;
+    industry: string;
+    customAttributes: JavascriptObject;
 }
