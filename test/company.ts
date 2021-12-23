@@ -2,7 +2,31 @@ import assert from 'assert';
 import { Client } from '../lib';
 import nock from 'nock';
 import { dateToUnixTimestamp } from '../lib/util/time';
+import { Order } from '../lib/common/common.types';
 
+const dummyCompany = {
+    type: 'company',
+    company_id: 'dummy-company',
+    id: '59yo',
+    app_id: 'einszweidrei',
+    name: 'Bitconeeeeeeect',
+    created_at: 1509716268,
+    updated_at: 1509977818,
+    last_request_at: 1506274700,
+    monthly_spend: 0,
+    session_count: 0,
+    user_count: 1,
+    tags: {
+        type: 'tag.list',
+        tags: [],
+    },
+    segments: {
+        type: 'segment.list',
+        segments: [],
+    },
+    plan: {},
+    custom_attributes: {},
+};
 describe('companies', () => {
     let client: Client;
     before(() => {
@@ -70,44 +94,111 @@ describe('companies', () => {
 
         assert.deepStrictEqual({}, response);
     });
-    it('should list', async () => {
-        nock('https://api.intercom.io').get('/companies').reply(200, {});
-        const response = await client.companies.list();
+    it('should find companies by company_id', async () => {
+        const queryData = {
+            company_id: 'baz',
+        };
+        nock('https://api.intercom.io')
+            .get('/companies')
+            .query(queryData)
+            .reply(200, {});
+        const response = await client.companies.find({
+            companyId: queryData.company_id,
+        });
+
+        assert.deepStrictEqual({}, response);
+    });
+    it('should find companies by name', async () => {
+        const queryData = {
+            name: 'bruh moment inc.',
+        };
+        nock('https://api.intercom.io')
+            .get('/companies')
+            .query(queryData)
+            .reply(200, {});
+        const response = await client.companies.find({ name: queryData.name });
+
+        assert.deepStrictEqual({}, response);
+    });
+    it('should delete company by id', async () => {
+        const id = 'baz';
+
+        nock('https://api.intercom.io')
+            .delete(`/companies/${id}`)
+            .reply(200, {});
+
+        const response = await client.companies.delete({
+            id,
+        });
+
+        assert.deepStrictEqual({}, response);
+    });
+    it('should list with pagination', async () => {
+        nock('https://api.intercom.io')
+            .get('/companies')
+            .query({ page: 1, per_page: 35, order: Order.DESC })
+            .reply(200, {});
+        const response = await client.companies.list({
+            page: 1,
+            perPage: 35,
+            order: Order.DESC,
+        });
 
         assert.deepStrictEqual({}, response);
     });
     it('should list by params', async () => {
         nock('https://api.intercom.io')
             .get('/companies')
-            .query({ tag_id: '1234' })
+            .query({ tag_id: '1234', segment_id: '4567' })
             .reply(200, {});
-        const response = await client.companies.listBy({ tag_id: '1234' });
+        const response = await client.companies.list({
+            tagId: '1234',
+            segmentId: '4567',
+        });
 
         assert.deepStrictEqual({}, response);
     });
-    it('should find companies by id', async () => {
-        nock('https://api.intercom.io').get('/companies/baz').reply(200, {});
-        const response = await client.companies.find({ id: 'baz' });
-
-        assert.deepStrictEqual({}, response);
-    });
-    it('should find companies by company_id', async () => {
+    it.only('should get all infinite companies with scroll', async () => {
         nock('https://api.intercom.io')
-            .get('/companies')
-            .query({ company_id: 'baz' })
-            .reply(200, {});
-        const response = await client.companies.find({ company_id: 'baz' });
+            .get('/companies/scroll')
+            .reply(200, {
+                type: 'list',
+                scroll_param: '123_soleil',
+                data: [dummyCompany],
+            });
 
-        assert.deepStrictEqual({}, response);
-    });
-    it('should find companies by name', async () => {
         nock('https://api.intercom.io')
-            .get('/companies')
-            .query({ name: 'baz' })
-            .reply(200, {});
-        const response = await client.companies.find({ name: 'baz' });
+            .get('/companies/scroll?scroll_param=123_soleil')
+            .reply(200, {
+                type: 'list',
+                scroll_param: '123_soleil_345',
+                data: [],
+            });
 
-        assert.deepStrictEqual({}, response);
+        const client = new Client('foo', 'bar');
+
+        const response = await client.companies.scroll.each({});
+
+        assert.equal(1, response.length);
+        assert.deepStrictEqual(dummyCompany, response[0]);
+    });
+    it.only('should get companies with manual scroll', async () => {
+        nock('https://api.intercom.io')
+            .get('/companies/scroll?scroll_param=123_soleil')
+            .reply(200, {
+                type: 'list',
+                scroll_param: '123_soleil_345',
+                data: [dummyCompany],
+            });
+
+        const client = new Client('foo', 'bar');
+
+        const response = await client.companies.scroll.next({
+            scrollParam: '123_soleil',
+        });
+
+        assert.deepStrictEqual(dummyCompany, response.data[0]);
+        assert.deepStrictEqual('123_soleil_345', response.scroll_param);
     });
     it('should list company users by id', async () => {
         nock('https://api.intercom.io')

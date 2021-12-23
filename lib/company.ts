@@ -1,12 +1,16 @@
 import { Client } from '.';
-import { JavascriptObject, Timestamp } from './common/common.types';
-import { ContactObject } from './contact/contact.types';
+import { JavascriptObject, Order, Timestamp } from './common/common.types';
+import { CompanyObject, IListCompaniesResponse } from './company/company.types';
+import Scroll from './scroll';
+import { encodeParamsForURL } from './util/url';
 
 export default class Company {
     public readonly baseUrl = 'companies';
+    public readonly scroll: Scroll<Company>;
 
     constructor(private readonly client: Client) {
         this.client = client;
+        this.scroll = new Scroll<Company>(this.client, this.baseUrl);
     }
     create({
         createdAt,
@@ -31,7 +35,10 @@ export default class Company {
             custom_attributes: customAttributes,
         };
 
-        return this.client.post<ContactObject>({ url: '/companies', data });
+        return this.client.post<CompanyObject>({
+            url: `/${this.baseUrl}`,
+            data,
+        });
     }
     update({
         createdAt,
@@ -55,31 +62,48 @@ export default class Company {
             custom_attributes: customAttributes,
         };
 
-        return this.client.put<ContactObject>({
-            url: `/companies/${companyId}`,
+        return this.client.put<CompanyObject>({
+            url: `/${this.baseUrl}/${companyId}`,
             data,
         });
     }
-    list() {
-        return this.client.get({ url: '/companies' });
+    find({ companyId, name }: IFindCompanyData) {
+        const query = {
+            company_id: companyId,
+            name,
+        };
+
+        return this.client.get<CompanyObject>({
+            url: `/${this.baseUrl}`,
+            data: encodeParamsForURL(
+                query as Record<string, string | ReadonlyArray<string>>
+            ),
+        });
     }
-    listBy(params: any) {
-        return this.client.get({ url: '/companies', data: params });
+    delete({ id }: IDeleteCompanyData) {
+        return this.client.delete<IDeleteCompanyResponse>({
+            url: `/${this.baseUrl}/${id}`,
+        });
     }
-    find(params: any): any {
-        if (params.id) {
-            return this.client.get({ url: `/companies/${params.id}` });
-        } else if (params.company_id) {
-            return this.client.get({
-                url: '/companies',
-                data: { company_id: params.company_id },
-            });
-        } else if (params.name) {
-            return this.client.get({
-                url: '/companies',
-                data: { name: params.name },
-            });
-        }
+    list({
+        page,
+        perPage: per_page,
+        order,
+        tagId: tag_id,
+        segmentId: segment_id,
+    }: IListCompaniesData) {
+        const data = {
+            page,
+            per_page,
+            order,
+            tag_id,
+            segment_id,
+        };
+
+        return this.client.get<IListCompaniesResponse>({
+            url: `/${this.baseUrl}`,
+            data,
+        });
     }
     listUsers(params: any): any {
         if (params.id) {
@@ -111,3 +135,25 @@ interface ICreateCompanyData {
 }
 //
 type IUpdateCompanyData = ICreateCompanyData;
+//
+interface IFindCompanyData {
+    companyId?: string;
+    name?: string;
+}
+//
+interface IDeleteCompanyData {
+    id: string;
+}
+interface IDeleteCompanyResponse {
+    id: string;
+    object: 'company';
+    deleted: boolean;
+}
+//
+interface IListCompaniesData {
+    page?: number;
+    perPage?: number;
+    order?: Order;
+    tagId?: string;
+    segmentId?: string;
+}

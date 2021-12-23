@@ -2,7 +2,7 @@ import { JavascriptObject, Paginated, Timestamp } from '../common/common.types';
 import { SegmentObject } from '../segment/segment.types';
 import { TagObject } from '../tag/tag.types';
 
-interface CompanyObject {
+export interface CompanyObject {
     type: 'company';
     company_id: string;
     id: string;
@@ -36,4 +36,4 @@ export interface PlanObject {
     name: string;
 }
 
-export type ListCompaniesResponse = Paginated<CompanyObject>;
+export type IListCompaniesResponse = Paginated<CompanyObject>;

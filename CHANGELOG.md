@@ -93,7 +93,11 @@
 
 ## Added
 
+1. Method to delete Company `companies.delete({ id })`
+
 ## Changed
 
 1. Method to create Companies `companies.create({createdAt, companyId, name, monthlySpend, plan, size, website, industry, customAttributes})`
-1. Method to update Companies `companies.update({createdAt, name, monthlySpend, plan, size, website, industry, customAttributes})`
+2. Method to update Companies `companies.update({createdAt, name, monthlySpend, plan, size, website, industry, customAttributes})`
+3. Method to find Company `companies.find({ name, companyId })`
+4. Method to list Companies `companies.list({tagId, segmentId, page, perPage, order})`

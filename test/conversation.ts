@@ -7,14 +7,13 @@ import {
     CloseConversationMessageType,
     CloseConversationType,
     OpenConversationMessageType,
-    Order,
     RedactConversationPartType,
     ReplyToConversationMessageType,
     ReplyToConversationUserType,
     SnoozeConversationMessageType,
     SortBy,
 } from '../lib/conversation';
-import { Operators } from '../lib/common/common.types';
+import { Operators, Order } from '../lib/common/common.types';
 
 describe('conversations', () => {
     it('should create a conversation', async () => {
