@@ -101,3 +101,5 @@
 2. Method to update Companies `companies.update({createdAt, name, monthlySpend, plan, size, website, industry, customAttributes})`
 3. Method to find Company `companies.find({ name, companyId })`
 4. Method to list Companies `companies.list({tagId, segmentId, page, perPage, order})`
+5. Method to infinitely scroll (till the last Company) Companies `companies.scroll.each({scrollParam})`
+6. Method to manually scroll Companies `companies.scroll.next({scrollParam})`

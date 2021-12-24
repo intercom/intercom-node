@@ -158,7 +158,7 @@ describe('companies', () => {
 
         assert.deepStrictEqual({}, response);
     });
-    it.only('should get all infinite companies with scroll', async () => {
+    it('should get all infinite companies with scroll', async () => {
         nock('https://api.intercom.io')
             .get('/companies/scroll')
             .reply(200, {
@@ -182,7 +182,7 @@ describe('companies', () => {
         assert.equal(1, response.length);
         assert.deepStrictEqual(dummyCompany, response[0]);
     });
-    it.only('should get companies with manual scroll', async () => {
+    it('should get companies with manual scroll', async () => {
         nock('https://api.intercom.io')
             .get('/companies/scroll?scroll_param=123_soleil')
             .reply(200, {
