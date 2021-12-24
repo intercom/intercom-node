@@ -1,6 +1,13 @@
 import { Client } from '.';
-import { JavascriptObject, Order, Timestamp } from './common/common.types';
+import {
+    IPaginationParams,
+    JavascriptObject,
+    Order,
+    Paginated,
+    Timestamp,
+} from './common/common.types';
 import { CompanyObject, IListCompaniesResponse } from './company/company.types';
+import { ContactObject } from './contact/contact.types';
 import Scroll from './scroll';
 import { encodeParamsForURL } from './util/url';
 
@@ -120,6 +127,14 @@ export default class Company {
             url: `/${this.client.contacts.baseUrl}/${contactId}/${this.baseUrl}/${companyId}`,
         });
     }
+    listAttachedContacts({ companyId, page, perPage }: IListAttachedContacts) {
+        const params = { page, perPage };
+
+        return this.client.get<Paginated<ContactObject>>({
+            url: `/${this.baseUrl}/${companyId}/${this.client.contacts.baseUrl}`,
+            params,
+        });
+    }
     listUsers(params: any): any {
         if (params.id) {
             return this.client.get({ url: `/companies/${params.id}/users` });
@@ -165,9 +180,7 @@ interface IDeleteCompanyResponse {
     deleted: boolean;
 }
 //
-interface IListCompaniesData {
-    page?: number;
-    perPage?: number;
+interface IListCompaniesData extends IPaginationParams {
     order?: Order;
     tagId?: string;
     segmentId?: string;
@@ -179,3 +192,7 @@ interface IAttachContactData {
 }
 //
 type IDetachContactData = IAttachContactData;
+//
+interface IListAttachedContacts extends IPaginationParams {
+    companyId: string;
+}

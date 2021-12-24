@@ -103,3 +103,8 @@ export enum Order {
     DESC = 'desc',
     ASC = 'asc',
 }
+
+export interface IPaginationParams {
+    page?: number;
+    perPage?: number;
+}

@@ -226,6 +226,24 @@ describe('companies', () => {
 
         assert.deepStrictEqual({}, response);
     });
+    it('should list all attached contacts to company', async () => {
+        const companyId = '234';
+        const page = 1;
+        const perPage = 15;
+
+        nock('https://api.intercom.io')
+            .get(`/companies/${companyId}/contacts`)
+            .query({ page, perPage })
+            .reply(200, {});
+
+        const response = await client.companies.listAttachedContacts({
+            companyId,
+            page,
+            perPage,
+        });
+
+        assert.deepStrictEqual({}, response);
+    });
     // TO-DO: Check if those make sense
     // it('should list company users by id', async () => {
     //     nock('https://api.intercom.io')
