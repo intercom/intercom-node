@@ -33,7 +33,7 @@ export default class Conversation {
         });
     }
     find({ id, inPlainText }: RetrieveConversationData) {
-        const data = inPlainText
+        const params = inPlainText
             ? {
                   display_as: 'plaintext',
               }
@@ -41,7 +41,7 @@ export default class Conversation {
 
         return this.client.get<ConversationObject>({
             url: `/${this.baseUrl}/${id}`,
-            data,
+            params,
         });
     }
     update({ id, markRead, customAttributes }: UpdateConversationData) {
@@ -260,11 +260,11 @@ export default class Conversation {
     list({
         query: { order, sort, page, perPage: per_page },
     }: ListConversationData) {
-        const data = { order, sort, page, per_page };
+        const params = { order, sort, page, per_page };
 
         return this.client.get<ListConversationResponse>({
             url: `/${this.baseUrl}`,
-            data,
+            params,
         });
     }
     redactConversationPart({

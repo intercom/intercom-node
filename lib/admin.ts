@@ -24,14 +24,14 @@ export default class Admin {
         });
     }
     listAllActivityLogs({ before, after }: IListAllActivityLogsData) {
-        const data = {
+        const params = {
             created_at_after: dateToUnixTimestamp(after),
             created_at_before: before ? dateToUnixTimestamp(before) : undefined,
         };
 
         return this.client.get<IListAllActivityLogsResponse>({
             url: `/${this.baseUrl}/activity_logs`,
-            data,
+            params,
         });
     }
     list() {

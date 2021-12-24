@@ -112,13 +112,13 @@ export default class Contact {
         });
     }
     list({ perPage, startingAfter }: ListAllContactsData) {
-        const queryData: ListAllContactsRequest = {
+        const params: ListAllContactsRequest = {
             per_page: perPage,
             starting_after: startingAfter,
         };
         return this.client.get<ListContactsResponse>({
             url: `/${this.baseUrl}`,
-            data: queryData,
+            params,
         });
     }
     delete({ id }: DeleteContactData) {
@@ -137,13 +137,13 @@ export default class Contact {
         });
     }
     listAttachedCompanies({ id, perPage, page }: ListAttachedCompaniesData) {
-        const queryData = {
+        const params = {
             per_page: perPage,
             page,
         };
         return this.client.get<IListCompaniesResponse>({
             url: `/${this.baseUrl}/${id}/companies`,
-            data: queryData,
+            params,
         });
     }
     listAttachedTags({ id }: RetrieveContactData) {

@@ -179,10 +179,11 @@ export default class Client {
         }
     }
 
-    async get<T>({ url, data }: IRequestOptions): Promise<T> {
+    async get<T>({ url, data, params }: IRequestOptions): Promise<T> {
         try {
             const response = await this.axiosInstance.get(url, {
-                params: data,
+                params,
+                data,
             });
 
             return response.data;
