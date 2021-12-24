@@ -94,6 +94,8 @@
 ## Added
 
 1. Method to delete Company `companies.delete({ id })`
+2. Method to attach Contact to Company `companies.attachContact({ companyId, contactId })`
+3. Method to detach Contact from Company `companies.detachContact({ companyId, contactId })`
 
 ## Changed
 

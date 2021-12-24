@@ -75,7 +75,7 @@ export default class Company {
 
         return this.client.get<CompanyObject>({
             url: `/${this.baseUrl}`,
-            data: encodeParamsForURL(
+            params: encodeParamsForURL(
                 query as Record<string, string | ReadonlyArray<string>>
             ),
         });
@@ -92,7 +92,7 @@ export default class Company {
         tagId: tag_id,
         segmentId: segment_id,
     }: IListCompaniesData) {
-        const data = {
+        const params = {
             page,
             per_page,
             order,
@@ -102,7 +102,22 @@ export default class Company {
 
         return this.client.get<IListCompaniesResponse>({
             url: `/${this.baseUrl}`,
+            params,
+        });
+    }
+    attachContact({ contactId, companyId }: IAttachContactData) {
+        const data = {
+            id: companyId,
+        };
+
+        return this.client.get<CompanyObject>({
+            url: `/${this.client.contacts.baseUrl}/${contactId}/${this.baseUrl}`,
             data,
+        });
+    }
+    detachContact({ contactId, companyId }: IDetachContactData) {
+        return this.client.delete<CompanyObject>({
+            url: `/${this.client.contacts.baseUrl}/${contactId}/${this.baseUrl}/${companyId}`,
         });
     }
     listUsers(params: any): any {
@@ -111,12 +126,12 @@ export default class Company {
         } else if (params.company_id) {
             return this.client.get({
                 url: '/companies',
-                data: { company_id: params.company_id, type: 'user' },
+                params: { company_id: params.company_id, type: 'user' },
             });
         } else if (params.name) {
             return this.client.get({
                 url: '/companies',
-                data: { name: params.name, type: 'user' },
+                params: { name: params.name, type: 'user' },
             });
         }
     }
@@ -157,3 +172,10 @@ interface IListCompaniesData {
     tagId?: string;
     segmentId?: string;
 }
+//
+interface IAttachContactData {
+    contactId: string;
+    companyId: string;
+}
+//
+type IDetachContactData = IAttachContactData;

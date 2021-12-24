@@ -175,8 +175,6 @@ describe('companies', () => {
                 data: [],
             });
 
-        const client = new Client('foo', 'bar');
-
         const response = await client.companies.scroll.each({});
 
         assert.equal(1, response.length);
@@ -191,8 +189,6 @@ describe('companies', () => {
                 data: [dummyCompany],
             });
 
-        const client = new Client('foo', 'bar');
-
         const response = await client.companies.scroll.next({
             scrollParam: '123_soleil',
         });
@@ -200,32 +196,63 @@ describe('companies', () => {
         assert.deepStrictEqual(dummyCompany, response.data[0]);
         assert.deepStrictEqual('123_soleil_345', response.scroll_param);
     });
-    it('should list company users by id', async () => {
-        nock('https://api.intercom.io')
-            .get('/companies/baz/users')
-            .reply(200, {});
-        const response = await client.companies.listUsers({ id: 'baz' });
+    it('should attach contact to company', async () => {
+        const contactId = '123';
+        const companyId = '234';
 
-        assert.deepStrictEqual({}, response);
-    });
-    it('should list company users by company_id', async () => {
         nock('https://api.intercom.io')
-            .get('/companies')
-            .query({ company_id: 'baz', type: 'user' })
+            .get(`/contacts/${contactId}/companies`, { id: companyId })
             .reply(200, {});
-        const response = await client.companies.listUsers({
-            company_id: 'baz',
+
+        const response = await client.companies.attachContact({
+            contactId,
+            companyId,
         });
 
         assert.deepStrictEqual({}, response);
     });
-    it('should list company users by company name', async () => {
+    it('should detach contact from company', async () => {
+        const contactId = '123';
+        const companyId = '234';
+
         nock('https://api.intercom.io')
-            .get('/companies')
-            .query({ name: 'baz', type: 'user' })
+            .delete(`/contacts/${contactId}/companies/${companyId}`)
             .reply(200, {});
-        const response = await client.companies.listUsers({ name: 'baz' });
+
+        const response = await client.companies.detachContact({
+            contactId,
+            companyId,
+        });
 
         assert.deepStrictEqual({}, response);
     });
+    // TO-DO: Check if those make sense
+    // it('should list company users by id', async () => {
+    //     nock('https://api.intercom.io')
+    //         .get('/companies/baz/users')
+    //         .reply(200, {});
+    //     const response = await client.companies.listUsers({ id: 'baz' });
+
+    //     assert.deepStrictEqual({}, response);
+    // });
+    // it('should list company users by company_id', async () => {
+    //     nock('https://api.intercom.io')
+    //         .get('/companies')
+    //         .query({ company_id: 'baz', type: 'user' })
+    //         .reply(200, {});
+    //     const response = await client.companies.listUsers({
+    //         company_id: 'baz',
+    //     });
+
+    //     assert.deepStrictEqual({}, response);
+    // });
+    // it('should list company users by company name', async () => {
+    //     nock('https://api.intercom.io')
+    //         .get('/companies')
+    //         .query({ name: 'baz', type: 'user' })
+    //         .reply(200, {});
+    //     const response = await client.companies.listUsers({ name: 'baz' });
+
+    //     assert.deepStrictEqual({}, response);
+    // });
 });
