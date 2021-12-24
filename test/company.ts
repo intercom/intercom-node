@@ -244,6 +244,19 @@ describe('companies', () => {
 
         assert.deepStrictEqual({}, response);
     });
+    it('should list all attached segments to company', async () => {
+        const companyId = '234';
+
+        nock('https://api.intercom.io')
+            .get(`/companies/${companyId}/segments`)
+            .reply(200, {});
+
+        const response = await client.companies.listAttachedSegments({
+            companyId,
+        });
+
+        assert.deepStrictEqual({}, response);
+    });
     // TO-DO: Check if those make sense
     // it('should list company users by id', async () => {
     //     nock('https://api.intercom.io')

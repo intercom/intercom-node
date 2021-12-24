@@ -9,6 +9,7 @@ import {
 import { CompanyObject, IListCompaniesResponse } from './company/company.types';
 import { ContactObject } from './contact/contact.types';
 import Scroll from './scroll';
+import { SegmentObject } from './segment/segment.types';
 import { encodeParamsForURL } from './util/url';
 
 export default class Company {
@@ -127,12 +128,21 @@ export default class Company {
             url: `/${this.client.contacts.baseUrl}/${contactId}/${this.baseUrl}/${companyId}`,
         });
     }
-    listAttachedContacts({ companyId, page, perPage }: IListAttachedContacts) {
+    listAttachedContacts({
+        companyId,
+        page,
+        perPage,
+    }: IListAttachedContactsData) {
         const params = { page, perPage };
 
         return this.client.get<Paginated<ContactObject>>({
             url: `/${this.baseUrl}/${companyId}/${this.client.contacts.baseUrl}`,
             params,
+        });
+    }
+    listAttachedSegments({ companyId }: IListAttachedSegmentsData) {
+        return this.client.get<IListAttachedSegmentsResponse>({
+            url: `/${this.baseUrl}/${companyId}/${this.client.segments.baseUrl}`,
         });
     }
     listUsers(params: any): any {
@@ -193,6 +203,14 @@ interface IAttachContactData {
 //
 type IDetachContactData = IAttachContactData;
 //
-interface IListAttachedContacts extends IPaginationParams {
+interface IListAttachedContactsData extends IPaginationParams {
     companyId: string;
+}
+//
+interface IListAttachedSegmentsData {
+    companyId: string;
+}
+interface IListAttachedSegmentsResponse {
+    type: 'list';
+    data: SegmentObject[];
 }

@@ -97,6 +97,7 @@
 2. Method to attach Contact to Company `companies.attachContact({ companyId, contactId })`
 3. Method to detach Contact from Company `companies.detachContact({ companyId, contactId })`
 4. Method to list attached Contacts for Company `companies.listAttachedContacts({ companyId, page, perPage })`
+5. Method to list attached Segments for Company `companies.listAttachedSegments({ companyId })`
 
 ## Changed
 
