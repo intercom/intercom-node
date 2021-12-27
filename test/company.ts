@@ -202,7 +202,7 @@ describe('companies', () => {
         const companyId = '234';
 
         nock('https://api.intercom.io')
-            .get(`/contacts/${contactId}/companies`, { id: companyId })
+            .post(`/contacts/${contactId}/companies`, { id: companyId })
             .reply(200, {});
 
         const response = await client.companies.attachContact({

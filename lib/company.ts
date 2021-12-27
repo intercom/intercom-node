@@ -114,7 +114,7 @@ export default class Company {
             id: companyId,
         };
 
-        return this.client.get<CompanyObject>({
+        return this.client.post<CompanyObject>({
             url: `/${this.client.contacts.baseUrl}/${contactId}/${this.baseUrl}`,
             data,
         });
