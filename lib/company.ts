@@ -59,20 +59,16 @@ export default class Company {
         industry,
         customAttributes,
     }: IUpdateCompanyData) {
-        const data = {
-            remote_created_at: createdAt,
+        return this.create({
+            createdAt,
+            companyId,
             name,
-            monthly_spend: monthlySpend,
+            monthlySpend,
             plan,
             size,
             website,
             industry,
-            custom_attributes: customAttributes,
-        };
-
-        return this.client.put<CompanyObject>({
-            url: `/${this.baseUrl}/${companyId}`,
-            data,
+            customAttributes,
         });
     }
     find({ companyId, name }: IFindCompanyData) {

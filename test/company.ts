@@ -66,6 +66,7 @@ describe('companies', () => {
     it('should be updated', async () => {
         const company_id = '46029';
         const requestBody = {
+            company_id,
             remote_created_at: dateToUnixTimestamp(new Date()),
             name: 'BestCompanyInc.',
             monthly_spend: 9001,
@@ -77,7 +78,7 @@ describe('companies', () => {
         };
 
         nock('https://api.intercom.io')
-            .put(`/companies/${company_id}`, requestBody)
+            .post('/companies', requestBody)
             .reply(200, {});
 
         const response = await client.companies.update({
