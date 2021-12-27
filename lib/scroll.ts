@@ -11,7 +11,7 @@ export default class Scroll<EntityType> {
     }
 
     async each(params: IEachData): Promise<EntityType[]> {
-        this.scrollParam = params.scrollParam;
+        this.scrollParam = params.scrollParam ?? undefined;
 
         return this.eachInternal();
     }
