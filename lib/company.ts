@@ -145,21 +145,6 @@ export default class Company {
             url: `/${this.baseUrl}/${companyId}/${this.client.segments.baseUrl}`,
         });
     }
-    listUsers(params: any): any {
-        if (params.id) {
-            return this.client.get({ url: `/companies/${params.id}/users` });
-        } else if (params.company_id) {
-            return this.client.get({
-                url: '/companies',
-                params: { company_id: params.company_id, type: 'user' },
-            });
-        } else if (params.name) {
-            return this.client.get({
-                url: '/companies',
-                params: { name: params.name, type: 'user' },
-            });
-        }
-    }
 }
 
 interface ICreateCompanyData {

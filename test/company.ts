@@ -257,33 +257,4 @@ describe('companies', () => {
 
         assert.deepStrictEqual({}, response);
     });
-    // TO-DO: Check if those make sense
-    // it('should list company users by id', async () => {
-    //     nock('https://api.intercom.io')
-    //         .get('/companies/baz/users')
-    //         .reply(200, {});
-    //     const response = await client.companies.listUsers({ id: 'baz' });
-
-    //     assert.deepStrictEqual({}, response);
-    // });
-    // it('should list company users by company_id', async () => {
-    //     nock('https://api.intercom.io')
-    //         .get('/companies')
-    //         .query({ company_id: 'baz', type: 'user' })
-    //         .reply(200, {});
-    //     const response = await client.companies.listUsers({
-    //         company_id: 'baz',
-    //     });
-
-    //     assert.deepStrictEqual({}, response);
-    // });
-    // it('should list company users by company name', async () => {
-    //     nock('https://api.intercom.io')
-    //         .get('/companies')
-    //         .query({ name: 'baz', type: 'user' })
-    //         .reply(200, {});
-    //     const response = await client.companies.listUsers({ name: 'baz' });
-
-    //     assert.deepStrictEqual({}, response);
-    // });
 });
