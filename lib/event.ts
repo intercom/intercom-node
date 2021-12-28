@@ -1,5 +1,5 @@
 import { Client } from '.';
-import { EventObject } from './event/event.types';
+import { EventObject, SummaryEventObject } from './event/event.types';
 
 export default class Event {
     public readonly baseUrl = 'events';
@@ -43,7 +43,15 @@ export default class Event {
         };
 
         // TO-DO: Change to `params` from `data: params`
-        return this.client.get({ url: `/${this.baseUrl}`, data: params });
+        return summary
+            ? this.client.get<IListParamsWithSummaryResponse>({
+                  url: `/${this.baseUrl}`,
+                  data: params,
+              })
+            : this.client.get<IListParamsResponse>({
+                  url: `/${this.baseUrl}`,
+                  data: params,
+              });
     }
 }
 
@@ -62,4 +70,19 @@ interface IListParams {
     intercomUserId?: string;
     perPage?: number;
     summary?: boolean;
+}
+interface IListParamsResponse {
+    type: 'event.list';
+    events: EventObject[];
+    pages: {
+        next?: string;
+        since?: string;
+    };
+}
+interface IListParamsWithSummaryResponse {
+    type: 'event.summary';
+    email: string;
+    intercom_user_id: string;
+    user_id: string;
+    events: SummaryEventObject[];
 }
