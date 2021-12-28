@@ -88,3 +88,7 @@
 ## Removed
 
 1. `admin.me` method.
+
+# [Segment API]
+
+## No changes
