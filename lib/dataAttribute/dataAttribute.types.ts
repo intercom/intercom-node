@@ -12,7 +12,7 @@ export interface DataAttributeObject {
     custom: boolean;
     archived: boolean;
     model: ModelType;
-    options: Record<string, string>[];
+    options: Record<'value', string>[];
     type?: 'data_attribute';
     created_at?: Timestamp;
     updated_at?: Timestamp;
