@@ -1,3 +1,11 @@
-//TO-DO: Detail type SegmentObject
+import { Role, Timestamp } from '../common/common.types';
 
-export type SegmentObject = any;
+export type SegmentObject = {
+    type: 'segment';
+    id: string;
+    name: string;
+    created_at: Timestamp;
+    updated_at: Timestamp;
+    person_type: Role;
+    count?: number;
+};

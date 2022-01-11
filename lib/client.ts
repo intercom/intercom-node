@@ -12,6 +12,7 @@ import Message from './message';
 import Conversation from './conversation';
 import Note from './note';
 import Customer from './customer';
+import DataAttribute from './dataAttribute';
 
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
@@ -33,19 +34,20 @@ export default class Client {
     conversations: Conversation;
     counts: any;
     customers: any;
-    events: any;
     leads: any;
+    users: any;
+    events: Event;
+    dataAttributes: DataAttribute;
+    segments: Segment;
     messages: any;
     notes: any;
     passwordPart?: string;
     propertiesToOmitInRequestOpts: string[];
     requestOpts: Partial<AxiosDefaults>;
-    segments: any;
     tags: Tag;
     teams: Team;
     usebaseURL: (baseURL: any) => this;
     usernamePart?: string;
-    users: any;
     visitors: any;
 
     // TO-DO: Fix any
@@ -83,6 +85,7 @@ export default class Client {
         this.customers = new Customer(this);
         this.tags = new Tag(this);
         this.teams = new Team(this);
+        this.dataAttributes = new DataAttribute(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',
         };
@@ -182,10 +185,11 @@ export default class Client {
         }
     }
 
-    async get<T>({ url, data }: IRequestOptions): Promise<T> {
+    async get<T>({ url, data, params }: IRequestOptions): Promise<T> {
         try {
             const response = await this.axiosInstance.get(url, {
-                params: data,
+                params,
+                data,
             });
 
             return response.data;

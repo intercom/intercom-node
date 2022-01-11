@@ -3,6 +3,11 @@ export type Timestamp = number;
 export type Seconds = number;
 export type JavascriptObject = Record<string | number, unknown>;
 
+export enum Role {
+    USER = 'user',
+    LEAD = 'lead',
+}
+
 export type Paginated<T> = {
     type: string;
     data: T[];

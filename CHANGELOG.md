@@ -96,3 +96,26 @@
 ## Removed
 
 1. `admin.me` method.
+
+# [Events API]
+
+## Changed
+
+1. Params for `event.create` method -> `event.create({ eventName, createdAt, userId, id, email, metadata })`
+2. Params for `event.listBy` method -> `event.listBy({ userId, email, intercomUserId, perPage, summary })`
+
+## Removed
+
+1. `event.bulk` method.
+
+# [Segment API]
+
+## No changes
+
+# [Data Attribute API]
+
+## Added
+
+1. Method to create Data Attribute `dataAttribute.create({ name, model, dataType, description, options,})`
+2. Method to update Data Attribute `dataAttribute.update({id, archived, description, options,})`
+3. Method to list Data Attributes `dataAttribute.list({includeArchived, model})`
