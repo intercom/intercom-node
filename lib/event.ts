@@ -55,7 +55,7 @@ export default class Event {
     }
 }
 
-interface ICreateEventData {
+interface CreateEventData {
     eventName: EventObject['event_name'];
     createdAt: EventObject['created_at'];
     userId?: EventObject['user_id'];
@@ -64,14 +64,14 @@ interface ICreateEventData {
     metadata?: EventObject['metadata'];
 }
 //
-interface IListParams {
+interface ListParams {
     userId?: EventObject['user_id'];
     email?: EventObject['email'];
     intercomUserId?: string;
     perPage?: number;
     summary?: boolean;
 }
-interface IListParamsResponse {
+interface ListParamsResponse {
     type: 'event.list';
     events: EventObject[];
     pages: {
@@ -79,7 +79,7 @@ interface IListParamsResponse {
         since?: string;
     };
 }
-interface IListParamsWithSummaryResponse {
+interface ListParamsWithSummaryResponse {
     type: 'event.summary';
     email: string;
     intercom_user_id: string;

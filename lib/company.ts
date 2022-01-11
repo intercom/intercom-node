@@ -143,7 +143,7 @@ export default class Company {
     }
 }
 
-interface ICreateCompanyData {
+interface CreateCompanyData {
     createdAt: Timestamp;
     companyId: string;
     name: string;
@@ -157,41 +157,41 @@ interface ICreateCompanyData {
 //
 type IUpdateCompanyData = ICreateCompanyData;
 //
-interface IFindCompanyData {
+interface FindCompanyData {
     companyId?: string;
     name?: string;
 }
 //
-interface IDeleteCompanyData {
+interface DeleteCompanyData {
     id: string;
 }
-interface IDeleteCompanyResponse {
+interface DeleteCompanyResponse {
     id: string;
     object: 'company';
     deleted: boolean;
 }
 //
-interface IListCompaniesData extends IPaginationParams {
+interface ListCompaniesData extends IPaginationParams {
     order?: Order;
     tagId?: string;
     segmentId?: string;
 }
 //
-interface IAttachContactData {
+interface AttachContactData {
     contactId: string;
     companyId: string;
 }
 //
 type IDetachContactData = IAttachContactData;
 //
-interface IListAttachedContactsData extends IPaginationParams {
+interface ListAttachedContactsData extends IPaginationParams {
     companyId: string;
 }
 //
-interface IListAttachedSegmentsData {
+interface ListAttachedSegmentsData {
     companyId: string;
 }
-interface IListAttachedSegmentsResponse {
+interface ListAttachedSegmentsResponse {
     type: 'list';
     data: SegmentObject[];
 }

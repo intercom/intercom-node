@@ -27,15 +27,15 @@ export default class Segment {
     }
 }
 
-interface IListData {
+interface ListData {
     includeCount?: boolean;
 }
-interface IListResponse {
+interface ListResponse {
     type: 'segment.list';
     segments: SegmentObject[];
 }
 //
-interface IFindSegmentData {
+interface FindSegmentData {
     id: string;
     includeCount?: boolean;
 }

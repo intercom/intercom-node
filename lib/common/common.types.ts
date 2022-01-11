@@ -109,7 +109,7 @@ export enum Order {
     ASC = 'asc',
 }
 
-export interface IPaginationParams {
+export interface PaginationParams {
     page?: number;
     perPage?: number;
 }

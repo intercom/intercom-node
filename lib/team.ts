@@ -21,11 +21,11 @@ export default class Team {
     }
 }
 
-interface IFindTeamData {
+interface FindTeamData {
     id: string;
 }
 
-interface IListTeamsResponse {
+interface ListTeamsResponse {
     type: 'team.list';
     teams: TeamObject[];
 }

@@ -98,37 +98,37 @@ export default class Tag {
     }
 }
 
-interface ICreateTagData {
+interface CreateTagData {
     name: string;
 }
 //
-interface IUpdateTagData extends ICreateTagData {
+interface UpdateTagData extends ICreateTagData {
     id: string;
 }
 //
-interface IDeleteTagData {
+interface DeleteTagData {
     id: string;
 }
 //
-interface ITagContactData {
+interface TagContactData {
     contactId: string;
     tagId: string;
 }
 //
-interface ITagConversationData {
+interface TagConversationData {
     conversationId: string;
     tagId: string;
     adminId: string;
 }
 //
-interface ITagCompaniesData {
+interface TagCompaniesData {
     tagName: string;
     companiesIds: string[];
 }
 //
 type IUntagContactData = ITagContactData;
 //
-interface IUntagConversationData {
+interface UntagConversationData {
     tagId: string;
     conversationId: string;
     adminId: string;
@@ -136,7 +136,7 @@ interface IUntagConversationData {
 //
 type IUntagCompaniesData = ITagCompaniesData;
 //
-interface IListAllTagsResponse {
+interface ListAllTagsResponse {
     type: 'list';
     data: Array<TagObject>;
 }

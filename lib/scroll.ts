@@ -56,7 +56,7 @@ export default class Scroll<EntityType> {
     }
 }
 
-interface IScrollableResponse<EntityType> {
+interface ScrollableResponse<EntityType> {
     type: 'list';
     data: EntityType[];
     pages: number | null;
@@ -64,7 +64,7 @@ interface IScrollableResponse<EntityType> {
     scroll_param?: string;
 }
 
-interface IEachData {
+interface EachData {
     scrollParam?: string;
 }
 

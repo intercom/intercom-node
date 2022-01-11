@@ -56,7 +56,7 @@ export default class DataAttribute {
     }
 }
 
-interface ICreateDataAttributeData {
+interface CreateDataAttributeData {
     name: DataAttributeObject['name'];
     model: DataAttributeObject['model'];
     dataType: DataAttributeObject['data_type'];
@@ -64,19 +64,19 @@ interface ICreateDataAttributeData {
     options?: DataAttributeObject['options'];
 }
 
-interface IUpdateDataAttributeData {
+interface UpdateDataAttributeData {
     id: string;
     archived?: DataAttributeObject['archived'];
     description?: DataAttributeObject['description'];
     options?: DataAttributeObject['options'];
 }
 
-interface IListDataAttributeData {
+interface ListDataAttributeData {
     model?: ModelType;
     includeArchived?: boolean;
 }
 
-interface IListAllResponse {
+interface ListAllResponse {
     type: 'list';
     data: DataAttributeObject[];
 }

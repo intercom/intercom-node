@@ -32,7 +32,7 @@ export default class Message {
     }
 }
 
-interface ICreateMessageRequest {
+interface CreateMessageRequest {
     message_type: MessageType;
     body: string;
     from: Recepient;
@@ -41,7 +41,7 @@ interface ICreateMessageRequest {
     template?: string;
 }
 
-interface ICreateMessageBody
+interface CreateMessageBody
     extends Omit<ICreateMessageRequest, 'message_type'> {
     messageType: MessageType;
 }

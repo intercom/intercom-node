@@ -39,22 +39,22 @@ export default class Admin {
     }
 }
 
-interface IAdminGetByIdData {
+interface AdminGetByIdData {
     id: string;
 }
 
-interface ISetAdminAwayData {
+interface SetAdminAwayData {
     adminId: string;
     enableAwayMode: boolean;
     enableReassignMode: boolean;
 }
 
-interface IListAllActivityLogsData {
+interface ListAllActivityLogsData {
     after: Date;
     before?: Date;
 }
 
-interface IListAllActivityLogsResponse {
+interface ListAllActivityLogsResponse {
     type: 'activity_log.list';
     activityLogs: Array<ActivityObject>;
     pages?: Pages;
@@ -76,7 +76,7 @@ interface Pages {
     total_pages: number;
 }
 
-interface IListAllResponse {
+interface ListAllResponse {
     type: 'admin.list';
     admins: AdminObject[];
 }

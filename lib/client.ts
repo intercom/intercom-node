@@ -20,7 +20,7 @@ import { merge, omit } from 'lodash';
 
 import { BadResponseError } from './errors/badResponse.error';
 
-interface IRequestOptions {
+interface RequestOptions {
     url: string;
     data?: any;
     params?: any;
