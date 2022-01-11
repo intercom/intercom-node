@@ -30,7 +30,7 @@ export default class Client {
     usernamePart?: string;
     passwordPart?: string;
     users: any;
-    events: any;
+    events: Event;
     companies: any;
     contacts: Contact;
     dataAttributes: DataAttribute;

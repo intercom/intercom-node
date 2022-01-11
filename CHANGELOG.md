@@ -89,6 +89,17 @@
 
 1. `admin.me` method.
 
+# [Events API]
+
+## Changed
+
+1. Params for `event.create` method -> `event.create({ eventName, createdAt, userId, id, email, metadata })`
+2. Params for `event.listBy` method -> `event.listBy({ userId, email, intercomUserId, perPage, summary })`
+
+## Removed
+
+1. `event.bulk` method.
+
 # [Segment API]
 
 ## No changes
