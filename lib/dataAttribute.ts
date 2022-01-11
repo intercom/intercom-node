@@ -17,7 +17,7 @@ export default class DataAttribute {
         dataType: data_type,
         description,
         options,
-    }: ICreateDataAttributeData) {
+    }: CreateDataAttributeData) {
         const data = {
             name,
             model,
@@ -31,7 +31,7 @@ export default class DataAttribute {
             data,
         });
     }
-    update({ archived, description, id, options }: IUpdateDataAttributeData) {
+    update({ archived, description, id, options }: UpdateDataAttributeData) {
         const data = {
             archived,
             description,
@@ -43,13 +43,13 @@ export default class DataAttribute {
             data,
         });
     }
-    list({ model, includeArchived: include_archived }: IListDataAttributeData) {
+    list({ model, includeArchived: include_archived }: ListDataAttributeData) {
         const queryParams = {
             model,
             include_archived,
         };
 
-        return this.client.get<IListAllResponse>({
+        return this.client.get<ListAllResponse>({
             url: `/${this.baseUrl}`,
             params: queryParams,
         });

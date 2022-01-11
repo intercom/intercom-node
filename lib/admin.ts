@@ -9,10 +9,10 @@ export default class Admin {
         this.client = client;
     }
 
-    find({ id }: IAdminGetByIdData) {
+    find({ id }: AdminGetByIdData) {
         return this.client.get<AdminObject>({ url: `/${this.baseUrl}/${id}` });
     }
-    away({ adminId, enableAwayMode, enableReassignMode }: ISetAdminAwayData) {
+    away({ adminId, enableAwayMode, enableReassignMode }: SetAdminAwayData) {
         const data = {
             away_mode_enabled: enableAwayMode,
             away_mode_reassign: enableReassignMode,
@@ -23,19 +23,19 @@ export default class Admin {
             data,
         });
     }
-    listAllActivityLogs({ before, after }: IListAllActivityLogsData) {
+    listAllActivityLogs({ before, after }: ListAllActivityLogsData) {
         const params = {
             created_at_after: dateToUnixTimestamp(after),
             created_at_before: before ? dateToUnixTimestamp(before) : undefined,
         };
 
-        return this.client.get<IListAllActivityLogsResponse>({
+        return this.client.get<ListAllActivityLogsResponse>({
             url: `/${this.baseUrl}/activity_logs`,
             params,
         });
     }
     list() {
-        return this.client.get<IListAllResponse>({ url: `/${this.baseUrl}` });
+        return this.client.get<ListAllResponse>({ url: `/${this.baseUrl}` });
     }
 }
 

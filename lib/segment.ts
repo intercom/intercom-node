@@ -7,16 +7,16 @@ export default class Segment {
     constructor(private readonly client: Client) {
         this.client = client;
     }
-    list({ includeCount: include_count }: IListData) {
+    list({ includeCount: include_count }: ListData) {
         const params = { include_count };
 
-        return this.client.get<IListResponse>({
+        return this.client.get<ListResponse>({
             url: `/${this.baseUrl}`,
             //TO-DO: Change to `params`
             data: params,
         });
     }
-    find({ id, includeCount: include_count }: IFindSegmentData) {
+    find({ id, includeCount: include_count }: FindSegmentData) {
         const params = { include_count };
 
         return this.client.get<SegmentObject>({

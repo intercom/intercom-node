@@ -8,24 +8,24 @@ export default class Tag {
         this.client = client;
     }
 
-    create(data: ICreateTagData) {
+    create(data: CreateTagData) {
         return this.client.post<TagObject>({
             url: `/${this.tagsBaseUrl}`,
             data,
         });
     }
-    update(data: IUpdateTagData) {
+    update(data: UpdateTagData) {
         return this.client.post<TagObject>({
             url: `/${this.tagsBaseUrl}`,
             data,
         });
     }
-    delete({ id }: IDeleteTagData) {
+    delete({ id }: DeleteTagData) {
         return this.client.delete<TagObject>({
             url: `/${this.tagsBaseUrl}/${id}`,
         });
     }
-    tagContact({ contactId, tagId }: ITagContactData) {
+    tagContact({ contactId, tagId }: TagContactData) {
         const data = {
             id: tagId,
         };
@@ -38,7 +38,7 @@ export default class Tag {
         conversationId,
         tagId,
         adminId: admin_id,
-    }: ITagConversationData) {
+    }: TagConversationData) {
         const data = {
             id: tagId,
             admin_id,
@@ -49,7 +49,7 @@ export default class Tag {
             data,
         });
     }
-    tagCompanies({ tagName: name, companiesIds }: ITagCompaniesData) {
+    tagCompanies({ tagName: name, companiesIds }: TagCompaniesData) {
         const data = {
             name,
             companies: companiesIds.map((id) => ({ id })),
@@ -60,7 +60,7 @@ export default class Tag {
             data,
         });
     }
-    untagContact({ contactId, tagId }: IUntagContactData) {
+    untagContact({ contactId, tagId }: UntagContactData) {
         return this.client.delete<TagObject>({
             url: `/${this.client.contacts.baseUrl}/${contactId}/${this.tagsBaseUrl}/${tagId}`,
         });
@@ -69,7 +69,7 @@ export default class Tag {
         conversationId,
         tagId,
         adminId: admin_id,
-    }: IUntagConversationData) {
+    }: UntagConversationData) {
         const data = {
             id: tagId,
             admin_id,
@@ -80,7 +80,7 @@ export default class Tag {
             data,
         });
     }
-    untagCompanies({ tagName: name, companiesIds }: IUntagCompaniesData) {
+    untagCompanies({ tagName: name, companiesIds }: UntagCompaniesData) {
         const data = {
             name,
             companies: companiesIds.map((id) => ({ id, untag: true })),
@@ -92,7 +92,7 @@ export default class Tag {
         });
     }
     list() {
-        return this.client.get<IListAllTagsResponse>({
+        return this.client.get<ListAllTagsResponse>({
             url: `/${this.tagsBaseUrl}`,
         });
     }
@@ -102,7 +102,7 @@ interface CreateTagData {
     name: string;
 }
 //
-interface UpdateTagData extends ICreateTagData {
+interface UpdateTagData extends CreateTagData {
     id: string;
 }
 //
@@ -126,7 +126,7 @@ interface TagCompaniesData {
     companiesIds: string[];
 }
 //
-type IUntagContactData = ITagContactData;
+type UntagContactData = TagContactData;
 //
 interface UntagConversationData {
     tagId: string;
@@ -134,7 +134,7 @@ interface UntagConversationData {
     adminId: string;
 }
 //
-type IUntagCompaniesData = ITagCompaniesData;
+type UntagCompaniesData = TagCompaniesData;
 //
 interface ListAllTagsResponse {
     type: 'list';

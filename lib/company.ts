@@ -1,6 +1,6 @@
 import { Client } from '.';
 import {
-    IPaginationParams,
+    PaginationParams,
     JavascriptObject,
     Order,
     Paginated,
@@ -30,7 +30,7 @@ export default class Company {
         website,
         industry,
         customAttributes,
-    }: ICreateCompanyData) {
+    }: CreateCompanyData) {
         const data = {
             remote_created_at: createdAt,
             company_id: companyId,
@@ -58,7 +58,7 @@ export default class Company {
         website,
         industry,
         customAttributes,
-    }: IUpdateCompanyData) {
+    }: UpdateCompanyData) {
         return this.create({
             createdAt,
             companyId,
@@ -71,7 +71,7 @@ export default class Company {
             customAttributes,
         });
     }
-    find({ companyId, name }: IFindCompanyData) {
+    find({ companyId, name }: FindCompanyData) {
         const query = {
             company_id: companyId,
             name,
@@ -84,8 +84,8 @@ export default class Company {
             ),
         });
     }
-    delete({ id }: IDeleteCompanyData) {
-        return this.client.delete<IDeleteCompanyResponse>({
+    delete({ id }: DeleteCompanyData) {
+        return this.client.delete<DeleteCompanyResponse>({
             url: `/${this.baseUrl}/${id}`,
         });
     }
@@ -95,7 +95,7 @@ export default class Company {
         order,
         tagId: tag_id,
         segmentId: segment_id,
-    }: IListCompaniesData) {
+    }: ListCompaniesData) {
         const params = {
             page,
             per_page,
@@ -109,7 +109,7 @@ export default class Company {
             params,
         });
     }
-    attachContact({ contactId, companyId }: IAttachContactData) {
+    attachContact({ contactId, companyId }: AttachContactData) {
         const data = {
             id: companyId,
         };
@@ -119,7 +119,7 @@ export default class Company {
             data,
         });
     }
-    detachContact({ contactId, companyId }: IDetachContactData) {
+    detachContact({ contactId, companyId }: DetachContactData) {
         return this.client.delete<CompanyObject>({
             url: `/${this.client.contacts.baseUrl}/${contactId}/${this.baseUrl}/${companyId}`,
         });
@@ -128,7 +128,7 @@ export default class Company {
         companyId,
         page,
         perPage,
-    }: IListAttachedContactsData) {
+    }: ListAttachedContactsData) {
         const params = { page, perPage };
 
         return this.client.get<Paginated<ContactObject>>({
@@ -136,8 +136,8 @@ export default class Company {
             params,
         });
     }
-    listAttachedSegments({ companyId }: IListAttachedSegmentsData) {
-        return this.client.get<IListAttachedSegmentsResponse>({
+    listAttachedSegments({ companyId }: ListAttachedSegmentsData) {
+        return this.client.get<ListAttachedSegmentsResponse>({
             url: `/${this.baseUrl}/${companyId}/${this.client.segments.baseUrl}`,
         });
     }
@@ -155,7 +155,7 @@ interface CreateCompanyData {
     customAttributes: JavascriptObject;
 }
 //
-type IUpdateCompanyData = ICreateCompanyData;
+type UpdateCompanyData = CreateCompanyData;
 //
 interface FindCompanyData {
     companyId?: string;
@@ -171,7 +171,7 @@ interface DeleteCompanyResponse {
     deleted: boolean;
 }
 //
-interface ListCompaniesData extends IPaginationParams {
+interface ListCompaniesData extends PaginationParams {
     order?: Order;
     tagId?: string;
     segmentId?: string;
@@ -182,9 +182,9 @@ interface AttachContactData {
     companyId: string;
 }
 //
-type IDetachContactData = IAttachContactData;
+type DetachContactData = AttachContactData;
 //
-interface ListAttachedContactsData extends IPaginationParams {
+interface ListAttachedContactsData extends PaginationParams {
     companyId: string;
 }
 //

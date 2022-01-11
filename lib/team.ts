@@ -8,14 +8,14 @@ export default class Team {
         this.client = client;
     }
 
-    find({ id }: IFindTeamData) {
+    find({ id }: FindTeamData) {
         return this.client.get<TeamObject>({
             url: `/${this.baseUrl}/${id}`,
         });
     }
 
     list() {
-        return this.client.get<IListTeamsResponse>({
+        return this.client.get<ListTeamsResponse>({
             url: `/${this.baseUrl}`,
         });
     }

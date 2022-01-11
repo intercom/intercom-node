@@ -14,7 +14,7 @@ export default class Event {
         id,
         email,
         metadata,
-    }: ICreateEventData) {
+    }: CreateEventData) {
         const data: EventObject = {
             event_name,
             created_at,
@@ -32,7 +32,7 @@ export default class Event {
         intercomUserId: intercom_user_id,
         perPage: per_page,
         summary,
-    }: IListParams) {
+    }: ListParams) {
         const params = {
             type: 'user',
             user_id,
@@ -44,11 +44,11 @@ export default class Event {
 
         // TO-DO: Change to `params` from `data: params`
         return summary
-            ? this.client.get<IListParamsWithSummaryResponse>({
+            ? this.client.get<ListParamsWithSummaryResponse>({
                   url: `/${this.baseUrl}`,
                   data: params,
               })
-            : this.client.get<IListParamsResponse>({
+            : this.client.get<ListParamsResponse>({
                   url: `/${this.baseUrl}`,
                   data: params,
               });

@@ -15,8 +15,8 @@ export default class Message {
         template,
         from,
         to,
-    }: ICreateMessageBody) {
-        const data: ICreateMessageRequest = {
+    }: CreateMessageBody) {
+        const data: CreateMessageRequest = {
             message_type,
             subject,
             body,
@@ -41,8 +41,7 @@ interface CreateMessageRequest {
     template?: string;
 }
 
-interface CreateMessageBody
-    extends Omit<ICreateMessageRequest, 'message_type'> {
+interface CreateMessageBody extends Omit<CreateMessageRequest, 'message_type'> {
     messageType: MessageType;
 }
 

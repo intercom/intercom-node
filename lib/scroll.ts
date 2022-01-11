@@ -10,18 +10,16 @@ export default class Scroll<EntityType> {
         this.scrollParam = scrollParam;
     }
 
-    async each(params: IEachData): Promise<EntityType[]> {
+    async each(params: EachData): Promise<EntityType[]> {
         this.scrollParam = params.scrollParam ?? undefined;
 
         return this.eachInternal();
     }
 
     async eachInternal(storedData: EntityType[] = []): Promise<EntityType[]> {
-        const response = await this.client.get<IScrollableResponse<EntityType>>(
-            {
-                url: this.scrollUrl(),
-            }
-        );
+        const response = await this.client.get<ScrollableResponse<EntityType>>({
+            url: this.scrollUrl(),
+        });
         const dataFromResponse = response.data;
         const combinedData = [...dataFromResponse, ...storedData];
 
@@ -35,14 +33,12 @@ export default class Scroll<EntityType> {
 
     async next({
         scrollParam,
-    }: INextData): Promise<IScrollableResponse<EntityType>> {
+    }: NextData): Promise<ScrollableResponse<EntityType>> {
         this.scrollParam = scrollParam;
 
-        const response = await this.client.get<IScrollableResponse<EntityType>>(
-            {
-                url: this.scrollUrl(),
-            }
-        );
+        const response = await this.client.get<ScrollableResponse<EntityType>>({
+            url: this.scrollUrl(),
+        });
 
         return response;
     }
@@ -68,4 +64,4 @@ interface EachData {
     scrollParam?: string;
 }
 
-type INextData = IEachData;
+type NextData = EachData;
