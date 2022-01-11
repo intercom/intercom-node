@@ -6,7 +6,7 @@ import {
     Paginated,
     Timestamp,
 } from './common/common.types';
-import { CompanyObject, IListCompaniesResponse } from './company/company.types';
+import { CompanyObject, ListCompaniesResponse } from './company/company.types';
 import { ContactObject } from './contact/contact.types';
 import Scroll from './scroll';
 import { SegmentObject } from './segment/segment.types';
@@ -104,7 +104,7 @@ export default class Company {
             segment_id,
         };
 
-        return this.client.get<IListCompaniesResponse>({
+        return this.client.get<ListCompaniesResponse>({
             url: `/${this.baseUrl}`,
             params,
         });

@@ -1,4 +1,4 @@
-import { JavascriptObject, Timestamp } from '../common/common.types';
+import { JavascriptObject, Role, Timestamp } from '../common/common.types';
 
 export interface ContactObject {
     type: 'contact';
@@ -45,11 +45,6 @@ export interface ContactObject {
     tags: AddressableList;
     notes: AddressableList;
     companies: AddressableList;
-}
-
-export enum Role {
-    USER = 'user',
-    LEAD = 'lead',
 }
 
 interface LocationObject {

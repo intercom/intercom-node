@@ -36,4 +36,4 @@ export interface PlanObject {
     name: string;
 }
 
-export type IListCompaniesResponse = Paginated<CompanyObject>;
+export type ListCompaniesResponse = Paginated<CompanyObject>;

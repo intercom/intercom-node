@@ -1,7 +1,12 @@
 import { Client } from '.';
-import { GenericSearchFilters, Leaves, Paginated } from './common/common.types';
-import { IListCompaniesResponse } from './company/company.types';
-import { ContactObject, Role } from './contact/contact.types';
+import { ContactObject } from './contact/contact.types';
+import {
+    GenericSearchFilters,
+    Leaves,
+    Paginated,
+    Role,
+} from './common/common.types';
+import { ListCompaniesResponse } from './company/company.types';
 import { SegmentObject } from './segment/segment.types';
 import { TagObject } from './tag/tag.types';
 import { SubscriptionObject } from './subscription/subscription.types';
@@ -141,7 +146,7 @@ export default class Contact {
             per_page: perPage,
             page,
         };
-        return this.client.get<IListCompaniesResponse>({
+        return this.client.get<ListCompaniesResponse>({
             url: `/${this.baseUrl}/${id}/companies`,
             params,
         });

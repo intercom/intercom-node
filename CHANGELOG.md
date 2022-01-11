@@ -75,6 +75,13 @@
    1.1. Create -> `tags.create({name})`
    1.2. Update -> `tags.update({id, name})`
 
+# [Teams API]
+
+## Added
+
+1. Method to find Team by id -> `teams.find({id})`
+2. Method to list Teams -> `teams.list()`
+
 # [Admin API]
 
 ## Added
@@ -106,4 +113,27 @@
 3. Method to find Company `companies.find({ name, companyId })`
 4. Method to list Companies `companies.list({tagId, segmentId, page, perPage, order})`
 5. Method to infinitely scroll (till the last Company) Companies `companies.scroll.each({scrollParam})`
-6. Method to manually scroll Companies `companies.scroll.next({scrollParam})`
+6. # Method to manually scroll Companies `companies.scroll.next({scrollParam})`
+
+# [Events API]
+
+## Changed
+
+1. Params for `event.create` method -> `event.create({ eventName, createdAt, userId, id, email, metadata })`
+2. Params for `event.listBy` method -> `event.listBy({ userId, email, intercomUserId, perPage, summary })`
+
+## Removed
+
+1. `event.bulk` method.
+
+# [Segment API]
+
+## No changes
+
+# [Data Attribute API]
+
+## Added
+
+1. Method to create Data Attribute `dataAttribute.create({ name, model, dataType, description, options,})`
+2. Method to update Data Attribute `dataAttribute.update({id, archived, description, options,})`
+3. Method to list Data Attributes `dataAttribute.list({includeArchived, model})`
