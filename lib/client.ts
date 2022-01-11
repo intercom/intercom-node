@@ -39,7 +39,7 @@ export default class Client {
     counts: any;
     admins: Admin;
     tags: Tag;
-    segments: any;
+    segments: Segment;
     messages: any;
     conversations: Conversation;
     notes: any;

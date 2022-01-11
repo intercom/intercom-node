@@ -89,6 +89,10 @@
 
 1. `admin.me` method.
 
+# [Segment API]
+
+## No changes
+
 # [Data Attribute API]
 
 ## Added
