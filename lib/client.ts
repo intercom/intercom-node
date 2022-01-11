@@ -13,6 +13,7 @@ import Conversation from './conversation';
 import Note from './note';
 import Customer from './customer';
 import DataAttribute from './dataAttribute';
+import Team from './team';
 
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
@@ -26,27 +27,28 @@ interface IRequestOptions {
 }
 
 export default class Client {
+    admins: Admin;
     axiosInstance: Axios;
-    usernamePart?: string;
-    passwordPart?: string;
-    users: any;
-    events: Event;
     companies: any;
     contacts: Contact;
-    dataAttributes: DataAttribute;
-    leads: any;
-    visitors: any;
+    conversations: Conversation;
     counts: any;
-    admins: Admin;
-    tags: Tag;
+    customers: any;
+    leads: any;
+    users: any;
+    events: Event;
+    dataAttributes: DataAttribute;
     segments: Segment;
     messages: any;
-    conversations: Conversation;
     notes: any;
-    customers: any;
-    requestOpts: Partial<AxiosDefaults>;
-    usebaseURL: (baseURL: any) => this;
+    passwordPart?: string;
     propertiesToOmitInRequestOpts: string[];
+    requestOpts: Partial<AxiosDefaults>;
+    tags: Tag;
+    teams: Team;
+    usebaseURL: (baseURL: any) => this;
+    usernamePart?: string;
+    visitors: any;
 
     // TO-DO: Fix any
     constructor(...args: any) {
@@ -82,6 +84,7 @@ export default class Client {
         this.notes = new Note(this);
         this.customers = new Customer(this);
         this.tags = new Tag(this);
+        this.teams = new Team(this);
         this.dataAttributes = new DataAttribute(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',

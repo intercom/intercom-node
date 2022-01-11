@@ -75,6 +75,13 @@
    1.1. Create -> `tags.create({name})`
    1.2. Update -> `tags.update({id, name})`
 
+# [Teams API]
+
+## Added
+
+1. Method to find Team by id -> `teams.find({id})`
+2. Method to list Teams -> `teams.list()`
+
 # [Admin API]
 
 ## Added
