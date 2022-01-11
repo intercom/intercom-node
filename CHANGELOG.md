@@ -92,3 +92,11 @@
 # [Segment API]
 
 ## No changes
+
+# [Data Attribute API]
+
+## Added
+
+1. Method to create Data Attribute `dataAttribute.create({ name, model, dataType, description, options,})`
+2. Method to update Data Attribute `dataAttribute.update({id, archived, description, options,})`
+3. Method to list Data Attributes `dataAttribute.list({includeArchived, model})`

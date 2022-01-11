@@ -26,7 +26,13 @@ node_modules
 dist
 
 # Yarn 3.x
-.yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 # Typescript mappings for lib
 lib/*.map

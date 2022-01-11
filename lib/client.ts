@@ -12,6 +12,7 @@ import Message from './message';
 import Conversation from './conversation';
 import Note from './note';
 import Customer from './customer';
+import DataAttribute from './dataAttribute';
 
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
@@ -32,6 +33,7 @@ export default class Client {
     events: any;
     companies: any;
     contacts: Contact;
+    dataAttributes: DataAttribute;
     leads: any;
     visitors: any;
     counts: any;
@@ -80,6 +82,7 @@ export default class Client {
         this.notes = new Note(this);
         this.customers = new Customer(this);
         this.tags = new Tag(this);
+        this.dataAttributes = new DataAttribute(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',
         };
@@ -179,10 +182,11 @@ export default class Client {
         }
     }
 
-    async get<T>({ url, data }: IRequestOptions): Promise<T> {
+    async get<T>({ url, data, params }: IRequestOptions): Promise<T> {
         try {
             const response = await this.axiosInstance.get(url, {
-                params: data,
+                params,
+                data,
             });
 
             return response.data;
