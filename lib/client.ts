@@ -13,12 +13,12 @@ import Conversation from './conversation';
 import Note from './note';
 import Customer from './customer';
 import DataAttribute from './dataAttribute';
+import Team from './team';
 
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
 
 import { BadResponseError } from './errors/badResponse.error';
-import Team from './team';
 
 interface IRequestOptions {
     url: string;

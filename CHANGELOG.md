@@ -81,7 +81,6 @@
 
 1. Method to find Team by id -> `teams.find({id})`
 2. Method to list Teams -> `teams.list()`
-   1.2. Update -> `tags.update({id, name})`
 
 # [Admin API]
 
