@@ -245,7 +245,9 @@ const response = await client.companies.listAttachedSegments({
 
 ### Contacts
 
-#### Create Contact With User Role
+#### [Create Contact](https://developers.intercom.com/intercom-api-reference/reference/create-contact)
+
+##### With User Role
 
 ```typescript
 const user = await client.contacts.createUser({
@@ -260,7 +262,7 @@ const user = await client.contacts.createUser({
 });
 ```
 
-#### Create Contact With Lead Role
+##### With Lead Role
 
 ```typescript
 const lead = await client.contacts.createLead({
@@ -274,12 +276,404 @@ const lead = await client.contacts.createLead({
 });
 ```
 
-### Conversations
-
-#### Placeholder
+#### [Retrieve a Contact](https://developers.intercom.com/intercom-api-reference/reference/get-contact)
 
 ```typescript
+const response = await client.contacts.find({ id: '123' });
+```
 
+#### [Update a Contact](https://developers.intercom.com/intercom-api-reference/reference/update-contact)
+
+```typescript
+const response = await client.contacts.update({
+    id: '123',
+    role: Role.USER,
+    name: 'Roman The Bowling Fan',
+    customAttributes: {
+        callBrother: "Hey Niko, it's me – Roman. Let's go bowling!",
+    },
+});
+```
+
+#### [Delete a Contact](https://developers.intercom.com/intercom-api-reference/reference/delete-contact)
+
+```typescript
+const response = await client.contacts.delete({ id: '123' });
+```
+
+#### [Archive a Contact](https://developers.intercom.com/intercom-api-reference/reference/archive-a-contact)
+
+```typescript
+const response = await client.contacts.archive({ id: '123' });
+```
+
+#### [Unarchive a Contact](https://developers.intercom.com/intercom-api-reference/reference/unarchive-a-contact)
+
+```typescript
+const response = await client.contacts.unarchive({ id: '123' });
+```
+
+#### [Merge two Contacts](https://developers.intercom.com/intercom-api-reference/reference/merge-contact)
+
+```typescript
+const response = await client.contacts.mergeLeadInUser({
+    leadId: '123',
+    userId: '234',
+});
+```
+
+#### [Search for contacts](https://developers.intercom.com/intercom-api-reference/reference/search-for-contacts)
+
+```typescript
+const response = await client.contacts.search({
+    data: {
+        query: {
+            operator: Operators.AND,
+            value: [
+                {
+                    operator: Operators.AND,
+                    value: [
+                        {
+                            field: 'updated_at',
+                            operator: Operators.GREATER_THAN,
+                            value: 1560436650,
+                        },
+                        {
+                            field: 'conversation_rating.rating',
+                            operator: Operators.EQUALS,
+                            value: 1,
+                        },
+                    ],
+                },
+                {
+                    operator: Operators.OR,
+                    value: [
+                        {
+                            field: 'updated_at',
+                            operator: Operators.GREATER_THAN,
+                            value: 1560436650,
+                        },
+                        {
+                            field: 'conversation_rating.rating',
+                            operator: Operators.EQUALS,
+                            value: 2,
+                        },
+                    ],
+                },
+            ],
+        },
+        pagination: {
+            per_page: 5,
+            starting_after:
+                'WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0=',
+        },
+        sort: { field: 'name', order: SearchContactOrderBy.ASC },
+    },
+});
+```
+
+#### [List all Contacts](https://developers.intercom.com/intercom-api-reference/reference/list-contacts)
+
+##### With cursor
+
+```typescript
+const response = await client.contacts.list({
+    perPage: 5,
+    startingAfter:
+        'WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=',
+});
+```
+
+##### Without a cursor
+
+```typescript
+const response = await client.contacts.list();
+```
+
+#### [List attached companies](https://developers.intercom.com/intercom-api-reference/reference/list-companies-of-contact)
+
+```typescript
+const response = await client.contacts.listAttachedCompanies({
+    id: '123',
+    perPage: 5,
+    page: 1,
+});
+```
+
+#### [List attached tags](https://developers.intercom.com/intercom-api-reference/reference/list-tags-of-contact)
+
+```typescript
+const response = await client.contacts.listAttachedTags({ id: '123' });
+```
+
+#### [List attached segments](https://developers.intercom.com/intercom-api-reference/reference/list-attached-segments)
+
+```typescript
+const response = await client.contacts.listAttachedSegments({ id: '123' });
+```
+
+#### [List attached email subscriptions](https://developers.intercom.com/intercom-api-reference/reference/list-attached-email-subscriptions)
+
+```typescript
+const response = await client.contacts.listAttachedEmailSubscriptions({
+    id: '123',
+});
+```
+
+### Conversations
+
+#### [Create a conversation](https://developers.intercom.com/intercom-api-reference/reference/create-a-conversation)
+
+```typescript
+const response = await client.conversations.create({
+    userId: '123',
+    body: 'Hello darkness my old friend',
+});
+```
+
+#### [Retrieve a conversation](https://developers.intercom.com/intercom-api-reference/reference/retrieve-a-conversation)
+
+##### Normal
+
+```typescript
+const response = await client.conversations.find({
+    id: '123',
+});
+```
+
+##### As plain text
+
+```typescript
+const response = await client.conversations.find({
+    id: '123',
+    inPlainText: true,
+});
+```
+
+#### [Update a conversation](https://developers.intercom.com/intercom-api-reference/reference/update-a-conversation)
+
+```typescript
+const response = await client.conversations.update({
+    id,
+    markRead: true,
+    customAttributes: {
+        anything: 'you want',
+    },
+});
+```
+
+#### [Reply to a conversation](https://developers.intercom.com/intercom-api-reference/reference/reply-to-a-conversation)
+
+##### By id
+
+###### As user
+
+```typescript
+const response = await client.conversations.replyByIdAsUser({
+    id: '098',
+    body: 'blablbalba',
+    intercomUserId: '123',
+    attachmentUrls: '345',
+});
+```
+
+###### As admin
+
+```typescript
+const response = await client.conversations.replyByIdAsAdmin({
+    id: '098',
+    adminId: '458',
+    messageType: ReplyToConversationMessageType.NOTE,
+    body: '<b>Bee C</b>',
+    attachmentUrls: ['https://site.org/bebra.jpg'],
+});
+```
+
+##### By last conversation
+
+###### As user
+
+```typescript
+const response = await client.conversations.replyByLastAsUser({
+    body: 'blablbalba',
+    intercomUserId: '123',
+    attachmentUrls: '345',
+});
+```
+
+###### As admin
+
+```typescript
+const response = await client.conversations.replyByLastAsAdmin({
+    adminId: '458',
+    messageType: ReplyToConversationMessageType.NOTE,
+    body: '<b>Bee C</b>',
+    attachmentUrls: ['https://site.org/bebra.jpg'],
+});
+```
+
+#### [Assign a conversation](https://developers.intercom.com/intercom-api-reference/reference/assign-a-conversation)
+
+##### As team without assignment rules
+
+```typescript
+const response = await client.conversations.assign({
+    id: '123',
+    type: AssignToConversationUserType.TEAM,
+    adminId: '456',
+    assigneeId: '789',
+    body: '<b>blablbalba</b>',
+});
+```
+
+##### As team with assignment rules
+
+```typescript
+const response = await client.conversations.assign({
+    id: '123',
+    withRunningAssignmentRules: true,
+});
+```
+
+#### [Snooze a conversation](https://developers.intercom.com/intercom-api-reference/reference/snooze-a-conversation)
+
+```typescript
+const response = await client.conversations.snooze({
+    id: '123',
+    adminId: '234',
+    snoozedUntil: '1501512795',
+});
+```
+
+#### [Close a conversation](https://developers.intercom.com/intercom-api-reference/reference/close-a-conversation)
+
+```typescript
+const response = await client.conversations.close({
+    id: '123',
+    adminId: '456',
+    body: "That's it...",
+});
+```
+
+#### [Open a conversation](https://developers.intercom.com/intercom-api-reference/reference/open-a-conversation)
+
+```typescript
+const response = await client.conversations.open({
+    id: '123',
+    adminId: '234',
+});
+```
+
+#### [Attach a contact to group conversation](https://developers.intercom.com/intercom-api-reference/reference/adding-to-group-conversations-as-admin)
+
+##### As admin, using intercomUserid
+
+```typescript
+const response = await client.conversations.attachContactAsAdmin({
+    id: '123',
+    adminId: '234',
+    customer: {
+        intercomUserId: '456',
+    },
+});
+```
+
+##### As contact, using intercomUserid
+
+```typescript
+const response = await client.conversations.attachContactAsAdmin({
+    id: '123',
+    userId: '234',
+    customer: {
+        intercomUserId: '456',
+    },
+});
+```
+
+#### [Delete a contact from group conversation as admin](https://developers.intercom.com/intercom-api-reference/reference/deleting-from-group-conversations)
+
+```typescript
+const response = await client.conversations.detachContactAsAdmin({
+    conversationId: '123',
+    contactId: '456',
+    adminId: '789',
+});
+```
+
+#### [Search for conversations](https://developers.intercom.com/intercom-api-reference/reference/search-for-conversations)
+
+```typescript
+const response = await client.conversations.search({
+    data: {
+        query: {
+            operator: Operators.AND,
+            value: [
+                {
+                    operator: Operators.AND,
+                    value: [
+                        {
+                            field: 'updated_at',
+                            operator: Operators.GREATER_THAN,
+                            value: 1560436650,
+                        },
+                        {
+                            field: 'conversation_rating.rating',
+                            operator: Operators.EQUALS,
+                            value: 1,
+                        },
+                    ],
+                },
+                {
+                    operator: Operators.OR,
+                    value: [
+                        {
+                            field: 'updated_at',
+                            operator: Operators.GREATER_THAN,
+                            value: 1560436650,
+                        },
+                        {
+                            field: 'conversation_rating.rating',
+                            operator: Operators.EQUALS,
+                            value: 2,
+                        },
+                    ],
+                },
+            ],
+        },
+        pagination: {
+            per_page: 5,
+            starting_after:
+                'WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0=',
+        },
+        sort: {
+            field: 'name',
+            order: SearchConversationOrderBy.DESC,
+        },
+    },
+});
+```
+
+#### [List all conversations](https://developers.intercom.com/intercom-api-reference/reference/list-conversations)
+
+```typescript
+const response = await client.conversations.list({
+    query: {
+        order: Order.DESC,
+        sort: SortBy.UpdatedAt,
+        page: 1,
+        perPage: 10,
+    },
+});
+```
+
+#### [Redact a conversation](https://developers.intercom.com/intercom-api-reference/reference/redact-a-conversation-part)
+
+```typescript
+const response = await client.conversations.redactConversationPart({
+    type: RedactConversationPartType.CONVERSATION_PART,
+    conversationId: '123',
+    conversationPartId: '456',
+});
 ```
 
 ### Data Attributes

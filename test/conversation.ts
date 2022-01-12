@@ -10,6 +10,7 @@ import {
     RedactConversationPartType,
     ReplyToConversationMessageType,
     ReplyToConversationUserType,
+    SearchConversationOrderBy,
     SnoozeConversationMessageType,
     SortBy,
 } from '../lib/conversation';
@@ -149,7 +150,7 @@ describe('conversations', () => {
         const adminRequestBody = {
             admin_id: adminId,
             message_type: ReplyToConversationMessageType.NOTE,
-            type: ReplyToConversationUserType.ADMIN,
+            type: ReplyToConversationMessageType.NOTE,
             body: '<b>blablbalba</b>',
             attachment_urls: ['https://definitely-sfw-site.org/bebra.jpg'],
         };
@@ -487,7 +488,7 @@ describe('conversations', () => {
             },
             sort: {
                 field: 'name',
-                order: 'ascending',
+                order: SearchConversationOrderBy.DESC,
             },
         };
 
