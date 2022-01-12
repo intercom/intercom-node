@@ -745,28 +745,144 @@ const response = await client.events.listBy({
 });
 ```
 
-### Segments
+### Messages
 
-#### Placeholder
+#### [Create a message](https://developers.intercom.com/intercom-api-reference/reference/admin-initiated-conversation)
 
 ```typescript
+const response = await client.messages.create({
+    messageType: 'email',
+    subject: 'This is our demand now',
+    body: 'Destroy ponies',
+    template: 'plain',
+    from: {
+        type: 'admin',
+        id: '394051',
+    },
+    to: {
+        type: 'user',
+        id: '536e564f316c83104c000020',
+    },
+});
+```
 
+### Segments
+
+#### [Retrieve a segment](https://developers.intercom.com/intercom-api-reference/reference/view-a-segment)
+
+```typescript
+const response = await client.segments.find({
+    id: '123',
+    includeCount: true,
+});
+```
+
+#### [List all segments](https://developers.intercom.com/intercom-api-reference/reference/list-segments)
+
+```typescript
+const response = await client.segments.list({
+    includeCount: true,
+});
 ```
 
 ### Tags
 
-#### Placeholder
+#### [Create or update a tag](https://developers.intercom.com/intercom-api-reference/reference/create-and-update-tags)
+
+##### Create
 
 ```typescript
+const response = await client.tags.create({ name: 'haven' });
+```
 
+##### Update
+
+```typescript
+const response = await client.tags.update({ id: '123', name: 'haven' });
+```
+
+#### [Delete a tag](https://developers.intercom.com/intercom-api-reference/reference/delete-a-tag)
+
+```typescript
+const response = await client.tags.delete({ id: 'baz' });
+```
+
+#### [Attach a contact](https://developers.intercom.com/intercom-api-reference/reference/tag-contact)
+
+```typescript
+const response = await client.tags.tagContact({
+    contactId: '123',
+    tagId: '234',
+});
+```
+
+#### [Attach a conversation](https://developers.intercom.com/intercom-api-reference/reference/attach-a-tag-to-a-conversation)
+
+```typescript
+const response = await client.tags.tagConversation({
+    conversationId: '123',
+    tagId: '456',
+    adminId: '789',
+});
+```
+
+#### [Tag companies](https://developers.intercom.com/intercom-api-reference/reference/tag-companies)
+
+```typescript
+const response = await client.tags.tagCompanies({
+    tagName: 'gutenTag',
+    companiesIds: ['123', '234', '456'],
+});
+```
+
+#### [Untag companies](https://developers.intercom.com/intercom-api-reference/reference/untag-companies)
+
+```typescript
+const response = await client.tags.tagCompanies({
+    tagName: 'gutenTag',
+    companiesIds: ['123', '234', '456'],
+});
+```
+
+#### [Untag conversation](https://developers.intercom.com/intercom-api-reference/reference/detach-a-tag-from-a-conversation)
+
+```typescript
+const response = await client.tags.untagConversation({
+    conversationId: '123',
+    tagId: '345',
+    adminId: '678',
+});
+```
+
+#### [Untag contact](https://developers.intercom.com/intercom-api-reference/reference/untag-contact)
+
+```typescript
+const response = await client.tags.untagContact({
+    contactId: '123',
+    tagId: '345',
+});
+```
+
+#### [List all tags](https://developers.intercom.com/intercom-api-reference/reference/list-tags-for-an-app)
+
+```typescript
+const response = await client.tags.list();
 ```
 
 ### Teams
 
-#### Placeholder
+#### [Retrieve a team](https://developers.intercom.com/intercom-api-reference/reference/view-a-team)
 
 ```typescript
+const response = await client.teams.find({
+    id: '123',
+});
+```
 
+#### [List all teams](https://developers.intercom.com/intercom-api-reference/reference/list-teams)
+
+```typescript
+const response = await client.teams.list();
 ```
 
 ## Old Version (to be removed progressively)
