@@ -96,6 +96,25 @@
 
 1. `admin.me` method.
 
+# [Companies API]
+
+## Added
+
+1. Method to delete Company `companies.delete({ id })`
+2. Method to attach Contact to Company `companies.attachContact({ companyId, contactId })`
+3. Method to detach Contact from Company `companies.detachContact({ companyId, contactId })`
+4. Method to list attached Contacts for Company `companies.listAttachedContacts({ companyId, page, perPage })`
+5. Method to list attached Segments for Company `companies.listAttachedSegments({ companyId })`
+
+## Changed
+
+1. Method to create Companies `companies.create({createdAt, companyId, name, monthlySpend, plan, size, website, industry, customAttributes})`
+2. Method to update Companies `companies.update({createdAt, name, monthlySpend, plan, size, website, industry, customAttributes})`
+3. Method to find Company `companies.find({ name, companyId })`
+4. Method to list Companies `companies.list({tagId, segmentId, page, perPage, order})`
+5. Method to infinitely scroll (till the last Company) Companies `companies.scroll.each({scrollParam})`
+6. # Method to manually scroll Companies `companies.scroll.next({scrollParam})`
+
 # [Events API]
 
 ## Changed

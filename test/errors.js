@@ -76,7 +76,7 @@ describe('errors', () => {
     it('should fail with too many requests (429) error', async () => {
         nock('https://api.intercom.io')
             .replyContentLength()
-            .get('/me')
+            .get('/admins')
             .reply(
                 429,
                 {
@@ -101,7 +101,7 @@ describe('errors', () => {
             );
         const client = new Client('foo', 'bar');
         try {
-            const response = await client.admins.me();
+            const response = await client.admins.list();
             assert.strictEqual(response, null, 'Valid response');
         } catch (err) {
             assert.strictEqual(err.statusCode, 429);

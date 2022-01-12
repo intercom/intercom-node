@@ -1,4 +1,4 @@
-import { Role, Timestamp } from '../common/common.types';
+import { JavascriptObject, Role, Timestamp } from '../common/common.types';
 
 export interface ContactObject {
     type: 'contact';
@@ -41,7 +41,7 @@ export interface ContactObject {
     ios_os_version: string | null;
     ios_sdk_version: string | null;
     ios_last_seen_at: Timestamp | null;
-    custom_attributes: object;
+    custom_attributes: JavascriptObject;
     tags: AddressableList;
     notes: AddressableList;
     companies: AddressableList;

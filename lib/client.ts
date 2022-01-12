@@ -20,7 +20,7 @@ import { merge, omit } from 'lodash';
 
 import { BadResponseError } from './errors/badResponse.error';
 
-interface IRequestOptions {
+interface RequestOptions {
     url: string;
     data?: any;
     params?: any;
@@ -29,7 +29,7 @@ interface IRequestOptions {
 export default class Client {
     admins: Admin;
     axiosInstance: Axios;
-    companies: any;
+    companies: Company;
     contacts: Contact;
     conversations: Conversation;
     counts: any;
@@ -157,7 +157,7 @@ export default class Client {
         }
     }
 
-    async put<T>({ url, data }: IRequestOptions): Promise<T> {
+    async put<T>({ url, data }: RequestOptions): Promise<T> {
         try {
             const response = await this.axiosInstance.put(url, data);
 
@@ -171,7 +171,7 @@ export default class Client {
         }
     }
 
-    async post<T>({ url, data }: IRequestOptions): Promise<T> {
+    async post<T>({ url, data }: RequestOptions): Promise<T> {
         try {
             const response = await this.axiosInstance.post(url, data);
 
@@ -185,7 +185,7 @@ export default class Client {
         }
     }
 
-    async get<T>({ url, data, params }: IRequestOptions): Promise<T> {
+    async get<T>({ url, data, params }: RequestOptions): Promise<T> {
         try {
             const response = await this.axiosInstance.get(url, {
                 params,
@@ -219,7 +219,7 @@ export default class Client {
         }
     }
 
-    async delete<T>({ url, data, params }: IRequestOptions): Promise<T> {
+    async delete<T>({ url, data, params }: RequestOptions): Promise<T> {
         try {
             const response = await this.axiosInstance.delete(url, {
                 data,

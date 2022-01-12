@@ -9,10 +9,10 @@ export default class Admin {
         this.client = client;
     }
 
-    find({ id }: IAdminGetByIdData) {
+    find({ id }: AdminGetByIdData) {
         return this.client.get<AdminObject>({ url: `/${this.baseUrl}/${id}` });
     }
-    away({ adminId, enableAwayMode, enableReassignMode }: ISetAdminAwayData) {
+    away({ adminId, enableAwayMode, enableReassignMode }: SetAdminAwayData) {
         const data = {
             away_mode_enabled: enableAwayMode,
             away_mode_reassign: enableReassignMode,
@@ -23,38 +23,38 @@ export default class Admin {
             data,
         });
     }
-    listAllActivityLogs({ before, after }: IListAllActivityLogsData) {
-        const data = {
+    listAllActivityLogs({ before, after }: ListAllActivityLogsData) {
+        const params = {
             created_at_after: dateToUnixTimestamp(after),
             created_at_before: before ? dateToUnixTimestamp(before) : undefined,
         };
 
-        return this.client.get<IListAllActivityLogsResponse>({
+        return this.client.get<ListAllActivityLogsResponse>({
             url: `/${this.baseUrl}/activity_logs`,
-            data,
+            params,
         });
     }
     list() {
-        return this.client.get<IListAllResponse>({ url: `/${this.baseUrl}` });
+        return this.client.get<ListAllResponse>({ url: `/${this.baseUrl}` });
     }
 }
 
-interface IAdminGetByIdData {
+interface AdminGetByIdData {
     id: string;
 }
 
-interface ISetAdminAwayData {
+interface SetAdminAwayData {
     adminId: string;
     enableAwayMode: boolean;
     enableReassignMode: boolean;
 }
 
-interface IListAllActivityLogsData {
+interface ListAllActivityLogsData {
     after: Date;
     before?: Date;
 }
 
-interface IListAllActivityLogsResponse {
+interface ListAllActivityLogsResponse {
     type: 'activity_log.list';
     activityLogs: Array<ActivityObject>;
     pages?: Pages;
@@ -76,7 +76,7 @@ interface Pages {
     total_pages: number;
 }
 
-interface IListAllResponse {
+interface ListAllResponse {
     type: 'admin.list';
     admins: AdminObject[];
 }

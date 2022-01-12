@@ -14,7 +14,7 @@ export default class Event {
         id,
         email,
         metadata,
-    }: ICreateEventData) {
+    }: CreateEventData) {
         const data: EventObject = {
             event_name,
             created_at,
@@ -32,7 +32,7 @@ export default class Event {
         intercomUserId: intercom_user_id,
         perPage: per_page,
         summary,
-    }: IListParams) {
+    }: ListParams) {
         const params = {
             type: 'user',
             user_id,
@@ -44,18 +44,18 @@ export default class Event {
 
         // TO-DO: Change to `params` from `data: params`
         return summary
-            ? this.client.get<IListParamsWithSummaryResponse>({
+            ? this.client.get<ListParamsWithSummaryResponse>({
                   url: `/${this.baseUrl}`,
                   data: params,
               })
-            : this.client.get<IListParamsResponse>({
+            : this.client.get<ListParamsResponse>({
                   url: `/${this.baseUrl}`,
                   data: params,
               });
     }
 }
 
-interface ICreateEventData {
+interface CreateEventData {
     eventName: EventObject['event_name'];
     createdAt: EventObject['created_at'];
     userId?: EventObject['user_id'];
@@ -64,14 +64,14 @@ interface ICreateEventData {
     metadata?: EventObject['metadata'];
 }
 //
-interface IListParams {
+interface ListParams {
     userId?: EventObject['user_id'];
     email?: EventObject['email'];
     intercomUserId?: string;
     perPage?: number;
     summary?: boolean;
 }
-interface IListParamsResponse {
+interface ListParamsResponse {
     type: 'event.list';
     events: EventObject[];
     pages: {
@@ -79,7 +79,7 @@ interface IListParamsResponse {
         since?: string;
     };
 }
-interface IListParamsWithSummaryResponse {
+interface ListParamsWithSummaryResponse {
     type: 'event.summary';
     email: string;
     intercom_user_id: string;

@@ -1,107 +1,142 @@
-import { Client } from ".";
-import { TagObject } from "./tag/tag.types";
+import { Client } from '.';
+import { TagObject } from './tag/tag.types';
 
 export default class Tag {
-  private tagsBaseUrl = 'tags'
+    private tagsBaseUrl = 'tags';
 
-  constructor(private readonly client: Client) {
-    this.client = client;
-  }
-
-  create(data: ICreateTagData) {
-    return this.client.post<TagObject>({url: `/${this.tagsBaseUrl}`, data});
-  }
-  update(data: IUpdateTagData) {
-    return this.client.post<TagObject>({url: `/${this.tagsBaseUrl}`, data});
-  }
-  delete({id}: IDeleteTagData) {
-    return this.client.delete<TagObject>({url: `/${this.tagsBaseUrl}/${id}`});
-  }
-  tagContact({contactId, tagId}: ITagContactData) {
-    const data = {
-      id: tagId,
-    }
-    return this.client.post<TagObject>({url: `/${this.client.contacts.baseUrl}/${contactId}/${this.tagsBaseUrl}`, data});
-  }
-  tagConversation({conversationId, tagId, adminId: admin_id}: ITagConversationData) {
-    const data = {
-      id: tagId,
-      admin_id,
+    constructor(private readonly client: Client) {
+        this.client = client;
     }
 
-    return this.client.post<TagObject>({url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}`, data});
-  }
-  tagCompanies({tagName: name, companiesIds}: ITagCompaniesData) {
-    const data = {
-      name,
-      companies: companiesIds.map(id => ({id}))
-    };
+    create(data: CreateTagData) {
+        return this.client.post<TagObject>({
+            url: `/${this.tagsBaseUrl}`,
+            data,
+        });
+    }
+    update(data: UpdateTagData) {
+        return this.client.post<TagObject>({
+            url: `/${this.tagsBaseUrl}`,
+            data,
+        });
+    }
+    delete({ id }: DeleteTagData) {
+        return this.client.delete<TagObject>({
+            url: `/${this.tagsBaseUrl}/${id}`,
+        });
+    }
+    tagContact({ contactId, tagId }: TagContactData) {
+        const data = {
+            id: tagId,
+        };
+        return this.client.post<TagObject>({
+            url: `/${this.client.contacts.baseUrl}/${contactId}/${this.tagsBaseUrl}`,
+            data,
+        });
+    }
+    tagConversation({
+        conversationId,
+        tagId,
+        adminId: admin_id,
+    }: TagConversationData) {
+        const data = {
+            id: tagId,
+            admin_id,
+        };
 
-    return this.client.post<TagObject>({url: `/${this.tagsBaseUrl}`, data});
-  }
-  untagContact({contactId, tagId}: IUntagContactData) {
-    return this.client.delete<TagObject>({url: `/${this.client.contacts.baseUrl}/${contactId}/${this.tagsBaseUrl}/${tagId}`})
-  }
-  untagConversation({conversationId, tagId, adminId: admin_id}: IUntagConversationData) {
-    const data = {
-      id: tagId,
-      admin_id,
-    };
+        return this.client.post<TagObject>({
+            url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}`,
+            data,
+        });
+    }
+    tagCompanies({ tagName: name, companiesIds }: TagCompaniesData) {
+        const data = {
+            name,
+            companies: companiesIds.map((id) => ({ id })),
+        };
 
-    return this.client.delete<TagObject>({url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}/${tagId}`, data});
-  }
-  untagCompanies({tagName: name, companiesIds}: IUntagCompaniesData) {
-    const data = {
-      name,
-      companies: companiesIds.map(id => ({id, untag: true}))
-    };
+        return this.client.post<TagObject>({
+            url: `/${this.tagsBaseUrl}`,
+            data,
+        });
+    }
+    untagContact({ contactId, tagId }: UntagContactData) {
+        return this.client.delete<TagObject>({
+            url: `/${this.client.contacts.baseUrl}/${contactId}/${this.tagsBaseUrl}/${tagId}`,
+        });
+    }
+    untagConversation({
+        conversationId,
+        tagId,
+        adminId: admin_id,
+    }: UntagConversationData) {
+        const data = {
+            id: tagId,
+            admin_id,
+        };
 
-    return this.client.post<TagObject>({url: `/${this.tagsBaseUrl}`, data});
-  }
-  list() {
-    return this.client.get<IListAllTagsResponse>({url: `/${this.tagsBaseUrl}`});
-  }
+        return this.client.delete<TagObject>({
+            url: `/${this.client.conversations.baseUrl}/${conversationId}/${this.tagsBaseUrl}/${tagId}`,
+            data,
+        });
+    }
+    untagCompanies({ tagName: name, companiesIds }: UntagCompaniesData) {
+        const data = {
+            name,
+            companies: companiesIds.map((id) => ({ id, untag: true })),
+        };
+
+        return this.client.post<TagObject>({
+            url: `/${this.tagsBaseUrl}`,
+            data,
+        });
+    }
+    list() {
+        return this.client.get<ListAllTagsResponse>({
+            url: `/${this.tagsBaseUrl}`,
+        });
+    }
 }
 
-interface ICreateTagData {
-  name: string
+interface CreateTagData {
+    name: string;
 }
 //
-interface IUpdateTagData extends ICreateTagData {
-  id: string
+interface UpdateTagData extends CreateTagData {
+    id: string;
 }
 //
-interface IDeleteTagData {
-  id: string
+interface DeleteTagData {
+    id: string;
 }
 //
-interface ITagContactData {
-  contactId: string,
-  tagId: string
+interface TagContactData {
+    contactId: string;
+    tagId: string;
 }
 //
-interface ITagConversationData {
-  conversationId: string,
-  tagId: string,
-  adminId: string,
+interface TagConversationData {
+    conversationId: string;
+    tagId: string;
+    adminId: string;
 }
 //
-interface ITagCompaniesData {
-  tagName: string,
-  companiesIds: string[];
+interface TagCompaniesData {
+    tagName: string;
+    companiesIds: string[];
 }
 //
-type IUntagContactData = ITagContactData;
+type UntagContactData = TagContactData;
 //
-interface IUntagConversationData {
-  tagId: string,
-  conversationId: string,
-  adminId: string,
+interface UntagConversationData {
+    tagId: string;
+    conversationId: string;
+    adminId: string;
 }
 //
-type IUntagCompaniesData = ITagCompaniesData;
+type UntagCompaniesData = TagCompaniesData;
 //
-interface IListAllTagsResponse {
-  type: "list",
-  data: Array<TagObject>
+interface ListAllTagsResponse {
+    type: 'list';
+    data: Array<TagObject>;
 }

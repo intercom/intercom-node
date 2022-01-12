@@ -103,3 +103,13 @@ interface NestedQueries<T> {
 export interface GenericSearchFilters<T> {
     query: FlatQuery<T> | NestedQueries<T>;
 }
+
+export enum Order {
+    DESC = 'desc',
+    ASC = 'asc',
+}
+
+export interface PaginationParams {
+    page?: number;
+    perPage?: number;
+}
