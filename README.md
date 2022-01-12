@@ -77,10 +77,177 @@ client.useRequestOpts({
 
 ## New Version
 
-### Contacts
+### Admins
+
+#### [Retrieve and admin](https://developers.intercom.com/intercom-api-reference/reference/view-an-admin)
 
 ```typescript
-// Create a contact with user role
+const admin = await client.admins.find({ id: '123' });
+```
+
+#### [Set Admin away](https://developers.intercom.com/intercom-api-reference/reference/set-admin-away-mode)
+
+```typescript
+await client.admins.away({
+    adminId: '123',
+    enableAwayMode: true,
+    enableReassignMode: false,
+});
+```
+
+#### [List all activity logs](https://developers.intercom.com/intercom-api-reference/reference/view-admin-activity-logs)
+
+```typescript
+await client.admins.listAllActivityLogs({
+    before: new Date('Fri, 17 Dec 2021 18:02:18 GMT');,
+    after: new Date('Fri, 17 Dec 2021 18:02:18 GMT');,
+});
+```
+
+#### [List all admins](https://developers.intercom.com/intercom-api-reference/reference/list-admins)
+
+```typescript
+const admins = await client.admins.list();
+```
+
+### Companies
+
+#### [Create a company](https://developers.intercom.com/intercom-api-reference/reference/create-or-update-company)
+
+```typescript
+const company = await client.companies.create({
+    createdAt: dateToUnixTimestamp(new Date()),
+    companyId: '46029',
+    name: 'BestCompanyInc.',
+    monthlySpend: 9001,
+    plan: '1. Get pizzaid',
+    size: 62049,
+    website: 'http://the-best.one',
+    industry: 'The Best One',
+    customAttributes: {},
+});
+```
+
+#### [Update a company](https://developers.intercom.com/intercom-api-reference/reference/update-a-company)
+
+```typescript
+const company = await client.companies.create({
+    createdAt: dateToUnixTimestamp(new Date()),
+    companyId: '46029',
+    name: 'BestCompanyInc.',
+    monthlySpend: 9001,
+    plan: '1. Get pizzaid',
+    size: 62049,
+    website: 'http://the-best.one',
+    industry: 'The Best One',
+    customAttributes: {},
+});
+```
+
+#### [Retrieve a company](https://developers.intercom.com/intercom-api-reference/reference/view-a-company)
+
+##### By id
+
+```typescript
+const company = await client.companies.find({
+    companyId: 123,
+});
+```
+
+##### By name
+
+```typescript
+const company = await client.companies.find({
+    name: 'bruh moment inc.',
+});
+```
+
+#### [Delete a company](https://developers.intercom.com/intercom-api-reference/reference/delete-a-company)
+
+```typescript
+const company = await client.companies.delete({
+    id: 62049,
+});
+```
+
+#### [List all companies](https://developers.intercom.com/intercom-api-reference/reference/list-companies)
+
+##### With pagination
+
+```typescript
+const companies = await client.companies.list({
+    page: 1,
+    perPage: 35,
+    order: Order.DESC,
+});
+```
+
+##### With TagId and SegmentId
+
+```typescript
+const companies = await client.companies.list({
+    tagId: '1234',
+    segmentId: '4567',
+});
+```
+
+#### [Scroll over companies](https://developers.intercom.com/intercom-api-reference/reference/iterating-over-all-companies)
+
+##### Using infinite scroll
+
+```typescript
+const companies = await client.companies.scroll.each({});
+```
+
+##### Using manual scroll
+
+```typescript
+const companies = await client.companies.scroll.next({
+    scrollParam: '123_soleil',
+});
+```
+
+#### [Attach a contact](https://developers.intercom.com/intercom-api-reference/reference/attach-contact-to-company)
+
+```typescript
+const response = await client.companies.attachContact({
+    contactId: '123',
+    companyId: '234',
+});
+```
+
+#### [Detach a contact](https://developers.intercom.com/intercom-api-reference/reference/detach-contact-from-company)
+
+```typescript
+const response = await client.companies.detachContact({
+    contactId: '123',
+    companyId: '234',
+});
+```
+
+#### [List attached contacts](https://developers.intercom.com/intercom-api-reference/reference/list-company-contacts)
+
+```typescript
+const response = await client.companies.listAttachedContacts({
+    companyId: '123',
+    page: 1,
+    perPage: 15,
+});
+```
+
+#### [List attached segments](https://developers.intercom.com/intercom-api-reference/reference/list-attached-segments-1)
+
+```typescript
+const response = await client.companies.listAttachedSegments({
+    companyId: '123',
+});
+```
+
+### Contacts
+
+#### Create Contact With User Role
+
+```typescript
 const user = await client.contacts.createUser({
     externalId: '536e564f316c83104c000020',
     phone: '+48370044567',
@@ -93,9 +260,10 @@ const user = await client.contacts.createUser({
 });
 ```
 
+#### Create Contact With Lead Role
+
 ```typescript
-// Create a contact with lead role
-const user = await client.contacts.createLead({
+const lead = await client.contacts.createLead({
     phone: '+48370044567',
     name: 'Roman Bellic',
     avatar: 'https://nico-from-gta-iv.com/lets_go_bowling_yey.jpg',
@@ -106,7 +274,53 @@ const user = await client.contacts.createLead({
 });
 ```
 
-TO-DO: add rest endpoints...
+### Conversations
+
+#### Placeholder
+
+```typescript
+
+```
+
+### Data Attributes
+
+#### Placeholder
+
+```typescript
+
+```
+
+### Events
+
+#### Placeholder
+
+```typescript
+
+```
+
+### Segments
+
+#### Placeholder
+
+```typescript
+
+```
+
+### Tags
+
+#### Placeholder
+
+```typescript
+
+```
+
+### Teams
+
+#### Placeholder
+
+```typescript
+
+```
 
 ## Old Version (to be removed progressively)
 
