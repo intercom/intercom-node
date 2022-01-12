@@ -678,18 +678,71 @@ const response = await client.conversations.redactConversationPart({
 
 ### Data Attributes
 
-#### Placeholder
+#### [Create Data Attribute](https://developers.intercom.com/intercom-api-reference/reference/create-data-attributes)
 
 ```typescript
+const response = await client.dataAttributes.create({
+    name: 'list_cda',
+    model: ModelType.CONTACT,
+    dataType: DataType.STRING,
+    description: 'You are either alive or dead',
+    options: [{ value: 'alive' }, { value: 'dead' }],
+});
+```
 
+#### [Update Data Attribute](https://developers.intercom.com/intercom-api-reference/reference/update-data-attributes)
+
+```typescript
+const response = await client.dataAttributes.update({
+    id: '123',
+    description: 'You are either alive or dead',
+    options: [{ value: 'alive' }, { value: 'dead' }],
+    archived: true,
+});
+```
+
+#### [List all Data Attributes](https://developers.intercom.com/intercom-api-reference/reference/list-data-attributes)
+
+```typescript
+const response = await client.dataAttributes.list({
+    model: ModelType.CONTACT,
+    includeArchived: true,
+});
 ```
 
 ### Events
 
-#### Placeholder
+#### [Submit a data event](https://developers.intercom.com/intercom-api-reference/reference/list-data-attributes)
 
 ```typescript
+const response = await client.events.create({
+    eventName: 'placed-order',
+    createdAt: 1389913941,
+    userId: 'f4ca124298',
+    metadata: {
+        order_date: 1392036272,
+        stripe_invoice: 'inv_3434343434',
+        order_number: {
+            value: '3434-3434',
+            url: 'https://example.org/orders/3434-3434',
+        },
+        price: {
+            currency: 'usd',
+            amount: 2999,
+        },
+    },
+});
+```
 
+#### [List all data events](https://developers.intercom.com/intercom-api-reference/reference/list-user-events)
+
+```typescript
+const response = await client.events.listBy({
+    userId: '1234',
+    perPage: 2,
+    summary: true,
+    email: 'i_love_memes@gmail.com',
+});
 ```
 
 ### Segments
