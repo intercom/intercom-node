@@ -45,6 +45,12 @@ export interface ContactObject {
     tags: AddressableList;
     notes: AddressableList;
     companies: AddressableList;
+    referrer: string;
+    utm_campaign: string | null;
+    utm_content: string | null;
+    utm_medium: string | null;
+    utm_source: string | null;
+    utm_term: string | null;
 }
 
 interface LocationObject {
@@ -52,6 +58,8 @@ interface LocationObject {
     country: string;
     region: string;
     city: string;
+    country_code: string;
+    continent_code: string;
 }
 
 interface SocialProfileObject {
