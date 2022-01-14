@@ -101,7 +101,7 @@ export default class Client {
     initiateAxiosInstance(): Axios {
         // TO-DO: Revise the params
         const defaultHeaders = {
-            'User-Agent': 'intercom-node-client/2.0.0',
+            'User-Agent': 'intercom-node-client/3.0.0',
             Accept: 'application/json',
         };
 
