@@ -1,7 +1,8 @@
 import assert from 'assert';
 import { Client } from '../lib';
 import nock from 'nock';
-import { Operators, Role } from '../lib/common/common.types';
+import { Operators, Order, Role } from '../lib/common/common.types';
+import { SearchContactOrderBy } from '../lib/contact';
 
 describe('contacts', () => {
     it('should create a contact with user role', async () => {
@@ -237,7 +238,7 @@ describe('contacts', () => {
             data: {
                 query: requestBody.query,
                 pagination: requestBody.pagination,
-                sort: { field: 'name', order: 'ascending' as any },
+                sort: { field: 'name', order: SearchContactOrderBy.ASC },
             },
         });
 

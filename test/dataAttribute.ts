@@ -3,7 +3,7 @@ import { Client } from '../lib';
 import { DataType, ModelType } from '../lib/dataAttribute/dataAttribute.types';
 import nock from 'nock';
 
-describe.only('data attributes', () => {
+describe('data attributes', () => {
     const client = new Client('foo', 'bar');
 
     it('should create', async () => {
