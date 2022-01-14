@@ -433,7 +433,7 @@ const response = await client.conversations.create({
 
 #### [Retrieve a conversation](https://developers.intercom.com/intercom-api-reference/reference/retrieve-a-conversation)
 
-##### Normal
+##### Formatted text
 
 ```typescript
 const response = await client.conversations.find({
