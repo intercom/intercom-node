@@ -158,4 +158,5 @@ enum AuthorType {
     USER = 'user',
     ADMIN = 'admin',
     BOT = 'bot',
+    TEAM = 'team',
 }

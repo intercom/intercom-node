@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=shield)](https://circleci.com/gh/intercom/intercom-node)
 [![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
-![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.3-blue)
+![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.4-blue)
 ![Typescript Supported](https://img.shields.io/badge/Typescript-Supported-lightgrey)
 
 > Official Node bindings to the [Intercom API](https://api.intercom.io/docs)
@@ -11,7 +11,7 @@
 
 ### Maintenance
 
-Current repository is a new WIP version of Node SDK, that supports latest API version (v2.3 as of 14/12/2021)
+Current repository is a new WIP version of Node SDK, that supports latest API version (v2.4 as of 14/01/2022)
 
 ## Installation
 
@@ -70,7 +70,7 @@ We version our API (see the "Choose Version" section of the [API & Webhooks Refe
 const client = new Client({ token: 'my_token' });
 client.useRequestOpts({
     headers: {
-        'Intercom-Version': 2.3,
+        'Intercom-Version': 2.4,
     },
 });
 ```

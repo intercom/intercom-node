@@ -28,10 +28,8 @@ const dummyCompany = {
     custom_attributes: {},
 };
 describe('companies', () => {
-    let client: Client;
-    before(() => {
-        client = new Client('foo', 'bar');
-    });
+    const client = new Client('foo', 'bar');
+
     it('should be created', async () => {
         const requestBody = {
             remote_created_at: dateToUnixTimestamp(new Date()),
@@ -66,7 +64,6 @@ describe('companies', () => {
     it('should be updated', async () => {
         const company_id = '46029';
         const requestBody = {
-            company_id,
             remote_created_at: dateToUnixTimestamp(new Date()),
             name: 'BestCompanyInc.',
             monthly_spend: 9001,
@@ -78,7 +75,7 @@ describe('companies', () => {
         };
 
         nock('https://api.intercom.io')
-            .post('/companies', requestBody)
+            .put(`/companies/${company_id}`, requestBody)
             .reply(200, {});
 
         const response = await client.companies.update({
