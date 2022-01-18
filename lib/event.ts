@@ -42,15 +42,14 @@ export default class Event {
             summary,
         };
 
-        // TO-DO: Change to `params` from `data: params`
         return summary
             ? this.client.get<ListParamsWithSummaryResponse>({
                   url: `/${this.baseUrl}`,
-                  data: params,
+                  params,
               })
             : this.client.get<ListParamsResponse>({
                   url: `/${this.baseUrl}`,
-                  data: params,
+                  params,
               });
     }
 }

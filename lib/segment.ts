@@ -12,8 +12,7 @@ export default class Segment {
 
         return this.client.get<ListResponse>({
             url: `/${this.baseUrl}`,
-            //TO-DO: Change to `params`
-            data: params,
+            params,
         });
     }
     find({ id, includeCount: include_count }: FindSegmentData) {
@@ -21,8 +20,7 @@ export default class Segment {
 
         return this.client.get<SegmentObject>({
             url: `/${this.baseUrl}/${id}`,
-            //TO-DO: Change to `params`
-            data: params,
+            params,
         });
     }
 }

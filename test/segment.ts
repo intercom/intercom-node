@@ -3,7 +3,9 @@ import { Client } from '../lib';
 import nock from 'nock';
 
 describe('segments', () => {
-    const client = new Client('foo', 'bar');
+    const client = new Client({
+        usernameAuth: { username: 'foo', password: 'bar' },
+    });
 
     it('should be listed', async () => {
         const queryParams = {

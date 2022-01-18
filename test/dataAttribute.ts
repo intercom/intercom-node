@@ -4,7 +4,9 @@ import { DataType, ModelType } from '../lib/dataAttribute/dataAttribute.types';
 import nock from 'nock';
 
 describe('data attributes', () => {
-    const client = new Client('foo', 'bar');
+    const client = new Client({
+        usernameAuth: { username: 'foo', password: 'bar' },
+    });
 
     it('should create', async () => {
         const requestBody = {

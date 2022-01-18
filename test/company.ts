@@ -28,7 +28,9 @@ const dummyCompany = {
     custom_attributes: {},
 };
 describe('companies', () => {
-    const client = new Client('foo', 'bar');
+    const client = new Client({
+        usernameAuth: { username: 'foo', password: 'bar' },
+    });
 
     it('should be created', async () => {
         const requestBody = {

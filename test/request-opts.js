@@ -1,85 +1,118 @@
-// TO-DO: Rethink testing framework
-// Workaround for old gulp-mocha to use async functions
-import '@babel/polyfill';
-
-import assert from 'assert';
-import { Client } from '../lib';
-import nock from 'nock';
-import sinon from 'sinon';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
+var assert_1 = (0, tslib_1.__importDefault)(require("assert"));
+var lib_1 = require("../lib");
+var nock_1 = (0, tslib_1.__importDefault)(require("nock"));
+var sinon_1 = (0, tslib_1.__importDefault)(require("sinon"));
 describe('request-opts', function () {
-    it('should be able to change request options', async () => {
-        nock('https://api.intercom.io').get('/admins/baz').reply(200, {});
-        const client = new Client('foo', 'bar').useRequestOpts({
-            someParameter: 3,
+    var _this = this;
+    it('should be able to change request options', function () { return (0, tslib_1.__awaiter)(_this, void 0, void 0, function () {
+        var client, response;
+        return (0, tslib_1.__generator)(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    (0, nock_1.default)('https://api.intercom.io').get('/admins/baz').reply(200, {});
+                    client = new lib_1.Client({
+                        usernameAuth: { username: 'foo', password: 'bar' },
+                    }).useRequestOpts({
+                        proxy: false,
+                    });
+                    return [4 /*yield*/, client.admins.find({ id: 'baz' })];
+                case 1:
+                    response = _a.sent();
+                    assert_1.default.deepStrictEqual({}, response);
+                    assert_1.default.deepStrictEqual(client.requestOpts, {
+                        baseURL: 'https://api.intercom.io',
+                        proxy: false,
+                    });
+                    return [2 /*return*/];
+            }
         });
-
-        const response = await client.admins.find('baz');
-
-        assert.deepStrictEqual({}, response);
-        assert.deepStrictEqual(client.requestOpts, {
-            baseURL: 'https://api.intercom.io',
-            someParameter: 3,
+    }); });
+    it('should be able to change request baseURL option', function () { return (0, tslib_1.__awaiter)(_this, void 0, void 0, function () {
+        var client, response;
+        return (0, tslib_1.__generator)(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    (0, nock_1.default)('http://local.test-server.com').get('/admins/baz').reply(200, {});
+                    client = new lib_1.Client({
+                        usernameAuth: { username: 'foo', password: 'bar' },
+                    }).useRequestOpts({
+                        baseURL: 'http://local.test-server.com',
+                    });
+                    return [4 /*yield*/, client.admins.find({ id: 'baz' })];
+                case 1:
+                    response = _a.sent();
+                    assert_1.default.deepStrictEqual({}, response);
+                    return [2 /*return*/];
+            }
         });
-    });
-    it('should be able to change request baseURL option', async () => {
-        nock('http://local.test-server.com').get('/admins/baz').reply(200, {});
-        const client = new Client('foo', 'bar').useRequestOpts({
-            baseURL: 'http://local.test-server.com',
+    }); });
+    it('should be able to change request options merging in headers', function () { return (0, tslib_1.__awaiter)(_this, void 0, void 0, function () {
+        var customHeaderCheck, userAgentHeaderCheck, acceptHeaderCheck, client, response;
+        return (0, tslib_1.__generator)(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    customHeaderCheck = sinon_1.default.stub().returns(true);
+                    userAgentHeaderCheck = sinon_1.default.stub().returns(true);
+                    acceptHeaderCheck = sinon_1.default.stub().returns(true);
+                    (0, nock_1.default)('https://api.intercom.io', {
+                        reqheaders: {
+                            'x-intercom-header': customHeaderCheck,
+                            'User-Agent': userAgentHeaderCheck,
+                            Accept: acceptHeaderCheck,
+                        },
+                    })
+                        .get('/admins/baz')
+                        .reply(200, {});
+                    client = new lib_1.Client({
+                        usernameAuth: { username: 'foo', password: 'bar' },
+                    }).useRequestOpts({
+                        headers: {
+                            common: {
+                                Accept: 'text/plain',
+                                'x-intercom-header': 'bar',
+                            },
+                        },
+                    });
+                    return [4 /*yield*/, client.admins.find({ id: 'baz' })];
+                case 1:
+                    response = _a.sent();
+                    assert_1.default.deepStrictEqual({}, response);
+                    // Should always have a user-agent
+                    sinon_1.default.assert.calledOnce(userAgentHeaderCheck);
+                    sinon_1.default.assert.calledWithMatch(userAgentHeaderCheck, sinon_1.default.match.string);
+                    // Shouldn't allow accept header to be overriden
+                    sinon_1.default.assert.calledOnce(acceptHeaderCheck);
+                    sinon_1.default.assert.calledWithExactly(acceptHeaderCheck, 'application/json');
+                    // Should include custom header
+                    sinon_1.default.assert.calledOnce(customHeaderCheck);
+                    sinon_1.default.assert.calledWithExactly(customHeaderCheck, 'bar');
+                    return [2 /*return*/];
+            }
         });
-
-        const response = await client.admins.find('baz');
-
-        assert.deepStrictEqual({}, response);
-    });
-    it('should be able to change request options merging in headers', async () => {
-        const customHeaderCheck = sinon.stub().returns(true);
-        const userAgentHeaderCheck = sinon.stub().returns(true);
-        const acceptHeaderCheck = sinon.stub().returns(true);
-
-        nock('https://api.intercom.io', {
-            reqheaders: {
-                'x-intercom-header': customHeaderCheck,
-                'User-Agent': userAgentHeaderCheck,
-                Accept: acceptHeaderCheck,
-            },
-        })
-            .get('/admins/baz')
-            .reply(200, {});
-        const client = new Client('foo', 'bar').useRequestOpts({
-            headers: {
-                common: {
-                    Accept: 'text/plain',
-                    'x-intercom-header': 'bar',
-                },
-            },
-        });
-
-        const response = await client.admins.find('baz');
-
-        assert.deepStrictEqual({}, response);
-        // Should always have a user-agent
-        sinon.assert.calledOnce(userAgentHeaderCheck);
-        sinon.assert.calledWithMatch(userAgentHeaderCheck, sinon.match.string);
-        // Shouldn't allow accept header to be overriden
-        sinon.assert.calledOnce(acceptHeaderCheck);
-        sinon.assert.calledWithExactly(acceptHeaderCheck, 'application/json');
-        // Should include custom header
-        sinon.assert.calledOnce(customHeaderCheck);
-        sinon.assert.calledWithExactly(customHeaderCheck, 'bar');
-    });
+    }); });
 });
-
 describe('base-url', function () {
-    it('should be able to change base url (using old .usebaseURL method)', async () => {
-        nock('http://local.test-server.com').get('/admins').reply(200, {});
-
-        const client = new Client('foo', 'bar').usebaseURL(
-            'http://local.test-server.com'
-        );
-
-        const response = await client.admins.list();
-
-        assert.deepStrictEqual({}, response);
-    });
+    var _this = this;
+    it('should be able to change base url (using old .usebaseURL method)', function () { return (0, tslib_1.__awaiter)(_this, void 0, void 0, function () {
+        var client, response;
+        return (0, tslib_1.__generator)(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    (0, nock_1.default)('http://local.test-server.com').get('/admins').reply(200, {});
+                    client = new lib_1.Client({
+                        usernameAuth: { username: 'foo', password: 'bar' },
+                    }).usebaseURL('http://local.test-server.com');
+                    return [4 /*yield*/, client.admins.list()];
+                case 1:
+                    response = _a.sent();
+                    assert_1.default.deepStrictEqual({}, response);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });
+
+//# sourceMappingURL=request-opts.js.map

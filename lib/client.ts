@@ -1,30 +1,47 @@
 import { deprecate } from 'util';
-import User from './user';
-import Event from './event';
-import Company from './company';
-import Contact from './contact';
-import Visitor from './visitor';
-import Counts from './counts';
-import Admin from './admin';
-import Tag from './tag';
-import Segment from './segment';
-import Message from './message';
-import Conversation from './conversation';
-import Note from './note';
-import Customer from './customer';
-import DataAttribute from './dataAttribute';
-import Team from './team';
-
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
+
+import Admin from './admin';
+import Company from './company';
+import Conversation from './conversation';
+import Contact from './contact';
+import DataAttribute from './dataAttribute';
+import Event from './event';
+import Segment from './segment';
+import Message from './message';
+import Team from './team';
+import Tag from './tag';
 
 import { BadResponseError } from './errors/badResponse.error';
 
 interface RequestOptions {
     url: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     params?: any;
 }
+
+type Constructor = {
+    usernameAuth?: UsernameAuth;
+    tokenAuth?: TokenAuth;
+    apiKeyAuth?: ApiKeyAuth;
+};
+
+type UsernameAuth = {
+    username: string;
+    password: string;
+};
+
+type TokenAuth = {
+    token: string;
+};
+
+type ApiKeyAuth = {
+    appId: string;
+    appApiKey: string;
+};
 
 export default class Client {
     admins: Admin;
@@ -32,60 +49,40 @@ export default class Client {
     companies: Company;
     contacts: Contact;
     conversations: Conversation;
-    counts: any;
-    customers: any;
-    leads: any;
-    users: any;
-    events: Event;
     dataAttributes: DataAttribute;
+    events: Event;
+    messages: Message;
     segments: Segment;
-    messages: any;
-    notes: any;
     passwordPart?: string;
     propertiesToOmitInRequestOpts: string[];
     requestOpts: Partial<AxiosDefaults>;
     tags: Tag;
     teams: Team;
-    usebaseURL: (baseURL: any) => this;
+    usebaseURL: (baseURL: string) => this;
     usernamePart?: string;
-    visitors: any;
 
-    // TO-DO: Fix any
-    constructor(...args: any) {
-        // TO-DO: Refactor it!
-        if (args.length === 2) {
-            this.usernamePart = args[0];
-            this.passwordPart = args[1];
-        } else if (args.length === 1) {
-            if (args[0].token) {
-                this.usernamePart = args[0].token;
-                this.passwordPart = '';
-            } else {
-                this.usernamePart = args[0].appId;
-                this.passwordPart = args[0].appApiKey;
-            }
-        }
+    constructor(args: Constructor) {
+        const [usernamePart, passwordPart] = Client.getAuthDetails(args);
+
+        this.usernamePart = usernamePart;
+        this.passwordPart = passwordPart;
+
         if (!this.usernamePart || this.passwordPart === undefined) {
             throw new Error(
                 'Could not construct a client with those parameters'
             );
         }
-        this.users = new User(this);
-        this.events = new Event(this);
+
+        this.admins = new Admin(this);
         this.companies = new Company(this);
         this.contacts = new Contact(this);
-        this.leads = new Contact(this);
-        this.visitors = new Visitor(this);
-        this.counts = new Counts(this);
-        this.admins = new Admin(this);
-        this.segments = new Segment(this);
-        this.messages = new Message(this);
         this.conversations = new Conversation(this);
-        this.notes = new Note(this);
-        this.customers = new Customer(this);
+        this.dataAttributes = new DataAttribute(this);
+        this.events = new Event(this);
+        this.messages = new Message(this);
+        this.segments = new Segment(this);
         this.tags = new Tag(this);
         this.teams = new Team(this);
-        this.dataAttributes = new DataAttribute(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',
         };
@@ -99,7 +96,6 @@ export default class Client {
         this.axiosInstance = this.initiateAxiosInstance();
     }
     initiateAxiosInstance(): Axios {
-        // TO-DO: Revise the params
         const defaultHeaders = {
             'User-Agent': 'intercom-node-client/3.0.0',
             Accept: 'application/json',
@@ -255,5 +251,21 @@ export default class Client {
             headers,
             status
         );
+    }
+
+    private static getAuthDetails(
+        args: Constructor
+    ): [username: string | undefined, password: string | undefined] {
+        if (args.apiKeyAuth) {
+            return [args.apiKeyAuth.appId, args.apiKeyAuth.appApiKey];
+        }
+        if (args.tokenAuth) {
+            return [args.tokenAuth.token, ''];
+        }
+        if (args.usernameAuth) {
+            return [args.usernameAuth.username, args.usernameAuth.password];
+        }
+
+        return [undefined, undefined];
     }
 }

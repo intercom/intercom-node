@@ -41,7 +41,9 @@ describe('conversations', () => {
             .post('/conversations', message)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.create({
             userId: id,
@@ -60,7 +62,9 @@ describe('conversations', () => {
             .get(`/conversations/${id}`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.find({ id });
 
@@ -77,7 +81,9 @@ describe('conversations', () => {
             .query({ display_as: 'plaintext' })
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.find({
             id,
@@ -103,7 +109,9 @@ describe('conversations', () => {
             .put(`/conversations/${id}`, requestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.update({
             id,
@@ -131,7 +139,9 @@ describe('conversations', () => {
             .post(`/conversations/${id}/reply`, userRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.replyByIdAsUser({
             id,
@@ -145,12 +155,11 @@ describe('conversations', () => {
 
     it('should reply as admin to a conversation by id', async () => {
         const id = '536e564f316c83104c000020';
-        const adminId = '536e564f316c83104c000020';
 
         const adminRequestBody = {
-            admin_id: adminId,
+            admin_id: '536e564f316c83104c000020',
             message_type: ReplyToConversationMessageType.NOTE,
-            type: ReplyToConversationMessageType.NOTE,
+            type: ReplyToConversationUserType.ADMIN,
             body: '<b>blablbalba</b>',
             attachment_urls: ['https://definitely-sfw-site.org/bebra.jpg'],
         };
@@ -161,11 +170,13 @@ describe('conversations', () => {
             .post(`/conversations/${id}/reply`, adminRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.replyByIdAsAdmin({
             id,
-            adminId,
+            adminId: adminRequestBody.admin_id,
             messageType: adminRequestBody.message_type,
             body: adminRequestBody.body,
             attachmentUrls: adminRequestBody.attachment_urls,
@@ -191,7 +202,9 @@ describe('conversations', () => {
             .post(`/conversations/last/reply`, userRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.replyByLastAsUser({
             body: userRequestBody.body,
@@ -219,7 +232,9 @@ describe('conversations', () => {
             .post(`/conversations/last/reply`, adminRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.replyByLastAsAdmin({
             adminId,
@@ -248,7 +263,9 @@ describe('conversations', () => {
             .post(`/conversations/${id}/parts`, userRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.assign({
             id,
@@ -270,7 +287,9 @@ describe('conversations', () => {
             .post(`/conversations/${id}/run_assignment_rules/parts`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.assign({
             id,
@@ -295,7 +314,9 @@ describe('conversations', () => {
             .post(`/conversations/${id}/reply`, adminRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.snooze({
             id,
@@ -322,7 +343,9 @@ describe('conversations', () => {
             .post(`/conversations/${id}/parts`, adminRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.close({
             id,
@@ -347,7 +370,9 @@ describe('conversations', () => {
             .post(`/conversations/${id}/parts`, adminRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.open({
             id,
@@ -373,7 +398,9 @@ describe('conversations', () => {
             .post(`/conversations/${id}/customers`, adminRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.attachContactAsAdmin({
             id,
@@ -402,7 +429,9 @@ describe('conversations', () => {
             .post(`/conversations/${id}/customers`, contactRequestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.attachContactAsContact({
             id,
@@ -433,7 +462,9 @@ describe('conversations', () => {
             )
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.detachContactAsAdmin({
             conversationId,
@@ -498,12 +529,15 @@ describe('conversations', () => {
             .post(`/conversations/search`, requestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.search({
             data: {
                 query: requestBody.query,
                 pagination: requestBody.pagination,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 sort: requestBody.sort as any,
             },
         });
@@ -518,7 +552,9 @@ describe('conversations', () => {
             .get(`/conversations?order=desc&sort=updated_at&page=1&per_page=10`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.list({
             query: {
@@ -547,7 +583,9 @@ describe('conversations', () => {
             .post('/conversations/redact', requestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.conversations.redactConversationPart({
             type: requestBody.type,

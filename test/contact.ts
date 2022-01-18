@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { Client } from '../lib';
 import nock from 'nock';
-import { Operators, Order, Role } from '../lib/common/common.types';
+import { Operators, Role } from '../lib/common/common.types';
 import { SearchContactOrderBy } from '../lib/contact';
 
 describe('contacts', () => {
@@ -26,7 +26,9 @@ describe('contacts', () => {
             .post('/contacts', contact)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.createUser({
             externalId: contact.external_id,
@@ -53,7 +55,9 @@ describe('contacts', () => {
             .post('/contacts', contact)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.createLead();
 
@@ -69,7 +73,9 @@ describe('contacts', () => {
             .get(`/contacts/${id}`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.find({ id });
 
@@ -93,7 +99,9 @@ describe('contacts', () => {
             .put(`/contacts/${id}`, requestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.update({
             id,
@@ -114,7 +122,9 @@ describe('contacts', () => {
             .delete(`/contacts/${id}`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.delete({ id });
 
@@ -130,7 +140,9 @@ describe('contacts', () => {
             .post(`/contacts/${id}/archive`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.archive({ id });
 
@@ -146,7 +158,9 @@ describe('contacts', () => {
             .post(`/contacts/${id}/unarchive`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.unarchive({ id });
 
@@ -168,7 +182,9 @@ describe('contacts', () => {
             .post(`/contacts/merge`, requestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.mergeLeadInUser({
             leadId,
@@ -232,7 +248,9 @@ describe('contacts', () => {
             .post(`/contacts/search`, requestBody)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.search({
             data: {
@@ -251,7 +269,9 @@ describe('contacts', () => {
                 '/contacts?per_page=5&starting_after=WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0='
             )
             .reply(200, {});
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
         const response = await client.contacts.list({
             perPage: 5,
             startingAfter:
@@ -270,7 +290,9 @@ describe('contacts', () => {
             .get(`/contacts/${id}/companies?per_page=5&page=1`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.listAttachedCompanies({
             id,
@@ -290,7 +312,9 @@ describe('contacts', () => {
             .get(`/contacts/${id}/tags`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.listAttachedTags({ id });
 
@@ -306,7 +330,9 @@ describe('contacts', () => {
             .get(`/contacts/${id}/segments`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.listAttachedSegments({ id });
 
@@ -322,7 +348,9 @@ describe('contacts', () => {
             .get(`/contacts/${id}/subscriptions`)
             .reply(200, expectedReply);
 
-        const client = new Client('foo', 'bar');
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
 
         const response = await client.contacts.listAttachedEmailSubscriptions({
             id,

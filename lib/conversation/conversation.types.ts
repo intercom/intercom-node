@@ -1,3 +1,4 @@
+import { AdminObject } from '../admin/admin.types';
 import { JavascriptObject, Seconds, Timestamp } from '../common/common.types';
 
 export interface ConversationObject {
@@ -88,7 +89,7 @@ interface StatisticsObject {
     last_contact_reply_at: Seconds;
     last_admin_reply_at: Seconds;
     last_close_at: Seconds;
-    last_closed_by: JavascriptObject; // TO-DO : Admin reference
+    last_closed_by: AdminObject;
     count_reopens: number;
     count_assignments: number;
     count_conversations_parts: number;

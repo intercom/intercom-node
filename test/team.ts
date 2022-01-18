@@ -6,7 +6,9 @@ describe('teams', () => {
     let client: Client;
 
     before(() => {
-        client = new Client('foo', 'bar');
+        client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
     });
 
     it('should be retrieved by id', async () => {

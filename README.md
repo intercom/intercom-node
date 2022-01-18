@@ -46,7 +46,7 @@ import { Client } from './dist/index';
 Create a client using access tokens:
 
 ```typescript
-const client = new Client({ token: 'my_token' });
+const client = new Client({ tokenAuth: { token: 'my_token' } });
 ```
 
 ## Request Options
@@ -54,7 +54,7 @@ const client = new Client({ token: 'my_token' });
 This client library also supports passing in [`request` options](https://github.com/axios/axios#request-config):
 
 ```typescript
-const client = new Client({ token: 'my_token' });
+const client = new Client({ tokenAuth: { token: 'my_token' } });
 client.useRequestOpts({
     baseURL: 'http://local.test-server.com',
 });
@@ -67,7 +67,7 @@ Note that certain request options (such as `json`, and certain `headers` names c
 We version our API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
 
 ```typescript
-const client = new Client({ token: 'my_token' });
+const client = new Client({ tokenAuth: { token: 'my_token' } });
 client.useRequestOpts({
     headers: {
         'Intercom-Version': 2.4,
