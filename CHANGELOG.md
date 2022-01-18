@@ -1,6 +1,8 @@
-# [Conversations API]
+# V 3.0.0
 
-## Added
+## [Conversations API]
+
+### Added
 
 1. Method to create Conversation `conversation.create({userId, body})`
 2. New param to find Conversation – `display_as` –> `conversation.find({id, inPlainText})`
@@ -16,7 +18,7 @@
 10. Method to search Conversation using nested/flat filters `conversation.search({data})`
 11. Method to redact Conversation's part `conversation.redactConversationPart({conversationId, conversationPartId, sourceId, type})`
 
-## Changed
+### Changed
 
 1. Method to reply to conversation is now split to two different ones:
    1.1. Reply by ID:
@@ -36,9 +38,9 @@
 }
 ```
 
-# [Contacts API]
+## [Contacts API]
 
-## Added
+### Added
 
 1. Method to archive Contact -> `contacts.archive({id})`
 2. Method to unarchive Contact -> `contacts.unarchive({id})`
@@ -48,7 +50,7 @@
 6. Method to list attached email subscriptions -> `contacts.listAttachedEmailSubscriptions({id})`
 7. Method to search Contact by filters `contacts.search({data})`
 
-## Changed
+### Changed
 
 1. Methods to create Contact:
    1.1. Create User -> `contacts.createUser({externalId phone, name, avatar, signedUpAt, lastSeenAt, ownerId, isUnsubscribedFromEmails, customAttributes})`
@@ -58,9 +60,9 @@
 4. Removed `listBy` method
 5. Removed `convert` method
 
-# [Tags API]
+## [Tags API]
 
-## Added
+### Added
 
 1. Method to tag Contact -> `tags.tagContact({contactId, tagId})`
 2. Method to untag Contact -> `tags.untagContact({contactId, tagId})`
@@ -69,36 +71,36 @@
 5. Method to tag Companies -> `tags.tagCompanies({companiesIds, tagName})`
 6. Method to untag Companies -> `tags.untagCompanies({companiesIds, tagName})`
 
-## Changed
+### Changed
 
 1. Methods to Create/Update Tag:
    1.1. Create -> `tags.create({name})`
    1.2. Update -> `tags.update({id, name})`
 
-# [Teams API]
+## [Teams API]
 
-## Added
+### Added
 
 1. Method to find Team by id -> `teams.find({id})`
 2. Method to list Teams -> `teams.list()`
 
-# [Admin API]
+## [Admin API]
 
-## Added
+### Added
 
 1. List all activities logs `admin.listAllActivities`
 
-## Changed
+### Changed
 
 1. Params for `admin.away` method -> `admin.away({adminId, enableAwayMode, enableReassignMode})`
 
-## Removed
+### Removed
 
 1. `admin.me` method.
 
-# [Companies API]
+## [Companies API]
 
-## Added
+### Added
 
 1. Method to delete Company `companies.delete({ id })`
 2. Method to attach Contact to Company `companies.attachContact({ companyId, contactId })`
@@ -106,33 +108,33 @@
 4. Method to list attached Contacts for Company `companies.listAttachedContacts({ companyId, page, perPage })`
 5. Method to list attached Segments for Company `companies.listAttachedSegments({ companyId })`
 
-## Changed
+### Changed
 
 1. Method to create Companies `companies.create({createdAt, companyId, name, monthlySpend, plan, size, website, industry, customAttributes})`
 2. Method to update Companies `companies.update({createdAt, name, monthlySpend, plan, size, website, industry, customAttributes})`
 3. Method to find Company `companies.find({ name, companyId })`
 4. Method to list Companies `companies.list({tagId, segmentId, page, perPage, order})`
 5. Method to infinitely scroll (till the last Company) Companies `companies.scroll.each({scrollParam})`
-6. # Method to manually scroll Companies `companies.scroll.next({scrollParam})`
+6. ## Method to manually scroll Companies `companies.scroll.next({scrollParam})`
 
-# [Events API]
+## [Events API]
 
-## Changed
+### Changed
 
 1. Params for `event.create` method -> `event.create({ eventName, createdAt, userId, id, email, metadata })`
 2. Params for `event.listBy` method -> `event.listBy({ userId, email, intercomUserId, perPage, summary })`
 
-## Removed
+### Removed
 
 1. `event.bulk` method.
 
-# [Segment API]
+## [Segment API]
 
-## No changes
+### No changes
 
-# [Data Attribute API]
+## [Data Attribute API]
 
-## Added
+### Added
 
 1. Method to create Data Attribute `dataAttribute.create({ name, model, dataType, description, options,})`
 2. Method to update Data Attribute `dataAttribute.update({id, archived, description, options,})`
