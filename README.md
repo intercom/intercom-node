@@ -75,7 +75,7 @@ client.useRequestOpts({
 });
 ```
 
-## New Version
+## Examples
 
 ### Admins
 
