@@ -79,7 +79,7 @@ client.useRequestOpts({
 
 ### Admins
 
-#### [Retrieve and admin](https://developers.intercom.com/intercom-api-reference/reference/view-an-admin)
+#### [Retrieve admin](https://developers.intercom.com/intercom-api-reference/reference/view-an-admin)
 
 ```typescript
 const admin = await client.admins.find({ id: '123' });
