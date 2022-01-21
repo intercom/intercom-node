@@ -1,4 +1,4 @@
-# intercom-node-v2
+# intercom-node
 
 [![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=shield)](https://circleci.com/gh/intercom/intercom-node)
 [![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
