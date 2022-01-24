@@ -9,8 +9,8 @@ pids
 *.pid
 *.seed
 
-# Coverage directory used by tools like istanbul
-coverage
+# Coverage directory used by nyc
+.nyc_output
 
 # node-waf configuration
 .lock-wscript
