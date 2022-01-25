@@ -30,8 +30,6 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-.yarnrc
-.yarnrc.yml
 
 # Typescript mappings for lib
 lib/*.map
