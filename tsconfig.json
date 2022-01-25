@@ -19,10 +19,11 @@
         "strictNullChecks": true,
         "noUnusedLocals": true,
         "downlevelIteration": true,
-        "rootDir": "./lib",
+        "rootDir": ".",
         // Ensure that .d.ts files are created by tsc, but not .js files
         "declaration": true,
-        "declarationMap": true
+        "declarationMap": true,
+        "resolveJsonModule": true
     },
     "include": ["lib/**/*"],
     "exclude": ["node_modules"]

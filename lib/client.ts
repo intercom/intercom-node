@@ -14,6 +14,8 @@ import Message from './message';
 import Team from './team';
 import Tag from './tag';
 
+import * as packageJson from '../package.json';
+
 import { BadResponseError } from './errors/badResponse.error';
 
 interface RequestOptions {
@@ -100,7 +102,7 @@ export default class Client {
     }
     initiateAxiosInstance(): Axios {
         const defaultHeaders = {
-            'User-Agent': 'intercom-node-client/3.0.0',
+            'User-Agent': `intercom-node-client/${packageJson.version}`,
             Accept: 'application/json',
         };
 
