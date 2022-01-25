@@ -61,15 +61,16 @@ export enum Locales {
 }
 
 export interface ContentObject {
-    type: 'article_content';
+    type?: 'article_content';
     title: string;
     description: string;
     body: string;
-    author: string;
+    author?: string;
+    author_id?: number;
     state: string;
-    created_at: Timestamp;
-    updated_at: Timestamp;
-    url: string;
+    created_at?: Timestamp;
+    updated_at?: Timestamp;
+    url?: string;
 }
 
 export type LocalesMapping = {
@@ -78,7 +79,7 @@ export type LocalesMapping = {
 
 export type TranslatedContentObject = {
     type: 'article_translated_content';
-} & LocalesMapping;
+} & Partial<LocalesMapping>;
 
 export type StatisticsObject = {
     type: 'article_statistics';

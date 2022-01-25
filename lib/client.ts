@@ -2,6 +2,7 @@ import { deprecate } from 'util';
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
 
+import Article from './article';
 import Admin from './admin';
 import Company from './company';
 import Conversation from './conversation';
@@ -44,6 +45,7 @@ type ApiKeyAuth = {
 };
 
 export default class Client {
+    articles: Article;
     admins: Admin;
     axiosInstance: Axios;
     companies: Company;
@@ -74,6 +76,7 @@ export default class Client {
         }
 
         this.admins = new Admin(this);
+        this.articles = new Article(this);
         this.companies = new Company(this);
         this.contacts = new Contact(this);
         this.conversations = new Conversation(this);
