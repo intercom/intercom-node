@@ -9,20 +9,17 @@ pids
 *.pid
 *.seed
 
-# Coverage directory used by tools like istanbul
-coverage
+# Coverage directory used by nyc
+.nyc_output
 
 # node-waf configuration
 .lock-wscript
-
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
 
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
 
-# Babel
+# Compiled version
 dist
 
 # Yarn 3.x
@@ -33,8 +30,6 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-.yarnrc
-.yarnrc.yml
 
 # Typescript mappings for lib
 lib/*.map
