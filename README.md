@@ -77,6 +77,76 @@ client.useRequestOpts({
 
 ## Examples
 
+### Articles
+
+#### [Create an article](https://developers.intercom.com/intercom-api-reference/reference/create-an-article)
+
+```typescript
+const article = await client.articles.create({
+    title: 'Thanks for everything',
+    description: 'English description',
+    body: '<p>This is the body in html</p>',
+    authorId: 1,
+    state: 'published',
+    parentId: 1,
+    parentType: 'collection',
+    translatedContent: {
+        fr: {
+            title: 'Allez les verts',
+            description: 'French description',
+            body: '<p>French body in html</p>',
+            author_id: 1,
+            state: 'published',
+        },
+    },
+});
+```
+
+#### [Retrieve an article](https://developers.intercom.com/intercom-api-reference/reference/retrieve-an-article)
+
+```typescript
+const response = await client.articles.find({ id: '123' });
+```
+
+#### [Update an article](https://developers.intercom.com/intercom-api-reference/reference/update-an-article)
+
+```typescript
+const article = await client.articles.update({
+    id: '123',
+    title: 'Thanks for everything',
+    description: 'English description',
+    body: '<p>This is the body in html</p>',
+    authorId: 1,
+    state: 'published',
+    parentId: 1,
+    parentType: 'collection',
+    translatedContent: {
+        fr: {
+            title: 'Allez les verts',
+            description: 'French description',
+            body: '<p>French body in html</p>',
+            author_id: 1,
+            state: 'published',
+        },
+    },
+});
+```
+
+#### [Delete an article](https://developers.intercom.com/intercom-api-reference/reference/delete-an-article)
+
+```typescript
+await client.articles.delete({ id: '123' });
+```
+
+#### [List all articles](https://developers.intercom.com/intercom-api-reference/reference/list-all-articles)
+
+```typescript
+const response = await client.articles.list({
+    page: 3,
+    perPage: 12,
+});
+```
+
 ### Admins
 
 #### [Retrieve admin](https://developers.intercom.com/intercom-api-reference/reference/view-an-admin)
