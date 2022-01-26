@@ -113,3 +113,9 @@ export interface PaginationParams {
     page?: number;
     perPage?: number;
 }
+
+export interface GenericDeletedResponse<ObjectType extends string> {
+    id: string;
+    object: ObjectType;
+    deleted: boolean;
+}

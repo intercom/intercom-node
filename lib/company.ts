@@ -5,6 +5,7 @@ import {
     Order,
     Paginated,
     Timestamp,
+    GenericDeletedResponse,
 } from './common/common.types';
 import { CompanyObject, ListCompaniesResponse } from './company/company.types';
 import { ContactObject } from './contact/contact.types';
@@ -169,11 +170,7 @@ interface FindCompanyData {
 interface DeleteCompanyData {
     id: string;
 }
-interface DeleteCompanyResponse {
-    id: string;
-    object: 'company';
-    deleted: boolean;
-}
+type DeleteCompanyResponse = GenericDeletedResponse<'company'>;
 //
 interface ListCompaniesData extends PaginationParams {
     order?: Order;

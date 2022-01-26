@@ -3,7 +3,7 @@ import {
     ArticleObject,
     TranslatedContentObject,
 } from './article/article.types';
-import { Paginated } from './common/common.types';
+import { GenericDeletedResponse, Paginated } from './common/common.types';
 
 export default class Article {
     public readonly baseUrl = 'articles';
@@ -109,11 +109,7 @@ type UpdateArticleData = Partial<CreateArticleData> & OperationById;
 
 type ArticleDeleteByIdData = OperationById;
 
-type ArticleDeleteByIdResponse = {
-    id: string;
-    object: 'article';
-    deleted: boolean;
-};
+type ArticleDeleteByIdResponse = GenericDeletedResponse<'article'>;
 
 type ArticleListData = {
     page?: number;

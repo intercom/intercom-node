@@ -9,6 +9,7 @@ import Conversation from './conversation';
 import Contact from './contact';
 import DataAttribute from './dataAttribute';
 import Event from './event';
+import HelpCenter from './helpCenter';
 import Segment from './segment';
 import Message from './message';
 import Team from './team';
@@ -55,6 +56,7 @@ export default class Client {
     conversations: Conversation;
     dataAttributes: DataAttribute;
     events: Event;
+    helpCenter: HelpCenter;
     messages: Message;
     segments: Segment;
     passwordPart?: string;
@@ -84,6 +86,7 @@ export default class Client {
         this.conversations = new Conversation(this);
         this.dataAttributes = new DataAttribute(this);
         this.events = new Event(this);
+        this.helpCenter = new HelpCenter(this);
         this.messages = new Message(this);
         this.segments = new Segment(this);
         this.tags = new Tag(this);
