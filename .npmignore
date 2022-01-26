@@ -1,0 +1,2 @@
+# Should exist, because dist is in .gitignore
+# More here: https://docs.npmjs.com/cli/v8/using-npm/developers#keeping-files-out-of-your-package
