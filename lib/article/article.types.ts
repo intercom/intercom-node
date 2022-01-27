@@ -73,13 +73,13 @@ export interface ContentObject {
     url?: string;
 }
 
-export type LocalesMapping = {
+export type ArticleLocalesMapping = {
     [key in Locales]: ContentObject;
 };
 
 export type TranslatedContentObject = {
     type: 'article_translated_content';
-} & Partial<LocalesMapping>;
+} & Partial<ArticleLocalesMapping>;
 
 export type StatisticsObject = {
     type: 'article_statistics';

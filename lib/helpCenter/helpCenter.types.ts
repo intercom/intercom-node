@@ -1,4 +1,4 @@
-import { ArticleObject, Locales } from '../article/article.types';
+import { ArticleObject, Locales } from '../index';
 
 export type CollectionObject = {
     type: 'collection';
@@ -24,9 +24,9 @@ export type SectionObject = {
 
 export type GroupTranslatedContentObject = {
     type: 'group_translated_content';
-} & Partial<LocalesMapping>;
+} & Partial<HelpCenterLocalesMapping>;
 
-export type LocalesMapping = {
+export type HelpCenterLocalesMapping = {
     [key in Locales]: GroupContentObject;
 };
 
