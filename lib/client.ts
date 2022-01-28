@@ -2,16 +2,20 @@ import { deprecate } from 'util';
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
 
+import Article from './article';
 import Admin from './admin';
 import Company from './company';
 import Conversation from './conversation';
 import Contact from './contact';
 import DataAttribute from './dataAttribute';
 import Event from './event';
+import HelpCenter from './helpCenter';
 import Segment from './segment';
 import Message from './message';
 import Team from './team';
 import Tag from './tag';
+
+import * as packageJson from '../package.json';
 
 import { BadResponseError } from './errors/badResponse.error';
 
@@ -44,6 +48,7 @@ type ApiKeyAuth = {
 };
 
 export default class Client {
+    articles: Article;
     admins: Admin;
     axiosInstance: Axios;
     companies: Company;
@@ -51,6 +56,7 @@ export default class Client {
     conversations: Conversation;
     dataAttributes: DataAttribute;
     events: Event;
+    helpCenter: HelpCenter;
     messages: Message;
     segments: Segment;
     passwordPart?: string;
@@ -74,11 +80,13 @@ export default class Client {
         }
 
         this.admins = new Admin(this);
+        this.articles = new Article(this);
         this.companies = new Company(this);
         this.contacts = new Contact(this);
         this.conversations = new Conversation(this);
         this.dataAttributes = new DataAttribute(this);
         this.events = new Event(this);
+        this.helpCenter = new HelpCenter(this);
         this.messages = new Message(this);
         this.segments = new Segment(this);
         this.tags = new Tag(this);
@@ -97,7 +105,7 @@ export default class Client {
     }
     initiateAxiosInstance(): Axios {
         const defaultHeaders = {
-            'User-Agent': 'intercom-node-client/3.0.0',
+            'User-Agent': `intercom-node-client/${packageJson.version}`,
             Accept: 'application/json',
         };
 

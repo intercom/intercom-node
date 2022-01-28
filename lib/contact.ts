@@ -1,6 +1,7 @@
 import { Client } from '.';
 import { ContactObject } from './contact/contact.types';
 import {
+    GenericDeletedResponse,
     GenericSearchFilters,
     Leaves,
     Paginated,
@@ -247,11 +248,7 @@ interface DeleteContactData {
     id: string;
 }
 
-interface DeleteContactResponse {
-    id: string;
-    object: ContactObject;
-    deleted: boolean;
-}
+type DeleteContactResponse = GenericDeletedResponse<'contact'>;
 //
 interface ArchiveContactData {
     id: string;

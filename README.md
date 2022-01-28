@@ -110,6 +110,76 @@ await client.admins.listAllActivityLogs({
 const admins = await client.admins.list();
 ```
 
+### Articles
+
+#### [Create an article](https://developers.intercom.com/intercom-api-reference/reference/create-an-article)
+
+```typescript
+const article = await client.articles.create({
+    title: 'Thanks for everything',
+    description: 'English description',
+    body: '<p>This is the body in html</p>',
+    authorId: 1,
+    state: 'published',
+    parentId: 1,
+    parentType: 'collection',
+    translatedContent: {
+        fr: {
+            title: 'Allez les verts',
+            description: 'French description',
+            body: '<p>French body in html</p>',
+            author_id: 1,
+            state: 'published',
+        },
+    },
+});
+```
+
+#### [Retrieve an article](https://developers.intercom.com/intercom-api-reference/reference/retrieve-an-article)
+
+```typescript
+const response = await client.articles.find({ id: '123' });
+```
+
+#### [Update an article](https://developers.intercom.com/intercom-api-reference/reference/update-an-article)
+
+```typescript
+const article = await client.articles.update({
+    id: '123',
+    title: 'Thanks for everything',
+    description: 'English description',
+    body: '<p>This is the body in html</p>',
+    authorId: 1,
+    state: 'published',
+    parentId: 1,
+    parentType: 'collection',
+    translatedContent: {
+        fr: {
+            title: 'Allez les verts',
+            description: 'French description',
+            body: '<p>French body in html</p>',
+            author_id: 1,
+            state: 'published',
+        },
+    },
+});
+```
+
+#### [Delete an article](https://developers.intercom.com/intercom-api-reference/reference/delete-an-article)
+
+```typescript
+await client.articles.delete({ id: '123' });
+```
+
+#### [List all articles](https://developers.intercom.com/intercom-api-reference/reference/list-all-articles)
+
+```typescript
+const response = await client.articles.list({
+    page: 3,
+    perPage: 12,
+});
+```
+
 ### Companies
 
 #### [Create a company](https://developers.intercom.com/intercom-api-reference/reference/create-or-update-company)
@@ -742,6 +812,118 @@ const response = await client.events.listBy({
     perPage: 2,
     summary: true,
     email: 'i_love_memes@gmail.com',
+});
+```
+
+### Help Center - Collections
+
+#### [Create a collection](https://developers.intercom.com/intercom-api-reference/reference/create-a-collection)
+
+```typescript
+const collection = await client.helpCenter.collections.create({
+    name: 'Thanks for everything',
+    description: 'English description',
+    translatedContent: {
+        fr: {
+            name: 'Allez les verts',
+            description: 'French description',
+        },
+    },
+});
+```
+
+#### [Retrieve a collection](https://developers.intercom.com/intercom-api-reference/reference/retrieve-a-collection)
+
+```typescript
+const response = await client.helpCenter.collections.find({ id: '123' });
+```
+
+#### [Update a collection](https://developers.intercom.com/intercom-api-reference/reference/update-a-collection)
+
+```typescript
+const article = await client.helpCenter.collections.update({
+    id: '123',
+    name: 'Thanks for everything',
+    description: 'English description',
+    translated_content: {
+        fr: {
+            name: 'Allez les verts',
+            description: 'French description',
+        },
+    },
+});
+```
+
+#### [Delete a collection](https://developers.intercom.com/intercom-api-reference/reference/delete-a-collection)
+
+```typescript
+await client.helpCenter.collections.delete({
+    id: '123',
+});
+```
+
+#### [List all collections](https://developers.intercom.com/intercom-api-reference/reference/list-all-collections)
+
+```typescript
+const response = client.helpCenter.collections.list({
+    page: 3,
+    perPage: 12,
+});
+```
+
+## Help Center - Sections
+
+#### [Create a section](https://developers.intercom.com/intercom-api-reference/reference/create-a-section)
+
+```typescript
+const collection = await client.helpCenter.sections.create({
+    name: 'Thanks for everything',
+    parent_id: '1234',
+    translatedContent: {
+        fr: {
+            name: 'Allez les verts',
+            description: 'French description',
+        },
+    },
+});
+```
+
+#### [Retrieve a section](https://developers.intercom.com/intercom-api-reference/reference/retrieve-a-section)
+
+```typescript
+const response = await client.helpCenter.sections.find({ id: '123' });
+```
+
+#### [Update a section](https://developers.intercom.com/intercom-api-reference/reference/update-a-section)
+
+```typescript
+const article = await client.helpCenter.sections.update({
+    id: '123',
+    name: 'Thanks for everything',
+    parent_id: '456',
+    translated_content: {
+        fr: {
+            name: 'Allez les verts',
+            description: 'French description',
+        },
+    },
+});
+```
+
+#### [Delete a section](https://developers.intercom.com/intercom-api-reference/reference/delete-a-section)
+
+```typescript
+await client.helpCenter.sections.delete({
+    id: '123',
+});
+```
+
+#### [List all sections](https://developers.intercom.com/intercom-api-reference/reference/list-all-sections)
+
+```typescript
+const response = client.helpCenter.sections.list({
+    page: 3,
+    perPage: 12,
 });
 ```
 
