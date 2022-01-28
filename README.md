@@ -9,9 +9,9 @@
 
 ## Project Updates
 
-### Maintenance
+## Breaking changes
 
-Current repository is a new WIP version of Node SDK, that supports latest API version (v2.4 as of 14/01/2022)
+The Node SDK has been updated to support latest API version (2.4). The update also contains requested features, such like Typescript support. You can find more information on how-to migrate and what has changed in the [migration guide](https://github.com/intercom/intercom-node/wiki/Migration-guide).
 
 ## Installation
 
@@ -19,7 +19,7 @@ Current repository is a new WIP version of Node SDK, that supports latest API ve
 yarn add intercom-client
 ```
 
-**This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/v2.0/docs/intercom-javascript) for client-side operations.**
+**This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/v2.4/docs/intercom-javascript) for client-side operations.**
 
 ## Testing
 
