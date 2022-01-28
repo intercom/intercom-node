@@ -77,6 +77,39 @@ client.useRequestOpts({
 
 ## Examples
 
+### Admins
+
+#### [Retrieve admin](https://developers.intercom.com/intercom-api-reference/reference/view-an-admin)
+
+```typescript
+const admin = await client.admins.find({ id: '123' });
+```
+
+#### [Set Admin away](https://developers.intercom.com/intercom-api-reference/reference/set-admin-away-mode)
+
+```typescript
+await client.admins.away({
+    adminId: '123',
+    enableAwayMode: true,
+    enableReassignMode: false,
+});
+```
+
+#### [List all activity logs](https://developers.intercom.com/intercom-api-reference/reference/view-admin-activity-logs)
+
+```typescript
+await client.admins.listAllActivityLogs({
+    before: new Date('Fri, 17 Dec 2021 18:02:18 GMT');,
+    after: new Date('Fri, 17 Dec 2021 18:02:18 GMT');,
+});
+```
+
+#### [List all admins](https://developers.intercom.com/intercom-api-reference/reference/list-admins)
+
+```typescript
+const admins = await client.admins.list();
+```
+
 ### Articles
 
 #### [Create an article](https://developers.intercom.com/intercom-api-reference/reference/create-an-article)
@@ -145,39 +178,6 @@ const response = await client.articles.list({
     page: 3,
     perPage: 12,
 });
-```
-
-### Admins
-
-#### [Retrieve admin](https://developers.intercom.com/intercom-api-reference/reference/view-an-admin)
-
-```typescript
-const admin = await client.admins.find({ id: '123' });
-```
-
-#### [Set Admin away](https://developers.intercom.com/intercom-api-reference/reference/set-admin-away-mode)
-
-```typescript
-await client.admins.away({
-    adminId: '123',
-    enableAwayMode: true,
-    enableReassignMode: false,
-});
-```
-
-#### [List all activity logs](https://developers.intercom.com/intercom-api-reference/reference/view-admin-activity-logs)
-
-```typescript
-await client.admins.listAllActivityLogs({
-    before: new Date('Fri, 17 Dec 2021 18:02:18 GMT');,
-    after: new Date('Fri, 17 Dec 2021 18:02:18 GMT');,
-});
-```
-
-#### [List all admins](https://developers.intercom.com/intercom-api-reference/reference/list-admins)
-
-```typescript
-const admins = await client.admins.list();
 ```
 
 ### Companies
