@@ -1,6 +1,6 @@
 {
     "name": "intercom-client",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "description": "Official Node bindings to the Intercom API",
     "homepage": "https://github.com/intercom/intercom-node",
     "bugs:": "https://github.com/intercom/intercom-node/issues",
@@ -43,7 +43,7 @@
         "typescript": "^4.5.3"
     },
     "scripts": {
-        "clean": "rm -r dist",
+        "clean": "rm -r -f dist",
         "static": "eslint .",
         "compile_ts": "tsc",
         "move_compiled_to_dist": "mv dist/lib/* dist && rmdir dist/lib",

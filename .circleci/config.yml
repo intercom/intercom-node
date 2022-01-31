@@ -6,21 +6,10 @@ jobs:
 
         working_directory: ~/intercom-node
 
-        environment:
-            - YARN_VERSION: 1.22.10
-
         steps:
             - checkout
             - run: export PATH="${PATH}:/home/circleci/.yarn/bin"
-            - run:
-                  name: Install Yarn
-                  command: |
-                      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}"  ]]; then
-                        echo "Download and install Yarn."
-                        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-                      else
-                        echo "The correct version of Yarn is already installed."
-                      fi
+            - run: npm install --prefix=$HOME/.local --global corepack
             - run: yarn
             - run: yarn test
 
