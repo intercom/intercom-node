@@ -3,7 +3,6 @@ import { ContactObject } from './contact/contact.types';
 import {
     GenericDeletedResponse,
     GenericSearchFilters,
-    Leaves,
     Paginated,
     Role,
 } from './common/common.types';
@@ -287,13 +286,13 @@ interface SearchContactPagination {
 
 interface SearchContactOrder {
     sort: {
-        field: Leaves<ContactObject>;
+        field: string;
         order: SearchContactOrderBy;
     };
 }
 
 interface SearchContactRequest {
-    data: GenericSearchFilters<ContactObject> &
+    data: GenericSearchFilters &
         Partial<SearchContactPagination> &
         Partial<SearchContactOrder>;
 }

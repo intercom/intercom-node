@@ -11,6 +11,7 @@ jobs:
             - run: export PATH="${PATH}:/home/circleci/.yarn/bin"
             - run: npm install --prefix=$HOME/.local --global corepack
             - run: yarn
+            - run: yarn prepublish
             - run: yarn test
 
 notify:
