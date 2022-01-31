@@ -3,7 +3,6 @@ import {
     Paginated,
     StringifiedTimestamp,
     GenericSearchFilters,
-    Leaves,
     Order,
 } from './common/common.types';
 import {
@@ -499,13 +498,13 @@ interface SearchConversationPagination {
 
 interface SearchConversationOrder {
     sort: {
-        field: Leaves<ConversationObject>;
+        field: string;
         order: SearchConversationOrderBy;
     };
 }
 
 interface SearchConversationRequest {
-    data: GenericSearchFilters<ConversationObject> &
+    data: GenericSearchFilters &
         Partial<SearchConversationPagination> &
         Partial<SearchConversationOrder>;
 }
