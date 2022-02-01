@@ -3,7 +3,11 @@ import {
     ArticleObject,
     TranslatedContentObject,
 } from './article/article.types';
-import { GenericDeletedResponse, Paginated } from './common/common.types';
+import {
+    GenericDeletedResponse,
+    OperationById,
+    Paginated,
+} from './common/common.types';
 
 export default class Article {
     public readonly baseUrl = 'articles';
@@ -97,10 +101,6 @@ interface CreateArticleData {
     parentId?: number;
     parentType?: string;
     translatedContent?: Omit<TranslatedContentObject, 'type'>;
-}
-
-interface OperationById {
-    id: string;
 }
 
 type ArticleFindByIdData = OperationById;
