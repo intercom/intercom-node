@@ -34,6 +34,7 @@ export * from './dataAttribute/dataAttribute.types';
 export * from './event/event.types';
 export * from './helpCenter/helpCenter.types';
 export * from './message/message.types';
+export * from './note/note.types';
 export * from './segment/segment.types';
 export * from './subscription/subscription.types';
 export * from './tag/tag.types';
