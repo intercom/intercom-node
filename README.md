@@ -845,7 +845,7 @@ const article = await client.helpCenter.collections.update({
     id: '123',
     name: 'Thanks for everything',
     description: 'English description',
-    translated_content: {
+    translatedContent: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
@@ -901,7 +901,7 @@ const article = await client.helpCenter.sections.update({
     id: '123',
     name: 'Thanks for everything',
     parentId: '456',
-    translated_content: {
+    translatedContent: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
