@@ -128,7 +128,7 @@ const article = await client.articles.create({
             title: 'Allez les verts',
             description: 'French description',
             body: '<p>French body in html</p>',
-            author_id: 1,
+            authorId: 1,
             state: 'published',
         },
     },
@@ -158,7 +158,7 @@ const article = await client.articles.update({
             title: 'Allez les verts',
             description: 'French description',
             body: '<p>French body in html</p>',
-            author_id: 1,
+            authorId: 1,
             state: 'published',
         },
     },
@@ -878,7 +878,7 @@ const response = client.helpCenter.collections.list({
 ```typescript
 const collection = await client.helpCenter.sections.create({
     name: 'Thanks for everything',
-    parent_id: '1234',
+    parentId: '1234',
     translatedContent: {
         fr: {
             name: 'Allez les verts',
@@ -900,7 +900,7 @@ const response = await client.helpCenter.sections.find({ id: '123' });
 const article = await client.helpCenter.sections.update({
     id: '123',
     name: 'Thanks for everything',
-    parent_id: '456',
+    parentId: '456',
     translated_content: {
         fr: {
             name: 'Allez les verts',
