@@ -1067,54 +1067,6 @@ const response = await client.teams.find({
 const response = await client.teams.list();
 ```
 
-### Visitors
-
-#### [Retrieve a Visitor](https://developers.intercom.com/intercom-api-reference/reference/view-a-visitor)
-
-```typescript
-const response = await client.visitors.find({ id: '123' });
-```
-
-OR
-
-```typescript
-const response = await client.visitors.find({ userId: '123' });
-```
-
-#### [Update a Visitor](https://developers.intercom.com/intercom-api-reference/reference/update-a-visitor)
-
-```typescript
-const response = await client.visitors.update({
-    userId: '123',
-    name: 'anonymous bruh',
-    customAttributes: {
-        paid_subscriber: true,
-    },
-});
-```
-
-#### [Delete a Visitor](https://developers.intercom.com/intercom-api-reference/reference/delete-a-visitor)
-
-```typescript
-const response = await client.visitors.delete({
-    id,
-});
-```
-
-#### [Convert a Visitor](https://developers.intercom.com/intercom-api-reference/reference/convert-a-visitor-to-a-user)
-
-```typescript
-const response = await client.visitors.mergeToContact({
-    visitor: {
-        id: '123',
-    },
-    user: {
-        userId: '123',
-    },
-    type: Role.USER,
-});
-```
-
 ### Identity verification
 
 `intercom-node` provides a helper for using [identity verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product):
