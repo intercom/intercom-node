@@ -1,5 +1,9 @@
 import { Client } from '.';
-import { GenericDeletedResponse, Paginated } from './common/common.types';
+import {
+    GenericDeletedResponse,
+    OperationById,
+    Paginated,
+} from './common/common.types';
 import {
     CollectionObject,
     GroupTranslatedContentObject,
@@ -165,7 +169,3 @@ type SectionListData = {
 };
 
 type SectionListResponse = Paginated<SectionObject>;
-
-interface OperationById {
-    id: string;
-}

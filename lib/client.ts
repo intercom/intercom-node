@@ -10,8 +10,9 @@ import Contact from './contact';
 import DataAttribute from './dataAttribute';
 import Event from './event';
 import HelpCenter from './helpCenter';
-import Segment from './segment';
 import Message from './message';
+import Note from './note';
+import Segment from './segment';
 import Team from './team';
 import Tag from './tag';
 
@@ -58,6 +59,7 @@ export default class Client {
     events: Event;
     helpCenter: HelpCenter;
     messages: Message;
+    notes: Note;
     segments: Segment;
     passwordPart?: string;
     propertiesToOmitInRequestOpts: string[];
@@ -88,6 +90,7 @@ export default class Client {
         this.events = new Event(this);
         this.helpCenter = new HelpCenter(this);
         this.messages = new Message(this);
+        this.notes = new Note(this);
         this.segments = new Segment(this);
         this.tags = new Tag(this);
         this.teams = new Team(this);

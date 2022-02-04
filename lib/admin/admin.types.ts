@@ -8,5 +8,5 @@ export interface AdminObject {
     away_mode_reassign: boolean;
     has_inbox_seat: boolean;
     team_ids: Array<number>;
-    avatar: string;
+    avatar: string | { image_url: string };
 }

@@ -948,6 +948,34 @@ const response = await client.messages.create({
 });
 ```
 
+### Notes
+
+#### [Create a note](https://developers.intercom.com/intercom-api-reference/reference/create-note-for-contact)
+
+```typescript
+const response = await client.notes.create({
+    adminId: '12345',
+    body: 'Shiny',
+    contactId: '5678',
+});
+```
+
+#### [Retrieve a note](https://developers.intercom.com/intercom-api-reference/reference/view-a-note)
+
+```typescript
+const response = await client.notes.find({ id: '123' });
+```
+
+#### [List all notes](https://developers.intercom.com/intercom-api-reference/reference/list-notes-of-contact)
+
+```typescript
+const response = await client.notes.list({
+    contactId: '123',
+    page: 2,
+    perPage: 3,
+});
+```
+
 ### Segments
 
 #### [Retrieve a segment](https://developers.intercom.com/intercom-api-reference/reference/view-a-segment)
