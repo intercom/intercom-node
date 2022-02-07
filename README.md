@@ -128,7 +128,7 @@ const article = await client.articles.create({
             title: 'Allez les verts',
             description: 'French description',
             body: '<p>French body in html</p>',
-            author_id: 1,
+            authorId: 1,
             state: 'published',
         },
     },
@@ -158,7 +158,7 @@ const article = await client.articles.update({
             title: 'Allez les verts',
             description: 'French description',
             body: '<p>French body in html</p>',
-            author_id: 1,
+            authorId: 1,
             state: 'published',
         },
     },
@@ -901,7 +901,7 @@ const article = await client.helpCenter.collections.update({
     id: '123',
     name: 'Thanks for everything',
     description: 'English description',
-    translated_content: {
+    translatedContent: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
@@ -934,7 +934,7 @@ const response = client.helpCenter.collections.list({
 ```typescript
 const collection = await client.helpCenter.sections.create({
     name: 'Thanks for everything',
-    parent_id: '1234',
+    parentId: '1234',
     translatedContent: {
         fr: {
             name: 'Allez les verts',
@@ -956,8 +956,8 @@ const response = await client.helpCenter.sections.find({ id: '123' });
 const article = await client.helpCenter.sections.update({
     id: '123',
     name: 'Thanks for everything',
-    parent_id: '456',
-    translated_content: {
+    parentId: '456',
+    translatedContent: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
@@ -1149,54 +1149,6 @@ const response = await client.teams.find({
 
 ```typescript
 const response = await client.teams.list();
-```
-
-### Visitors
-
-#### [Retrieve a Visitor](https://developers.intercom.com/intercom-api-reference/reference/view-a-visitor)
-
-```typescript
-const response = await client.visitors.find({ id: '123' });
-```
-
-OR
-
-```typescript
-const response = await client.visitors.find({ userId: '123' });
-```
-
-#### [Update a Visitor](https://developers.intercom.com/intercom-api-reference/reference/update-a-visitor)
-
-```typescript
-const response = await client.visitors.update({
-    userId: '123',
-    name: 'anonymous bruh',
-    customAttributes: {
-        paid_subscriber: true,
-    },
-});
-```
-
-#### [Delete a Visitor](https://developers.intercom.com/intercom-api-reference/reference/delete-a-visitor)
-
-```typescript
-const response = await client.visitors.delete({
-    id,
-});
-```
-
-#### [Convert a Visitor](https://developers.intercom.com/intercom-api-reference/reference/convert-a-visitor-to-a-user)
-
-```typescript
-const response = await client.visitors.mergeToContact({
-    visitor: {
-        id: '123',
-    },
-    user: {
-        userId: '123',
-    },
-    type: Role.USER,
-});
 ```
 
 ### Identity verification

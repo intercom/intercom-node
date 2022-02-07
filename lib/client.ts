@@ -16,7 +16,6 @@ import Note from './note';
 import Segment from './segment';
 import Team from './team';
 import Tag from './tag';
-import Visitor from './visitor';
 
 import * as packageJson from '../package.json';
 
@@ -71,7 +70,6 @@ export default class Client {
     teams: Team;
     usebaseURL: (baseURL: string) => this;
     usernamePart?: string;
-    visitors: Visitor;
 
     constructor(args: Constructor) {
         const [usernamePart, passwordPart] = Client.getAuthDetails(args);
@@ -99,7 +97,6 @@ export default class Client {
         this.segments = new Segment(this);
         this.tags = new Tag(this);
         this.teams = new Team(this);
-        this.visitors = new Visitor(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',
         };
