@@ -2,7 +2,7 @@ import assert from 'assert';
 import { Client, CountEntity, CountType } from '../lib';
 import nock from 'nock';
 
-describe.only('counts', () => {
+describe('counts', () => {
     const client = new Client({
         usernameAuth: { username: 'foo', password: 'bar' },
     });
