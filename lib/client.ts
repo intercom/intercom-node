@@ -5,8 +5,9 @@ import { merge, omit } from 'lodash';
 import Article from './article';
 import Admin from './admin';
 import Company from './company';
-import Conversation from './conversation';
 import Contact from './contact';
+import Conversation from './conversation';
+import Count from './count';
 import DataAttribute from './dataAttribute';
 import Event from './event';
 import HelpCenter from './helpCenter';
@@ -54,6 +55,7 @@ export default class Client {
     companies: Company;
     contacts: Contact;
     conversations: Conversation;
+    counts: Count;
     dataAttributes: DataAttribute;
     events: Event;
     helpCenter: HelpCenter;
@@ -84,6 +86,7 @@ export default class Client {
         this.companies = new Company(this);
         this.contacts = new Contact(this);
         this.conversations = new Conversation(this);
+        this.counts = new Count(this);
         this.dataAttributes = new DataAttribute(this);
         this.events = new Event(this);
         this.helpCenter = new HelpCenter(this);

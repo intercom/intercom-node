@@ -30,6 +30,7 @@ export * from './common/common.types';
 export * from './company/company.types';
 export * from './contact/contact.types';
 export * from './conversation/conversation.types';
+export * from './count/count.types';
 export * from './dataAttribute/dataAttribute.types';
 export * from './event/event.types';
 export * from './helpCenter/helpCenter.types';

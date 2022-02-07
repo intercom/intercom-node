@@ -746,6 +746,62 @@ const response = await client.conversations.redactConversationPart({
 });
 ```
 
+### Counts
+
+#### [App Total Count](https://developers.intercom.com/intercom-api-reference/reference/company-user-counts)
+
+```typescript
+const response = await client.counts.forApp();
+```
+
+#### [Conversation Count Model](https://developers.intercom.com/intercom-api-reference/reference/conversation-counts)
+
+```typescript
+const response = await client.counts.countConversation();
+```
+
+#### [Admin Conversation Count Model](https://developers.intercom.com/intercom-api-reference/reference/admin-conversations)
+
+```typescript
+const response = await client.counts.countAdminConversation();
+```
+
+#### [User Segment/Tag Count Model](https://developers.intercom.com/intercom-api-reference/reference/user-tag-counts)
+
+##### Count User Segment
+
+```typescript
+const response = await client.counts.countUserSegment();
+```
+
+##### Count User Tag
+
+```typescript
+const response = await client.counts.countUserTag();
+```
+
+#### [Company User/Segment/Tag Count Model](https://developers.intercom.com/intercom-api-reference/reference/company-tag-counts)
+
+##### Count Company Segment
+
+```typescript
+const response = await client.counts.countCompanySegment();
+const response = await client.counts.countCompanyTag();
+const response = await client.counts.countCompanyUser();
+```
+
+##### Count Company Tag
+
+```typescript
+const response = await client.counts.countCompanyTag();
+```
+
+##### Count Company User
+
+```typescript
+const response = await client.counts.countCompanyUser();
+```
+
 ### Data Attributes
 
 #### [Create Data Attribute](https://developers.intercom.com/intercom-api-reference/reference/create-data-attributes)
