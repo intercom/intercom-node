@@ -38,7 +38,6 @@ export * from './segment/segment.types';
 export * from './subscription/subscription.types';
 export * from './tag/tag.types';
 export * from './team/team.types';
-export * from './visitor/visitor.types';
 
 // Export enums needed for requests
 export { SearchContactOrderBy } from './contact';
@@ -56,9 +55,3 @@ export {
     RedactConversationPartType,
 } from './conversation';
 export { RecepientType } from './message';
-export {
-    ContactObjectForMerge,
-    MergeVisitorToContactData,
-    VisitorObjectForMerge,
-    IdentificationForVisitor,
-} from './visitor';
