@@ -5,15 +5,18 @@ import { merge, omit } from 'lodash';
 import Article from './article';
 import Admin from './admin';
 import Company from './company';
-import Conversation from './conversation';
 import Contact from './contact';
+import Conversation from './conversation';
+import Count from './count';
 import DataAttribute from './dataAttribute';
 import Event from './event';
 import HelpCenter from './helpCenter';
-import Segment from './segment';
 import Message from './message';
+import Note from './note';
+import Segment from './segment';
 import Team from './team';
 import Tag from './tag';
+import Visitor from './visitor';
 
 import * as packageJson from '../package.json';
 
@@ -54,10 +57,12 @@ export default class Client {
     companies: Company;
     contacts: Contact;
     conversations: Conversation;
+    counts: Count;
     dataAttributes: DataAttribute;
     events: Event;
     helpCenter: HelpCenter;
     messages: Message;
+    notes: Note;
     segments: Segment;
     passwordPart?: string;
     propertiesToOmitInRequestOpts: string[];
@@ -66,6 +71,7 @@ export default class Client {
     teams: Team;
     usebaseURL: (baseURL: string) => this;
     usernamePart?: string;
+    visitors: Visitor;
 
     constructor(args: Constructor) {
         const [usernamePart, passwordPart] = Client.getAuthDetails(args);
@@ -84,13 +90,16 @@ export default class Client {
         this.companies = new Company(this);
         this.contacts = new Contact(this);
         this.conversations = new Conversation(this);
+        this.counts = new Count(this);
         this.dataAttributes = new DataAttribute(this);
         this.events = new Event(this);
         this.helpCenter = new HelpCenter(this);
         this.messages = new Message(this);
+        this.notes = new Note(this);
         this.segments = new Segment(this);
         this.tags = new Tag(this);
         this.teams = new Team(this);
+        this.visitors = new Visitor(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',
         };

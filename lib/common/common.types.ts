@@ -69,3 +69,7 @@ export interface GenericDeletedResponse<ObjectType extends string> {
     object: ObjectType;
     deleted: boolean;
 }
+
+export interface OperationById {
+    id: string;
+}

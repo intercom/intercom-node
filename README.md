@@ -128,7 +128,7 @@ const article = await client.articles.create({
             title: 'Allez les verts',
             description: 'French description',
             body: '<p>French body in html</p>',
-            authorId: 1,
+            author_id: 1,
             state: 'published',
         },
     },
@@ -158,7 +158,7 @@ const article = await client.articles.update({
             title: 'Allez les verts',
             description: 'French description',
             body: '<p>French body in html</p>',
-            authorId: 1,
+            author_id: 1,
             state: 'published',
         },
     },
@@ -746,6 +746,62 @@ const response = await client.conversations.redactConversationPart({
 });
 ```
 
+### Counts
+
+#### [App Total Count](https://developers.intercom.com/intercom-api-reference/reference/company-user-counts)
+
+```typescript
+const response = await client.counts.forApp();
+```
+
+#### [Conversation Count Model](https://developers.intercom.com/intercom-api-reference/reference/conversation-counts)
+
+```typescript
+const response = await client.counts.countConversation();
+```
+
+#### [Admin Conversation Count Model](https://developers.intercom.com/intercom-api-reference/reference/admin-conversations)
+
+```typescript
+const response = await client.counts.countAdminConversation();
+```
+
+#### [User Segment/Tag Count Model](https://developers.intercom.com/intercom-api-reference/reference/user-tag-counts)
+
+##### Count User Segment
+
+```typescript
+const response = await client.counts.countUserSegment();
+```
+
+##### Count User Tag
+
+```typescript
+const response = await client.counts.countUserTag();
+```
+
+#### [Company User/Segment/Tag Count Model](https://developers.intercom.com/intercom-api-reference/reference/company-tag-counts)
+
+##### Count Company Segment
+
+```typescript
+const response = await client.counts.countCompanySegment();
+const response = await client.counts.countCompanyTag();
+const response = await client.counts.countCompanyUser();
+```
+
+##### Count Company Tag
+
+```typescript
+const response = await client.counts.countCompanyTag();
+```
+
+##### Count Company User
+
+```typescript
+const response = await client.counts.countCompanyUser();
+```
+
 ### Data Attributes
 
 #### [Create Data Attribute](https://developers.intercom.com/intercom-api-reference/reference/create-data-attributes)
@@ -845,7 +901,7 @@ const article = await client.helpCenter.collections.update({
     id: '123',
     name: 'Thanks for everything',
     description: 'English description',
-    translatedContent: {
+    translated_content: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
@@ -878,7 +934,7 @@ const response = client.helpCenter.collections.list({
 ```typescript
 const collection = await client.helpCenter.sections.create({
     name: 'Thanks for everything',
-    parentId: '1234',
+    parent_id: '1234',
     translatedContent: {
         fr: {
             name: 'Allez les verts',
@@ -900,8 +956,8 @@ const response = await client.helpCenter.sections.find({ id: '123' });
 const article = await client.helpCenter.sections.update({
     id: '123',
     name: 'Thanks for everything',
-    parentId: '456',
-    translatedContent: {
+    parent_id: '456',
+    translated_content: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
@@ -945,6 +1001,34 @@ const response = await client.messages.create({
         type: 'user',
         id: '536e564f316c83104c000020',
     },
+});
+```
+
+### Notes
+
+#### [Create a note](https://developers.intercom.com/intercom-api-reference/reference/create-note-for-contact)
+
+```typescript
+const response = await client.notes.create({
+    adminId: '12345',
+    body: 'Shiny',
+    contactId: '5678',
+});
+```
+
+#### [Retrieve a note](https://developers.intercom.com/intercom-api-reference/reference/view-a-note)
+
+```typescript
+const response = await client.notes.find({ id: '123' });
+```
+
+#### [List all notes](https://developers.intercom.com/intercom-api-reference/reference/list-notes-of-contact)
+
+```typescript
+const response = await client.notes.list({
+    contactId: '123',
+    page: 2,
+    perPage: 3,
 });
 ```
 
@@ -1065,6 +1149,54 @@ const response = await client.teams.find({
 
 ```typescript
 const response = await client.teams.list();
+```
+
+### Visitors
+
+#### [Retrieve a Visitor](https://developers.intercom.com/intercom-api-reference/reference/view-a-visitor)
+
+```typescript
+const response = await client.visitors.find({ id: '123' });
+```
+
+OR
+
+```typescript
+const response = await client.visitors.find({ userId: '123' });
+```
+
+#### [Update a Visitor](https://developers.intercom.com/intercom-api-reference/reference/update-a-visitor)
+
+```typescript
+const response = await client.visitors.update({
+    userId: '123',
+    name: 'anonymous bruh',
+    customAttributes: {
+        paid_subscriber: true,
+    },
+});
+```
+
+#### [Delete a Visitor](https://developers.intercom.com/intercom-api-reference/reference/delete-a-visitor)
+
+```typescript
+const response = await client.visitors.delete({
+    id,
+});
+```
+
+#### [Convert a Visitor](https://developers.intercom.com/intercom-api-reference/reference/convert-a-visitor-to-a-user)
+
+```typescript
+const response = await client.visitors.mergeToContact({
+    visitor: {
+        id: '123',
+    },
+    user: {
+        userId: '123',
+    },
+    type: Role.USER,
+});
 ```
 
 ### Identity verification
