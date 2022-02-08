@@ -901,7 +901,7 @@ const article = await client.helpCenter.collections.update({
     id: '123',
     name: 'Thanks for everything',
     description: 'English description',
-    translated_content: {
+    translatedContent: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
@@ -934,7 +934,7 @@ const response = client.helpCenter.collections.list({
 ```typescript
 const collection = await client.helpCenter.sections.create({
     name: 'Thanks for everything',
-    parent_id: '1234',
+    parentId: '1234',
     translatedContent: {
         fr: {
             name: 'Allez les verts',
@@ -956,8 +956,8 @@ const response = await client.helpCenter.sections.find({ id: '123' });
 const article = await client.helpCenter.sections.update({
     id: '123',
     name: 'Thanks for everything',
-    parent_id: '456',
-    translated_content: {
+    parentId: '456',
+    translatedContent: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
