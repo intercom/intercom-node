@@ -4,6 +4,7 @@ import {
     StringifiedTimestamp,
     GenericSearchFilters,
     Order,
+    PaginatedBase,
 } from './common/common.types';
 import {
     ContactType,
@@ -509,7 +510,9 @@ interface SearchConversationRequest {
         Partial<SearchConversationOrder>;
 }
 
-type SearchConversationResponse = Paginated<ConversationObject>;
+type SearchConversationResponse = PaginatedBase & {
+    conversations: ConversationObject[];
+};
 //
 export enum SortBy {
     CreatedAt = 'created_at',
