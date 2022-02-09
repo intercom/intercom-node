@@ -8,9 +8,8 @@ export enum Role {
     LEAD = 'lead',
 }
 
-export type Paginated<T> = {
+export type PaginatedBase = {
     type: string;
-    data: T[];
     pages: {
         type: 'pages';
         next?: {
@@ -22,6 +21,10 @@ export type Paginated<T> = {
         total_pages: number;
     };
     total_count: number;
+};
+
+export type Paginated<T> = PaginatedBase & {
+    data: T[];
 };
 
 export enum Operators {
@@ -42,12 +45,18 @@ export enum Operators {
 interface FlatQuery {
     field: string;
     operator: Operators;
-    value: string | number | null;
+    value: string | number | string[] | number[] | null;
 }
 
 interface NestedQueries {
     operator: Operators;
-    value: Array<FlatQuery | NestedQueries> | string | number | null;
+    value:
+        | Array<FlatQuery | NestedQueries>
+        | string
+        | number
+        | string[]
+        | number[]
+        | null;
 }
 
 export interface GenericSearchFilters {
