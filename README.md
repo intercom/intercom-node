@@ -19,7 +19,7 @@ The Node SDK has been updated to support latest API version (2.4). The update al
 yarn add intercom-client
 ```
 
-**This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/v2.4/docs/intercom-javascript) for client-side operations.**
+**This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-web) for client-side operations.**
 
 ## Testing
 
@@ -901,7 +901,7 @@ const article = await client.helpCenter.collections.update({
     id: '123',
     name: 'Thanks for everything',
     description: 'English description',
-    translated_content: {
+    translatedContent: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
@@ -934,7 +934,7 @@ const response = client.helpCenter.collections.list({
 ```typescript
 const collection = await client.helpCenter.sections.create({
     name: 'Thanks for everything',
-    parent_id: '1234',
+    parentId: '1234',
     translatedContent: {
         fr: {
             name: 'Allez les verts',
@@ -956,8 +956,8 @@ const response = await client.helpCenter.sections.find({ id: '123' });
 const article = await client.helpCenter.sections.update({
     id: '123',
     name: 'Thanks for everything',
-    parent_id: '456',
-    translated_content: {
+    parentId: '456',
+    translatedContent: {
         fr: {
             name: 'Allez les verts',
             description: 'French description',
