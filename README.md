@@ -19,7 +19,7 @@ The Node SDK has been updated to support latest API version (2.4). The update al
 yarn add intercom-client
 ```
 
-**This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/installing-intercom/docs/intercom-javascript) for client-side operations.**
+**This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-web) for client-side operations.**
 
 ## Testing
 
