@@ -406,7 +406,7 @@ interface SnoozeConversationData {
 }
 //
 export enum CloseConversationMessageType {
-    CLOSED = 'closed',
+    CLOSED = 'close',
 }
 export enum CloseConversationType {
     ADMIN = 'admin',

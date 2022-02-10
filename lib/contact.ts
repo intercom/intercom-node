@@ -19,6 +19,7 @@ export default class Contact {
     }
     createUser({
         externalId,
+        email,
         phone,
         name,
         avatar,
@@ -31,6 +32,7 @@ export default class Contact {
         const requestData: CreateContactRequest = {
             role: Role.USER,
             external_id: externalId,
+            email,
             phone,
             name,
             avatar,
@@ -55,7 +57,7 @@ export default class Contact {
             signed_up_at: data?.signedUpAt,
             last_seen_at: data?.lastSeenAt,
             owner_id: data?.ownerId,
-            unsubscribed_from_emails: data?.isUnsubscribedFromMails,
+            unsubscribed_from_emails: data?.isUnsubscribedFromEmails,
             custom_attributes: data?.customAttributes,
         };
         return this.client.post<ContactObject>({
@@ -185,8 +187,7 @@ type CreateContactRequest = Pick<ContactObject, 'role'> &
         >
     >;
 
-interface CreateUserData {
-    externalId?: CreateContactRequest['external_id'];
+interface CreateUserDataBase {
     phone?: CreateContactRequest['phone'];
     name?: CreateContactRequest['name'];
     avatar?: CreateContactRequest['avatar'];
@@ -197,16 +198,12 @@ interface CreateUserData {
     customAttributes?: CreateContactRequest['custom_attributes'];
 }
 
-interface CreateLeadData {
-    phone?: CreateContactRequest['phone'];
-    name?: CreateContactRequest['name'];
-    avatar?: CreateContactRequest['avatar'];
-    signedUpAt?: CreateContactRequest['signed_up_at'];
-    lastSeenAt?: CreateContactRequest['last_seen_at'];
-    ownerId?: CreateContactRequest['owner_id'];
-    isUnsubscribedFromMails?: CreateContactRequest['unsubscribed_from_emails'];
-    customAttributes?: CreateContactRequest['custom_attributes'];
+interface CreateUserData extends CreateUserDataBase {
+    email?: string;
+    externalId?: string;
 }
+
+type CreateLeadData = CreateUserDataBase;
 //
 interface RetrieveContactData {
     id: string;

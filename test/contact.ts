@@ -5,7 +5,7 @@ import { Operators, Role } from '../lib/common/common.types';
 import { SearchContactOrderBy } from '../lib/contact';
 
 describe('contacts', () => {
-    it('should create a contact with user role', async () => {
+    it('should create a contact with user role with external id', async () => {
         const id = '536e564f316c83104c000020';
 
         const contact = {
@@ -32,6 +32,43 @@ describe('contacts', () => {
 
         const response = await client.contacts.createUser({
             externalId: contact.external_id,
+            phone: contact.phone,
+            name: contact.name,
+            avatar: contact.avatar,
+            signedUpAt: contact.signed_up_at,
+            lastSeenAt: contact.last_seen_at,
+            ownerId: contact.owner_id,
+            isUnsubscribedFromEmails: contact.unsubscribed_from_emails,
+        });
+
+        assert.deepStrictEqual(expectedReply, response);
+    });
+
+    it('should create a contact with user role with email', async () => {
+        const contact = {
+            role: 'user',
+            email: 'niko_bellic@mail.com',
+            phone: '+48370044567',
+            name: 'Niko Bellic',
+            avatar: 'https://nico-from-gta-iv.com/lets_go_bowling.jpg',
+            signed_up_at: 1638203719,
+            last_seen_at: 1638203719,
+            owner_id: 1,
+            unsubscribed_from_emails: true,
+        };
+
+        const expectedReply = {};
+
+        nock('https://api.intercom.io')
+            .post('/contacts', contact)
+            .reply(200, expectedReply);
+
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
+
+        const response = await client.contacts.createUser({
+            email: contact.email,
             phone: contact.phone,
             name: contact.name,
             avatar: contact.avatar,
