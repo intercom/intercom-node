@@ -15,11 +15,3 @@ export const teamId = '971209';
 export const segmentId = '5887658cc813e66156622510';
 export const dataAttributeId = '8774749';
 export const parentId = '3173119';
-
-export const logWithBreaks = (...args: any) => {
-    console.log('///////////////////////////////////////n');
-    console.dir(args[1], { depth: null });
-    console.log('///////////////////////////////////////n');
-    console.dir(args[0], { depth: null });
-    console.log('///////////////////////////////////////n');
-};
