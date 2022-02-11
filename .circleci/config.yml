@@ -24,7 +24,7 @@ jobs:
             - checkout
             - restore_cache:
                   key: dependency-cache-{{ checksum "yarn.lock" }}
-            - run: yarn test
+            - run: yarn test:unit
 
 workflows:
     version: 2
