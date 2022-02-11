@@ -1,6 +1,6 @@
 import assert from 'assert';
 import nock from 'nock';
-import { Client } from '../lib';
+import { Client } from '../../lib';
 
 describe('errors', () => {
     it('should fail with unauthorized (401) error', async () => {

@@ -1,6 +1,9 @@
 import assert from 'assert';
-import { Client } from '../lib';
-import { DataType, ModelType } from '../lib/dataAttribute/dataAttribute.types';
+import { Client } from '../../lib';
+import {
+    DataType,
+    ModelType,
+} from '../../lib/dataAttribute/dataAttribute.types';
 import nock from 'nock';
 
 describe('data attributes', () => {

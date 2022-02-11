@@ -1,8 +1,8 @@
 import assert from 'assert';
-import { Client } from '../lib';
+import { Client } from '../../lib';
 import nock from 'nock';
-import { Operators, Role } from '../lib/common/common.types';
-import { SearchContactOrderBy } from '../lib/contact';
+import { Operators, Role } from '../../lib/common/common.types';
+import { SearchContactOrderBy } from '../../lib/contact';
 
 describe('contacts', () => {
     it('should create a contact with user role with external id', async () => {

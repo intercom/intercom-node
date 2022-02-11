@@ -1,8 +1,8 @@
 import assert from 'assert';
-import { Client } from '../lib';
+import { Client } from '../../lib';
 import nock from 'nock';
-import { MessageType } from '../lib/message/message.types';
-import { RecepientType } from '../lib/message';
+import { MessageType } from '../../lib/message/message.types';
+import { RecepientType } from '../../lib/message';
 
 describe('messages', () => {
     it('should be created', async () => {
