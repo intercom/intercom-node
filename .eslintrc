@@ -35,7 +35,8 @@
         "use-isnan": 2,
         "valid-typeof": 2,
         "require-await": "error",
-        "no-only-tests/no-only-tests": "error"
+        "no-only-tests/no-only-tests": "error",
+        "no-unused-vars": "error"
     },
     "extends": [
         "eslint:recommended",
