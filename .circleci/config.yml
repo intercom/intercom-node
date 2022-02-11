@@ -15,7 +15,13 @@ jobs:
                   key: dependency-cache-{{ checksum "yarn.lock" }}
                   paths:
                       - node_modules
+            - restore_cache:
+                  key: dist-cache-{{ .Environment.CIRCLE_SHA1 }}
             - run: yarn prepublish
+            - save_cache:
+                  key: dist-cache-{{ .Environment.CIRCLE_SHA1 }}
+                  paths:
+                      - dist
     unit_test:
         docker:
             - image: circleci/node:14-browsers
@@ -29,11 +35,15 @@ jobs:
         docker:
             - image: circleci/node:14-browsers
         working_directory: ~/intercom-node
+        environment:
+            API_TOKEN: $API_TOKEN
         steps:
             - checkout
             - restore_cache:
                   key: dependency-cache-{{ checksum "yarn.lock" }}
-            - run: export $API_TOKEN
+            - restore_cache:
+                  key: dist-cache-{{ .Environment.CIRCLE_SHA1 }}
+            # - run: export $API_TOKEN
             - run: yarn test:integration
 
 workflows:
@@ -46,7 +56,7 @@ workflows:
                       - build
             - integration_test_approval:
                   requires:
-                      - build
+                      - unit_test
                   type: approval
             - integration_test:
                   requires:
