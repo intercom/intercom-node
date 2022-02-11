@@ -1,6 +1,5 @@
 import Client from './client';
 import {
-    Paginated,
     StringifiedTimestamp,
     GenericSearchFilters,
     Order,
@@ -525,7 +524,9 @@ interface ListConversationData {
     perPage?: number;
 }
 
-type ListConversationResponse = Paginated<ConversationObjectWithoutParts>;
+type ListConversationResponse = PaginatedBase & {
+    conversations: ConversationObjectWithoutParts[];
+};
 //
 export enum RedactConversationPartType {
     CONVERSATION_PART = 'conversation_part',
