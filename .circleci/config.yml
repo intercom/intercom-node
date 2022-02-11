@@ -33,7 +33,7 @@ jobs:
             - checkout
             - restore_cache:
                   key: dependency-cache-{{ checksum "yarn.lock" }}
-            - export $API_TOKEN
+            - run: export $API_TOKEN
             - run: yarn test:integration
 
 workflows:
@@ -45,6 +45,8 @@ workflows:
                   requires:
                       - build
             - integration_test_approval:
+                  requires:
+                      - build
                   type: approval
             - integration_test:
                   requires:
