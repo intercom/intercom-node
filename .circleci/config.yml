@@ -15,6 +15,7 @@ jobs:
                   key: dependency-cache-{{ checksum "yarn.lock" }}
                   paths:
                       - node_modules
+                      - .yarn/cache
             - restore_cache:
                   key: dist-cache-{{ .Environment.CIRCLE_SHA1 }}
             - run: yarn prepublish
@@ -34,16 +35,16 @@ jobs:
     integration_test:
         docker:
             - image: circleci/node:14-browsers
+              environment:
+                  API_TOKEN: $API_TOKEN
         working_directory: ~/intercom-node
-        environment:
-            API_TOKEN: $API_TOKEN
+
         steps:
             - checkout
             - restore_cache:
                   key: dependency-cache-{{ checksum "yarn.lock" }}
             - restore_cache:
                   key: dist-cache-{{ .Environment.CIRCLE_SHA1 }}
-            # - run: export $API_TOKEN
             - run: yarn test:integration
 
 workflows:

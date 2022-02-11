@@ -4,7 +4,9 @@ import assert from 'assert';
 
 describe('Admins', () => {
     let adminId: string;
-    const client = new Client({ tokenAuth: { token } });
+    const client = new Client({
+        tokenAuth: { token },
+    });
 
     it('list', async () => {
         const response = await client.admins.list();
