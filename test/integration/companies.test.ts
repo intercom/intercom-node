@@ -57,13 +57,13 @@ describe('Companies', () => {
         assert.notEqual(response, undefined);
     });
     // TO-DO: Create issue on API. Doesn't work on API..
-    // it('find - by name', async () => {
-    //     const response = await client.companies.find({
-    //         name: 'BestCompanyInc',
-    //     });
+    it.skip('find - by name', async () => {
+        const response = await client.companies.find({
+            name: 'BestCompanyInc',
+        });
 
-    //     assert.notEqual(response, undefined);
-    // });
+        assert.notEqual(response, undefined);
+    });
     it('list', async () => {
         const response = await client.companies.list({
             page: 1,

@@ -69,14 +69,14 @@ describe('Conversations', () => {
         assert.notEqual(response, undefined);
     });
     // TO-DO: Fix on API side.
-    // it('replyToLastConversationAsAdmin', async () => {
-    //     const response = await client.conversations.replyByLastAsAdmin({
-    //         adminId,
-    //         messageType: ReplyToConversationMessageType.COMMENT,
-    //         body: 'test',
-    //     });
-    //     assert.notEqual(response, undefined);
-    // });
+    it.skip('replyToLastConversationAsAdmin', async () => {
+        const response = await client.conversations.replyByLastAsAdmin({
+            adminId,
+            messageType: ReplyToConversationMessageType.COMMENT,
+            body: 'test',
+        });
+        assert.notEqual(response, undefined);
+    });
     it('replyByIdAsAdmin', async () => {
         const response = await client.conversations.replyByIdAsAdmin({
             id: foundConversation.id,
