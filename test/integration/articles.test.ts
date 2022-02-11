@@ -1,16 +1,22 @@
 import { Client } from '../../dist';
 import assert from 'assert';
-import {
-    adminId as adminIdString,
-    token,
-    parentId as parentIdString,
-} from './utils/config';
+import { token } from './utils/config';
 import { randomString } from './utils/random';
 
 describe('Articles', () => {
-    let newArticleId = '0';
-    const adminId = parseInt(adminIdString, 10);
-    const parentId = parseInt(parentIdString, 10);
+    let newArticleId: string;
+    let parentId: number;
+    let adminId: number;
+
+    before(async () => {
+        const randomCollections = await client.helpCenter.collections.list({
+            perPage: 1,
+        });
+        const randomAdmins = await client.admins.list();
+
+        parentId = parseInt(randomCollections.data[0].id, 10);
+        adminId = parseInt(randomAdmins.admins[0].id, 10);
+    });
 
     const client = new Client({ tokenAuth: { token } });
 

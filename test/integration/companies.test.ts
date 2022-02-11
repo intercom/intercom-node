@@ -1,10 +1,20 @@
 import { Client, CompanyObject, Order } from '../../dist';
 import assert from 'assert';
-import { contactId, token } from './utils/config';
+import { token } from './utils/config';
 import { dateToUnixTimestamp } from '../../lib/util/time';
 
 describe('Companies', () => {
     let createdCompany: CompanyObject;
+    let contactId: string;
+
+    before(async () => {
+        const randomContacts = await client.contacts.list({
+            perPage: 1,
+        });
+
+        contactId = randomContacts.data[0].id;
+    });
+
     const client = new Client({ tokenAuth: { token } });
 
     it('create', async () => {

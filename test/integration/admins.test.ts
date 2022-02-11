@@ -1,17 +1,20 @@
-import { adminId, token } from './utils/config';
+import { token } from './utils/config';
 import { Client } from '../../dist';
 import assert from 'assert';
 
 describe('Admins', () => {
+    let adminId: string;
     const client = new Client({ tokenAuth: { token } });
 
-    it('find', async () => {
-        const response = await client.admins.find({ id: adminId });
+    it('list', async () => {
+        const response = await client.admins.list();
+
+        adminId = response.admins[0].id;
 
         assert.notEqual(response, undefined);
     });
-    it('list', async () => {
-        const response = await client.admins.list();
+    it('find', async () => {
+        const response = await client.admins.find({ id: adminId });
 
         assert.notEqual(response, undefined);
     });

@@ -9,7 +9,7 @@ import {
     MessageObject,
 } from '../../dist';
 import assert from 'assert';
-import { token, adminId } from './utils/config';
+import { token } from './utils/config';
 import { randomString } from './utils/random';
 
 describe('Conversations', () => {
@@ -18,11 +18,17 @@ describe('Conversations', () => {
     let createdConversation: MessageObject;
     let foundConversation: ConversationObject;
 
-    const anotherAdminId = '4868';
+    let adminId: string;
+    let anotherAdminId: string;
 
     const client = new Client({ tokenAuth: { token } });
 
     before(async () => {
+        const admins = await client.admins.list();
+
+        adminId = admins.admins[0].id;
+        anotherAdminId = admins.admins[1].id;
+
         user = await client.contacts.createUser({
             externalId: randomString(),
             name: 'Baba Booey',

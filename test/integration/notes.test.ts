@@ -1,10 +1,22 @@
 import { Client, NoteObject } from '../../dist';
 import assert from 'assert';
-import { adminId, contactId, token } from './utils/config';
+import { token } from './utils/config';
 import { randomString } from './utils/random';
 
 describe('Notes', () => {
+    let adminId: string;
+    let contactId: string;
     let note: NoteObject;
+
+    before(async () => {
+        const randomContacts = await client.contacts.list({
+            perPage: 1,
+        });
+        const admins = await client.admins.list();
+
+        adminId = admins.admins[0].id;
+        contactId = randomContacts.data[0].id;
+    });
 
     const client = new Client({ tokenAuth: { token } });
 

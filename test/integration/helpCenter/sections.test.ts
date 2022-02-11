@@ -1,10 +1,19 @@
 import { Client, SectionObject } from '../../../dist';
 import assert from 'assert';
-import { parentId, token } from '../utils/config';
+import { token } from '../utils/config';
 import { randomString } from '../utils/random';
 
-describe('Collections', () => {
+describe('Sections', () => {
     let section: SectionObject;
+    let parentId: string;
+
+    before(async () => {
+        const randomCollections = await client.helpCenter.collections.list({
+            perPage: 1,
+        });
+
+        parentId = randomCollections.data[0].id;
+    });
 
     const client = new Client({ tokenAuth: { token } });
 

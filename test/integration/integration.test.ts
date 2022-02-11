@@ -1,13 +1,25 @@
 import { Client, ContactObject, MessageObject } from '../../dist';
 import assert from 'assert';
-import { adminId, companyId, token } from './utils/config';
+import { token } from './utils/config';
 import { randomInt } from 'crypto';
 
 describe('Integration between Contact, Conversation, Company and Tag APIs', () => {
-    let user: ContactObject;
-    let lead: ContactObject;
+    let adminId: string;
     let contact: ContactObject;
     let conversation: MessageObject;
+    let companyId: string;
+    let lead: ContactObject;
+    let user: ContactObject;
+
+    before(async () => {
+        const randomCompanies = await client.companies.list({
+            perPage: 1,
+        });
+        const admins = await client.admins.list();
+
+        adminId = admins.admins[0].id;
+        companyId = randomCompanies.data[0].id;
+    });
 
     const client = new Client({ tokenAuth: { token } });
 

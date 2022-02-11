@@ -1,15 +1,31 @@
 import { Client, TagObject } from '../../dist';
 import assert from 'assert';
-import {
-    token,
-    adminId,
-    contactId,
-    conversationId,
-    companyId,
-} from './utils/config';
+import { token } from './utils/config';
 
 describe('Tags', () => {
+    let adminId: string;
+    let conversationId: string;
+    let companyId: string;
+    let contactId: string;
     let tag: TagObject;
+
+    before(async () => {
+        const randomAdmins = await client.admins.list();
+        const randomConversations = await client.conversations.list({
+            perPage: 1,
+        });
+        const randomCompanies = await client.companies.list({
+            perPage: 1,
+        });
+        const randomContacts = await client.contacts.list({
+            perPage: 1,
+        });
+
+        adminId = randomAdmins.admins[0].id;
+        conversationId = randomConversations.conversations[0].id;
+        companyId = randomCompanies.data[0].id;
+        contactId = randomContacts.data[0].id;
+    });
 
     const client = new Client({ tokenAuth: { token } });
 
