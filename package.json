@@ -1,6 +1,6 @@
 {
     "name": "intercom-client",
-    "version": "3.1.2",
+    "version": "3.1.3",
     "description": "Official Node bindings to the Intercom API",
     "homepage": "https://github.com/intercom/intercom-node",
     "bugs:": "https://github.com/intercom/intercom-node/issues",
@@ -32,6 +32,7 @@
         "@typescript-eslint/parser": "^5.7.0",
         "eslint": "^8.2.0",
         "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-no-only-tests": "^2.6.0",
         "merge2": "^1.4.1",
         "mocha": "^9.2.0",
         "nock": "^13.0.11",

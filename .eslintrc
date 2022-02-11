@@ -1,7 +1,7 @@
 {
     "root": true,
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
+    "plugins": ["@typescript-eslint", "no-only-tests"],
     "rules": {
         "keyword-spacing": 2,
         "array-bracket-spacing": [2, "never"],
@@ -33,7 +33,9 @@
         "no-sparse-arrays": 2,
         "no-unreachable": 2,
         "use-isnan": 2,
-        "valid-typeof": 2
+        "valid-typeof": 2,
+        "require-await": "error",
+        "no-only-tests/no-only-tests": "error"
     },
     "extends": [
         "eslint:recommended",
