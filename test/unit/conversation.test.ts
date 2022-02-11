@@ -557,12 +557,10 @@ describe('conversations', () => {
         });
 
         const response = await client.conversations.list({
-            query: {
-                order: Order.DESC,
-                sort: SortBy.UpdatedAt,
-                page: 1,
-                perPage: 10,
-            },
+            order: Order.DESC,
+            sort: SortBy.UpdatedAt,
+            page: 1,
+            perPage: 10,
         });
 
         assert.deepStrictEqual(expectedReply, response);

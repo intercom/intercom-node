@@ -257,9 +257,7 @@ export default class Conversation {
             data,
         });
     }
-    list({
-        query: { order, sort, page, perPage: per_page },
-    }: ListConversationData) {
+    list({ order, sort, page, perPage: per_page }: ListConversationData) {
         const params = { order, sort, page, per_page };
 
         return this.client.get<ListConversationResponse>({
@@ -521,12 +519,10 @@ export enum SortBy {
 }
 
 interface ListConversationData {
-    query: {
-        order: Order;
-        sort: SortBy;
-        page?: number;
-        perPage?: number;
-    };
+    order?: Order;
+    sort?: SortBy;
+    page?: number;
+    perPage?: number;
 }
 
 type ListConversationResponse = Paginated<ConversationObjectWithoutParts>;
