@@ -1,4 +1,3 @@
-import { deprecate } from 'util';
 import axios, { Axios, AxiosDefaults, AxiosResponse } from 'axios';
 import { merge, omit } from 'lodash';
 
@@ -69,7 +68,6 @@ export default class Client {
     requestOpts: Partial<AxiosDefaults>;
     tags: Tag;
     teams: Team;
-    usebaseURL: (baseURL: string) => this;
     usernamePart?: string;
     visitors: Visitor;
 
@@ -104,11 +102,6 @@ export default class Client {
             baseURL: 'https://api.intercom.io',
         };
         this.propertiesToOmitInRequestOpts = ['headers.common.Accept'];
-
-        this.usebaseURL = deprecate(
-            (baseURL) => this.useRequestOpts({ baseURL }),
-            'intercom-client - client.usebaseURL(url): Use client.useRequestOpts({ baseURL: url }) instead'
-        );
 
         this.axiosInstance = this.initiateAxiosInstance();
     }

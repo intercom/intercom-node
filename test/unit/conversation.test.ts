@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Client } from '../lib';
+import { Client } from '../../lib';
 import nock from 'nock';
 import {
     AssignToConversationMessageType,
@@ -13,8 +13,8 @@ import {
     SearchConversationOrderBy,
     SnoozeConversationMessageType,
     SortBy,
-} from '../lib/conversation';
-import { Operators, Order } from '../lib/common/common.types';
+} from '../../lib/conversation';
+import { Operators, Order } from '../../lib/common/common.types';
 
 describe('conversations', () => {
     it('should create a conversation', async () => {
@@ -557,12 +557,10 @@ describe('conversations', () => {
         });
 
         const response = await client.conversations.list({
-            query: {
-                order: Order.DESC,
-                sort: SortBy.UpdatedAt,
-                page: 1,
-                perPage: 10,
-            },
+            order: Order.DESC,
+            sort: SortBy.UpdatedAt,
+            page: 1,
+            perPage: 10,
         });
 
         assert.deepStrictEqual(expectedReply, response);

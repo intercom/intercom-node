@@ -10,6 +10,7 @@ export default class Scroll<EntityType> {
         this.scrollParam = scrollParam;
     }
 
+    // eslint-disable-next-line require-await
     async each(params: EachData): Promise<EntityType[]> {
         this.scrollParam = params.scrollParam ?? undefined;
 

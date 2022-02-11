@@ -1,6 +1,5 @@
 import Client from './client';
 import {
-    Paginated,
     StringifiedTimestamp,
     GenericSearchFilters,
     Order,
@@ -257,9 +256,7 @@ export default class Conversation {
             data,
         });
     }
-    list({
-        query: { order, sort, page, perPage: per_page },
-    }: ListConversationData) {
+    list({ order, sort, page, perPage: per_page }: ListConversationData) {
         const params = { order, sort, page, per_page };
 
         return this.client.get<ListConversationResponse>({
@@ -521,15 +518,15 @@ export enum SortBy {
 }
 
 interface ListConversationData {
-    query: {
-        order: Order;
-        sort: SortBy;
-        page?: number;
-        perPage?: number;
-    };
+    order?: Order;
+    sort?: SortBy;
+    page?: number;
+    perPage?: number;
 }
 
-type ListConversationResponse = Paginated<ConversationObjectWithoutParts>;
+type ListConversationResponse = PaginatedBase & {
+    conversations: ConversationObjectWithoutParts[];
+};
 //
 export enum RedactConversationPartType {
     CONVERSATION_PART = 'conversation_part',

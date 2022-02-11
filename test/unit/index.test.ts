@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Client, IdentityVerification } from '../lib';
+import { Client, IdentityVerification } from '../../lib';
 import nock from 'nock';
 
 describe('clients', () => {
