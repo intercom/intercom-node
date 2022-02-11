@@ -2,18 +2,19 @@ Please use the following template to submit your issue. Following this template 
 
 For feature requests please contact us at team@intercom.io
 
-
 ## Version info
-  - intercom-node version:
-  - Node version:
+
+-   intercom-node version:
+-   Node version:
 
 ## Expected behavior
 
 ## Actual behavior
 
 ## Steps to reproduce
- 1. 
- 2. 
- 3. 
+
+1.
+2.
+3.
 
 ## Logs
