@@ -25,6 +25,16 @@ jobs:
             - restore_cache:
                   key: dependency-cache-{{ checksum "yarn.lock" }}
             - run: yarn test:unit
+    integration_test:
+        docker:
+            - image: circleci/node:14-browsers
+        working_directory: ~/intercom-node
+        steps:
+            - checkout
+            - restore_cache:
+                  key: dependency-cache-{{ checksum "yarn.lock" }}
+            - export $API_TOKEN
+            - run: yarn test:integration
 
 workflows:
     version: 2
@@ -34,6 +44,11 @@ workflows:
             - unit_test:
                   requires:
                       - build
+            - integration_test_approval:
+                  type: approval
+            - integration_test:
+                  requires:
+                      - integration_test_approval
 
 notify:
     webhooks:
