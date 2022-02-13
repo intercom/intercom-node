@@ -1,8 +1,8 @@
 import assert from 'assert';
-import { Client } from '../lib';
+import { Client } from '../../lib';
 import nock from 'nock';
-import { dateToUnixTimestamp } from '../lib/util/time';
-import { Order } from '../lib/common/common.types';
+import { dateToUnixTimestamp } from '../../lib/util/time';
+import { Order } from '../../lib/common/common.types';
 
 const dummyCompany = {
     type: 'company',

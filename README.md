@@ -738,12 +738,10 @@ const response = await client.conversations.search({
 
 ```typescript
 const response = await client.conversations.list({
-    query: {
-        order: Order.DESC,
-        sort: SortBy.UpdatedAt,
-        page: 1,
-        perPage: 10,
-    },
+    order: Order.DESC,
+    sort: SortBy.UpdatedAt,
+    page: 1,
+    perPage: 10,
 });
 ```
 

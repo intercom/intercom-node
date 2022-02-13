@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Client } from '../lib';
+import { Client } from '../../lib';
 import nock from 'nock';
 import sinon from 'sinon';
 import { HeadersDefaults } from 'axios';
@@ -70,19 +70,5 @@ describe('request-opts', function () {
         // Should include custom header
         sinon.assert.calledOnce(customHeaderCheck);
         sinon.assert.calledWithExactly(customHeaderCheck, 'bar');
-    });
-});
-
-describe('base-url', function () {
-    it('should be able to change base url (using old .usebaseURL method)', async () => {
-        nock('http://local.test-server.com').get('/admins').reply(200, {});
-
-        const client = new Client({
-            usernameAuth: { username: 'foo', password: 'bar' },
-        }).usebaseURL('http://local.test-server.com');
-
-        const response = await client.admins.list();
-
-        assert.deepStrictEqual({}, response);
     });
 });

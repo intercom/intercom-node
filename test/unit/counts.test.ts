@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Client, CountEntity, CountType } from '../lib';
+import { Client, CountEntity, CountType } from '../../lib';
 import nock from 'nock';
 
 describe('counts', () => {

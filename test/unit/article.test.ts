@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Client } from '../lib';
+import { Client } from '../../lib';
 import nock from 'nock';
 
 describe('articles', () => {
