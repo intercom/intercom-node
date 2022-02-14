@@ -75,6 +75,17 @@ client.useRequestOpts({
 });
 ```
 
+### Setting the API base url
+
+If you are using the european instance of intercom and would like to call it directly and not be redirected through our US instance, you can set the `baseUrl` as follows:
+
+```typescript
+const client = new Client({ tokenAuth: { token: 'my_token' } });
+client.useRequestOpts({
+    baseUrl: 'https://api.eu.intercom.io'
+})
+```
+
 ## Examples
 
 ### Admins
