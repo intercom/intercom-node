@@ -73,6 +73,7 @@ export default class Contact {
     update({
         id,
         role,
+        email,
         externalId,
         phone,
         name,
@@ -86,6 +87,7 @@ export default class Contact {
         const data: UpdateContactRequest = {
             role,
             external_id: externalId,
+            email,
             phone,
             name,
             avatar,
@@ -229,6 +231,7 @@ type UpdateContactRequest = Partial<
 type UpdateContactData = {
     id: string;
     role?: UpdateContactRequest['role'];
+    email?: UpdateContactRequest['email'];
     externalId?: UpdateContactRequest['external_id'];
     phone?: UpdateContactRequest['phone'];
     name?: UpdateContactRequest['name'];
