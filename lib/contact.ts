@@ -52,6 +52,7 @@ export default class Contact {
         const requestData: CreateContactRequest = {
             role: Role.LEAD,
             phone: data?.phone,
+            email: data?.email,
             name: data?.name,
             avatar: data?.avatar,
             signed_up_at: data?.signedUpAt,
@@ -190,6 +191,7 @@ type CreateContactRequest = Pick<ContactObject, 'role'> &
 interface CreateUserDataBase {
     phone?: CreateContactRequest['phone'];
     name?: CreateContactRequest['name'];
+    email?: CreateContactRequest['email'];
     avatar?: CreateContactRequest['avatar'];
     signedUpAt?: CreateContactRequest['signed_up_at'];
     lastSeenAt?: CreateContactRequest['last_seen_at'];
@@ -203,7 +205,10 @@ interface CreateUserData extends CreateUserDataBase {
     externalId?: string;
 }
 
-type CreateLeadData = CreateUserDataBase;
+interface CreateLeadData extends CreateUserDataBase {
+    email?: string;
+}
+
 //
 interface RetrieveContactData {
     id: string;
