@@ -101,6 +101,29 @@ describe('contacts', () => {
         assert.deepStrictEqual(expectedReply, response);
     });
 
+    it('should create a contact with lead role with email', async () => {
+        const contact = {
+            role: 'lead',
+            email: 'niko_bellic@mail.com',
+        };
+
+        const expectedReply = {};
+
+        nock('https://api.intercom.io')
+            .post('/contacts', contact)
+            .reply(200, expectedReply);
+
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
+
+        const response = await client.contacts.createLead({
+            email: contact.email,
+        });
+
+        assert.deepStrictEqual(expectedReply, response);
+    });
+
     it('should retrieve a contact by id', async () => {
         const id = '536e564f316c83104c000020';
 
