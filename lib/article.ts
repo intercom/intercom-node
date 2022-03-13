@@ -1,4 +1,4 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import {
     ArticleObject,
     TranslatedContentObject,
@@ -12,7 +12,7 @@ import {
 export default class Article {
     public readonly baseUrl = 'articles';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

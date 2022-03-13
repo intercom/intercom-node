@@ -1,5 +1,5 @@
+import { BaseClient } from './client';
 import {
-    Client,
     CompanySegmentCountResponse,
     CompanyTagCountResponse,
     CompanyUserCountResponse,
@@ -19,7 +19,7 @@ import {
 export default class Count {
     public readonly baseUrl = 'counts';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

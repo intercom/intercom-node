@@ -1,11 +1,11 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import { AdminObject } from './admin/admin.types';
 import { dateToUnixTimestamp } from './util/time';
 
 export default class Admin {
     public readonly baseUrl = 'admins';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

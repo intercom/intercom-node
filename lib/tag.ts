@@ -1,10 +1,10 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import { TagObject } from './tag/tag.types';
 
 export default class Tag {
     private tagsBaseUrl = 'tags';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

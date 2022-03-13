@@ -1,11 +1,12 @@
-import { Client, ContactObject } from '.';
+import { BaseClient } from './client';
+import { ContactObject } from '.';
 import { Role } from './common/common.types';
 import { VisitorObject } from './visitor/visitor.types';
 
 export default class Visitor {
     public readonly baseUrl = 'visitors';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

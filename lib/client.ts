@@ -21,35 +21,65 @@ import * as packageJson from '../package.json';
 
 import { BadResponseError } from './errors/badResponse.error';
 
-interface RequestOptions {
+export type RequestParams = Record<
+    string,
+    string | number | boolean | undefined
+>;
+export interface GetRequestOptions {
     url: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    params?: any;
+    params?: RequestParams;
 }
 
-type Constructor = {
+export interface RequestOptions extends GetRequestOptions {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data?: any;
+}
+
+export type Constructor = {
     usernameAuth?: UsernameAuth;
     tokenAuth?: TokenAuth;
     apiKeyAuth?: ApiKeyAuth;
 };
 
-type UsernameAuth = {
+export type UsernameAuth = {
     username: string;
     password: string;
 };
 
-type TokenAuth = {
+export type TokenAuth = {
     token: string;
 };
 
-type ApiKeyAuth = {
+export type ApiKeyAuth = {
     appId: string;
     appApiKey: string;
 };
 
-export default class Client {
+export interface BaseClient {
+    articles: Article;
+    admins: Admin;
+    companies: Company;
+    contacts: Contact;
+    conversations: Conversation;
+    counts: Count;
+    dataAttributes: DataAttribute;
+    events: Event;
+    helpCenter: HelpCenter;
+    messages: Message;
+    notes: Note;
+    segments: Segment;
+    tags: Tag;
+    teams: Team;
+    visitors: Visitor;
+    put<T>({ url, data }: RequestOptions): Promise<T>;
+    post<T>({ url, data }: RequestOptions): Promise<T>;
+    get<T>({ url, data, params }: RequestOptions): Promise<T>;
+    nextPage<T>(paginationObject: { next: string }): Promise<T>;
+    delete<T>({ url, data, params }: RequestOptions): Promise<T>;
+}
+
+export default class Client implements BaseClient {
     articles: Article;
     admins: Admin;
     axiosInstance: Axios;

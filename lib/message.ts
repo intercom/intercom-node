@@ -1,10 +1,10 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import { MessageObject, MessageType } from './message/message.types';
 
 export default class Message {
     private messagesBaseUrl = 'messages';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

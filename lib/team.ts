@@ -1,10 +1,10 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import { TeamObject } from './team/team.types';
 
 export default class Team {
     private readonly baseUrl = 'teams';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

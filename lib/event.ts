@@ -1,10 +1,10 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import { EventObject, SummaryEventObject } from './event/event.types';
 
 export default class Event {
     public readonly baseUrl = 'events';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
     create({

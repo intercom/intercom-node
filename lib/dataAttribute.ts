@@ -1,4 +1,4 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import {
     DataAttributeObject,
     ModelType,
@@ -7,7 +7,7 @@ import {
 export default class DataAttribute {
     public readonly baseUrl = 'data_attributes';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

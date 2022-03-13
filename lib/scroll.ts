@@ -1,8 +1,8 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 
 export default class Scroll<EntityType> {
     constructor(
-        private readonly client: Client,
+        private readonly client: BaseClient,
         private readonly scrollUrlDataType: string,
         private scrollParam?: string
     ) {

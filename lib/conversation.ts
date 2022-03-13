@@ -1,4 +1,4 @@
-import Client from './client';
+import { BaseClient } from './client';
 import {
     StringifiedTimestamp,
     GenericSearchFilters,
@@ -15,7 +15,7 @@ import { MessageObject } from './message/message.types';
 export default class Conversation {
     public readonly baseUrl = 'conversations';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
     create({ userId, body }: CreateConversationData) {

@@ -1,4 +1,4 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import { ContactObject } from './contact/contact.types';
 import {
     GenericDeletedResponse,
@@ -14,7 +14,7 @@ import { SubscriptionObject } from './subscription/subscription.types';
 export default class Contact {
     public readonly baseUrl = 'contacts';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
     createUser({

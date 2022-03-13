@@ -1,10 +1,11 @@
-import { Client, NoteObject } from '.';
+import { BaseClient } from './client';
+import { NoteObject } from '.';
 import { OperationById, Paginated } from './common/common.types';
 
 export default class Note {
     public readonly baseUrl = 'notes';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 

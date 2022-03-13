@@ -1,4 +1,4 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import {
     PaginationParams,
     JavascriptObject,
@@ -11,13 +11,12 @@ import { CompanyObject, ListCompaniesResponse } from './company/company.types';
 import { ContactObject } from './contact/contact.types';
 import Scroll from './scroll';
 import { SegmentObject } from './segment/segment.types';
-import { encodeParamsForURL } from './util/url';
 
 export default class Company {
     public readonly baseUrl = 'companies';
     public readonly scroll: Scroll<Company>;
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
         this.scroll = new Scroll<Company>(this.client, this.baseUrl);
     }
@@ -84,9 +83,7 @@ export default class Company {
 
         return this.client.get<CompanyObject>({
             url: `/${this.baseUrl}`,
-            params: encodeParamsForURL(
-                query as Record<string, string | ReadonlyArray<string>>
-            ),
+            params: query,
         });
     }
     delete({ id }: DeleteCompanyData) {

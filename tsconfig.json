@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "lib": ["es5", "es6"],
+        "lib": ["es5", "es6", "WebWorker"],
         "outDir": "./dist",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,

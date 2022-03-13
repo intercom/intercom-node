@@ -1,10 +1,10 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import { SegmentObject } from './segment/segment.types';
 
 export default class Segment {
     public readonly baseUrl = 'segments';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
     list({ includeCount: include_count }: ListData) {

@@ -1,4 +1,4 @@
-import { Client } from '.';
+import { BaseClient } from './client';
 import {
     GenericDeletedResponse,
     OperationById,
@@ -14,7 +14,7 @@ export default class HelpCenter {
     public readonly collections: Collection;
     public readonly sections: Section;
 
-    constructor(client: Client) {
+    constructor(client: BaseClient) {
         this.collections = new Collection(client);
         this.sections = new Section(client);
     }
@@ -23,7 +23,7 @@ export default class HelpCenter {
 class Collection {
     public readonly baseUrl = 'help_center/collections';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 
@@ -98,7 +98,7 @@ type CollectionListResponse = Paginated<CollectionObject>;
 class Section {
     public readonly baseUrl = 'help_center/sections';
 
-    constructor(private readonly client: Client) {
+    constructor(private readonly client: BaseClient) {
         this.client = client;
     }
 
