@@ -1,4 +1,4 @@
-import { BaseClient } from './client';
+import { BaseClient, RequestParams } from './client';
 import { ContactObject } from './contact/contact.types';
 import {
     GenericDeletedResponse,
@@ -125,7 +125,7 @@ export default class Contact {
         };
         return this.client.get<ListContactsResponse>({
             url: `/${this.baseUrl}`,
-            params,
+            params: params as RequestParams,
         });
     }
     delete({ id }: DeleteContactData) {

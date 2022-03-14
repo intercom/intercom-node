@@ -1,3 +1,5 @@
+/// <reference lib="webworker" />
+
 import Article from './article';
 import Admin from './admin';
 import Company from './company';
