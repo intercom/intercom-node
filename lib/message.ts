@@ -51,7 +51,7 @@ interface CreateMessageBody
         'message_type' | 'create_conversation_without_contact_reply'
     > {
     messageType: MessageType;
-    createConversationWithoutContactReply: boolean;
+    createConversationWithoutContactReply?: boolean;
 }
 
 type Recepient = {
