@@ -29,11 +29,11 @@ describe('Messages', () => {
             body: 'Hey, look at me! I am the conversations creator now!',
             from: {
                 type: RecepientType.ADMIN,
-                id: `${adminId}`,
+                id: adminId,
             },
             to: {
                 type: RecepientType.USER,
-                id: `${userIntercomId}`,
+                id: userIntercomId,
             },
         };
         const response = await client.messages.create({
@@ -59,5 +59,27 @@ describe('Messages', () => {
             },
         });
         assert.equal(searchResults.total_count > 0, true);
+    });
+
+    it('Create message, no conversation', async () => {
+        const requestBody = {
+            message_type: MessageType.INAPP,
+            body: 'Message without creating conversation',
+            from: {
+                type: RecepientType.ADMIN,
+                id: adminId,
+            },
+            to: {
+                type: RecepientType.USER,
+                id: userIntercomId,
+            },
+        };
+        const response = await client.messages.create({
+            messageType: requestBody.message_type,
+            body: requestBody.body,
+            from: requestBody.from,
+            to: requestBody.to,
+        });
+        assert.notEqual(response, undefined);
     });
 });
