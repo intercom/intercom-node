@@ -26,6 +26,7 @@ describe('conversations', () => {
                 id,
             },
             body: 'Hello darkness my old friend',
+            subject: 'Hello darkness my old friend',
         };
 
         const expectedReply = {
@@ -35,6 +36,7 @@ describe('conversations', () => {
             body: 'Hello darkness my old friend',
             message_type: 'inapp',
             conversation_id: '36000324324',
+            subject: 'Hello darkness my old friend',
         };
 
         nock('https://api.intercom.io')
@@ -48,6 +50,7 @@ describe('conversations', () => {
         const response = await client.conversations.create({
             userId: id,
             body: message.body,
+            subject: message.subject,
         });
 
         assert.deepStrictEqual(expectedReply, response);

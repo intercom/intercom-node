@@ -509,6 +509,7 @@ const response = await client.contacts.listAttachedEmailSubscriptions({
 const response = await client.conversations.create({
     userId: '123',
     body: 'Hello darkness my old friend',
+    subject: 'Hello darkness my old friend', // conversation title
 });
 ```
 

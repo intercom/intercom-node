@@ -18,13 +18,14 @@ export default class Conversation {
     constructor(private readonly client: Client) {
         this.client = client;
     }
-    create({ userId, body }: CreateConversationData) {
+    create({ userId, body, subject }: CreateConversationData) {
         const requestData: CreateConversationRequest = {
             from: {
                 id: userId,
                 type: 'user',
             },
             body,
+            subject,
         };
         return this.client.post<MessageObject>({
             url: `/${this.baseUrl}`,
@@ -290,11 +291,13 @@ interface CreateConversationRequest {
         id: string;
     };
     body: string;
+    subject?: string;
 }
 
 interface CreateConversationData {
     userId: string;
     body: string;
+    subject?: string;
 }
 //
 interface RetrieveConversationData {

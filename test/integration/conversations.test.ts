@@ -44,6 +44,7 @@ describe('Conversations', () => {
         const response = await client.conversations.create({
             userId: user.id,
             body: 'Raz-dwa-try kalyna, czorniawaja diwczyna',
+            subject: 'Test subject'
         });
 
         createdConversation = response;
