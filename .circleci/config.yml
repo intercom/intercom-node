@@ -1,29 +1,68 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/node:14-browsers
+    build:
+        docker:
+            - image: circleci/node:14-browsers
+        working_directory: ~/intercom-node
+        steps:
+            - checkout
+            - run: export PATH="${PATH}:/home/circleci/.yarn/bin"
+            - run: npm install --prefix=$HOME/.local --global corepack
+            - restore_cache:
+                  key: dependency-cache-{{ checksum "yarn.lock" }}
+            - run: yarn
+            - save_cache:
+                  key: dependency-cache-{{ checksum "yarn.lock" }}
+                  paths:
+                      - node_modules
+                      - .yarn/cache
+            - restore_cache:
+                  key: dist-cache-{{ .Environment.CIRCLE_SHA1 }}
+            - run: yarn prepublish
+            - save_cache:
+                  key: dist-cache-{{ .Environment.CIRCLE_SHA1 }}
+                  paths:
+                      - dist
+    unit_test:
+        docker:
+            - image: circleci/node:14-browsers
+        working_directory: ~/intercom-node
+        steps:
+            - checkout
+            - restore_cache:
+                  key: dependency-cache-{{ checksum "yarn.lock" }}
+            - run: yarn test:unit
+    integration_test:
+        docker:
+            - image: circleci/node:14-browsers
+              environment:
+                  API_TOKEN: $API_TOKEN
+        working_directory: ~/intercom-node
 
-    working_directory: ~/intercom-node
+        steps:
+            - checkout
+            - restore_cache:
+                  key: dependency-cache-{{ checksum "yarn.lock" }}
+            - restore_cache:
+                  key: dist-cache-{{ .Environment.CIRCLE_SHA1 }}
+            - run: yarn test:integration
 
-    environment:
-      - YARN_VERSION: 1.22.10
-
-    steps:
-      - checkout
-      - run: export PATH="${PATH}:/home/circleci/.yarn/bin"
-      - run:
-          name: Install Yarn
-          command: |
-            if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}"  ]]; then
-              echo "Download and install Yarn."
-              curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-            else
-              echo "The correct version of Yarn is already installed."
-            fi
-      - run: yarn
-      - run: yarn test
+workflows:
+    version: 2
+    build_and_test:
+        jobs:
+            - build
+            - unit_test:
+                  requires:
+                      - build
+            - integration_test_approval:
+                  requires:
+                      - unit_test
+                  type: approval
+            - integration_test:
+                  requires:
+                      - integration_test_approval
 
 notify:
-  webhooks:
-    - url: https://muster.intercom.io/circle_webhooks
+    webhooks:
+        - url: https://muster.intercom.io/circle_webhooks
