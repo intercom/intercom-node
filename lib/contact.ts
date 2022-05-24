@@ -52,6 +52,7 @@ export default class Contact {
         const requestData: CreateContactRequest = {
             role: Role.LEAD,
             phone: data?.phone,
+            email: data?.email,
             name: data?.name,
             avatar: data?.avatar,
             signed_up_at: data?.signedUpAt,
@@ -190,6 +191,7 @@ type CreateContactRequest = Pick<ContactObject, 'role'> &
 interface CreateUserDataBase {
     phone?: CreateContactRequest['phone'];
     name?: CreateContactRequest['name'];
+    email?: CreateContactRequest['email'];
     avatar?: CreateContactRequest['avatar'];
     signedUpAt?: CreateContactRequest['signed_up_at'];
     lastSeenAt?: CreateContactRequest['last_seen_at'];
@@ -199,11 +201,11 @@ interface CreateUserDataBase {
 }
 
 interface CreateUserData extends CreateUserDataBase {
-    email?: string;
     externalId?: string;
 }
 
 type CreateLeadData = CreateUserDataBase;
+
 //
 interface RetrieveContactData {
     id: string;
@@ -290,8 +292,8 @@ interface SearchContactOrder {
 
 interface SearchContactRequest {
     data: GenericSearchFilters &
-        Partial<SearchContactPagination> &
-        Partial<SearchContactOrder>;
+    Partial<SearchContactPagination> &
+    Partial<SearchContactOrder>;
 }
 
 type SearchContactResponse = Paginated<ContactObject>;
