@@ -201,13 +201,10 @@ interface CreateUserDataBase {
 }
 
 interface CreateUserData extends CreateUserDataBase {
-    email?: string;
     externalId?: string;
 }
 
-interface CreateLeadData extends CreateUserDataBase {
-    email?: string;
-}
+type CreateLeadData = CreateUserDataBase;
 
 //
 interface RetrieveContactData {
@@ -295,8 +292,8 @@ interface SearchContactOrder {
 
 interface SearchContactRequest {
     data: GenericSearchFilters &
-        Partial<SearchContactPagination> &
-        Partial<SearchContactOrder>;
+    Partial<SearchContactPagination> &
+    Partial<SearchContactOrder>;
 }
 
 type SearchContactResponse = Paginated<ContactObject>;
