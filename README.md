@@ -1013,6 +1013,24 @@ const response = await client.messages.create({
 });
 ```
 
+#### [Create conversation without contact reply](https://developers.intercom.com/intercom-api-reference/reference/admin-initiated-conversation)
+
+```typescript
+const response = await client.messages.create({
+    messageType: 'inapp',
+    body: 'Look at me, I am a conversation now',
+    from: {
+        type: 'admin',
+        id: '394051',
+    },
+    to: {
+        type: 'user',
+        id: '536e564f316c83104c000020',
+    },
+    createConversationWithoutContactReply: true,
+});
+```
+
 ### Notes
 
 #### [Create a note](https://developers.intercom.com/intercom-api-reference/reference/create-note-for-contact)
