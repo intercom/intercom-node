@@ -82,8 +82,8 @@ If you are using the european instance of intercom and would like to call it dir
 ```typescript
 const client = new Client({ tokenAuth: { token: 'my_token' } });
 client.useRequestOpts({
-    baseUrl: 'https://api.eu.intercom.io'
-})
+    baseUrl: 'https://api.eu.intercom.io',
+});
 ```
 
 ## Examples
@@ -1076,6 +1076,14 @@ const response = await client.segments.find({
 const response = await client.segments.list({
     includeCount: true,
 });
+```
+
+### Subscriptions
+
+#### [List all subscription types](https://developers.intercom.com/intercom-api-reference/reference/list-all-subscription-types)
+
+```typescript
+const response = await client.subscriptions.listTypes();
 ```
 
 ### Tags

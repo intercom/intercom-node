@@ -13,6 +13,7 @@ import HelpCenter from './helpCenter';
 import Message from './message';
 import Note from './note';
 import Segment from './segment';
+import Subscription from './subscription';
 import Team from './team';
 import Tag from './tag';
 import Visitor from './visitor';
@@ -63,6 +64,7 @@ export default class Client {
     messages: Message;
     notes: Note;
     segments: Segment;
+    subscriptions: Subscription;
     passwordPart?: string;
     propertiesToOmitInRequestOpts: string[];
     requestOpts: Partial<AxiosDefaults>;
@@ -95,6 +97,7 @@ export default class Client {
         this.messages = new Message(this);
         this.notes = new Note(this);
         this.segments = new Segment(this);
+        this.subscriptions = new Subscription(this);
         this.tags = new Tag(this);
         this.teams = new Team(this);
         this.visitors = new Visitor(this);
