@@ -16,6 +16,7 @@ import Segment from './segment';
 import Team from './team';
 import Tag from './tag';
 import Visitor from './visitor';
+import PhoneCallRedirect from './phone_call_redirect';
 
 import * as packageJson from '../package.json';
 
@@ -70,7 +71,8 @@ export default class Client {
     teams: Team;
     usernamePart?: string;
     visitors: Visitor;
-
+    phone_call_redirect: PhoneCallRedirect;
+    
     constructor(args: Constructor) {
         const [usernamePart, passwordPart] = Client.getAuthDetails(args);
 
@@ -98,6 +100,7 @@ export default class Client {
         this.tags = new Tag(this);
         this.teams = new Team(this);
         this.visitors = new Visitor(this);
+        this.phone_call_redirect = new PhoneCallRedirect(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',
         };

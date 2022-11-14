@@ -1,12 +1,4 @@
 import { Client } from '.';
-import {
-    PaginationParams,
-    JavascriptObject,
-    Order,
-    Paginated,
-    Timestamp,
-    GenericDeletedResponse,
-} from './common/common.types';
 import { CompanyObject, ListCompaniesResponse } from './company/company.types';
 import { ContactObject } from './contact/contact.types';
 import Scroll from './scroll';

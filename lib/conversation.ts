@@ -256,8 +256,8 @@ export default class Conversation {
             data,
         });
     }
-    list({ order, sort, page, perPage: per_page }: ListConversationData) {
-        const params = { order, sort, page, per_page };
+    list({ perPage, startingAfter }: ListConversationData) {
+        const params = { perPage, startingAfter };
 
         return this.client.get<ListConversationResponse>({
             url: `/${this.baseUrl}`,
@@ -518,10 +518,8 @@ export enum SortBy {
 }
 
 interface ListConversationData {
-    order?: Order;
-    sort?: SortBy;
-    page?: number;
     perPage?: number;
+    startingAfter?: string;
 }
 
 type ListConversationResponse = PaginatedBase & {
