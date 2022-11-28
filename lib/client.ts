@@ -8,6 +8,7 @@ import Contact from './contact';
 import Conversation from './conversation';
 import Count from './count';
 import DataAttribute from './dataAttribute';
+import DataExport from './dataExport';
 import Event from './event';
 import HelpCenter from './helpCenter';
 import Message from './message';
@@ -16,6 +17,7 @@ import Segment from './segment';
 import Team from './team';
 import Tag from './tag';
 import Visitor from './visitor';
+import PhoneCallRedirect from './phoneCallRedirect';
 
 import * as packageJson from '../package.json';
 
@@ -58,6 +60,7 @@ export default class Client {
     conversations: Conversation;
     counts: Count;
     dataAttributes: DataAttribute;
+    dataExport: DataExport;
     events: Event;
     helpCenter: HelpCenter;
     messages: Message;
@@ -70,6 +73,7 @@ export default class Client {
     teams: Team;
     usernamePart?: string;
     visitors: Visitor;
+    phoneCallRedirect: PhoneCallRedirect;
 
     constructor(args: Constructor) {
         const [usernamePart, passwordPart] = Client.getAuthDetails(args);
@@ -90,6 +94,7 @@ export default class Client {
         this.conversations = new Conversation(this);
         this.counts = new Count(this);
         this.dataAttributes = new DataAttribute(this);
+        this.dataExport = new DataExport(this);
         this.events = new Event(this);
         this.helpCenter = new HelpCenter(this);
         this.messages = new Message(this);
@@ -98,6 +103,7 @@ export default class Client {
         this.tags = new Tag(this);
         this.teams = new Team(this);
         this.visitors = new Visitor(this);
+        this.phoneCallRedirect = new PhoneCallRedirect(this);
         this.requestOpts = {
             baseURL: 'https://api.intercom.io',
         };
