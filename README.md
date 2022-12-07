@@ -1101,6 +1101,14 @@ const response = await client.segments.list({
 });
 ```
 
+
+### Subscriptions
+
+#### [List all subscription types](https://developers.intercom.com/intercom-api-reference/reference/list-all-subscription-types)
+
+```typescript
+const response = await client.subscriptions.listTypes();
+```
 ### PhoneCallRedirects
 
 #### [Create a phone call redirect](https://developers.intercom.com/intercom-api-reference/reference/create-a-phone-switch)
