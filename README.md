@@ -845,6 +845,29 @@ const response = await client.dataAttributes.list({
 });
 ```
 
+### Data Exports
+
+#### [Create a export job](https://developers.intercom.com/intercom-api-reference/reference/creating-an-export-job)
+
+```typescript
+const response = await client.dataExport.create({
+    createdAtAfter: 1527811200,
+    createdAtBefore: 1530316800,
+});
+```
+
+#### [Retrieve a job status](https://developers.intercom.com/intercom-api-reference/reference/retrieve-a-job-status)
+
+```typescript
+const response = await client.dataExport.find({id: export.id})
+```
+
+#### [Cancel a job](https://developers.intercom.com/intercom-api-reference/reference/the-export-job-model)
+
+```typescript
+const response = await client.dataExport.cancel({id: export.id})
+```
+
 ### Events
 
 #### [Submit a data event](https://developers.intercom.com/intercom-api-reference/reference/list-data-attributes)
@@ -1078,12 +1101,22 @@ const response = await client.segments.list({
 });
 ```
 
+
 ### Subscriptions
 
 #### [List all subscription types](https://developers.intercom.com/intercom-api-reference/reference/list-all-subscription-types)
 
 ```typescript
 const response = await client.subscriptions.listTypes();
+```
+### PhoneCallRedirects
+
+#### [Create a phone call redirect](https://developers.intercom.com/intercom-api-reference/reference/create-a-phone-switch)
+
+```typescript
+const response = await client.phoneCallRedirect.create({
+    phone: '+353871234567',
+});
 ```
 
 ### Tags
