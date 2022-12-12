@@ -12,9 +12,8 @@ import {
     ReplyToConversationUserType,
     SearchConversationOrderBy,
     SnoozeConversationMessageType,
-    SortBy,
 } from '../../lib/conversation';
-import { Operators, Order } from '../../lib/common/common.types';
+import { Operators } from '../../lib/common/common.types';
 
 describe('conversations', () => {
     it('should create a conversation', async () => {
@@ -545,11 +544,27 @@ describe('conversations', () => {
         assert.deepStrictEqual(expectedReply, response);
     });
 
-    it('should list all conversations', async () => {
+    it('should list all conversations with', async () => {
         const expectedReply = {};
 
         nock('https://api.intercom.io')
-            .get(`/conversations?order=desc&sort=updated_at&page=1&per_page=10`)
+            .get(`/conversations`)
+            .reply(200, expectedReply);
+
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
+
+        const response = await client.conversations.list({});
+
+        assert.deepStrictEqual(expectedReply, response);
+    });
+
+    it('should list all conversations with per_page param', async () => {
+        const expectedReply = {};
+
+        nock('https://api.intercom.io')
+            .get(`/conversations?per_page=10`)
             .reply(200, expectedReply);
 
         const client = new Client({
@@ -557,9 +572,25 @@ describe('conversations', () => {
         });
 
         const response = await client.conversations.list({
-            order: Order.DESC,
-            sort: SortBy.UpdatedAt,
-            page: 1,
+            perPage: 10,
+        });
+
+        assert.deepStrictEqual(expectedReply, response);
+    });
+
+    it('should list all conversations with starting_after', async () => {
+        const expectedReply = {};
+
+        nock('https://api.intercom.io')
+            .get(`/conversations?starting_after=asdf123&per_page=10`)
+            .reply(200, expectedReply);
+
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
+
+        const response = await client.conversations.list({
+            startingAfter: 'asdf123',
             perPage: 10,
         });
 

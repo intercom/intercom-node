@@ -2,7 +2,6 @@ import Client from './client';
 import {
     StringifiedTimestamp,
     GenericSearchFilters,
-    Order,
     PaginatedBase,
 } from './common/common.types';
 import {
@@ -256,8 +255,11 @@ export default class Conversation {
             data,
         });
     }
-    list({ order, sort, page, perPage: per_page }: ListConversationData) {
-        const params = { order, sort, page, per_page };
+    list({
+        startingAfter: starting_after,
+        perPage: per_page,
+    }: ListConversationData) {
+        const params = { starting_after, per_page };
 
         return this.client.get<ListConversationResponse>({
             url: `/${this.baseUrl}`,
@@ -518,9 +520,7 @@ export enum SortBy {
 }
 
 interface ListConversationData {
-    order?: Order;
-    sort?: SortBy;
-    page?: number;
+    startingAfter?: string;
     perPage?: number;
 }
 
