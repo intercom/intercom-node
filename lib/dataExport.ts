@@ -36,8 +36,8 @@ export default class DataExport {
 }
 
 interface CreateDataExportData {
-    createdAtBefore: string;
-    createdAtAfter: string;
+    createdAtBefore: number;
+    createdAtAfter: number;
 }
 
 type DataExportByIdData = OperationById;
