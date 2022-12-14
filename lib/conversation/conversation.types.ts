@@ -123,7 +123,7 @@ enum ConversationPriority {
 }
 
 enum ConversationSourceType {
-    CONVERASTION = 'conversation',
+    CONVERSATION = 'conversation',
     PUSH = 'push',
     FACEBOOK = 'facebook',
     TWITTER = 'twitter',
