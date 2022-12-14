@@ -1,6 +1,6 @@
 {
     "name": "intercom-client",
-    "version": "3.2.0",
+    "version": "3.2.1",
     "description": "Official Node bindings to the Intercom API",
     "homepage": "https://github.com/intercom/intercom-node",
     "bugs:": "https://github.com/intercom/intercom-node/issues",
