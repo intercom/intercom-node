@@ -1,4 +1,4 @@
-import { Client} from '../../dist';
+import { Client } from '../../dist';
 import assert from 'assert';
 import { token } from './utils/config';
 
@@ -8,9 +8,10 @@ describe('dataExport', () => {
 
     it('create', async () => {
         const response = await client.dataExport.create({
-          phone: '+353871234567'
+            createdAtAfter: 1670000000,
+            createdAtBefore: 1670940528,
         });
-        dataExport = response.id;
+        dataExport = response.job_identifier;
 
         assert.notEqual(response, undefined);
     });

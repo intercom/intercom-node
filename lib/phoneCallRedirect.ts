@@ -23,5 +23,5 @@ export default class PhoneCallRedirect {
 
 interface CreatePhoneRedirectData {
     phone: string;
-    customAttributes: JavascriptObject;
+    customAttributes?: JavascriptObject;
 }
