@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=shield)](https://circleci.com/gh/intercom/intercom-node)
 [![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
-![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.4-blue)
+![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.5-blue)
 ![Typescript Supported](https://img.shields.io/badge/Typescript-Supported-lightgrey)
 
 > Official Node bindings to the [Intercom API](https://api.intercom.io/docs)
@@ -11,7 +11,7 @@
 
 ## Breaking changes
 
-The Node SDK has been updated to support latest API version (2.4). The update also contains requested features, such like Typescript support. You can find more information on how-to migrate and what has changed in the [migration guide](https://github.com/intercom/intercom-node/wiki/Migration-guide).
+The Node SDK has been updated to support latest API version (2.5). The update also contains requested features, such like Typescript support. You can find more information on how-to migrate and what has changed in the [migration guide](https://github.com/intercom/intercom-node/wiki/Migration-guide).
 
 ## Installation
 
