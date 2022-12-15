@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=shield)](https://circleci.com/gh/intercom/intercom-node)
 [![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
-![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.5-blue)
+![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.6-blue)
 ![Typescript Supported](https://img.shields.io/badge/Typescript-Supported-lightgrey)
 
 > Official Node bindings to the [Intercom API](https://api.intercom.io/docs)
@@ -20,7 +20,6 @@ yarn add intercom-client
 ```
 
 **This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-web) for client-side operations.**
-
 
 ## Usage
 
@@ -57,7 +56,7 @@ We version our API (see the "Choose Version" section of the [API & Webhooks Refe
 const client = new Client({ tokenAuth: { token: 'my_token' } });
 client.useRequestOpts({
     headers: {
-        'Intercom-Version': 2.4,
+        'Intercom-Version': 2.6,
     },
 });
 ```
@@ -725,9 +724,7 @@ const response = await client.conversations.search({
 
 ```typescript
 const response = await client.conversations.list({
-    order: Order.DESC,
-    sort: SortBy.UpdatedAt,
-    page: 1,
+    startingAfter: 'WzE2NzA0MjI1MjkwMDAsMjQzMTY3NzA2ODcsMl0=',
     perPage: 10,
 });
 ```
@@ -1088,7 +1085,6 @@ const response = await client.segments.list({
 });
 ```
 
-
 ### Subscriptions
 
 #### [List all subscription types](https://developers.intercom.com/intercom-api-reference/reference/list-all-subscription-types)
@@ -1096,6 +1092,7 @@ const response = await client.segments.list({
 ```typescript
 const response = await client.subscriptions.listTypes();
 ```
+
 ### PhoneCallRedirects
 
 #### [Create a phone call redirect](https://developers.intercom.com/intercom-api-reference/reference/create-a-phone-switch)
