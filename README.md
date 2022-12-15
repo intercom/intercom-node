@@ -21,19 +21,6 @@ yarn add intercom-client
 
 **This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-web) for client-side operations.**
 
-## Testing
-
-```bash
-yarn test
-```
-
-## Running the code locally
-
-Compile using babel:
-
-```bash
-yarn prepublish
-```
 
 ## Usage
 
@@ -1283,6 +1270,20 @@ IdentityVerification.userHash({
 ## License
 
 Apache-2.0
+
+## Testing
+
+```bash
+yarn test
+```
+
+## Running the code locally
+
+Compile using babel:
+
+```bash
+yarn prepublish
+```
 
 ## Pull Requests
 
