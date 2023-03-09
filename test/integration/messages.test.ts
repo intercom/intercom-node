@@ -2,7 +2,7 @@ import { token } from './utils/config';
 import { Client, Operators } from '../../dist';
 import { randomString } from './utils/random';
 import { MessageType } from '../../lib/message/message.types';
-import { RecepientType } from '../../lib/message';
+import { RecipientType } from '../../lib/message';
 import assert from 'assert';
 
 describe('Messages', () => {
@@ -28,11 +28,11 @@ describe('Messages', () => {
             message_type: MessageType.INAPP,
             body: 'Hey, look at me! I am the conversations creator now!',
             from: {
-                type: RecepientType.ADMIN,
+                type: RecipientType.ADMIN,
                 id: adminId,
             },
             to: {
-                type: RecepientType.USER,
+                type: RecipientType.USER,
                 id: userIntercomId,
             },
         };
@@ -66,11 +66,11 @@ describe('Messages', () => {
             message_type: MessageType.INAPP,
             body: 'Message without creating conversation',
             from: {
-                type: RecepientType.ADMIN,
+                type: RecipientType.ADMIN,
                 id: adminId,
             },
             to: {
-                type: RecepientType.USER,
+                type: RecipientType.USER,
                 id: userIntercomId,
             },
         };
