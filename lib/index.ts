@@ -57,7 +57,7 @@ export {
     SortBy,
     RedactConversationPartType,
 } from './conversation';
-export { RecepientType } from './message';
+export { RecipientType } from './message';
 export {
     ContactObjectForMerge,
     MergeVisitorToContactData,

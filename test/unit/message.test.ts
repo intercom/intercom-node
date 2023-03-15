@@ -2,7 +2,7 @@ import assert from 'assert';
 import { Client } from '../../lib';
 import nock from 'nock';
 import { MessageType } from '../../lib/message/message.types';
-import { RecepientType } from '../../lib/message';
+import { RecipientType } from '../../lib/message';
 
 describe('messages', () => {
     it('should be created', async () => {
@@ -12,11 +12,11 @@ describe('messages', () => {
             body: 'Destroy ponies',
             template: 'plain',
             from: {
-                type: RecepientType.ADMIN,
+                type: RecipientType.ADMIN,
                 id: '394051',
             },
             to: {
-                type: RecepientType.USER,
+                type: RecipientType.USER,
                 id: '536e564f316c83104c000020',
             },
         };

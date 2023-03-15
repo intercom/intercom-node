@@ -38,8 +38,8 @@ export default class Message {
 interface CreateMessageRequest {
     message_type: MessageType;
     body: string;
-    from: Recepient;
-    to: Recepient;
+    from: Recipient;
+    to: Recipient;
     subject?: string;
     template?: string;
     create_conversation_without_contact_reply?: boolean;
@@ -54,12 +54,12 @@ interface CreateMessageBody
     createConversationWithoutContactReply?: boolean;
 }
 
-type Recepient = {
+type Recipient = {
     id: string;
-    type: RecepientType;
+    type: RecipientType;
 };
 
-export enum RecepientType {
+export enum RecipientType {
     ADMIN = 'admin',
     USER = 'user',
     LEAD = 'lead',

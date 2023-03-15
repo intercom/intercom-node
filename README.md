@@ -1156,7 +1156,7 @@ const response = await client.tags.tagCompanies({
 #### [Untag companies](https://developers.intercom.com/intercom-api-reference/reference/untag-companies)
 
 ```typescript
-const response = await client.tags.tagCompanies({
+const response = await client.tags.untagCompanies({
     tagName: 'gutenTag',
     companiesIds: ['123', '234', '456'],
 });
