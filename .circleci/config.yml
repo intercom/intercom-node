@@ -55,13 +55,9 @@ workflows:
             - unit_test:
                   requires:
                       - build
-            - integration_test_approval:
-                  requires:
-                      - unit_test
-                  type: approval
             - integration_test:
                   requires:
-                      - integration_test_approval
+                      - unit_test
 
 notify:
     webhooks:
