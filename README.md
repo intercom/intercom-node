@@ -198,7 +198,7 @@ const company = await client.companies.create({
 #### [Update a company](https://developers.intercom.com/intercom-api-reference/reference/update-a-company)
 
 ```typescript
-const company = await client.companies.create({
+const company = await client.companies.update({
     createdAt: dateToUnixTimestamp(new Date()),
     companyId: '46029',
     name: 'BestCompanyInc.',
