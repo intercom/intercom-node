@@ -4,6 +4,7 @@
 [![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
 ![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.6-blue)
 ![Typescript Supported](https://img.shields.io/badge/Typescript-Supported-lightgrey)
+test
 
 > Official Node bindings to the [Intercom API](https://api.intercom.io/docs)
 
