@@ -3,6 +3,7 @@ import { ContactObject } from './contact/contact.types';
 import {
     GenericDeletedResponse,
     GenericSearchFilters,
+    Operators,
     Paginated,
     Role,
 } from './common/common.types';
@@ -103,6 +104,29 @@ export default class Contact {
             url: `/${this.baseUrl}/${id}`,
             data,
         });
+    }
+    /**
+     * Use to update a contact using email
+     */
+    async updateByEmail({
+        email,
+        ...data
+    }: UpdateContactByEmailData) {
+        const contact = await this.client.post<SearchContactResponse>({
+            url: `/${this.baseUrl}/search`,
+            data: {
+                query: {
+                    field: 'email',
+                    value: email,
+                    operator: Operators.EQUALS
+                }
+            },
+        });
+
+        return this.client.put<ContactObject>({
+            url: `/${this.baseUrl}/${contact.data.at(0)?.id || 'null'}`,
+            data
+        })
     }
     mergeLeadInUser({ leadId, userId }: MergeLeadInUserContactData) {
         const data: MergeLeadInUserContactRequest = {
@@ -244,6 +268,18 @@ type UpdateContactData = {
     isUnsubscribedFromMails?: UpdateContactRequest['unsubscribed_from_emails'];
     customAttributes?: UpdateContactRequest['custom_attributes'];
 };
+
+type UpdateContactByEmailData = Omit<UpdateContactData, 'id'> & {
+    /**
+     * contact's email
+     * 
+     * @type string
+     * 
+     * @requires true
+     */
+    email: string
+};
+
 //
 interface DeleteContactData {
     id: string;
