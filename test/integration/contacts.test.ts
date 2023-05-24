@@ -52,6 +52,14 @@ describe('Contacts', () => {
 
         assert.notEqual(response, undefined);
     });
+    it('updateByEmail', async () => {
+        const response = await client.contacts.updateByEmail({
+            email: randomContact.email,
+            name: 'William Wallace',
+        });
+
+        assert.notEqual(response, undefined);
+    });
     it('archive', async () => {
         const response = await client.contacts.archive({
             id: randomContact.id,
