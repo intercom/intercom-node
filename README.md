@@ -26,7 +26,7 @@ yarn add intercom-client
 Import Intercom:
 
 ```typescript
-import { Client } from './dist/index';
+import { Client } from 'intercom-client';
 ```
 
 Create a client using access tokens:
@@ -68,7 +68,7 @@ If you are using the european instance of intercom and would like to call it dir
 ```typescript
 const client = new Client({ tokenAuth: { token: 'my_token' } });
 client.useRequestOpts({
-    baseUrl: 'https://api.eu.intercom.io',
+    baseURL: 'https://api.eu.intercom.io',
 });
 ```
 
