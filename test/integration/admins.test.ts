@@ -1,5 +1,5 @@
 import { token } from './utils/config';
-import { Client } from '../../dist';
+import { Client } from '../../lib';
 import assert from 'assert';
 
 describe('Admins', () => {
