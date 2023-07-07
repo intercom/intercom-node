@@ -5,7 +5,7 @@ import { token } from './utils/config';
 describe('phoneCallRedirect', () => {
     const client = new Client({ tokenAuth: { token } });
 
-    it('create', async () => {
+    it('create', () => {
         const response = client.phoneCallRedirect.create({
             phone: '+353871234567',
         });
