@@ -2,7 +2,7 @@ version: 2
 jobs:
     build:
         docker:
-            - image: circleci/node:14-browsers
+            - image: cimg/node:20.4.0
         working_directory: ~/intercom-node
         steps:
             - checkout
@@ -25,7 +25,7 @@ jobs:
                       - dist
     unit_test:
         docker:
-            - image: circleci/node:14-browsers
+            - image: cimg/node:20.4.0
         working_directory: ~/intercom-node
         steps:
             - checkout
@@ -34,7 +34,7 @@ jobs:
             - run: yarn test:unit
     integration_test:
         docker:
-            - image: circleci/node:14-browsers
+            - image: cimg/node:20.4.0
               environment:
                   API_TOKEN: $API_TOKEN
         working_directory: ~/intercom-node
