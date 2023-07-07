@@ -1,4 +1,4 @@
-import { Client, CompanyObject, Order } from '../../dist';
+import { Client, CompanyObject, Order } from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 import { dateToUnixTimestamp } from '../../lib/util/time';

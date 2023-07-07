@@ -1,5 +1,5 @@
-import { Client, Operators, Role } from '../../dist';
-import { dateToUnixTimestamp } from '../../dist/util/time';
+import { Client, Operators, Role } from '../../lib';
+import { dateToUnixTimestamp } from '../../lib/util/time';
 import assert from 'assert';
 import { token } from './utils/config';
 

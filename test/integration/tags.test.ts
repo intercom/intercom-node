@@ -1,4 +1,4 @@
-import { Client, TagObject } from '../../dist';
+import { Client, TagObject } from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 

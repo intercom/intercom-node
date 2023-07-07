@@ -1,4 +1,4 @@
-import { Client, ContactObject, MessageObject } from '../../dist';
+import { Client, ContactObject, MessageObject } from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 import { randomInt } from 'crypto';

@@ -1,4 +1,4 @@
-import { Client, DataAttributeObject, DataType, ModelType } from '../../dist';
+import { Client, DataAttributeObject, DataType, ModelType } from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 import { randomInt } from './utils/random';
