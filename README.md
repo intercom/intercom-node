@@ -11,7 +11,7 @@
 
 ## Breaking changes
 
-The Node SDK has been updated to support latest API version (2.5). The update also contains requested features, such like Typescript support. You can find more information on how-to migrate and what has changed in the [migration guide](https://github.com/intercom/intercom-node/wiki/Migration-guide).
+The Node SDK has been updated to support latest API version (2.6). The update also contains requested features, such like Typescript support. You can find more information on how-to migrate and what has changed in the [migration guide](https://github.com/intercom/intercom-node/wiki/Migration-guide).
 
 ## Installation
 

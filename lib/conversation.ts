@@ -17,11 +17,11 @@ export default class Conversation {
     constructor(private readonly client: Client) {
         this.client = client;
     }
-    create({ userId, body }: CreateConversationData) {
+    create({ userId, type = ContactType.USER, body }: CreateConversationData) {
         const requestData: CreateConversationRequest = {
             from: {
                 id: userId,
-                type: 'user',
+                type,
             },
             body,
         };
@@ -288,7 +288,7 @@ export default class Conversation {
 
 interface CreateConversationRequest {
     from: {
-        type: 'user' | string;
+        type: ContactType;
         id: string;
     };
     body: string;
@@ -296,6 +296,7 @@ interface CreateConversationRequest {
 
 interface CreateConversationData {
     userId: string;
+    type?: ContactType;
     body: string;
 }
 //
