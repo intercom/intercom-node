@@ -1,4 +1,4 @@
-import { Client, ContactObject, MessageObject } from '../../lib';
+import { Client, ContactObject, ContactType, MessageObject } from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 import { randomInt } from 'crypto';
@@ -66,6 +66,7 @@ describe('Integration between Contact, Conversation, Company and Tag APIs', () =
         const response = await client.conversations.create({
             userId: contact.id,
             body: 'Welcome to the club, buddy!',
+            type: ContactType.USER,
         });
 
         conversation = response;
