@@ -1,5 +1,5 @@
 import { token } from './utils/config';
-import { Client } from '../../dist';
+import { Client } from '../../lib';
 import assert from 'assert';
 
 describe('Admins', () => {
@@ -23,6 +23,7 @@ describe('Admins', () => {
     it('listAllActivityLogs', async () => {
         const response = await client.admins.listAllActivityLogs({
             after: new Date('2021-12-12'),
+            before: new Date('2022-01-01'),
         });
 
         assert.notEqual(response, undefined);

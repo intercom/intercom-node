@@ -1,4 +1,4 @@
-import { Client, SectionObject } from '../../../dist';
+import { Client, SectionObject } from '../../../lib';
 import assert from 'assert';
 import { token } from '../utils/config';
 import { randomString } from '../utils/random';

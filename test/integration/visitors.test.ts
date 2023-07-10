@@ -1,4 +1,4 @@
-import { Client, Role } from '../../dist';
+import { Client, Role } from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 

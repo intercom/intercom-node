@@ -49,8 +49,8 @@
         "compile_ts": "tsc",
         "move_compiled_to_dist": "mv dist/lib/* dist && rmdir dist/lib",
         "prepublish": "yarn clean && yarn static && yarn compile_ts && yarn move_compiled_to_dist",
-        "test:unit": "mocha -r ts-node/register test/unit/*.test.ts --reporter=nyan",
-        "test:integration": "mocha -r ts-node/register test/integration/**/*.test.ts --timeout=30000",
+        "test:unit": "yarn compile_ts && mocha -r ts-node/register test/unit/*.test.ts --reporter=nyan",
+        "test:integration": "yarn compile_ts && mocha -r ts-node/register test/integration/**/*.test.ts --timeout=30000",
         "coverage": "nyc yarn test"
     },
     "engines": {

@@ -1,4 +1,4 @@
-import { Client, CollectionObject } from '../../../dist';
+import { Client, CollectionObject } from '../../../lib';
 import assert from 'assert';
 import { token } from '../utils/config';
 

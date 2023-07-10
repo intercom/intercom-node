@@ -1,5 +1,5 @@
 import { token } from './utils/config';
-import { Client, Operators } from '../../dist';
+import { Client, Operators } from '../../lib';
 import { randomString } from './utils/random';
 import { MessageType } from '../../lib/message/message.types';
 import { RecipientType } from '../../lib/message';

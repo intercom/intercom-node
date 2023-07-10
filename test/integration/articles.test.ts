@@ -1,4 +1,4 @@
-import { Client } from '../../dist';
+import { Client } from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 import { randomString } from './utils/random';
