@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Client } from '../../lib';
+import { Client, ContactType } from '../../lib';
 import nock from 'nock';
 import {
     AssignToConversationMessageType,
@@ -16,7 +16,7 @@ import {
 import { Operators } from '../../lib/common/common.types';
 
 describe('conversations', () => {
-    it('should create a conversation', async () => {
+    it('should create a conversation from a user', async () => {
         const id = '536e564f316c83104c000020';
 
         const message = {
@@ -46,6 +46,44 @@ describe('conversations', () => {
 
         const response = await client.conversations.create({
             userId: id,
+            type: ContactType.USER,
+            body: message.body,
+        });
+
+        assert.deepStrictEqual(expectedReply, response);
+    });
+
+    it('should create a conversation from a lead', async () => {
+        const id = '536e564f316c83104c000020';
+
+        const message = {
+            from: {
+                type: 'lead',
+                id,
+            },
+            body: 'Hello darkness my old friend',
+        };
+
+        const expectedReply = {
+            type: 'user_message',
+            id: '2001',
+            created_at: 1401917202,
+            body: 'Hello darkness my old friend',
+            message_type: 'inapp',
+            conversation_id: '36000324324',
+        };
+
+        nock('https://api.intercom.io')
+            .post('/conversations', message)
+            .reply(200, expectedReply);
+
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
+
+        const response = await client.conversations.create({
+            userId: id,
+            type: ContactType.LEAD,
             body: message.body,
         });
 
