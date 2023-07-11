@@ -49,9 +49,12 @@ export default class Company {
             data,
         });
     }
+    /**
+     * @param id - The `id` field is required for updating a company. This is distinct from the `companyId` field, which is an identifier for the company in your database.
+     */
     update({
+        id,
         createdAt,
-        companyId,
         name,
         monthlySpend,
         plan,
@@ -72,7 +75,7 @@ export default class Company {
         };
 
         return this.client.put<CompanyObject>({
-            url: `/${this.baseUrl}/${companyId}`,
+            url: `/${this.baseUrl}/${id}`,
             data,
         });
     }
@@ -160,7 +163,9 @@ interface CreateCompanyData {
     customAttributes?: JavascriptObject;
 }
 //
-type UpdateCompanyData = CreateCompanyData;
+interface UpdateCompanyData extends Omit<CreateCompanyData, 'companyId'> {
+    id: string;
+}
 //
 interface FindCompanyData {
     companyId?: string;

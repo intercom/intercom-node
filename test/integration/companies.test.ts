@@ -37,7 +37,7 @@ describe('Companies', () => {
     it('update', async () => {
         const response = await client.companies.update({
             createdAt: dateToUnixTimestamp(new Date()),
-            companyId: createdCompany.id,
+            id: createdCompany.id,
             name: 'BestCompanyInc',
             monthlySpend: 9001,
             plan: '1. Get pizzaid',
