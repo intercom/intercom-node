@@ -567,21 +567,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.14.176":
+"@types/lodash@npm:^4.14.195":
   version: 4.14.195
   resolution: "@types/lodash@npm:4.14.195"
   checksum: 39b75ca635b3fa943d17d3d3aabc750babe4c8212485a4df166fe0516e39288e14b0c60afc6e21913cc0e5a84734633c71e617e2bd14eaa1cf51b8d7799c432e
   languageName: node
   linkType: hard
 
-"@types/mocha@npm:^9.1.0":
+"@types/mocha@npm:^9.1.1":
   version: 9.1.1
   resolution: "@types/mocha@npm:9.1.1"
   checksum: 516077c0acd9806dc78317f88aaac0df5aaf0bdc2f63dfdadeabdf0b0137953b6ca65472e6ff7c30bc93ce4e0ae76eae70e8d46764b9a8eae4877a928b6ef49a
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.11.6":
+"@types/node@npm:^16.18.38":
   version: 16.18.38
   resolution: "@types/node@npm:16.18.38"
   checksum: a3baa141e49ce94486f083eea1240cf38479a73ba663e1bf3f52f85b466125821b6e3ea85ded38fde3901530aca4601291395a50eefcea533a4f3b45171bda28
@@ -595,7 +595,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sinon@npm:^10.0.6":
+"@types/sinon@npm:^10.0.15":
   version: 10.0.15
   resolution: "@types/sinon@npm:10.0.15"
   dependencies:
@@ -611,7 +611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.7.0":
+"@typescript-eslint/eslint-plugin@npm:^5.61.0":
   version: 5.61.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.61.0"
   dependencies:
@@ -635,7 +635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.7.0":
+"@typescript-eslint/parser@npm:^5.61.0":
   version: 5.61.0
   resolution: "@typescript-eslint/parser@npm:5.61.0"
   dependencies:
@@ -1420,7 +1420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^8.3.0":
+"eslint-config-prettier@npm:^8.8.0":
   version: 8.8.0
   resolution: "eslint-config-prettier@npm:8.8.0"
   peerDependencies:
@@ -1465,7 +1465,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.2.0":
+"eslint@npm:^8.44.0":
   version: 8.44.0
   resolution: "eslint@npm:8.44.0"
   dependencies:
@@ -2082,27 +2082,27 @@ __metadata:
   resolution: "intercom-client@workspace:."
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.2
-    "@types/lodash": ^4.14.176
-    "@types/mocha": ^9.1.0
-    "@types/node": ^16.11.6
-    "@types/sinon": ^10.0.6
-    "@typescript-eslint/eslint-plugin": ^5.7.0
-    "@typescript-eslint/parser": ^5.7.0
+    "@types/lodash": ^4.14.195
+    "@types/mocha": ^9.1.1
+    "@types/node": ^16.18.38
+    "@types/sinon": ^10.0.15
+    "@typescript-eslint/eslint-plugin": ^5.61.0
+    "@typescript-eslint/parser": ^5.61.0
     axios: ^0.24.0
-    eslint: ^8.2.0
-    eslint-config-prettier: ^8.3.0
+    eslint: ^8.44.0
+    eslint-config-prettier: ^8.8.0
     eslint-plugin-no-only-tests: ^2.6.0
     htmlencode: ^0.0.4
     lodash: ^4.17.21
     merge2: ^1.4.1
-    mocha: ^9.2.0
-    nock: ^13.0.11
+    mocha: ^9.2.2
+    nock: ^13.3.1
     nyc: ^15.1.0
-    prettier: ^2.5.1
-    sinon: ^7.3.2
-    ts-node: ^10.4.0
-    tslib: ^2.3.1
-    typescript: ^4.5.3
+    prettier: ^2.8.8
+    sinon: ^7.5.0
+    ts-node: ^10.9.1
+    tslib: ^2.6.0
+    typescript: ^4.9.5
   languageName: unknown
   linkType: soft
 
@@ -2661,7 +2661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha@npm:^9.2.0":
+"mocha@npm:^9.2.2":
   version: 9.2.2
   resolution: "mocha@npm:9.2.2"
   dependencies:
@@ -2753,7 +2753,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:^13.0.11":
+"nock@npm:^13.3.1":
   version: 13.3.1
   resolution: "nock@npm:13.3.1"
   dependencies:
@@ -3051,7 +3051,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.5.1":
+"prettier@npm:^2.8.8":
   version: 2.8.8
   resolution: "prettier@npm:2.8.8"
   bin:
@@ -3280,7 +3280,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sinon@npm:^7.3.2":
+"sinon@npm:^7.5.0":
   version: 7.5.0
   resolution: "sinon@npm:7.5.0"
   dependencies:
@@ -3505,7 +3505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.4.0":
+"ts-node@npm:^10.9.1":
   version: 10.9.1
   resolution: "ts-node@npm:10.9.1"
   dependencies:
@@ -3550,7 +3550,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.3.1":
+"tslib@npm:^2.6.0":
   version: 2.6.0
   resolution: "tslib@npm:2.6.0"
   checksum: c01066038f950016a18106ddeca4649b4d76caa76ec5a31e2a26e10586a59fceb4ee45e96719bf6c715648e7c14085a81fee5c62f7e9ebee68e77a5396e5538f
@@ -3607,7 +3607,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.5.3":
+"typescript@npm:^4.9.5":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -3617,7 +3617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.5.3#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=493e53"
   bin:
