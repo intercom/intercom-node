@@ -11,7 +11,7 @@
 
 ## Breaking changes
 
-The Node SDK has been updated to support latest API version (2.5). The update also contains requested features, such like Typescript support. You can find more information on how-to migrate and what has changed in the [migration guide](https://github.com/intercom/intercom-node/wiki/Migration-guide).
+The Node SDK has been updated to support latest API version (2.6). The update also contains requested features, such like Typescript support. You can find more information on how-to migrate and what has changed in the [migration guide](https://github.com/intercom/intercom-node/wiki/Migration-guide).
 
 ## Installation
 
@@ -26,7 +26,7 @@ yarn add intercom-client
 Import Intercom:
 
 ```typescript
-import { Client } from './dist/index';
+import { Client } from 'intercom-client';
 ```
 
 Create a client using access tokens:
@@ -68,7 +68,7 @@ If you are using the european instance of intercom and would like to call it dir
 ```typescript
 const client = new Client({ tokenAuth: { token: 'my_token' } });
 client.useRequestOpts({
-    baseUrl: 'https://api.eu.intercom.io',
+    baseURL: 'https://api.eu.intercom.io',
 });
 ```
 

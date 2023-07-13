@@ -1,4 +1,4 @@
-import { Client, CompanyObject, Order } from '../../dist';
+import { Client, CompanyObject, Order } from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 import { dateToUnixTimestamp } from '../../lib/util/time';
@@ -69,7 +69,7 @@ describe('Companies', () => {
             page: 1,
             perPage: 35,
             order: Order.DESC,
-            tagId: '2084335',
+            tagId: '7882526',
         });
 
         assert.notEqual(response, undefined);

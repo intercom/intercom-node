@@ -7,7 +7,8 @@ import {
     ContactObject,
     ConversationObject,
     MessageObject,
-} from '../../dist';
+    ContactType,
+} from '../../lib';
 import assert from 'assert';
 import { token } from './utils/config';
 import { randomString } from './utils/random';
@@ -15,6 +16,7 @@ import { randomString } from './utils/random';
 describe('Conversations', () => {
     let user: ContactObject;
     let secondUser: ContactObject;
+    let leadUser: ContactObject;
     let createdConversation: MessageObject;
     let foundConversation: ConversationObject;
 
@@ -38,15 +40,41 @@ describe('Conversations', () => {
             name: 'Babushka Boy',
             email: 'babushka_boy@bababooey.com',
         });
+        leadUser = await client.contacts.createLead({
+            name: 'Babushka Lead',
+            email: 'babushka_lead@bababooey.com',
+        });
     });
 
-    it('create', async () => {
+    it('create conversation with user as default', async () => {
         const response = await client.conversations.create({
             userId: user.id,
             body: 'Raz-dwa-try kalyna, czorniawaja diwczyna',
         });
 
         createdConversation = response;
+
+        assert.notEqual(response, undefined);
+    });
+
+    it('create conversation with user', async () => {
+        const response = await client.conversations.create({
+            userId: user.id,
+            body: 'Raz-dwa-try kalyna, czorniawaja diwczyna',
+            type: ContactType.USER,
+        });
+
+        createdConversation = response;
+
+        assert.notEqual(response, undefined);
+    });
+
+    it('create conversation with lead', async () => {
+        const response = await client.conversations.create({
+            userId: leadUser.id,
+            body: 'Raz-dwa-try kalyna, czorniawaja diwczyna',
+            type: ContactType.LEAD,
+        });
 
         assert.notEqual(response, undefined);
     });

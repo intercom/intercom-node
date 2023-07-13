@@ -149,15 +149,15 @@ export default class Company {
 }
 
 interface CreateCompanyData {
-    createdAt: Timestamp;
+    createdAt?: Timestamp;
     companyId: string;
-    name: string;
-    monthlySpend: number;
-    plan: string;
-    size: number;
-    website: string;
-    industry: string;
-    customAttributes: JavascriptObject;
+    name?: string;
+    monthlySpend?: number;
+    plan?: string;
+    size?: number;
+    website?: string;
+    industry?: string;
+    customAttributes?: JavascriptObject;
 }
 //
 type UpdateCompanyData = CreateCompanyData;
