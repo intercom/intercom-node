@@ -7,7 +7,7 @@
 
 > Official Node bindings to the [Intercom API](https://api.intercom.io/docs)
 
-## Project Updates
+## Project Update
 
 ## Breaking changes
 
