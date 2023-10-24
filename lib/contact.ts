@@ -315,7 +315,7 @@ type ListContactsResponse = Paginated<ContactObject>;
 //
 type ListAttachedTagsResponse = {
     type: string;
-    tags: Array<TagObject>;
+    data: Array<TagObject>;
 };
 //
 type ListAttachedSegmentsResponse = {
