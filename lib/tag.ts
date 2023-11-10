@@ -34,10 +34,10 @@ export default class Tag {
             data,
         });
     }
-    tagContacts({ tagName: name, usersIds }: TagContactsData) {
+    tagContacts({ tagName: name, contactsIds }: TagContactsData) {
         const data = {
             name,
-            users: usersIds.map((id) => ({ id: id })),
+            users: contactsIds.map((id) => ({ id: id })),
         };
 
         return this.client.post<TagObject>({
@@ -127,7 +127,7 @@ interface TagContactData {
 }
 interface TagContactsData {
     tagName: string;
-    usersIds: string[];
+    contactsIds: string[];
 }
 //
 interface TagConversationData {
