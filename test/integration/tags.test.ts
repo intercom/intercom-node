@@ -54,7 +54,7 @@ describe('Tags', () => {
     it('tagContacts', async () => {
         const response = await client.tags.tagContacts({
             tagName: 'Poor',
-            usersIds: [contactId],
+            contactsIds: [contactId],
         });
 
         assert.notEqual(response, undefined);

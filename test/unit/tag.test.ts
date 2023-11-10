@@ -77,7 +77,7 @@ describe('tags', () => {
         });
         const response = await client.tags.tagContacts({
             tagName: requestBody.name,
-            usersIds: ['123', '234', '456'],
+            contactsIds: ['123', '234', '456'],
         });
 
         assert.deepStrictEqual({}, response);
