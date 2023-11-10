@@ -1129,12 +1129,21 @@ const response = await client.tags.update({ id: '123', name: 'haven' });
 const response = await client.tags.delete({ id: 'baz' });
 ```
 
-#### [Attach a contact](https://developers.intercom.com/intercom-api-reference/reference/tag-contact)
+#### [Tag one contact](https://developers.intercom.com/intercom-api-reference/reference/tag-contact)
 
 ```typescript
 const response = await client.tags.tagContact({
     contactId: '123',
     tagId: '234',
+});
+```
+
+#### [Tag multiple contacts](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/Tags/createTag/)
+
+```typescript
+const response = await client.tags.tagContacts({
+    tagName: 'gutenTag',
+    usersIds: ['123', '234', '456'],
 });
 ```
 
