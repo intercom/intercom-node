@@ -34,6 +34,17 @@ export default class Tag {
             data,
         });
     }
+    tagContacts({ tagName: name, usersIds }: TagContactsData) {
+        const data = {
+            name,
+            users: usersIds.map((id) => ({ id: id })),
+        };
+
+        return this.client.post<TagObject>({
+            url: `/${this.tagsBaseUrl}`,
+            data,
+        });
+    }
     tagConversation({
         conversationId,
         tagId,
@@ -113,6 +124,10 @@ interface DeleteTagData {
 interface TagContactData {
     contactId: string;
     tagId: string;
+}
+interface TagContactsData {
+    tagName: string;
+    usersIds: string[];
 }
 //
 interface TagConversationData {
