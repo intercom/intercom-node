@@ -44,7 +44,7 @@ describe('tags', () => {
 
         assert.deepStrictEqual({}, response);
     });
-    it('should tag contacts', async () => {
+    it('should tag contact', async () => {
         const contactId = 'contactid123';
         const requestBody = {
             id: 'tagid123',
@@ -59,6 +59,25 @@ describe('tags', () => {
         const response = await client.tags.tagContact({
             contactId,
             tagId: requestBody.id,
+        });
+
+        assert.deepStrictEqual({}, response);
+    });
+    it('should tag contacts', async () => {
+        const requestBody = {
+            name: 'tagname_69',
+            users: [{ id: '123' }, { id: '234' }, { id: '456' }],
+        };
+
+        nock('https://api.intercom.io')
+            .post(`/tags`, requestBody)
+            .reply(200, {});
+        const client = new Client({
+            usernameAuth: { username: 'foo', password: 'bar' },
+        });
+        const response = await client.tags.tagContacts({
+            tagName: requestBody.name,
+            usersIds: ['123', '234', '456'],
         });
 
         assert.deepStrictEqual({}, response);
