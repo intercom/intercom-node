@@ -51,6 +51,14 @@ describe('Tags', () => {
 
         assert.notEqual(response, undefined);
     });
+    it('tagContacts', async () => {
+        const response = await client.tags.tagContacts({
+            tagName: 'Poor',
+            usersIds: [contactId],
+        });
+
+        assert.notEqual(response, undefined);
+    });
     it('tagConversation', async () => {
         const response = await client.tags.tagConversation({
             conversationId,
