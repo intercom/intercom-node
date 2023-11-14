@@ -27,6 +27,7 @@ export default class Contact {
         lastSeenAt,
         ownerId,
         isUnsubscribedFromEmails,
+        languageOverride,
         customAttributes,
     }: CreateUserData) {
         const requestData: CreateContactRequest = {
@@ -40,6 +41,7 @@ export default class Contact {
             last_seen_at: lastSeenAt,
             owner_id: ownerId,
             unsubscribed_from_emails: isUnsubscribedFromEmails,
+            language_override: languageOverride,
             custom_attributes: customAttributes,
         };
 
@@ -83,6 +85,7 @@ export default class Contact {
         lastSeenAt,
         ownerId,
         isUnsubscribedFromMails,
+       languageOverride,
         customAttributes,
     }: UpdateContactData) {
         const data: UpdateContactRequest = {
@@ -96,6 +99,7 @@ export default class Contact {
             last_seen_at: lastSeenAt,
             owner_id: ownerId,
             unsubscribed_from_emails: isUnsubscribedFromMails,
+            language_override: languageOverride,
             custom_attributes: customAttributes,
         };
 
@@ -187,6 +191,7 @@ type CreateContactRequest = Pick<ContactObject, 'role'> &
             | 'owner_id'
             | 'unsubscribed_from_emails'
             | 'custom_attributes'
+            | 'language_override'
         >
     >;
 
@@ -199,6 +204,7 @@ interface CreateUserDataBase {
     lastSeenAt?: CreateContactRequest['last_seen_at'];
     ownerId?: CreateContactRequest['owner_id'];
     isUnsubscribedFromEmails?: CreateContactRequest['unsubscribed_from_emails'];
+    languageOverride?: CreateContactRequest['language_override'];
     customAttributes?: CreateContactRequest['custom_attributes'];
 }
 
@@ -227,6 +233,7 @@ type UpdateContactRequest = Partial<
         | 'owner_id'
         | 'unsubscribed_from_emails'
         | 'custom_attributes'
+        | 'language_override'
     >
 >;
 
@@ -243,6 +250,7 @@ type UpdateContactData = {
     ownerId?: UpdateContactRequest['owner_id'];
     isUnsubscribedFromMails?: UpdateContactRequest['unsubscribed_from_emails'];
     customAttributes?: UpdateContactRequest['custom_attributes'];
+    languageOverride?: CreateContactRequest['language_override'];
 };
 //
 interface DeleteContactData {
