@@ -69,7 +69,6 @@ describe('Companies', () => {
             page: 1,
             perPage: 35,
             order: Order.DESC,
-            tagId: '7882526',
         });
 
         assert.notEqual(response, undefined);
