@@ -21,38 +21,7 @@ export default class Company {
         this.client = client;
         this.scroll = new Scroll<Company>(this.client, this.baseUrl);
     }
-    /**
-     * @deprecated Use `client.companies.createOrUpdate()` instead.
-     */
     create({
-        createdAt,
-        companyId,
-        name,
-        monthlySpend,
-        plan,
-        size,
-        website,
-        industry,
-        customAttributes,
-    }: CreateCompanyData) {
-        return this.createOrUpdate({
-            createdAt,
-            companyId,
-            name,
-            monthlySpend,
-            plan,
-            size,
-            website,
-            industry,
-            customAttributes,
-        });
-    }
-    /**
-     * Create or update a company by its `companyId`.
-     *
-     * Companies are looked up via the `companyId` field. If a company with the given `companyId` does not exist, it will be created. If a company with the given `companyId` does exist, it will be updated.
-     **/
-    createOrUpdate({
         createdAt,
         companyId,
         name,
@@ -80,23 +49,9 @@ export default class Company {
             data,
         });
     }
-
-    /**
-     * Update a single company by its `id`.
-     * @param id - The `id` field is required for updating a company. This is distinct from the `companyId` field on the Company object , which is an identifier for the company in your database.
-     * @param createdAt - The time the company was created by you.
-     * @param name - The name of the company.
-     * @param monthlySpend - The amount the company spends on your product each month. How much revenue the company generates for your business.
-     * Note that this will truncate floats. i.e. it only allow for whole integers, 155.98 will be truncated to 155. Note that this has an upper limit of 2**31-1 or 2147483647..
-     * @param plan - The name of the plan you have associated with the company.
-     * @param size - The number of employees the company has.
-     * @param website -The URL for this company's website. Please note that the value specified here is not validated. Accepts any string.
-     * @param industry - The industry the company operates in.
-     * @param customAttributes - A hash of key/value pairs containing any other data about the company you want Intercom to store.
-     */
     update({
-        id,
         createdAt,
+        companyId,
         name,
         monthlySpend,
         plan,
@@ -117,7 +72,7 @@ export default class Company {
         };
 
         return this.client.put<CompanyObject>({
-            url: `/${this.baseUrl}/${id}`,
+            url: `/${this.baseUrl}/${companyId}`,
             data,
         });
     }
@@ -205,9 +160,7 @@ interface CreateCompanyData {
     customAttributes?: JavascriptObject;
 }
 //
-interface UpdateCompanyData extends Omit<CreateCompanyData, 'companyId'> {
-    id: string;
-}
+type UpdateCompanyData = CreateCompanyData;
 //
 interface FindCompanyData {
     companyId?: string;
