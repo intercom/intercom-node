@@ -13,8 +13,10 @@ describe('Messages', () => {
     });
 
     before(async () => {
-        const adminList = await client.admins.list();
-        adminId = adminList.admins[0].id;
+        const admins = await client.admins.list();
+        const adminList = admins.admins.filter((admin) => admin.has_inbox_seat);
+
+        adminId = adminList[0].id;
 
         const createdUser = await client.contacts.createUser({
             externalId: randomString(),
