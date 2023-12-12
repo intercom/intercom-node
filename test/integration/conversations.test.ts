@@ -28,9 +28,10 @@ describe('Conversations', () => {
     before(async () => {
         const admins = await client.admins.list();
 
-        adminId = admins.admins[0].id;
-        anotherAdminId = admins.admins[1].id;
-
+        const adminList = admins.admins.filter((admin) => admin.has_inbox_seat);
+        // Only admins with inbox seat can interact with conversations.
+        adminId = adminList[0].id;
+        anotherAdminId = adminList[1].id;
         user = await client.contacts.createUser({
             externalId: randomString(),
             name: 'Baba Booey',
@@ -174,7 +175,7 @@ describe('Conversations', () => {
         const response = await client.conversations.redactConversationPart({
             conversationId: foundConversation.id,
             conversationPartId:
-                foundConversation.conversation_parts.conversation_parts[0].id,
+                foundConversation.conversation_parts.conversation_parts[2].id,
             type: RedactConversationPartType.CONVERSATION_PART,
         });
 
