@@ -46,7 +46,7 @@ export interface ContactObject {
     notes: AddressableList;
     companies: AddressableList;
     opted_in_subscription_types: AddressableList;
-    opted_out_subscription_tyes: AddressableList;
+    opted_out_subscription_types: AddressableList;
     referrer: string;
     utm_campaign: string | null;
     utm_content: string | null;
