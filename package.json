@@ -18,7 +18,7 @@
         "api"
     ],
     "dependencies": {
-        "axios": "^0.24.0",
+        "axios": "^1.6.0",
         "htmlencode": "^0.0.4",
         "lodash": "^4.17.21"
     },
