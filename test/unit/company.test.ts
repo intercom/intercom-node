@@ -64,7 +64,7 @@ describe('companies', () => {
         assert.deepStrictEqual({}, response);
     });
     it('should be updated', async () => {
-        const company_id = '46029';
+        const id = '625e90fc55ab113b6d92175f';
         const requestBody = {
             remote_created_at: dateToUnixTimestamp(new Date()),
             name: 'BestCompanyInc.',
@@ -77,12 +77,12 @@ describe('companies', () => {
         };
 
         nock('https://api.intercom.io')
-            .put(`/companies/${company_id}`, requestBody)
+            .put(`/companies/${id}`, requestBody)
             .reply(200, {});
 
         const response = await client.companies.update({
             createdAt: requestBody.remote_created_at,
-            companyId: company_id,
+            id: id,
             name: requestBody.name,
             monthlySpend: requestBody.monthly_spend,
             plan: requestBody.plan,

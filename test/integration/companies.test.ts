@@ -34,10 +34,27 @@ describe('Companies', () => {
 
         assert.notEqual(response, undefined);
     });
+    it('createOrUpdate', async () => {
+        const response = await client.companies.createOrUpdate({
+            createdAt: dateToUnixTimestamp(new Date()),
+            companyId: '46029',
+            name: 'BestCompanyInc.',
+            monthlySpend: 9001,
+            plan: '1. Get pizzaid',
+            size: 62049,
+            website: 'http://the-best.one',
+            industry: 'The Best One',
+            customAttributes: {},
+        });
+
+        createdCompany = response;
+
+        assert.notEqual(response, undefined);
+    });
     it('update', async () => {
         const response = await client.companies.update({
             createdAt: dateToUnixTimestamp(new Date()),
-            companyId: createdCompany.id,
+            id: createdCompany.id,
             name: 'BestCompanyInc',
             monthlySpend: 9001,
             plan: '1. Get pizzaid',
