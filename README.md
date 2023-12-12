@@ -1,5 +1,9 @@
 # intercom-node
 
+## Maintenance mode
+
+The Intercom Node SDK is currently in maintenance mode whilst we consider the best way to support it. We are not currently accepting new feature requests or actively working on the SDK.
+
 [![Circle CI](https://circleci.com/gh/intercom/intercom-node.png?style=shield)](https://circleci.com/gh/intercom/intercom-node)
 [![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
 ![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.6-blue)
