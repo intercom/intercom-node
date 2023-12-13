@@ -11,7 +11,7 @@ const intercom = new Intercom({
 describe('resource articles', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.articles.create({
-      author_id: 991266253,
+      author_id: 991268576,
       title: 'Thanks for everything',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,11 +25,11 @@ describe('resource articles', () => {
 
   test('create: required and optional params', async () => {
     const response = await intercom.articles.create({
-      author_id: 991266253,
+      author_id: 991268576,
       title: 'Thanks for everything',
       body: 'Body of the Article',
       description: 'Description of the Article',
-      parent_id: 3,
+      parent_id: 362,
       parent_type: 'collection',
       state: 'published',
       translated_content: {
@@ -171,7 +171,7 @@ describe('resource articles', () => {
           title: 'Merci pour tout',
           description: "Description de l'article",
           body: "Corps de l'article",
-          author_id: 991266253,
+          author_id: 991268576,
           state: 'published',
           created_at: 1663597223,
           updated_at: 1663597260,
@@ -442,7 +442,7 @@ describe('resource articles', () => {
           url: 'http://intercom.test/help/en/articles/3-default-language',
         },
       },
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -467,11 +467,7 @@ describe('resource articles', () => {
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.articles.retrieve(
-        123,
-        { 'Intercom-Version': 'Unstable' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      intercom.articles.retrieve(123, { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -916,7 +912,7 @@ describe('resource articles', () => {
               url: 'http://intercom.test/help/en/articles/3-default-language',
             },
           },
-          'Intercom-Version': 'Unstable',
+          'Intercom-Version': '2.10',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -944,7 +940,7 @@ describe('resource articles', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.articles.list({ 'Intercom-Version': 'Unstable' }, { path: '/_stainless_unknown_path' }),
+      intercom.articles.list({ 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -969,7 +965,7 @@ describe('resource articles', () => {
   test('remove: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.articles.remove(123, { 'Intercom-Version': 'Unstable' }, { path: '/_stainless_unknown_path' }),
+      intercom.articles.remove(123, { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -995,13 +991,7 @@ describe('resource articles', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.articles.search(
-        {
-          help_center_id: 0,
-          highlight: true,
-          phrase: 'string',
-          state: 'string',
-          'Intercom-Version': 'Unstable',
-        },
+        { help_center_id: 0, highlight: true, phrase: 'string', state: 'string', 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

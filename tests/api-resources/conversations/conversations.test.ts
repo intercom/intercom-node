@@ -12,7 +12,7 @@ describe('resource conversations', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.conversations.create({
       body: 'Hello there',
-      from: { type: 'user', id: '653a6ac535824d7a15ffe9c7' },
+      from: { type: 'user', id: '654b70ce6abd01feb7c11081' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,8 +26,8 @@ describe('resource conversations', () => {
   test('create: required and optional params', async () => {
     const response = await intercom.conversations.create({
       body: 'Hello there',
-      from: { type: 'user', id: '653a6ac535824d7a15ffe9c7' },
-      'Intercom-Version': 'Unstable',
+      from: { type: 'user', id: '654b70ce6abd01feb7c11081' },
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -54,7 +54,7 @@ describe('resource conversations', () => {
     await expect(
       intercom.conversations.retrieve(
         123,
-        { display_as: 'string', 'Intercom-Version': 'Unstable' },
+        { display_as: 'string', 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -87,7 +87,7 @@ describe('resource conversations', () => {
           display_as: 'string',
           custom_attributes: { issue_type: 'Billing', priority: 'High' },
           read: true,
-          'Intercom-Version': 'Unstable',
+          'Intercom-Version': '2.10',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -116,43 +116,14 @@ describe('resource conversations', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.conversations.list(
-        { per_page: 0, starting_after: 'string', 'Intercom-Version': 'Unstable' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Intercom.NotFoundError);
-  });
-
-  test('delete', async () => {
-    const responsePromise = intercom.conversations.delete(0);
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('delete: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.conversations.delete(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Intercom.NotFoundError,
-    );
-  });
-
-  test('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      intercom.conversations.delete(
-        0,
-        { 'Intercom-Version': 'Unstable' },
+        { per_page: 0, starting_after: 'string', 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('convert: only required params', async () => {
-    const responsePromise = intercom.conversations.convert(123, { ticket_type_id: '1' });
+    const responsePromise = intercom.conversations.convert(123, { ticket_type_id: '108' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -164,9 +135,9 @@ describe('resource conversations', () => {
 
   test('convert: required and optional params', async () => {
     const response = await intercom.conversations.convert(123, {
-      ticket_type_id: '1',
+      ticket_type_id: '108',
       attributes: { name: 'example', question: 'Can I have some help?' },
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -190,7 +161,7 @@ describe('resource conversations', () => {
       conversation_id: '19894788788',
       conversation_part_id: '19381789428',
       type: 'conversation_part',
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 });

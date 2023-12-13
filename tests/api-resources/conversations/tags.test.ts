@@ -27,7 +27,7 @@ describe('resource tags', () => {
     const response = await intercom.conversations.tags.create('64619700005694', {
       id: 'string',
       admin_id: 'string',
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -47,7 +47,7 @@ describe('resource tags', () => {
   test('delete: required and optional params', async () => {
     const response = await intercom.conversations.tags.delete('64619700005694', '7522907', {
       admin_id: 'string',
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 });

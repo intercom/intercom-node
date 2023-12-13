@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export * from './shared';
-export { AI } from './ai/ai';
 export { AdminList, AdminRetrieveParams, AdminListParams, Admins } from './admins/admins';
 export { AdminWithApp, MeRetrieveParams, Me } from './me';
 export {
@@ -34,12 +33,10 @@ export {
   Contacts,
 } from './contacts/contacts';
 export {
-  ConversationDeleted,
   ConversationCreateParams,
   ConversationRetrieveParams,
   ConversationUpdateParams,
   ConversationListParams,
-  ConversationDeleteParams,
   ConversationConvertParams,
   ConversationRedactParams,
   Conversations,

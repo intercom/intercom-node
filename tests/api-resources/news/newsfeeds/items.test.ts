@@ -32,7 +32,7 @@ describe('resource items', () => {
     await expect(
       intercom.news.newsfeeds.items.list(
         '123',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

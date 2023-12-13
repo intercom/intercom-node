@@ -334,12 +334,6 @@ export interface TicketCreateParams {
   ticket_type_id: string;
 
   /**
-   * Body param: The time the ticket was created. If not provided, the current time
-   * will be used.
-   */
-  created_at?: number;
-
-  /**
    * Body param: The attributes set on the ticket. When setting the default title and
    * description attributes, the attribute keys that should be used are
    * `_default_title_` and `_default_description_`. When setting ticket type
@@ -429,12 +423,6 @@ export namespace TicketReplyParams {
     attachment_urls?: Array<string>;
 
     /**
-     * Body param: The time the reply was created. If not provided, the current time
-     * will be used.
-     */
-    created_at?: number;
-
-    /**
      * Body param: The email you have defined for the user.
      */
     email?: string;
@@ -500,12 +488,6 @@ export namespace TicketReplyParams {
      * be present for comment and note message types.
      */
     body?: string;
-
-    /**
-     * Body param: The time the reply was created. If not provided, the current time
-     * will be used.
-     */
-    created_at?: number;
 
     /**
      * Body param: The quick reply options to display. Must be present for quick_reply
@@ -583,7 +565,7 @@ export interface TicketSearchParams {
   /**
    * Body param:
    */
-  query: TicketSearchParams.Query;
+  query: TicketSearchParams.SingleFilterSearchRequest | TicketSearchParams.MultipleFilterSearchRequest;
 
   /**
    * Body param:
@@ -615,7 +597,7 @@ export interface TicketSearchParams {
 }
 
 export namespace TicketSearchParams {
-  export interface Query {
+  export interface SingleFilterSearchRequest {
     /**
      * The Intercom defined id representing the company.
      */
@@ -630,6 +612,68 @@ export namespace TicketSearchParams {
      * The Intercom defined id representing the company.
      */
     value?: string;
+  }
+
+  export interface MultipleFilterSearchRequest {
+    /**
+     * An operator to allow boolean inspection between multiple fields.
+     */
+    operator?: 'AND' | 'OR';
+
+    /**
+     * Add mutiple filters.
+     */
+    value?: Array<MultipleFilterSearchRequest.UnionMember0> | Array<MultipleFilterSearchRequest.UnionMember1>;
+  }
+
+  export namespace MultipleFilterSearchRequest {
+    export interface UnionMember0 {
+      /**
+       * An operator to allow boolean inspection between multiple fields.
+       */
+      operator?: 'AND' | 'OR';
+
+      /**
+       * Add mutiple filters.
+       */
+      value?: Array<unknown> | Array<UnionMember0.UnionMember1>;
+    }
+
+    export namespace UnionMember0 {
+      export interface UnionMember1 {
+        /**
+         * The Intercom defined id representing the company.
+         */
+        field?: string;
+
+        /**
+         * The Intercom defined id representing the company.
+         */
+        operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
+
+        /**
+         * The Intercom defined id representing the company.
+         */
+        value?: string;
+      }
+    }
+
+    export interface UnionMember1 {
+      /**
+       * The Intercom defined id representing the company.
+       */
+      field?: string;
+
+      /**
+       * The Intercom defined id representing the company.
+       */
+      operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
+
+      /**
+       * The Intercom defined id representing the company.
+       */
+      value?: string;
+    }
   }
 
   export interface Pagination {

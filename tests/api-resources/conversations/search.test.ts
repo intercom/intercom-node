@@ -28,7 +28,7 @@ describe('resource search', () => {
         starting_after:
           '1HaSB+xrOyyMXAkS/c1RteCL7BzOzTvYjmjakgTergIH31eoe2v4/sbLsJWP\nIncfQLD3ouPkZlCwJ86F\n',
       },
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 });

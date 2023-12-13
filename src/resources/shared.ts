@@ -1769,7 +1769,7 @@ export interface Ticket {
   /**
    * The state the ticket is currenly in
    */
-  ticket_state?: 'submitted' | 'in_progress' | 'waiting_on_customer' | 'resolved' | 'closed';
+  ticket_state?: 'submitted' | 'in_progress' | 'waiting_on_customer' | 'on_hold' | 'resolved';
 
   /**
    * A ticket type, used to define the data fields to be captured in a ticket.

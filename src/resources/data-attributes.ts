@@ -130,10 +130,10 @@ export interface DataAttribute {
   label?: string;
 
   /**
-   * Value is `contact` for user/lead attributes, `company` for company attributes
-   * and `conversation` for conversation attributes..
+   * Value is `contact` for user/lead attributes and `company` for company
+   * attributes.
    */
-  model?: 'contact' | 'company' | 'conversation';
+  model?: 'contact' | 'company';
 
   /**
    * Name of the attribute.
@@ -186,7 +186,7 @@ export interface DataAttributeCreateParams {
   /**
    * Body param: The model that the data attribute belongs to.
    */
-  model: 'contact' | 'company' | 'conversation';
+  model: 'contact' | 'company';
 
   /**
    * Body param: The name of the data attribute.

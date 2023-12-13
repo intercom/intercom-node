@@ -30,11 +30,10 @@ describe('resource reply', () => {
       message_type: 'comment',
       type: 'user',
       attachment_urls: ['https://example.com', 'https://example.com', 'https://example.com'],
-      created_at: 1590000000,
       email: 'string',
       intercom_user_id: 'string',
       user_id: 'string',
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 });

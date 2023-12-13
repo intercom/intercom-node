@@ -143,7 +143,6 @@ export class Intercom extends Core.APIClient {
 
   me: API.Me = new API.Me(this);
   admins: API.Admins = new API.Admins(this);
-  ai: API.AI = new API.AI(this);
   articles: API.Articles = new API.Articles(this);
   helpCenter: API.HelpCenter = new API.HelpCenter(this);
   companies: API.Companies = new API.Companies(this);
@@ -233,8 +232,6 @@ export namespace Intercom {
   export import AdminRetrieveParams = API.AdminRetrieveParams;
   export import AdminListParams = API.AdminListParams;
 
-  export import AI = API.AI;
-
   export import Articles = API.Articles;
   export import Article = API.Article;
   export import ArticleList = API.ArticleList;
@@ -272,12 +269,10 @@ export namespace Intercom {
   export import ContactUnarchiveParams = API.ContactUnarchiveParams;
 
   export import Conversations = API.Conversations;
-  export import ConversationDeleted = API.ConversationDeleted;
   export import ConversationCreateParams = API.ConversationCreateParams;
   export import ConversationRetrieveParams = API.ConversationRetrieveParams;
   export import ConversationUpdateParams = API.ConversationUpdateParams;
   export import ConversationListParams = API.ConversationListParams;
-  export import ConversationDeleteParams = API.ConversationDeleteParams;
   export import ConversationConvertParams = API.ConversationConvertParams;
   export import ConversationRedactParams = API.ConversationRedactParams;
 

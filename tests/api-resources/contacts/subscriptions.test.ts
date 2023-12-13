@@ -27,7 +27,7 @@ describe('resource subscriptions', () => {
     const response = await intercom.contacts.subscriptions.create('63a07ddf05a32042dffac965', {
       id: 'string',
       consent_type: 'opt_in',
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -54,7 +54,7 @@ describe('resource subscriptions', () => {
     await expect(
       intercom.contacts.subscriptions.list(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

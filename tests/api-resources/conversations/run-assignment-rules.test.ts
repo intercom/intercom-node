@@ -32,7 +32,7 @@ describe('resource runAssignmentRules', () => {
     await expect(
       intercom.conversations.runAssignmentRules.create(
         '123',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

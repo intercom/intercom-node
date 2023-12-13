@@ -30,11 +30,7 @@ describe('resource segments', () => {
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.segments.retrieve(
-        '123',
-        { 'Intercom-Version': 'Unstable' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      intercom.segments.retrieve('123', { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -60,7 +56,7 @@ describe('resource segments', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.segments.list(
-        { include_count: true, 'Intercom-Version': 'Unstable' },
+        { include_count: true, 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

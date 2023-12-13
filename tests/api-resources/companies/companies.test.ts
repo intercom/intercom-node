@@ -34,7 +34,7 @@ describe('resource companies', () => {
     await expect(
       intercom.companies.retrieve(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -63,7 +63,7 @@ describe('resource companies', () => {
     await expect(
       intercom.companies.update(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -92,7 +92,7 @@ describe('resource companies', () => {
     await expect(
       intercom.companies.delete(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -130,7 +130,7 @@ describe('resource companies', () => {
           remote_created_at: 1374138000,
           size: 0,
           website: 'https://www.example.com',
-          'Intercom-Version': 'Unstable',
+          'Intercom-Version': '2.10',
         },
         { path: '/_stainless_unknown_path' },
       ),

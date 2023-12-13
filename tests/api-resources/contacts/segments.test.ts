@@ -32,7 +32,7 @@ describe('resource segments', () => {
     await expect(
       intercom.contacts.segments.list(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

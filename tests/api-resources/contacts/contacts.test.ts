@@ -43,7 +43,7 @@ describe('resource contacts', () => {
           role: 'string',
           signed_up_at: 1571672154,
           unsubscribed_from_emails: true,
-          'Intercom-Version': 'Unstable',
+          'Intercom-Version': '2.10',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -73,7 +73,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.contacts.retrieve(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -114,7 +114,7 @@ describe('resource contacts', () => {
           role: 'string',
           signed_up_at: 1571672154,
           unsubscribed_from_emails: true,
-          'Intercom-Version': 'Unstable',
+          'Intercom-Version': '2.10',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -142,7 +142,7 @@ describe('resource contacts', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.contacts.list({ 'Intercom-Version': 'Unstable' }, { path: '/_stainless_unknown_path' }),
+      intercom.contacts.list({ 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -169,7 +169,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.contacts.delete(
         'string',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -198,7 +198,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.contacts.archive(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -226,11 +226,7 @@ describe('resource contacts', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.contacts.merge(
-        {
-          from: '653a6a8835824d7a15ffe9a6',
-          into: '653a6a8835824d7a15ffe9a7',
-          'Intercom-Version': 'Unstable',
-        },
+        { from: '654b709a6abd01feb7c11060', into: '654b709a6abd01feb7c11061', 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -255,7 +251,7 @@ describe('resource contacts', () => {
         starting_after:
           '1HaSB+xrOyyMXAkS/c1RteCL7BzOzTvYjmjakgTergIH31eoe2v4/sbLsJWP\nIncfQLD3ouPkZlCwJ86F\n',
       },
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -282,7 +278,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.contacts.unarchive(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

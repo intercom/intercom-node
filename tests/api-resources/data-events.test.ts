@@ -40,7 +40,7 @@ describe('resource dataEvents', () => {
       filter: { user_id: 'string' },
       type: 'string',
       summary: true,
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -69,7 +69,7 @@ describe('resource dataEvents', () => {
         {
           event_summaries: { event_name: 'invited-friend', count: 1, first: 1671028894, last: 1671028894 },
           user_id: '314159',
-          'Intercom-Version': 'Unstable',
+          'Intercom-Version': '2.10',
         },
         { path: '/_stainless_unknown_path' },
       ),

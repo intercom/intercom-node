@@ -48,38 +48,6 @@ Methods:
 
 ## Away
 
-# AI
-
-## ContentImportSources
-
-Types:
-
-- <code><a href="./src/resources/ai/content-import-sources.ts">ContentImportSource</a></code>
-- <code><a href="./src/resources/ai/content-import-sources.ts">ContentImportSourcesList</a></code>
-
-Methods:
-
-- <code title="post /ai/content_import_sources">client.ai.contentImportSources.<a href="./src/resources/ai/content-import-sources.ts">create</a>({ ...params }) -> ContentImportSource</code>
-- <code title="get /ai/content_import_sources/{id}">client.ai.contentImportSources.<a href="./src/resources/ai/content-import-sources.ts">retrieve</a>(id, { ...params }) -> ContentImportSource</code>
-- <code title="put /ai/content_import_sources/{id}">client.ai.contentImportSources.<a href="./src/resources/ai/content-import-sources.ts">update</a>(id, { ...params }) -> ContentImportSource</code>
-- <code title="get /ai/content_import_sources">client.ai.contentImportSources.<a href="./src/resources/ai/content-import-sources.ts">list</a>({ ...params }) -> ContentImportSourcesList</code>
-- <code title="delete /ai/content_import_sources/{id}">client.ai.contentImportSources.<a href="./src/resources/ai/content-import-sources.ts">delete</a>(id, { ...params }) -> void</code>
-
-## ExternalPages
-
-Types:
-
-- <code><a href="./src/resources/ai/external-pages.ts">ExternalPage</a></code>
-- <code><a href="./src/resources/ai/external-pages.ts">ExternalPagesList</a></code>
-
-Methods:
-
-- <code title="post /ai/external_pages">client.ai.externalPages.<a href="./src/resources/ai/external-pages.ts">create</a>({ ...params }) -> ExternalPage</code>
-- <code title="get /ai/external_pages/{id}">client.ai.externalPages.<a href="./src/resources/ai/external-pages.ts">retrieve</a>(id, { ...params }) -> ExternalPage</code>
-- <code title="put /ai/external_pages/{id}">client.ai.externalPages.<a href="./src/resources/ai/external-pages.ts">update</a>(id, { ...params }) -> ExternalPage</code>
-- <code title="get /ai/external_pages">client.ai.externalPages.<a href="./src/resources/ai/external-pages.ts">list</a>({ ...params }) -> ExternalPagesList</code>
-- <code title="delete /ai/external_pages/{id}">client.ai.externalPages.<a href="./src/resources/ai/external-pages.ts">removeAll</a>(id, { ...params }) -> ExternalPage</code>
-
 # Articles
 
 Types:
@@ -247,17 +215,12 @@ Methods:
 
 # Conversations
 
-Types:
-
-- <code><a href="./src/resources/conversations/conversations.ts">ConversationDeleted</a></code>
-
 Methods:
 
 - <code title="post /conversations">client.conversations.<a href="./src/resources/conversations/conversations.ts">create</a>({ ...params }) -> Message</code>
 - <code title="get /conversations/{id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(id, { ...params }) -> Conversation</code>
 - <code title="put /conversations/{id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">update</a>(id, { ...params }) -> Conversation</code>
 - <code title="get /conversations">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> PaginatedResponse</code>
-- <code title="delete /conversations/{id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">delete</a>(id, { ...params }) -> ConversationDeleted</code>
 - <code title="post /conversations/{id}/convert">client.conversations.<a href="./src/resources/conversations/conversations.ts">convert</a>(id, { ...params }) -> Ticket | null</code>
 - <code title="post /conversations/redact">client.conversations.<a href="./src/resources/conversations/conversations.ts">redact</a>({ ...params }) -> Conversation</code>
 

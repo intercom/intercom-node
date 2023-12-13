@@ -21,7 +21,7 @@ describe('resource visitors', () => {
   });
 
   test('retrieve: required and optional params', async () => {
-    const response = await intercom.visitors.retrieve({ user_id: 'string', 'Intercom-Version': 'Unstable' });
+    const response = await intercom.visitors.retrieve({ user_id: 'string', 'Intercom-Version': '2.10' });
   });
 
   test('update: only required params', async () => {
@@ -56,14 +56,14 @@ describe('resource visitors', () => {
       user: {
         id: '8a88a590-e1c3-41e2-a502-e0649dbf721c',
         user_id: '8a88a590-e1c3-41e2-a502-e0649dbf721c',
-        email: 'winstonsmith@truth.org',
+        email: 'foo@bar.com',
       },
       visitor: {
         id: '8a88a590-e1c3-41e2-a502-e0649dbf721c',
         user_id: '3ecf64d0-9ed1-4e9f-88e1-da7d6e6782f3',
         email: 'winstonsmith@truth.org',
       },
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -92,7 +92,7 @@ describe('resource visitors', () => {
     await expect(
       intercom.visitors.deleteById(
         '5e1c4c1c-7b1e-4b5d-8c1c-5e1c4c1c7b1e',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -123,7 +123,7 @@ describe('resource visitors', () => {
     await expect(
       intercom.visitors.retrieveById(
         '5e1c4c1c-7b1e-4b5d-8c1c-5e1c4c1c7b1e',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

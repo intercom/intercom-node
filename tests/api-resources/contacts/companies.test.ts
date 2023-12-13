@@ -12,7 +12,7 @@ describe('resource companies', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.contacts.companies.create({
       path_id: 'string',
-      body_id: '653a6a5235824d7a15ffe94a',
+      body_id: '654b70746abd01feb7c11004',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,8 +26,8 @@ describe('resource companies', () => {
   test('create: required and optional params', async () => {
     const response = await intercom.contacts.companies.create({
       path_id: 'string',
-      body_id: '653a6a5235824d7a15ffe94a',
-      'Intercom-Version': 'Unstable',
+      body_id: '654b70746abd01feb7c11004',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -54,7 +54,7 @@ describe('resource companies', () => {
     await expect(
       intercom.contacts.companies.list(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -89,7 +89,7 @@ describe('resource companies', () => {
       intercom.contacts.companies.delete(
         '58a430d35458202d41b1e65b',
         '58a430d35458202d41b1e65b',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

@@ -52,12 +52,6 @@ export namespace ReplyCreateParams {
     attachment_urls?: Array<string>;
 
     /**
-     * Body param: The time the reply was created. If not provided, the current time
-     * will be used.
-     */
-    created_at?: number;
-
-    /**
      * Body param: The email you have defined for the user.
      */
     email?: string;
@@ -105,7 +99,7 @@ export namespace ReplyCreateParams {
     /**
      * Body param:
      */
-    message_type: 'comment' | 'note' | 'quick_reply';
+    message_type: 'comment' | 'note';
 
     /**
      * Body param:
@@ -123,18 +117,6 @@ export namespace ReplyCreateParams {
      * formatting.\nMust be present for comment and note message types.
      */
     body?: string;
-
-    /**
-     * Body param: The time the reply was created. If not provided, the current time
-     * will be used.
-     */
-    created_at?: number;
-
-    /**
-     * Body param: The quick reply options to display.\nMust be present for quick_reply
-     * message types.
-     */
-    reply_options?: Array<ReplyCreateParams.AdminReplyConversationRequest.ReplyOption>;
 
     /**
      * Header param: Intercom API version.</br>By default, it's equal to the version
@@ -158,22 +140,6 @@ export namespace ReplyCreateParams {
       | '2.9'
       | '2.10'
       | 'Unstable';
-  }
-
-  export namespace AdminReplyConversationRequest {
-    export interface ReplyOption {
-      /**
-       * The text to display in this quick reply option.
-       */
-      text: string;
-
-      /**
-       * A unique identifier for this quick reply option. This value will be available
-       * within the metadata of the comment conversation part that is created when a user
-       * clicks on this reply option.
-       */
-      uuid: string;
-    }
   }
 }
 

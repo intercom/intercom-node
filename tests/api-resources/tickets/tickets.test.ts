@@ -11,7 +11,7 @@ const intercom = new Intercom({
 describe('resource tickets', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.tickets.create({
-      contacts: [{ id: '653a6c5035824d7a15ffeae7' }],
+      contacts: [{ id: '654b84736abd01feb7c111a1' }],
       ticket_type_id: 'string',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,11 +25,10 @@ describe('resource tickets', () => {
 
   test('create: required and optional params', async () => {
     const response = await intercom.tickets.create({
-      contacts: [{ id: '653a6c5035824d7a15ffeae7' }],
+      contacts: [{ id: '654b84736abd01feb7c111a1' }],
       ticket_type_id: 'string',
-      created_at: 1590000000,
       ticket_attributes: { title: 'example', description: 'there is a problem' },
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -54,11 +53,10 @@ describe('resource tickets', () => {
       message_type: 'comment',
       type: 'user',
       attachment_urls: ['https://example.com', 'https://example.com', 'https://example.com'],
-      created_at: 1590000000,
       email: 'string',
       intercom_user_id: 'string',
       user_id: 'string',
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -85,7 +83,7 @@ describe('resource tickets', () => {
     await expect(
       intercom.tickets.retrieveById(
         'string',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -110,7 +108,7 @@ describe('resource tickets', () => {
         starting_after:
           '1HaSB+xrOyyMXAkS/c1RteCL7BzOzTvYjmjakgTergIH31eoe2v4/sbLsJWP\nIncfQLD3ouPkZlCwJ86F\n',
       },
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -138,13 +136,13 @@ describe('resource tickets', () => {
       intercom.tickets.updateById(
         'string',
         {
-          assignment: { admin_id: '991266719', assignee_id: '991266721' },
+          assignment: { admin_id: '991269042', assignee_id: '991269044' },
           is_shared: true,
           open: true,
           snoozed_until: 1673609604,
           state: 'in_progress',
           ticket_attributes: { title: 'example', description: 'there is a problem' },
-          'Intercom-Version': 'Unstable',
+          'Intercom-Version': '2.10',
         },
         { path: '/_stainless_unknown_path' },
       ),

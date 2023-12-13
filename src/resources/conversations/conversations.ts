@@ -146,30 +146,6 @@ export class Conversations extends APIResource {
   }
 
   /**
-   * You can delete a single conversation.
-   */
-  delete(
-    id: number,
-    params?: ConversationDeleteParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ConversationDeleted>;
-  delete(id: number, options?: Core.RequestOptions): Core.APIPromise<ConversationDeleted>;
-  delete(
-    id: number,
-    params: ConversationDeleteParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ConversationDeleted> {
-    if (isRequestOptions(params)) {
-      return this.delete(id, {}, params);
-    }
-    const { 'Intercom-Version': intercomVersion } = params;
-    return this._client.delete(`/conversations/${id}`, {
-      ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
-    });
-  }
-
-  /**
    * You can convert a conversation to a ticket.
    */
   convert(
@@ -207,26 +183,6 @@ export class Conversations extends APIResource {
       headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
     });
   }
-}
-
-/**
- * deleted conversation object
- */
-export interface ConversationDeleted {
-  /**
-   * The unique identifier for the conversation.
-   */
-  id?: string;
-
-  /**
-   * Whether the conversation is deleted or not.
-   */
-  deleted?: boolean;
-
-  /**
-   * always conversation
-   */
-  object?: 'conversation';
 }
 
 export interface ConversationCreateParams {
@@ -413,31 +369,6 @@ export interface ConversationListParams {
     | 'Unstable';
 }
 
-export interface ConversationDeleteParams {
-  /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
-   * package.
-   */
-  'Intercom-Version'?:
-    | '1.0'
-    | '1.1'
-    | '1.2'
-    | '1.3'
-    | '1.4'
-    | '2.0'
-    | '2.1'
-    | '2.2'
-    | '2.3'
-    | '2.4'
-    | '2.5'
-    | '2.6'
-    | '2.7'
-    | '2.8'
-    | '2.9'
-    | '2.10'
-    | 'Unstable';
-}
-
 export interface ConversationConvertParams {
   /**
    * Body param: The ID of the type of ticket you want to convert the conversation to
@@ -566,12 +497,10 @@ export namespace ConversationRedactParams {
 }
 
 export namespace Conversations {
-  export import ConversationDeleted = ConversationsAPI.ConversationDeleted;
   export import ConversationCreateParams = ConversationsAPI.ConversationCreateParams;
   export import ConversationRetrieveParams = ConversationsAPI.ConversationRetrieveParams;
   export import ConversationUpdateParams = ConversationsAPI.ConversationUpdateParams;
   export import ConversationListParams = ConversationsAPI.ConversationListParams;
-  export import ConversationDeleteParams = ConversationsAPI.ConversationDeleteParams;
   export import ConversationConvertParams = ConversationsAPI.ConversationConvertParams;
   export import ConversationRedactParams = ConversationsAPI.ConversationRedactParams;
   export import Tags = TagsAPI.Tags;

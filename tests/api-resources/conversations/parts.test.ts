@@ -30,7 +30,7 @@ describe('resource parts', () => {
       message_type: 'close',
       type: 'admin',
       body: ' This conversation is now closed!',
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 });

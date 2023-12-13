@@ -748,7 +748,7 @@ export interface ContactSearchParams {
   /**
    * Body param:
    */
-  query: ContactSearchParams.Query;
+  query: ContactSearchParams.SingleFilterSearchRequest | ContactSearchParams.MultipleFilterSearchRequest;
 
   /**
    * Body param:
@@ -780,7 +780,7 @@ export interface ContactSearchParams {
 }
 
 export namespace ContactSearchParams {
-  export interface Query {
+  export interface SingleFilterSearchRequest {
     /**
      * The Intercom defined id representing the company.
      */
@@ -795,6 +795,68 @@ export namespace ContactSearchParams {
      * The Intercom defined id representing the company.
      */
     value?: string;
+  }
+
+  export interface MultipleFilterSearchRequest {
+    /**
+     * An operator to allow boolean inspection between multiple fields.
+     */
+    operator?: 'AND' | 'OR';
+
+    /**
+     * Add mutiple filters.
+     */
+    value?: Array<MultipleFilterSearchRequest.UnionMember0> | Array<MultipleFilterSearchRequest.UnionMember1>;
+  }
+
+  export namespace MultipleFilterSearchRequest {
+    export interface UnionMember0 {
+      /**
+       * An operator to allow boolean inspection between multiple fields.
+       */
+      operator?: 'AND' | 'OR';
+
+      /**
+       * Add mutiple filters.
+       */
+      value?: Array<unknown> | Array<UnionMember0.UnionMember1>;
+    }
+
+    export namespace UnionMember0 {
+      export interface UnionMember1 {
+        /**
+         * The Intercom defined id representing the company.
+         */
+        field?: string;
+
+        /**
+         * The Intercom defined id representing the company.
+         */
+        operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
+
+        /**
+         * The Intercom defined id representing the company.
+         */
+        value?: string;
+      }
+    }
+
+    export interface UnionMember1 {
+      /**
+       * The Intercom defined id representing the company.
+       */
+      field?: string;
+
+      /**
+       * The Intercom defined id representing the company.
+       */
+      operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
+
+      /**
+       * The Intercom defined id representing the company.
+       */
+      value?: string;
+    }
   }
 
   export interface Pagination {

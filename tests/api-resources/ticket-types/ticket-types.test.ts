@@ -27,7 +27,7 @@ describe('resource ticketTypes', () => {
       description: 'Customer Report Template',
       icon: '🎟️',
       is_internal: false,
-      'Intercom-Version': 'Unstable',
+      'Intercom-Version': '2.10',
     });
   });
 
@@ -54,7 +54,7 @@ describe('resource ticketTypes', () => {
     await expect(
       intercom.ticketTypes.retrieve(
         'string',
-        { 'Intercom-Version': 'Unstable' },
+        { 'Intercom-Version': '2.10' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -90,7 +90,7 @@ describe('resource ticketTypes', () => {
           icon: '🐞',
           is_internal: false,
           name: 'Bug Report 2',
-          'Intercom-Version': 'Unstable',
+          'Intercom-Version': '2.10',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -118,7 +118,7 @@ describe('resource ticketTypes', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.ticketTypes.list({ 'Intercom-Version': 'Unstable' }, { path: '/_stainless_unknown_path' }),
+      intercom.ticketTypes.list({ 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 });

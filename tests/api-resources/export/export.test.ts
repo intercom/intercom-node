@@ -30,11 +30,7 @@ describe('resource export', () => {
   test('cancel: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.export.cancel(
-        'string',
-        { 'Intercom-Version': 'Unstable' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      intercom.export.cancel('string', { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 });
