@@ -142,8 +142,7 @@ export default class Conversation {
         withRunningAssignmentRules = false,
     }: AssignConversationData) {
         const url = `/${this.baseUrl}/${id}${
-            withRunningAssignmentRules ? '/run_assignment_rules' : ''
-        }/parts`;
+            withRunningAssignmentRules ? '/run_assignment_rules' : '/parts'}`;
         const data: AssignConversationRequest | undefined =
             withRunningAssignmentRules
                 ? undefined
