@@ -321,7 +321,7 @@ describe('conversations', () => {
         const expectedReply = {};
 
         nock('https://api.intercom.io')
-            .post(`/conversations/${id}/run_assignment_rules/parts`)
+            .post(`/conversations/${id}/run_assignment_rules`)
             .reply(200, expectedReply);
 
         const client = new Client({
