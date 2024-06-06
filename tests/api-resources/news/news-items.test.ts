@@ -4,7 +4,7 @@ import Intercom from 'intercom';
 import { Response } from 'node-fetch';
 
 const intercom = new Intercom({
-  apiKey: 'My API Key',
+  accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
