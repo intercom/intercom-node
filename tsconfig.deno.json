@@ -9,7 +9,6 @@
       "intercom/_shims/auto/*": ["deno/_shims/auto/*-deno"],
       "intercom/*": ["deno/*"],
       "intercom": ["deno/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
     "declaration": true,

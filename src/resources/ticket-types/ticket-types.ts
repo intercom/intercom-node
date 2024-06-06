@@ -1,11 +1,11 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as TicketTypesAPI from 'intercom/resources/ticket-types/ticket-types';
-import * as Shared from 'intercom/resources/shared';
-import * as AttributesAPI from 'intercom/resources/ticket-types/attributes';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as TicketTypesAPI from './ticket-types';
+import * as Shared from '../shared';
+import * as AttributesAPI from './attributes';
 
 export class TicketTypes extends APIResource {
   attributes: AttributesAPI.Attributes = new AttributesAPI.Attributes(this._client);
@@ -24,7 +24,12 @@ export class TicketTypes extends APIResource {
     return this._client.post('/ticket_types', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -48,7 +53,12 @@ export class TicketTypes extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/ticket_types/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -78,7 +88,12 @@ export class TicketTypes extends APIResource {
     return this._client.put(`/ticket_types/${id}`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -97,7 +112,12 @@ export class TicketTypes extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get('/ticket_types', {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -224,8 +244,8 @@ export interface TicketTypeCreateParams {
   is_internal?: boolean;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -249,7 +269,7 @@ export interface TicketTypeCreateParams {
 
 export interface TicketTypeRetrieveParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -306,8 +326,8 @@ export interface TicketTypeUpdateParams {
   name?: string;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -331,7 +351,7 @@ export interface TicketTypeUpdateParams {
 
 export interface TicketTypeListParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:

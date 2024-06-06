@@ -1,7 +1,7 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from 'intercom/resource';
-import * as ContentAPI from 'intercom/resources/download/content/content';
+import { APIResource } from '../../resource';
+import * as ContentAPI from './content/content';
 
 export class Download extends APIResource {
   content: ContentAPI.Content = new ContentAPI.Content(this._client);

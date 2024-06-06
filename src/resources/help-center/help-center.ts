@@ -1,8 +1,8 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from 'intercom/resource';
-import * as CollectionsAPI from 'intercom/resources/help-center/collections';
-import * as HelpCentersAPI from 'intercom/resources/help-center/help-centers';
+import { APIResource } from '../../resource';
+import * as CollectionsAPI from './collections';
+import * as HelpCentersAPI from './help-centers';
 
 export class HelpCenter extends APIResource {
   collections: CollectionsAPI.Collections = new CollectionsAPI.Collections(this._client);

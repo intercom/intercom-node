@@ -1,8 +1,8 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import * as PhoneCallRedirectsAPI from 'intercom/resources/phone-call-redirects';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import * as PhoneCallRedirectsAPI from './phone-call-redirects';
 
 export class PhoneCallRedirects extends APIResource {
   /**
@@ -21,7 +21,12 @@ export class PhoneCallRedirects extends APIResource {
     return this._client.post('/phone_call_redirects', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -54,8 +59,8 @@ export interface PhoneCallRedirectCreateParams {
   custom_attributes?: Record<string, string | PhoneCallRedirectCreateParams.CustomObjectInstance | null>;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'

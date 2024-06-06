@@ -1,20 +1,18 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as ConversationsAPI from 'intercom/resources/conversations/conversations';
-import * as Shared from 'intercom/resources/shared';
-import * as CustomersAPI from 'intercom/resources/conversations/customers';
-import * as PartsAPI from 'intercom/resources/conversations/parts';
-import * as ReplyAPI from 'intercom/resources/conversations/reply';
-import * as RunAssignmentRulesAPI from 'intercom/resources/conversations/run-assignment-rules';
-import * as SearchAPI from 'intercom/resources/conversations/search';
-import * as TagsAPI from 'intercom/resources/conversations/tags';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as ConversationsAPI from './conversations';
+import * as Shared from '../shared';
+import * as CustomersAPI from './customers';
+import * as PartsAPI from './parts';
+import * as ReplyAPI from './reply';
+import * as RunAssignmentRulesAPI from './run-assignment-rules';
+import * as TagsAPI from './tags';
 
 export class Conversations extends APIResource {
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
-  search: SearchAPI.Search = new SearchAPI.Search(this._client);
   reply: ReplyAPI.Reply = new ReplyAPI.Reply(this._client);
   parts: PartsAPI.Parts = new PartsAPI.Parts(this._client);
   runAssignmentRules: RunAssignmentRulesAPI.RunAssignmentRules = new RunAssignmentRulesAPI.RunAssignmentRules(
@@ -40,7 +38,12 @@ export class Conversations extends APIResource {
     return this._client.post('/conversations', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -82,7 +85,12 @@ export class Conversations extends APIResource {
     return this._client.get(`/conversations/${id}`, {
       query,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -115,7 +123,12 @@ export class Conversations extends APIResource {
       query: { display_as },
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -141,7 +154,12 @@ export class Conversations extends APIResource {
     return this._client.get('/conversations', {
       query,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -157,7 +175,12 @@ export class Conversations extends APIResource {
     return this._client.post(`/conversations/${id}/convert`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -180,8 +203,174 @@ export class Conversations extends APIResource {
     return this._client.post('/conversations/redact', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
+  }
+
+  /**
+   * You can search for multiple conversations by the value of their attributes in
+   * order to fetch exactly which ones you want.
+   *
+   * To search for conversations, you need to send a POST request to
+   * https://api.intercom.io/conversations/search. This will accept a query object in
+   * the body which will define your filters in order to search for conversations.
+   *
+   * > 🚧 Nesting & Limitations
+   * >
+   * > You can nest these filters in order to get even more granular insights that
+   * > pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4). There are some
+   * > limitations to the amount of multiple's there can be:
+   * >
+   * > - There's a limit of max 2 nested filters
+   * > - There's a limit of max 15 filters for each AND or OR group
+   *
+   * ### Accepted Fields
+   *
+   * Most keys listed as part of the The conversation model is searchable, whether
+   * writeable or not. The value you search for has to match the accepted type,
+   * otherwise the query will fail (ie. as `created_at` accepts a date, the `value`
+   * cannot be a string such as `"foorbar"`).
+   *
+   * | Field                                                                          | Type                  |
+   * | :----------------------------------------------------------------------------- | :-------------------- |
+   * | id                                                                             | String                |
+   * | created_at                                                                     | Date (UNIX timestamp) |
+   * | updated_at                                                                     | Date (UNIX timestamp) |
+   * | source.type                                                                    | String                |
+   * | source.id                                                                      | String                |
+   * | source.delivered_as                                                            | String                |
+   * | source.subject                                                                 | String                |
+   * | source.body                                                                    | String                |
+   * | source.author.id                                                               | String                |
+   * | source.author.type                                                             | String                |
+   * | source.author.name                                                             | String                |
+   * | source.author.email                                                            | String                |
+   * | source.url                                                                     | String                |
+   * | contact_ids                                                                    | String                |
+   * | teammate_ids                                                                   | String                |
+   * | admin_assignee_id                                                              | String                |
+   * | team_assignee_id                                                               | String                |
+   * | channel_initiated                                                              | String                |
+   * | Accepted fields are `conversation`, `push`, `facebook`, `twitter` and `email`. |
+   * | open                                                                           | Boolean               |
+   * | read                                                                           | Boolean               |
+   * | state                                                                          | String                |
+   * | waiting_since                                                                  | Date (UNIX timestamp) |
+   * | snoozed_until                                                                  | Date (UNIX timestamp) |
+   * | tag_ids                                                                        | String                |
+   * | priority                                                                       | String                |
+   * | statistics.time_to_assignment                                                  | Integer               |
+   * | statistics.time_to_admin_reply                                                 | Integer               |
+   * | statistics.time_to_first_close                                                 | Integer               |
+   * | statistics.time_to_last_close                                                  | Integer               |
+   * | statistics.median_time_to_reply                                                | Integer               |
+   * | statistics.first_contact_reply_at                                              | Date (UNIX timestamp) |
+   * | statistics.first_assignment_at                                                 | Date (UNIX timestamp) |
+   * | statistics.first_admin_reply_at                                                | Date (UNIX timestamp) |
+   * | statistics.first_close_at                                                      | Date (UNIX timestamp) |
+   * | statistics.last_assignment_at                                                  | Date (UNIX timestamp) |
+   * | statistics.last_assignment_admin_reply_at                                      | Date (UNIX timestamp) |
+   * | statistics.last_contact_reply_at                                               | Date (UNIX timestamp) |
+   * | statistics.last_admin_reply_at                                                 | Date (UNIX timestamp) |
+   * | statistics.last_close_at                                                       | Date (UNIX timestamp) |
+   * | statistics.last_closed_by_id                                                   | String                |
+   * | statistics.count_reopens                                                       | Integer               |
+   * | statistics.count_assignments                                                   | Integer               |
+   * | statistics.count_conversation_parts                                            | Integer               |
+   * | conversation_rating.requested_at                                               | Date (UNIX timestamp) |
+   * | conversation_rating.replied_at                                                 | Date (UNIX timestamp) |
+   * | conversation_rating.score                                                      | Integer               |
+   * | conversation_rating.remark                                                     | String                |
+   * | conversation_rating.contact_id                                                 | String                |
+   * | conversation_rating.admin_d                                                    | String                |
+   */
+  search(params: ConversationSearchParams, options?: Core.RequestOptions): Core.APIPromise<ConversationList> {
+    const { 'Intercom-Version': intercomVersion, ...body } = params;
+    return this._client.post('/conversations/search', {
+      body,
+      ...options,
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
+    });
+  }
+}
+
+/**
+ * Conversations are how you can communicate with users in Intercom. They are
+ * created when a contact replies to an outbound message, or when one admin
+ * directly sends a message to a single contact.
+ */
+export interface ConversationList {
+  /**
+   * The list of conversation objects
+   */
+  conversations?: Array<Shared.Conversation>;
+
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  pages?: ConversationList.Pages | null;
+
+  /**
+   * A count of the total number of objects.
+   */
+  total_count?: number;
+
+  /**
+   * Always conversation.list
+   */
+  type?: 'conversation.list';
+}
+
+export namespace ConversationList {
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  export interface Pages {
+    next?: Pages.Next | null;
+
+    /**
+     * The current page
+     */
+    page?: number;
+
+    /**
+     * Number of results per page
+     */
+    per_page?: number;
+
+    /**
+     * Total number of pages
+     */
+    total_pages?: number;
+
+    /**
+     * the type of object `pages`.
+     */
+    type?: 'pages';
+  }
+
+  export namespace Pages {
+    export interface Next {
+      page?: number;
+
+      starting_after?: string;
+    }
   }
 }
 
@@ -197,8 +386,8 @@ export interface ConversationCreateParams {
   from: ConversationCreateParams.From;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -241,8 +430,8 @@ export interface ConversationRetrieveParams {
   display_as?: string;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -283,8 +472,8 @@ export interface ConversationUpdateParams {
   read?: boolean;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -346,8 +535,8 @@ export interface ConversationListParams {
   starting_after?: string;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -389,8 +578,8 @@ export interface ConversationConvertParams {
   attributes?: Record<string, string | null | number | boolean | Array<unknown>>;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -412,10 +601,12 @@ export interface ConversationConvertParams {
     | 'Unstable';
 }
 
-export type ConversationRedactParams = ConversationRedactParams.Variant0 | ConversationRedactParams.Variant1;
+export type ConversationRedactParams =
+  | ConversationRedactParams.RedactConversationPartRequest
+  | ConversationRedactParams.RedactConversationSourceRequest;
 
 export namespace ConversationRedactParams {
-  export interface Variant0 {
+  export interface RedactConversationPartRequest {
     /**
      * Body param: The id of the conversation.
      */
@@ -432,8 +623,8 @@ export namespace ConversationRedactParams {
     type: 'conversation_part';
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -455,7 +646,7 @@ export namespace ConversationRedactParams {
       | 'Unstable';
   }
 
-  export interface Variant1 {
+  export interface RedactConversationSourceRequest {
     /**
      * Body param: The id of the conversation.
      */
@@ -472,8 +663,8 @@ export namespace ConversationRedactParams {
     type: 'source';
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -496,19 +687,78 @@ export namespace ConversationRedactParams {
   }
 }
 
+export interface ConversationSearchParams {
+  /**
+   * Body param:
+   */
+  query: ConversationSearchParams.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
+
+  /**
+   * Body param:
+   */
+  pagination?: ConversationSearchParams.Pagination | null;
+
+  /**
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | 'Unstable';
+}
+
+export namespace ConversationSearchParams {
+  export interface SingleFilterSearchRequest {
+    /**
+     * The Intercom defined id representing the company.
+     */
+    field?: string;
+
+    /**
+     * The Intercom defined id representing the company.
+     */
+    operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
+
+    /**
+     * The Intercom defined id representing the company.
+     */
+    value?: string;
+  }
+
+  export interface Pagination {
+    page?: number;
+
+    starting_after?: string;
+  }
+}
+
 export namespace Conversations {
+  export import ConversationList = ConversationsAPI.ConversationList;
   export import ConversationCreateParams = ConversationsAPI.ConversationCreateParams;
   export import ConversationRetrieveParams = ConversationsAPI.ConversationRetrieveParams;
   export import ConversationUpdateParams = ConversationsAPI.ConversationUpdateParams;
   export import ConversationListParams = ConversationsAPI.ConversationListParams;
   export import ConversationConvertParams = ConversationsAPI.ConversationConvertParams;
   export import ConversationRedactParams = ConversationsAPI.ConversationRedactParams;
+  export import ConversationSearchParams = ConversationsAPI.ConversationSearchParams;
   export import Tags = TagsAPI.Tags;
   export import TagCreateParams = TagsAPI.TagCreateParams;
   export import TagDeleteParams = TagsAPI.TagDeleteParams;
-  export import Search = SearchAPI.Search;
-  export import ConversationList = SearchAPI.ConversationList;
-  export import SearchCreateParams = SearchAPI.SearchCreateParams;
   export import Reply = ReplyAPI.Reply;
   export import ReplyCreateParams = ReplyAPI.ReplyCreateParams;
   export import Parts = PartsAPI.Parts;
@@ -517,4 +767,5 @@ export namespace Conversations {
   export import RunAssignmentRuleCreateParams = RunAssignmentRulesAPI.RunAssignmentRuleCreateParams;
   export import Customers = CustomersAPI.Customers;
   export import CustomerCreateParams = CustomersAPI.CustomerCreateParams;
+  export import CustomerDeleteParams = CustomersAPI.CustomerDeleteParams;
 }

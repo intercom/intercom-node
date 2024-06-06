@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Intercom from 'intercom';
 import { Response } from 'node-fetch';
@@ -25,7 +25,7 @@ describe('resource visitors', () => {
   });
 
   test('update: only required params', async () => {
-    const responsePromise = intercom.visitors.update({});
+    const responsePromise = intercom.visitors.update({ body: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -36,7 +36,7 @@ describe('resource visitors', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await intercom.visitors.update({});
+    const response = await intercom.visitors.update({ body: {}, 'Intercom-Version': '2.10' });
   });
 
   test('convert: only required params', async () => {

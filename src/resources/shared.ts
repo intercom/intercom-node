@@ -1,11 +1,11 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Shared from 'intercom/resources/shared';
-import * as SegmentsAPI from 'intercom/resources/segments';
-import * as SubscriptionsAPI from 'intercom/resources/contacts/subscriptions';
-import * as NewsItemsAPI from 'intercom/resources/news/news-items';
-import * as TicketTypesAPI from 'intercom/resources/ticket-types/ticket-types';
-import * as NewsfeedsAPI from 'intercom/resources/news/newsfeeds/newsfeeds';
+import * as Shared from './shared';
+import * as SegmentsAPI from './segments';
+import * as SubscriptionsAPI from './contacts/subscriptions';
+import * as NewsItemsAPI from './news/news-items';
+import * as TicketTypesAPI from './ticket-types/ticket-types';
+import * as NewsfeedsAPI from './news/newsfeeds/newsfeeds';
 
 /**
  * Admins are teammate accounts that have access to a workspace.
@@ -84,6 +84,252 @@ export namespace Admin {
      */
     secondary_team_ids?: Array<number> | null;
   }
+}
+
+/**
+ * The Content of an Article.
+ */
+export interface ArticleContent {
+  /**
+   * The ID of the author of the article.
+   */
+  author_id?: number;
+
+  /**
+   * The body of the article.
+   */
+  body?: string;
+
+  /**
+   * The time when the article was created.
+   */
+  created_at?: number;
+
+  /**
+   * The description of the article.
+   */
+  description?: string;
+
+  /**
+   * Whether the article is `published` or is a `draft` .
+   */
+  state?: 'published' | 'draft';
+
+  /**
+   * The title of the article.
+   */
+  title?: string;
+
+  /**
+   * The type of object - `article_content` .
+   */
+  type?: 'article_content' | null;
+
+  /**
+   * The time when the article was last updated.
+   */
+  updated_at?: number;
+
+  /**
+   * The URL of the article.
+   */
+  url?: string;
+}
+
+/**
+ * The Translated Content of an Article. The keys are the locale codes and the
+ * values are the translated content of the article.
+ */
+export interface ArticleTranslatedContent {
+  /**
+   * The content of the article in Indonesian
+   */
+  id?: ArticleContent | null;
+
+  /**
+   * The content of the article in Arabic
+   */
+  ar?: ArticleContent | null;
+
+  /**
+   * The content of the article in Bulgarian
+   */
+  bg?: ArticleContent | null;
+
+  /**
+   * The content of the article in Bosnian
+   */
+  bs?: ArticleContent | null;
+
+  /**
+   * The content of the article in Catalan
+   */
+  ca?: ArticleContent | null;
+
+  /**
+   * The content of the article in Czech
+   */
+  cs?: ArticleContent | null;
+
+  /**
+   * The content of the article in Danish
+   */
+  da?: ArticleContent | null;
+
+  /**
+   * The content of the article in German
+   */
+  de?: ArticleContent | null;
+
+  /**
+   * The content of the article in Greek
+   */
+  el?: ArticleContent | null;
+
+  /**
+   * The content of the article in English
+   */
+  en?: ArticleContent | null;
+
+  /**
+   * The content of the article in Spanish
+   */
+  es?: ArticleContent | null;
+
+  /**
+   * The content of the article in Estonian
+   */
+  et?: ArticleContent | null;
+
+  /**
+   * The content of the article in Finnish
+   */
+  fi?: ArticleContent | null;
+
+  /**
+   * The content of the article in French
+   */
+  fr?: ArticleContent | null;
+
+  /**
+   * The content of the article in Hebrew
+   */
+  he?: ArticleContent | null;
+
+  /**
+   * The content of the article in Croatian
+   */
+  hr?: ArticleContent | null;
+
+  /**
+   * The content of the article in Hungarian
+   */
+  hu?: ArticleContent | null;
+
+  /**
+   * The content of the article in Italian
+   */
+  it?: ArticleContent | null;
+
+  /**
+   * The content of the article in Japanese
+   */
+  ja?: ArticleContent | null;
+
+  /**
+   * The content of the article in Korean
+   */
+  ko?: ArticleContent | null;
+
+  /**
+   * The content of the article in Lithuanian
+   */
+  lt?: ArticleContent | null;
+
+  /**
+   * The content of the article in Latvian
+   */
+  lv?: ArticleContent | null;
+
+  /**
+   * The content of the article in Mongolian
+   */
+  mn?: ArticleContent | null;
+
+  /**
+   * The content of the article in Norwegian
+   */
+  nb?: ArticleContent | null;
+
+  /**
+   * The content of the article in Dutch
+   */
+  nl?: ArticleContent | null;
+
+  /**
+   * The content of the article in Polish
+   */
+  pl?: ArticleContent | null;
+
+  /**
+   * The content of the article in Portuguese (Portugal)
+   */
+  pt?: ArticleContent | null;
+
+  /**
+   * The content of the article in Portuguese (Brazil)
+   */
+  'pt-BR'?: ArticleContent | null;
+
+  /**
+   * The content of the article in Romanian
+   */
+  ro?: ArticleContent | null;
+
+  /**
+   * The content of the article in Russian
+   */
+  ru?: ArticleContent | null;
+
+  /**
+   * The content of the article in Slovenian
+   */
+  sl?: ArticleContent | null;
+
+  /**
+   * The content of the article in Serbian
+   */
+  sr?: ArticleContent | null;
+
+  /**
+   * The content of the article in Swedish
+   */
+  sv?: ArticleContent | null;
+
+  /**
+   * The content of the article in Turkish
+   */
+  tr?: ArticleContent | null;
+
+  /**
+   * The type of object - article_translated_content.
+   */
+  type?: 'article_translated_content' | null;
+
+  /**
+   * The content of the article in Vietnamese
+   */
+  vi?: ArticleContent | null;
+
+  /**
+   * The content of the article in Chinese (China)
+   */
+  'zh-CN'?: ArticleContent | null;
+
+  /**
+   * The content of the article in Chinese (Taiwan)
+   */
+  'zh-TW'?: ArticleContent | null;
 }
 
 /**
@@ -1456,6 +1702,222 @@ export namespace Conversation {
 }
 
 /**
+ * The Content of a Group.
+ */
+export interface GroupContent {
+  /**
+   * The description of the collection. Only available for collections.
+   */
+  description?: string;
+
+  /**
+   * The name of the collection or section.
+   */
+  name?: string;
+
+  /**
+   * The type of object - `group_content` .
+   */
+  type?: 'group_content' | null;
+}
+
+/**
+ * The Translated Content of an Group. The keys are the locale codes and the values
+ * are the translated content of the Group.
+ */
+export interface GroupTranslatedContent {
+  /**
+   * The content of the group in Indonesian
+   */
+  id?: GroupContent | null;
+
+  /**
+   * The content of the group in Arabic
+   */
+  ar?: GroupContent | null;
+
+  /**
+   * The content of the group in Bulgarian
+   */
+  bg?: GroupContent | null;
+
+  /**
+   * The content of the group in Bosnian
+   */
+  bs?: GroupContent | null;
+
+  /**
+   * The content of the group in Catalan
+   */
+  ca?: GroupContent | null;
+
+  /**
+   * The content of the group in Czech
+   */
+  cs?: GroupContent | null;
+
+  /**
+   * The content of the group in Danish
+   */
+  da?: GroupContent | null;
+
+  /**
+   * The content of the group in German
+   */
+  de?: GroupContent | null;
+
+  /**
+   * The content of the group in Greek
+   */
+  el?: GroupContent | null;
+
+  /**
+   * The content of the group in English
+   */
+  en?: GroupContent | null;
+
+  /**
+   * The content of the group in Spanish
+   */
+  es?: GroupContent | null;
+
+  /**
+   * The content of the group in Estonian
+   */
+  et?: GroupContent | null;
+
+  /**
+   * The content of the group in Finnish
+   */
+  fi?: GroupContent | null;
+
+  /**
+   * The content of the group in French
+   */
+  fr?: GroupContent | null;
+
+  /**
+   * The content of the group in Hebrew
+   */
+  he?: GroupContent | null;
+
+  /**
+   * The content of the group in Croatian
+   */
+  hr?: GroupContent | null;
+
+  /**
+   * The content of the group in Hungarian
+   */
+  hu?: GroupContent | null;
+
+  /**
+   * The content of the group in Italian
+   */
+  it?: GroupContent | null;
+
+  /**
+   * The content of the group in Japanese
+   */
+  ja?: GroupContent | null;
+
+  /**
+   * The content of the group in Korean
+   */
+  ko?: GroupContent | null;
+
+  /**
+   * The content of the group in Lithuanian
+   */
+  lt?: GroupContent | null;
+
+  /**
+   * The content of the group in Latvian
+   */
+  lv?: GroupContent | null;
+
+  /**
+   * The content of the group in Mongolian
+   */
+  mn?: GroupContent | null;
+
+  /**
+   * The content of the group in Norwegian
+   */
+  nb?: GroupContent | null;
+
+  /**
+   * The content of the group in Dutch
+   */
+  nl?: GroupContent | null;
+
+  /**
+   * The content of the group in Polish
+   */
+  pl?: GroupContent | null;
+
+  /**
+   * The content of the group in Portuguese (Portugal)
+   */
+  pt?: GroupContent | null;
+
+  /**
+   * The content of the group in Portuguese (Brazil)
+   */
+  'pt-BR'?: GroupContent | null;
+
+  /**
+   * The content of the group in Romanian
+   */
+  ro?: GroupContent | null;
+
+  /**
+   * The content of the group in Russian
+   */
+  ru?: GroupContent | null;
+
+  /**
+   * The content of the group in Slovenian
+   */
+  sl?: GroupContent | null;
+
+  /**
+   * The content of the group in Serbian
+   */
+  sr?: GroupContent | null;
+
+  /**
+   * The content of the group in Swedish
+   */
+  sv?: GroupContent | null;
+
+  /**
+   * The content of the group in Turkish
+   */
+  tr?: GroupContent | null;
+
+  /**
+   * The type of object - group_translated_content.
+   */
+  type?: 'group_translated_content' | null;
+
+  /**
+   * The content of the group in Vietnamese
+   */
+  vi?: GroupContent | null;
+
+  /**
+   * The content of the group in Chinese (China)
+   */
+  'zh-CN'?: GroupContent | null;
+
+  /**
+   * The content of the group in Chinese (Taiwan)
+   */
+  'zh-TW'?: GroupContent | null;
+}
+
+/**
  * Message are how you reach out to contacts in Intercom. They are created when an
  * admin sends an outbound message to a contact.
  */
@@ -1494,6 +1956,37 @@ export interface Message {
    * The subject of the message. Only present if message_type: email.
    */
   subject?: string;
+}
+
+export interface MultipleFilterSearchRequest {
+  /**
+   * An operator to allow boolean inspection between multiple fields.
+   */
+  operator?: 'AND' | 'OR';
+
+  /**
+   * Add mutiple filters.
+   */
+  value?: Array<MultipleFilterSearchRequest> | Array<MultipleFilterSearchRequest.SingleFilterSearchRequest>;
+}
+
+export namespace MultipleFilterSearchRequest {
+  export interface SingleFilterSearchRequest {
+    /**
+     * The Intercom defined id representing the company.
+     */
+    field?: string;
+
+    /**
+     * The Intercom defined id representing the company.
+     */
+    operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
+
+    /**
+     * The Intercom defined id representing the company.
+     */
+    value?: string;
+  }
 }
 
 /**
@@ -1613,6 +2106,40 @@ export namespace PaginatedResponse {
 
       starting_after?: string;
     }
+  }
+}
+
+/**
+ * Search using Intercoms Search APIs.
+ */
+export interface SearchRequest {
+  query: SearchRequest.SingleFilterSearchRequest | MultipleFilterSearchRequest;
+
+  pagination?: SearchRequest.Pagination | null;
+}
+
+export namespace SearchRequest {
+  export interface SingleFilterSearchRequest {
+    /**
+     * The Intercom defined id representing the company.
+     */
+    field?: string;
+
+    /**
+     * The Intercom defined id representing the company.
+     */
+    operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
+
+    /**
+     * The Intercom defined id representing the company.
+     */
+    value?: string;
+  }
+
+  export interface Pagination {
+    page?: number;
+
+    starting_after?: string;
   }
 }
 

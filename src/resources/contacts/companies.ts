@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as CompaniesAPI from 'intercom/resources/contacts/companies';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as CompaniesAPI from './companies';
+import * as Shared from '../shared';
 
 export class Companies extends APIResource {
   /**
@@ -15,7 +15,12 @@ export class Companies extends APIResource {
     return this._client.post(`/contacts/${path_id}/companies`, {
       body: { id: body_id, ...body },
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -39,7 +44,12 @@ export class Companies extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/contacts/${id}/companies`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -65,7 +75,12 @@ export class Companies extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.delete(`/contacts/${contactId}/companies/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -138,8 +153,8 @@ export interface CompanyCreateParams {
   body_id: string;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -163,7 +178,7 @@ export interface CompanyCreateParams {
 
 export interface CompanyListParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -188,7 +203,7 @@ export interface CompanyListParams {
 
 export interface CompanyDeleteParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:

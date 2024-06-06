@@ -1,11 +1,11 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as TicketsAPI from 'intercom/resources/tickets/tickets';
-import * as Shared from 'intercom/resources/shared';
-import * as TagsAPI from 'intercom/resources/tickets/tags';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as TicketsAPI from './tickets';
+import * as Shared from '../shared';
+import * as TagsAPI from './tags';
 
 export class Tickets extends APIResource {
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
@@ -18,7 +18,12 @@ export class Tickets extends APIResource {
     return this._client.post('/tickets', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -31,7 +36,12 @@ export class Tickets extends APIResource {
     return this._client.post(`/tickets/${id}/reply`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -55,7 +65,12 @@ export class Tickets extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/tickets/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -106,7 +121,12 @@ export class Tickets extends APIResource {
     return this._client.post('/tickets/search', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -131,7 +151,12 @@ export class Tickets extends APIResource {
     return this._client.put(`/tickets/${id}`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -347,8 +372,8 @@ export interface TicketCreateParams {
   ticket_attributes?: Record<string, string | null | number | boolean | Array<unknown>>;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -396,15 +421,22 @@ export namespace TicketCreateParams {
 }
 
 export type TicketReplyParams =
-  | TicketReplyParams.ContactReplyTicketRequest
+  | TicketReplyParams.ContactReplyIntercomUserIDRequest
+  | TicketReplyParams.ContactReplyUserIDRequest
+  | TicketReplyParams.ContactReplyEmailRequest
   | TicketReplyParams.AdminReplyTicketRequest;
 
 export namespace TicketReplyParams {
-  export interface ContactReplyTicketRequest {
+  export interface ContactReplyIntercomUserIDRequest {
     /**
      * Body param: The text body of the comment.
      */
     body: string;
+
+    /**
+     * Body param: The identifier for the contact as given by Intercom.
+     */
+    intercom_user_id: string;
 
     /**
      * Body param:
@@ -423,23 +455,110 @@ export namespace TicketReplyParams {
     attachment_urls?: Array<string>;
 
     /**
-     * Body param: The email you have defined for the user.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
-    email?: string;
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
+
+  export interface ContactReplyUserIDRequest {
+    /**
+     * Body param: The text body of the comment.
+     */
+    body: string;
 
     /**
-     * Body param: The identifier for the contact as given by Intercom.
+     * Body param:
      */
-    intercom_user_id?: string;
+    message_type: 'comment';
+
+    /**
+     * Body param:
+     */
+    type: 'user';
 
     /**
      * Body param: The external_id you have defined for the contact.
      */
-    user_id?: string;
+    user_id: string;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Body param: A list of image URLs that will be added as attachments. You can
+     * include up to 5 URLs.
+     */
+    attachment_urls?: Array<string>;
+
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
+
+  export interface ContactReplyEmailRequest {
+    /**
+     * Body param: The text body of the comment.
+     */
+    body: string;
+
+    /**
+     * Body param: The email you have defined for the user.
+     */
+    email: string;
+
+    /**
+     * Body param:
+     */
+    message_type: 'comment';
+
+    /**
+     * Body param:
+     */
+    type: 'user';
+
+    /**
+     * Body param: A list of image URLs that will be added as attachments. You can
+     * include up to 5 URLs.
+     */
+    attachment_urls?: Array<string>;
+
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -496,8 +615,8 @@ export namespace TicketReplyParams {
     reply_options?: Array<TicketReplyParams.AdminReplyTicketRequest.ReplyOption>;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -538,7 +657,7 @@ export namespace TicketReplyParams {
 
 export interface TicketRetrieveByIDParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -565,7 +684,7 @@ export interface TicketSearchParams {
   /**
    * Body param:
    */
-  query: TicketSearchParams.SingleFilterSearchRequest | TicketSearchParams.MultipleFilterSearchRequest;
+  query: TicketSearchParams.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
 
   /**
    * Body param:
@@ -573,8 +692,8 @@ export interface TicketSearchParams {
   pagination?: TicketSearchParams.Pagination | null;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -612,68 +731,6 @@ export namespace TicketSearchParams {
      * The Intercom defined id representing the company.
      */
     value?: string;
-  }
-
-  export interface MultipleFilterSearchRequest {
-    /**
-     * An operator to allow boolean inspection between multiple fields.
-     */
-    operator?: 'AND' | 'OR';
-
-    /**
-     * Add mutiple filters.
-     */
-    value?: Array<MultipleFilterSearchRequest.UnionMember0> | Array<MultipleFilterSearchRequest.UnionMember1>;
-  }
-
-  export namespace MultipleFilterSearchRequest {
-    export interface UnionMember0 {
-      /**
-       * An operator to allow boolean inspection between multiple fields.
-       */
-      operator?: 'AND' | 'OR';
-
-      /**
-       * Add mutiple filters.
-       */
-      value?: Array<unknown> | Array<UnionMember0.UnionMember1>;
-    }
-
-    export namespace UnionMember0 {
-      export interface UnionMember1 {
-        /**
-         * The Intercom defined id representing the company.
-         */
-        field?: string;
-
-        /**
-         * The Intercom defined id representing the company.
-         */
-        operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
-
-        /**
-         * The Intercom defined id representing the company.
-         */
-        value?: string;
-      }
-    }
-
-    export interface UnionMember1 {
-      /**
-       * The Intercom defined id representing the company.
-       */
-      field?: string;
-
-      /**
-       * The Intercom defined id representing the company.
-       */
-      operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
-
-      /**
-       * The Intercom defined id representing the company.
-       */
-      value?: string;
-    }
   }
 
   export interface Pagination {
@@ -716,8 +773,8 @@ export interface TicketUpdateByIDParams {
   ticket_attributes?: unknown;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'

@@ -12,7 +12,6 @@
       "intercom/_shims/auto/*": ["src/_shims/auto/*-node"],
       "intercom/*": ["src/*"],
       "intercom": ["src/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
 

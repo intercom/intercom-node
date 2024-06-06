@@ -48,7 +48,9 @@ async function defaultParseResponse<T>(props: APIResponseProps): Promise<T> {
   }
 
   const contentType = response.headers.get('content-type');
-  if (contentType?.includes('application/json')) {
+  const isJSON =
+    contentType?.includes('application/json') || contentType?.includes('application/vnd.api+json');
+  if (isJSON) {
     const json = await response.json();
 
     debug('response', response.status, response.url, response.headers, json);
@@ -208,27 +210,27 @@ export abstract class APIClient {
     return `stainless-node-retry-${uuid4()}`;
   }
 
-  get<Req extends {}, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
+  get<Req, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
     return this.methodRequest('get', path, opts);
   }
 
-  post<Req extends {}, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
+  post<Req, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
     return this.methodRequest('post', path, opts);
   }
 
-  patch<Req extends {}, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
+  patch<Req, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
     return this.methodRequest('patch', path, opts);
   }
 
-  put<Req extends {}, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
+  put<Req, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
     return this.methodRequest('put', path, opts);
   }
 
-  delete<Req extends {}, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
+  delete<Req, Rsp>(path: string, opts?: PromiseOrValue<RequestOptions<Req>>): APIPromise<Rsp> {
     return this.methodRequest('delete', path, opts);
   }
 
-  private methodRequest<Req extends {}, Rsp>(
+  private methodRequest<Req, Rsp>(
     method: HTTPMethod,
     path: string,
     opts?: PromiseOrValue<RequestOptions<Req>>,
@@ -260,16 +262,13 @@ export abstract class APIClient {
     return null;
   }
 
-  buildRequest<Req extends {}>(
-    options: FinalRequestOptions<Req>,
-  ): { req: RequestInit; url: string; timeout: number } {
+  buildRequest<Req>(options: FinalRequestOptions<Req>): { req: RequestInit; url: string; timeout: number } {
     const { method, path, query, headers: headers = {} } = options;
 
-    const body = isMultipartBody(options.body)
-      ? options.body.body
-      : options.body
-        ? JSON.stringify(options.body, null, 2)
-        : null;
+    const body =
+      isMultipartBody(options.body) ? options.body.body
+      : options.body ? JSON.stringify(options.body, null, 2)
+      : null;
     const contentLength = this.calculateContentLength(body);
 
     const url = this.buildURL(path!, query);
@@ -293,18 +292,7 @@ export abstract class APIClient {
       headers[this.idempotencyHeader] = options.idempotencyKey;
     }
 
-    const reqHeaders: Record<string, string> = {
-      ...(contentLength && { 'Content-Length': contentLength }),
-      ...this.defaultHeaders(options),
-      ...headers,
-    };
-    // let builtin fetch set the Content-Type for multipart bodies
-    if (isMultipartBody(options.body) && shimsKind !== 'node') {
-      delete reqHeaders['Content-Type'];
-    }
-
-    // Strip any headers being explicitly omitted with null
-    Object.keys(reqHeaders).forEach((key) => reqHeaders[key] === null && delete reqHeaders[key]);
+    const reqHeaders = this.buildHeaders({ options, headers, contentLength });
 
     const req: RequestInit = {
       method,
@@ -316,10 +304,41 @@ export abstract class APIClient {
       signal: options.signal ?? null,
     };
 
-    this.validateHeaders(reqHeaders, headers);
-
     return { req, url, timeout };
   }
+
+  private buildHeaders({
+    options,
+    headers,
+    contentLength,
+  }: {
+    options: FinalRequestOptions;
+    headers: Record<string, string | null | undefined>;
+    contentLength: string | null | undefined;
+  }): Record<string, string> {
+    const reqHeaders: Record<string, string> = {};
+    if (contentLength) {
+      reqHeaders['content-length'] = contentLength;
+    }
+
+    const defaultHeaders = this.defaultHeaders(options);
+    applyHeadersMut(reqHeaders, defaultHeaders);
+    applyHeadersMut(reqHeaders, headers);
+
+    // let builtin fetch set the Content-Type for multipart bodies
+    if (isMultipartBody(options.body) && shimsKind !== 'node') {
+      delete reqHeaders['content-type'];
+    }
+
+    this.validateHeaders(reqHeaders, headers);
+
+    return reqHeaders;
+  }
+
+  /**
+   * Used as a callback for mutating the given `FinalRequestOptions` object.
+   */
+  protected async prepareOptions(options: FinalRequestOptions): Promise<void> {}
 
   /**
    * Used as a callback for mutating the given `RequestInit` object.
@@ -333,11 +352,12 @@ export abstract class APIClient {
   ): Promise<void> {}
 
   protected parseHeaders(headers: HeadersInit | null | undefined): Record<string, string> {
-    return !headers
-      ? {}
-      : Symbol.iterator in headers
-        ? Object.fromEntries(Array.from(headers as Iterable<string[]>).map((header) => [...header]))
-        : { ...headers };
+    return (
+      !headers ? {}
+      : Symbol.iterator in headers ?
+        Object.fromEntries(Array.from(headers as Iterable<string[]>).map((header) => [...header]))
+      : { ...headers }
+    );
   }
 
   protected makeStatusError(
@@ -349,21 +369,23 @@ export abstract class APIClient {
     return APIError.generate(status, error, message, headers);
   }
 
-  request<Req extends {}, Rsp>(
+  request<Req, Rsp>(
     options: PromiseOrValue<FinalRequestOptions<Req>>,
     remainingRetries: number | null = null,
   ): APIPromise<Rsp> {
     return new APIPromise(this.makeRequest(options, remainingRetries));
   }
 
-  private async makeRequest(
-    optionsInput: PromiseOrValue<FinalRequestOptions>,
+  private async makeRequest<Req>(
+    optionsInput: PromiseOrValue<FinalRequestOptions<Req>>,
     retriesRemaining: number | null,
   ): Promise<APIResponseProps> {
     const options = await optionsInput;
     if (retriesRemaining == null) {
       retriesRemaining = options.maxRetries ?? this.maxRetries;
     }
+
+    await this.prepareOptions(options);
 
     const { req, url, timeout } = this.buildRequest(options);
 
@@ -395,14 +417,17 @@ export abstract class APIClient {
 
     if (!response.ok) {
       if (retriesRemaining && this.shouldRetry(response)) {
+        const retryMessage = `retrying, ${retriesRemaining} attempts remaining`;
+        debug(`response (error; ${retryMessage})`, response.status, url, responseHeaders);
         return this.retryRequest(options, retriesRemaining, responseHeaders);
       }
 
       const errText = await response.text().catch((e) => castToError(e).message);
       const errJSON = safeJSON(errText);
       const errMessage = errJSON ? undefined : errText;
+      const retryMessage = retriesRemaining ? `(error; no more retries left)` : `(error; not retryable)`;
 
-      debug('response', response.status, url, responseHeaders, errMessage);
+      debug(`response (error; ${retryMessage})`, response.status, url, responseHeaders, errMessage);
 
       const err = this.makeStatusError(response.status, errJSON, errMessage, responseHeaders);
       throw err;
@@ -419,9 +444,10 @@ export abstract class APIClient {
     return new PagePromise<PageClass, Item>(this, request, Page);
   }
 
-  buildURL<Req extends Record<string, unknown>>(path: string, query: Req | null | undefined): string {
-    const url = isAbsoluteURL(path)
-      ? new URL(path)
+  buildURL<Req>(path: string, query: Req | null | undefined): string {
+    const url =
+      isAbsoluteURL(path) ?
+        new URL(path)
       : new URL(this.baseURL + (this.baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
     const defaultQuery = this.defaultQuery();
@@ -429,8 +455,8 @@ export abstract class APIClient {
       query = { ...defaultQuery, ...query } as Req;
     }
 
-    if (query) {
-      url.search = this.stringifyQuery(query);
+    if (typeof query === 'object' && query && !Array.isArray(query)) {
+      url.search = this.stringifyQuery(query as Record<string, unknown>);
     }
 
     return url.toString();
@@ -506,11 +532,21 @@ export abstract class APIClient {
     retriesRemaining: number,
     responseHeaders?: Headers | undefined,
   ): Promise<APIResponseProps> {
-    // About the Retry-After header: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After
     let timeoutMillis: number | undefined;
+
+    // Note the `retry-after-ms` header may not be standard, but is a good idea and we'd like proactive support for it.
+    const retryAfterMillisHeader = responseHeaders?.['retry-after-ms'];
+    if (retryAfterMillisHeader) {
+      const timeoutMs = parseFloat(retryAfterMillisHeader);
+      if (!Number.isNaN(timeoutMs)) {
+        timeoutMillis = timeoutMs;
+      }
+    }
+
+    // About the Retry-After header: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After
     const retryAfterHeader = responseHeaders?.['retry-after'];
-    if (retryAfterHeader) {
-      const timeoutSeconds = parseInt(retryAfterHeader);
+    if (retryAfterHeader && !timeoutMillis) {
+      const timeoutSeconds = parseFloat(retryAfterHeader);
       if (!Number.isNaN(timeoutSeconds)) {
         timeoutMillis = timeoutSeconds * 1000;
       } else {
@@ -520,12 +556,7 @@ export abstract class APIClient {
 
     // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
     // just do what it says, but otherwise calculate a default
-    if (
-      !timeoutMillis ||
-      !Number.isInteger(timeoutMillis) ||
-      timeoutMillis <= 0 ||
-      timeoutMillis > 60 * 1000
-    ) {
+    if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
       const maxRetries = options.maxRetries ?? this.maxRetries;
       timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
     }
@@ -592,7 +623,7 @@ export abstract class AbstractPage<Item> implements AsyncIterable<Item> {
       );
     }
     const nextOptions = { ...this.options };
-    if ('params' in nextInfo) {
+    if ('params' in nextInfo && typeof nextOptions.query === 'object') {
       nextOptions.query = { ...nextOptions.query, ...nextInfo.params };
     } else if ('url' in nextInfo) {
       const params = [...Object.entries(nextOptions.query || {}), ...nextInfo.url.searchParams.entries()];
@@ -690,11 +721,11 @@ export type Headers = Record<string, string | null | undefined>;
 export type DefaultQuery = Record<string, string | undefined>;
 export type KeysEnum<T> = { [P in keyof Required<T>]: true };
 
-export type RequestOptions<Req extends {} = Record<string, unknown> | Readable> = {
+export type RequestOptions<Req = unknown | Record<string, unknown> | Readable> = {
   method?: HTTPMethod;
   path?: string;
   query?: Req | undefined;
-  body?: Req | undefined;
+  body?: Req | null | undefined;
   headers?: Headers | undefined;
 
   maxRetries?: number;
@@ -727,7 +758,7 @@ const requestOptionsKeys: KeysEnum<RequestOptions> = {
   __binaryResponse: true,
 };
 
-export const isRequestOptions = (obj: unknown): obj is RequestOptions<Record<string, unknown> | Readable> => {
+export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
   return (
     typeof obj === 'object' &&
     obj !== null &&
@@ -736,7 +767,7 @@ export const isRequestOptions = (obj: unknown): obj is RequestOptions<Record<str
   );
 };
 
-export type FinalRequestOptions<Req extends {} = Record<string, unknown> | Readable> = RequestOptions<Req> & {
+export type FinalRequestOptions<Req = unknown | Record<string, unknown> | Readable> = RequestOptions<Req> & {
   method: HTTPMethod;
   path: string;
 };
@@ -771,7 +802,8 @@ const getPlatformProperties = (): PlatformProperties => {
       'X-Stainless-OS': normalizePlatform(Deno.build.os),
       'X-Stainless-Arch': normalizeArch(Deno.build.arch),
       'X-Stainless-Runtime': 'deno',
-      'X-Stainless-Runtime-Version': Deno.version,
+      'X-Stainless-Runtime-Version':
+        typeof Deno.version === 'string' ? Deno.version : Deno.version?.deno ?? 'unknown',
     };
   }
   if (typeof EdgeRuntime !== 'undefined') {
@@ -938,14 +970,16 @@ export const ensurePresent = <T>(value: T | null | undefined): T => {
 /**
  * Read an environment variable.
  *
+ * Trims beginning and trailing whitespace.
+ *
  * Will return undefined if the environment variable doesn't exist or cannot be accessed.
  */
 export const readEnv = (env: string): string | undefined => {
   if (typeof process !== 'undefined') {
-    return process.env?.[env] ?? undefined;
+    return process.env?.[env]?.trim() ?? undefined;
   }
   if (typeof Deno !== 'undefined') {
-    return Deno.env?.get?.(env);
+    return Deno.env?.get?.(env)?.trim();
   }
   return undefined;
 };
@@ -1003,8 +1037,30 @@ export function hasOwn(obj: Object, key: string): boolean {
   return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
+/**
+ * Copies headers from "newHeaders" onto "targetHeaders",
+ * using lower-case for all properties,
+ * ignoring any keys with undefined values,
+ * and deleting any keys with null values.
+ */
+function applyHeadersMut(targetHeaders: Headers, newHeaders: Headers): void {
+  for (const k in newHeaders) {
+    if (!hasOwn(newHeaders, k)) continue;
+    const lowerKey = k.toLowerCase();
+    if (!lowerKey) continue;
+
+    const val = newHeaders[k];
+
+    if (val === null) {
+      delete targetHeaders[lowerKey];
+    } else if (val !== undefined) {
+      targetHeaders[lowerKey] = val;
+    }
+  }
+}
+
 export function debug(action: string, ...args: any[]) {
-  if (typeof process !== 'undefined' && process.env['DEBUG'] === 'true') {
+  if (typeof process !== 'undefined' && process?.env?.['DEBUG'] === 'true') {
     console.log(`Intercom:DEBUG:${action}`, ...args);
   }
 }
@@ -1084,3 +1140,7 @@ export const toBase64 = (str: string | null | undefined): string => {
 
   throw new IntercomError('Cannot generate b64 string; Expected `Buffer` or `btoa` to be defined');
 };
+
+export function isObj(obj: unknown): obj is Record<string, unknown> {
+  return obj != null && typeof obj === 'object' && !Array.isArray(obj);
+}

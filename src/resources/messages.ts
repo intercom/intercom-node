@@ -1,9 +1,9 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import * as MessagesAPI from 'intercom/resources/messages';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import * as MessagesAPI from './messages';
+import * as Shared from './shared';
 
 export class Messages extends APIResource {
   /**
@@ -25,21 +25,82 @@ export class Messages extends APIResource {
    * > with the id of the message.
    */
   create(params: MessageCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Message> {
-    const { 'Intercom-Version': intercomVersion, ...body } = params;
+    const { body, 'Intercom-Version': intercomVersion } = params;
     return this._client.post('/messages', {
-      body,
+      body: body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
 
-export type MessageCreateParams = MessageCreateParams.Variant0 | MessageCreateParams.Variant1;
+export type MessageCreateParams = MessageCreateParams.MessageTypeEmail | MessageCreateParams.MessageTypeInapp;
 
 export namespace MessageCreateParams {
-  export type Variant0 = unknown;
+  export interface MessageTypeEmail {
+    /**
+     * Body param:
+     */
+    body: unknown;
 
-  export type Variant1 = unknown;
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
+
+  export interface MessageTypeInapp {
+    /**
+     * Body param:
+     */
+    body: unknown;
+
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
 }
 
 export namespace Messages {

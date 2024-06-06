@@ -6,8 +6,9 @@ import { type RequestOptions } from '../core';
 import { type Shims } from './registry';
 
 export function getRuntime({ manuallyImported }: { manuallyImported?: boolean } = {}): Shims {
-  const recommendation = manuallyImported
-    ? `You may need to use polyfills`
+  const recommendation =
+    manuallyImported ?
+      `You may need to use polyfills`
     : `Add one of these imports before your first \`import … from 'intercom'\`:
 - \`import 'intercom/shims/node'\` (if you're running on Node)
 - \`import 'intercom/shims/web'\` (otherwise)
@@ -39,51 +40,51 @@ export function getRuntime({ manuallyImported }: { manuallyImported?: boolean } 
     Headers: _Headers,
     FormData:
       // @ts-ignore
-      typeof FormData !== 'undefined'
-        ? FormData
-        : class FormData {
-            // @ts-ignore
-            constructor() {
-              throw new Error(
-                `file uploads aren't supported in this environment yet as 'FormData' is undefined. ${recommendation}`,
-              );
-            }
-          },
+      typeof FormData !== 'undefined' ? FormData : (
+        class FormData {
+          // @ts-ignore
+          constructor() {
+            throw new Error(
+              `file uploads aren't supported in this environment yet as 'FormData' is undefined. ${recommendation}`,
+            );
+          }
+        }
+      ),
     Blob:
-      typeof Blob !== 'undefined'
-        ? Blob
-        : class Blob {
-            constructor() {
-              throw new Error(
-                `file uploads aren't supported in this environment yet as 'Blob' is undefined. ${recommendation}`,
-              );
-            }
-          },
+      typeof Blob !== 'undefined' ? Blob : (
+        class Blob {
+          constructor() {
+            throw new Error(
+              `file uploads aren't supported in this environment yet as 'Blob' is undefined. ${recommendation}`,
+            );
+          }
+        }
+      ),
     File:
       // @ts-ignore
-      typeof File !== 'undefined'
-        ? File
-        : class File {
-            // @ts-ignore
-            constructor() {
-              throw new Error(
-                `file uploads aren't supported in this environment yet as 'File' is undefined. ${recommendation}`,
-              );
-            }
-          },
+      typeof File !== 'undefined' ? File : (
+        class File {
+          // @ts-ignore
+          constructor() {
+            throw new Error(
+              `file uploads aren't supported in this environment yet as 'File' is undefined. ${recommendation}`,
+            );
+          }
+        }
+      ),
     ReadableStream:
       // @ts-ignore
-      typeof ReadableStream !== 'undefined'
-        ? ReadableStream
-        : class ReadableStream {
-            // @ts-ignore
-            constructor() {
-              throw new Error(
-                `streaming isn't supported in this environment yet as 'ReadableStream' is undefined. ${recommendation}`,
-              );
-            }
-          },
-    getMultipartRequestOptions: async <T extends {} = Record<string, unknown>>(
+      typeof ReadableStream !== 'undefined' ? ReadableStream : (
+        class ReadableStream {
+          // @ts-ignore
+          constructor() {
+            throw new Error(
+              `streaming isn't supported in this environment yet as 'ReadableStream' is undefined. ${recommendation}`,
+            );
+          }
+        }
+      ),
+    getMultipartRequestOptions: async <T = Record<string, unknown>>(
       // @ts-ignore
       form: FormData,
       opts: RequestOptions<T>,

@@ -1,5 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export { ActivityLogList, ActivityLogListParams, ActivityLogs } from './activity-logs';
-export { AdminList, AdminRetrieveParams, AdminListParams, Admins } from './admins';
-export { Away } from './away';
+export { AdminList, AdminRetrieveParams, AdminListParams, AdminAwayParams, Admins } from './admins';

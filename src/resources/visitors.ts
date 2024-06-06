@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as VisitorsAPI from 'intercom/resources/visitors';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as VisitorsAPI from './visitors';
+import * as Shared from './shared';
 
 export class Visitors extends APIResource {
   /**
@@ -15,7 +15,12 @@ export class Visitors extends APIResource {
     return this._client.get('/visitors', {
       query,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -30,11 +35,16 @@ export class Visitors extends APIResource {
    * the Request body.
    */
   update(params: VisitorUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Visitor | null> {
-    const { 'Intercom-Version': intercomVersion, ...body } = params;
+    const { body, 'Intercom-Version': intercomVersion } = params;
     return this._client.put('/visitors', {
-      body,
+      body: body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -53,7 +63,12 @@ export class Visitors extends APIResource {
     return this._client.post('/visitors/convert', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -77,7 +92,12 @@ export class Visitors extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.delete(`/visitors/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -101,7 +121,12 @@ export class Visitors extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/visitors/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -393,8 +418,8 @@ export interface VisitorRetrieveParams {
   user_id: string;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -419,9 +444,65 @@ export interface VisitorRetrieveParams {
 export type VisitorUpdateParams = VisitorUpdateParams.Variant0 | VisitorUpdateParams.Variant1;
 
 export namespace VisitorUpdateParams {
-  export type Variant0 = unknown;
+  export interface Variant0 {
+    /**
+     * Body param:
+     */
+    body: unknown;
 
-  export type Variant1 = unknown;
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
+
+  export interface Variant1 {
+    /**
+     * Body param:
+     */
+    body: unknown;
+
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
 }
 
 export interface VisitorConvertParams {
@@ -441,8 +522,8 @@ export interface VisitorConvertParams {
   visitor: VisitorConvertParams.Visitor;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -509,7 +590,7 @@ export namespace VisitorConvertParams {
 
 export interface VisitorDeleteByIDParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -534,7 +615,7 @@ export interface VisitorDeleteByIDParams {
 
 export interface VisitorRetrieveByIDParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:

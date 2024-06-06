@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as SubscriptionsAPI from 'intercom/resources/contacts/subscriptions';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as SubscriptionsAPI from './subscriptions';
+import * as Shared from '../shared';
 
 export class Subscriptions extends APIResource {
   /**
@@ -29,7 +29,12 @@ export class Subscriptions extends APIResource {
     return this._client.post(`/contacts/${contactId}/subscriptions`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -61,7 +66,45 @@ export class Subscriptions extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/contacts/${contactId}/subscriptions`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
+    });
+  }
+
+  /**
+   * You can remove a specific subscription from a contact. This will return a
+   * subscription type model for the subscription type that was removed from the
+   * contact.
+   */
+  delete(
+    contactId: string,
+    id: string,
+    params?: SubscriptionDeleteParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<SubscriptionType>;
+  delete(contactId: string, id: string, options?: Core.RequestOptions): Core.APIPromise<SubscriptionType>;
+  delete(
+    contactId: string,
+    id: string,
+    params: SubscriptionDeleteParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<SubscriptionType> {
+    if (isRequestOptions(params)) {
+      return this.delete(contactId, id, {}, params);
+    }
+    const { 'Intercom-Version': intercomVersion } = params;
+    return this._client.delete(`/contacts/${contactId}/subscriptions/${id}`, {
+      ...options,
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -164,8 +207,8 @@ export interface SubscriptionCreateParams {
   consent_type: string;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -189,7 +232,32 @@ export interface SubscriptionCreateParams {
 
 export interface SubscriptionListParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
+   * package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | 'Unstable';
+}
+
+export interface SubscriptionDeleteParams {
+  /**
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -216,4 +284,5 @@ export namespace Subscriptions {
   export import SubscriptionType = SubscriptionsAPI.SubscriptionType;
   export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
   export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
+  export import SubscriptionDeleteParams = SubscriptionsAPI.SubscriptionDeleteParams;
 }

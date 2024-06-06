@@ -1,16 +1,14 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as AdminsAPI from 'intercom/resources/admins/admins';
-import * as Shared from 'intercom/resources/shared';
-import * as ActivityLogsAPI from 'intercom/resources/admins/activity-logs';
-import * as AwayAPI from 'intercom/resources/admins/away';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as AdminsAPI from './admins';
+import * as Shared from '../shared';
+import * as ActivityLogsAPI from './activity-logs';
 
 export class Admins extends APIResource {
   activityLogs: ActivityLogsAPI.ActivityLogs = new ActivityLogsAPI.ActivityLogs(this._client);
-  away: AwayAPI.Away = new AwayAPI.Away(this._client);
 
   /**
    * You can retrieve the details of a single admin.
@@ -32,7 +30,12 @@ export class Admins extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/admins/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -51,7 +54,33 @@ export class Admins extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get('/admins', {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
+    });
+  }
+
+  /**
+   * You can set an Admin as away for the Inbox.
+   */
+  away(
+    id: number,
+    params: AdminAwayParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Admin | null> {
+    const { 'Intercom-Version': intercomVersion, ...body } = params;
+    return this._client.put(`/admins/${id}/away`, {
+      body,
+      ...options,
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -73,7 +102,7 @@ export interface AdminList {
 
 export interface AdminRetrieveParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -98,8 +127,44 @@ export interface AdminRetrieveParams {
 
 export interface AdminListParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | 'Unstable';
+}
+
+export interface AdminAwayParams {
+  /**
+   * Body param: Set to "true" to change the status of the admin to away.
+   */
+  away_mode_enabled: boolean;
+
+  /**
+   * Body param: Set to "true" to assign any new conversation replies to your default
+   * inbox.
+   */
+  away_mode_reassign: boolean;
+
+  /**
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -125,8 +190,8 @@ export namespace Admins {
   export import AdminList = AdminsAPI.AdminList;
   export import AdminRetrieveParams = AdminsAPI.AdminRetrieveParams;
   export import AdminListParams = AdminsAPI.AdminListParams;
+  export import AdminAwayParams = AdminsAPI.AdminAwayParams;
   export import ActivityLogs = ActivityLogsAPI.ActivityLogs;
   export import ActivityLogList = ActivityLogsAPI.ActivityLogList;
   export import ActivityLogListParams = ActivityLogsAPI.ActivityLogListParams;
-  export import Away = AwayAPI.Away;
 }

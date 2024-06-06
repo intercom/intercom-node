@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as NewsItemsAPI from 'intercom/resources/news/news-items';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as NewsItemsAPI from './news-items';
+import * as Shared from '../shared';
 
 export class NewsItems extends APIResource {
   /**
@@ -15,7 +15,12 @@ export class NewsItems extends APIResource {
     return this._client.post('/news/news_items', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -39,7 +44,12 @@ export class NewsItems extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/news/news_items/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -51,7 +61,12 @@ export class NewsItems extends APIResource {
     return this._client.put(`/news/news_items/${id}`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -70,7 +85,12 @@ export class NewsItems extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get('/news/news_items', {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -94,7 +114,12 @@ export class NewsItems extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.delete(`/news/news_items/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -265,8 +290,8 @@ export interface NewsItemCreateParams {
   state?: 'draft' | 'live';
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -311,7 +336,7 @@ export namespace NewsItemCreateParams {
 
 export interface NewsItemRetrieveParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -380,8 +405,8 @@ export interface NewsItemUpdateParams {
   state?: 'draft' | 'live';
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -426,7 +451,7 @@ export namespace NewsItemUpdateParams {
 
 export interface NewsItemListParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -451,7 +476,7 @@ export interface NewsItemListParams {
 
 export interface NewsItemDeleteParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:

@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Intercom from 'intercom';
 import { Response } from 'node-fetch';
@@ -35,6 +35,7 @@ describe('resource tickets', () => {
   test('reply: only required params', async () => {
     const responsePromise = intercom.tickets.reply('123', {
       body: 'string',
+      intercom_user_id: 'string',
       message_type: 'comment',
       type: 'user',
     });
@@ -50,12 +51,10 @@ describe('resource tickets', () => {
   test('reply: required and optional params', async () => {
     const response = await intercom.tickets.reply('123', {
       body: 'string',
+      intercom_user_id: 'string',
       message_type: 'comment',
       type: 'user',
       attachment_urls: ['https://example.com', 'https://example.com', 'https://example.com'],
-      email: 'string',
-      intercom_user_id: 'string',
-      user_id: 'string',
       'Intercom-Version': '2.10',
     });
   });

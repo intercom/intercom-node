@@ -1,8 +1,8 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from 'intercom/resource';
-import * as NewsItemsAPI from 'intercom/resources/news/news-items';
-import * as NewsfeedsAPI from 'intercom/resources/news/newsfeeds/newsfeeds';
+import { APIResource } from '../../resource';
+import * as NewsItemsAPI from './news-items';
+import * as NewsfeedsAPI from './newsfeeds/newsfeeds';
 
 export class News extends APIResource {
   newsItems: NewsItemsAPI.NewsItems = new NewsItemsAPI.NewsItems(this._client);
