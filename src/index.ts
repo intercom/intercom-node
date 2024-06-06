@@ -8,9 +8,9 @@ import * as qs from 'qs';
 import * as API from './resources/index';
 
 const environments = {
-  production: 'https://api.intercom.io',
-  environment_1: 'https://api.eu.intercom.io',
-  environment_2: 'https://api.au.intercom.io',
+  us: 'https://api.intercom.io',
+  eu: 'https://api.eu.intercom.io',
+  au: 'https://api.au.intercom.io',
 };
 type Environment = keyof typeof environments;
 
@@ -24,9 +24,9 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `production` corresponds to `https://api.intercom.io`
-   * - `environment_1` corresponds to `https://api.eu.intercom.io`
-   * - `environment_2` corresponds to `https://api.au.intercom.io`
+   * - `us` corresponds to `https://api.intercom.io`
+   * - `eu` corresponds to `https://api.eu.intercom.io`
+   * - `au` corresponds to `https://api.au.intercom.io`
    */
   environment?: Environment;
 
@@ -97,7 +97,7 @@ export class Intercom extends Core.APIClient {
    * API Client for interfacing with the Intercom API.
    *
    * @param {string | undefined} [opts.accessToken=process.env['INTERCOM_ACCESS_TOKEN'] ?? undefined]
-   * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
+   * @param {Environment} [opts.environment=us] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['INTERCOM_BASE_URL'] ?? https://api.intercom.io] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -121,7 +121,7 @@ export class Intercom extends Core.APIClient {
       accessToken,
       ...opts,
       baseURL,
-      environment: opts.environment ?? 'production',
+      environment: opts.environment ?? 'us',
     };
 
     if (baseURL && opts.environment) {
@@ -131,7 +131,7 @@ export class Intercom extends Core.APIClient {
     }
 
     super({
-      baseURL: options.baseURL || environments[options.environment || 'production'],
+      baseURL: options.baseURL || environments[options.environment || 'us'],
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
