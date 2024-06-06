@@ -24,7 +24,7 @@ import Intercom from 'intercom';
 
 const intercom = new Intercom({
   accessToken: process.env['INTERCOM_ACCESS_TOKEN'], // This is the default and can be omitted
-  environment: 'environment_1', // or 'production' | 'environment_2'; defaults to 'production'
+  environment: 'eu', // or 'us' | 'au'; defaults to 'us'
 });
 
 async function main() {
@@ -46,7 +46,7 @@ import Intercom from 'intercom';
 
 const intercom = new Intercom({
   accessToken: process.env['INTERCOM_ACCESS_TOKEN'], // This is the default and can be omitted
-  environment: 'environment_1', // or 'production' | 'environment_2'; defaults to 'production'
+  environment: 'eu', // or 'us' | 'au'; defaults to 'us'
 });
 
 async function main() {

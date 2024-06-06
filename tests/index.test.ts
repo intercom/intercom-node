@@ -170,16 +170,12 @@ describe('instantiate client', () => {
       process.env['INTERCOM_BASE_URL'] = 'https://example.com/from_env';
 
       expect(
-        () => new Intercom({ accessToken: 'My Access Token', environment: 'production' }),
+        () => new Intercom({ accessToken: 'My Access Token', environment: 'us' }),
       ).toThrowErrorMatchingInlineSnapshot(
         `"Ambiguous URL; The \`baseURL\` option (or INTERCOM_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
       );
 
-      const client = new Intercom({
-        accessToken: 'My Access Token',
-        baseURL: null,
-        environment: 'production',
-      });
+      const client = new Intercom({ accessToken: 'My Access Token', baseURL: null, environment: 'us' });
       expect(client.baseURL).toEqual('https://api.intercom.io');
     });
   });
