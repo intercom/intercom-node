@@ -465,7 +465,7 @@ export namespace Company {
    * The list of tags associated with the company
    */
   export interface Tags {
-    tags?: Array<unknown>;
+    tags?: Array<Shared.Tag>;
 
     /**
      * The type of the object
