@@ -16,9 +16,9 @@ type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['INTERCOM_API_KEY'].
+   * Defaults to process.env['INTERCOM_ACCESS_TOKEN'].
    */
-  apiKey?: string | undefined;
+  accessToken?: string | undefined;
 
   /**
    * Specifies the environment to use for the API.
@@ -89,14 +89,14 @@ export interface ClientOptions {
 
 /** API Client for interfacing with the Intercom API. */
 export class Intercom extends Core.APIClient {
-  apiKey: string;
+  accessToken: string;
 
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Intercom API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['INTERCOM_API_KEY'] ?? undefined]
+   * @param {string | undefined} [opts.accessToken=process.env['INTERCOM_ACCESS_TOKEN'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['INTERCOM_BASE_URL'] ?? https://api.intercom.io] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -108,17 +108,17 @@ export class Intercom extends Core.APIClient {
    */
   constructor({
     baseURL = Core.readEnv('INTERCOM_BASE_URL'),
-    apiKey = Core.readEnv('INTERCOM_API_KEY'),
+    accessToken = Core.readEnv('INTERCOM_ACCESS_TOKEN'),
     ...opts
   }: ClientOptions = {}) {
-    if (apiKey === undefined) {
+    if (accessToken === undefined) {
       throw new Errors.IntercomError(
-        "The INTERCOM_API_KEY environment variable is missing or empty; either provide it, or instantiate the Intercom client with an apiKey option, like new Intercom({ apiKey: 'My API Key' }).",
+        "The INTERCOM_ACCESS_TOKEN environment variable is missing or empty; either provide it, or instantiate the Intercom client with an accessToken option, like new Intercom({ accessToken: 'My Access Token' }).",
       );
     }
 
     const options: ClientOptions = {
-      apiKey,
+      accessToken,
       ...opts,
       baseURL,
       environment: opts.environment ?? 'production',
@@ -139,7 +139,7 @@ export class Intercom extends Core.APIClient {
     });
     this._options = options;
 
-    this.apiKey = apiKey;
+    this.accessToken = accessToken;
   }
 
   me: API.Me = new API.Me(this);
@@ -178,7 +178,7 @@ export class Intercom extends Core.APIClient {
   }
 
   protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    return { Authorization: `Bearer ${this.apiKey}` };
+    return { Authorization: `Bearer ${this.accessToken}` };
   }
 
   protected override stringifyQuery(query: Record<string, unknown>): string {

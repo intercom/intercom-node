@@ -23,7 +23,7 @@ The full API of this library can be found in [api.md](api.md).
 import Intercom from 'intercom';
 
 const intercom = new Intercom({
-  apiKey: process.env['INTERCOM_API_KEY'], // This is the default and can be omitted
+  accessToken: process.env['INTERCOM_ACCESS_TOKEN'], // This is the default and can be omitted
   environment: 'environment_1', // or 'production' | 'environment_2'; defaults to 'production'
 });
 
@@ -45,7 +45,7 @@ This library includes TypeScript definitions for all request params and response
 import Intercom from 'intercom';
 
 const intercom = new Intercom({
-  apiKey: process.env['INTERCOM_API_KEY'], // This is the default and can be omitted
+  accessToken: process.env['INTERCOM_ACCESS_TOKEN'], // This is the default and can be omitted
   environment: 'environment_1', // or 'production' | 'environment_2'; defaults to 'production'
 });
 
