@@ -135,7 +135,7 @@ export namespace ActivityLogList {
      */
     created_at?: number;
 
-    metadata?: unknown;
+    metadata?: Record<string, unknown>;
 
     /**
      * An object representing the admin who performed the activity.
