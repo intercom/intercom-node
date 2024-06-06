@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Intercom from 'intercom';
 import { Response } from 'node-fetch';
@@ -9,8 +9,8 @@ const intercom = new Intercom({
 });
 
 describe('resource contacts', () => {
-  test('create', async () => {
-    const responsePromise = intercom.contacts.create();
+  test('create: only required params', async () => {
+    const responsePromise = intercom.contacts.create({ body: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,34 +20,8 @@ describe('resource contacts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.contacts.create({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Intercom.NotFoundError,
-    );
-  });
-
-  test('create: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      intercom.contacts.create(
-        {
-          avatar: 'https://www.example.com/avatar_image.jpg',
-          custom_attributes: {},
-          email: 'jdoe@example.com',
-          external_id: 'string',
-          last_seen_at: 1571672154,
-          name: 'John Doe',
-          owner_id: 123,
-          phone: '+353871234567',
-          role: 'string',
-          signed_up_at: 1571672154,
-          unsubscribed_from_emails: true,
-          'Intercom-Version': '2.10',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Intercom.NotFoundError);
+  test('create: required and optional params', async () => {
+    const response = await intercom.contacts.create({ body: {}, 'Intercom-Version': '2.10' });
   });
 
   test('retrieve', async () => {

@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Intercom from 'intercom';
 import { Response } from 'node-fetch';
@@ -10,7 +10,7 @@ const intercom = new Intercom({
 
 describe('resource dataEvents', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.dataEvents.create({});
+    const responsePromise = intercom.dataEvents.create({ body: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource dataEvents', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.dataEvents.create({});
+    const response = await intercom.dataEvents.create({ body: {}, 'Intercom-Version': '2.10' });
   });
 
   test('list: only required params', async () => {

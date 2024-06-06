@@ -1,20 +1,50 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as CompaniesAPI from 'intercom/resources/companies/companies';
-import * as Shared from 'intercom/resources/shared';
-import * as ContactsAPI from 'intercom/resources/companies/contacts';
-import * as ListAPI from 'intercom/resources/companies/list';
-import * as ScrollAPI from 'intercom/resources/companies/scroll';
-import * as SegmentsAPI from 'intercom/resources/companies/segments';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as CompaniesAPI from './companies';
+import * as Shared from '../shared';
+import * as ContactsAPI from './contacts';
+import * as SegmentsAPI from './segments';
 
 export class Companies extends APIResource {
   contacts: ContactsAPI.Contacts = new ContactsAPI.Contacts(this._client);
   segments: SegmentsAPI.Segments = new SegmentsAPI.Segments(this._client);
-  list: ListAPI.List = new ListAPI.List(this._client);
-  scroll: ScrollAPI.Scroll = new ScrollAPI.Scroll(this._client);
+
+  /**
+   * You can create or update a company.
+   *
+   * > 📘 Companies with no users
+   * >
+   * > Companies will be only visible in Intercom when there is at least one
+   * > associated user.
+   *
+   * Companies are looked up via `company_id` in a `POST` request, if not found via
+   * `company_id`, the new company will be created, if found, that company will be
+   * updated.
+   */
+  create(params?: CompanyCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Company>;
+  create(options?: Core.RequestOptions): Core.APIPromise<Shared.Company>;
+  create(
+    params: CompanyCreateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Company> {
+    if (isRequestOptions(params)) {
+      return this.create({}, params);
+    }
+    const { 'Intercom-Version': intercomVersion, ...body } = params;
+    return this._client.post('/companies', {
+      body,
+      ...options,
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
+    });
+  }
 
   /**
    * You can fetch a single company.
@@ -36,7 +66,12 @@ export class Companies extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/companies/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -60,7 +95,40 @@ export class Companies extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.put(`/companies/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
+    });
+  }
+
+  /**
+   * You can list companies. The company list is sorted by the `last_request_at`
+   * field and by default is ordered descending, most recently requested first.
+   *
+   * Note that the API does not include companies who have no associated users in
+   * list responses.
+   *
+   * > 📘
+   * >
+   * > When using the Companies endpoint and the pages object to iterate through the
+   * > returned companies, there is a limit of 10,000 Companies that can be returned.
+   * > If you need to list or iterate on more than 10,000 Companies, please use the
+   * > [Scroll API](https://developers.intercom.com/reference#iterating-over-all-companies).
+   */
+  list(params: CompanyListParams, options?: Core.RequestOptions): Core.APIPromise<CompanyList> {
+    const { filter, order, page, per_page, 'Intercom-Version': intercomVersion } = params;
+    return this._client.post('/companies/list', {
+      query: { filter, order, page, per_page },
+      ...options,
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -84,40 +152,203 @@ export class Companies extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.delete(`/companies/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
   /**
-   * You can create or update a company.
+   * The `list all companies` functionality does not work well for huge datasets, and can result in errors and performance problems when paging deeply. The Scroll API provides an efficient mechanism for iterating over all companies in a dataset.
    *
-   * > 📘 Companies with no users
+   * - Each app can only have 1 scroll open at a time. You'll get an error message if
+   *   you try to have more than one open per app.
+   * - If the scroll isn't used for 1 minute, it expires and calls with that scroll
+   *   param will fail
+   * - If the end of the scroll is reached, "companies" will be empty and the scroll
+   *   parameter will expire
+   *
+   * > 📘 Scroll Parameter
    * >
-   * > Companies will be only visible in Intercom when there is at least one
-   * > associated user.
+   * > You can get the first page of companies by simply sending a GET request to the
+   * > scroll endpoint. For subsequent requests you will need to use the scroll
+   * > parameter from the response.
    *
-   * Companies are looked up via `company_id` in a `POST` request, if not found via
-   * `company_id`, the new company will be created, if found, that company will be
-   * updated.
+   * > ❗️ Scroll network timeouts
+   * >
+   * > Since scroll is often used on large datasets network errors such as timeouts
+   * > can be encountered. When this occurs you will need to restart your scroll
+   * > query as it is not possible to continue from a specific point when using
+   * > scroll.
+   * >
+   * > When this occurs you will see a HTTP 500 error with the following message:
+   * > "Request failed due to an internal network error. Please restart the scroll
+   * > operation."
    */
-  createUpdate(
-    params?: CompanyCreateUpdateParams,
+  scroll(params?: CompanyScrollParams, options?: Core.RequestOptions): Core.APIPromise<CompanyScroll | null>;
+  scroll(options?: Core.RequestOptions): Core.APIPromise<CompanyScroll | null>;
+  scroll(
+    params: CompanyScrollParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Company>;
-  createUpdate(options?: Core.RequestOptions): Core.APIPromise<Shared.Company>;
-  createUpdate(
-    params: CompanyCreateUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Company> {
+  ): Core.APIPromise<CompanyScroll | null> {
     if (isRequestOptions(params)) {
-      return this.createUpdate({}, params);
+      return this.scroll({}, params);
     }
-    const { 'Intercom-Version': intercomVersion, ...body } = params;
-    return this._client.post('/companies', {
-      body,
+    const { 'Intercom-Version': intercomVersion, ...query } = params;
+    return this._client.get('/companies/scroll', {
+      query,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
+  }
+}
+
+/**
+ * This will return a list of company for the App.
+ */
+export interface CompanyList {
+  /**
+   * An array containing Company Objects.
+   */
+  data?: Array<Shared.Company>;
+
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  pages?: CompanyList.Pages | null;
+
+  /**
+   * The total number of companies.
+   */
+  total_count?: number;
+
+  /**
+   * The type of object - `list`.
+   */
+  type?: 'list';
+}
+
+export namespace CompanyList {
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  export interface Pages {
+    next?: Pages.Next | null;
+
+    /**
+     * The current page
+     */
+    page?: number;
+
+    /**
+     * Number of results per page
+     */
+    per_page?: number;
+
+    /**
+     * Total number of pages
+     */
+    total_pages?: number;
+
+    /**
+     * the type of object `pages`.
+     */
+    type?: 'pages';
+  }
+
+  export namespace Pages {
+    export interface Next {
+      page?: number;
+
+      starting_after?: string;
+    }
+  }
+}
+
+/**
+ * Companies allow you to represent organizations using your product. Each company
+ * will have its own description and be associated with contacts. You can fetch,
+ * create, update and list companies.
+ */
+export interface CompanyScroll {
+  data?: Array<Shared.Company>;
+
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  pages?: CompanyScroll.Pages | null;
+
+  /**
+   * The scroll parameter to use in the next request to fetch the next page of
+   * results.
+   */
+  scroll_param?: string;
+
+  /**
+   * The total number of companies
+   */
+  total_count?: number | null;
+
+  /**
+   * The type of object - `list`
+   */
+  type?: 'list';
+}
+
+export namespace CompanyScroll {
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  export interface Pages {
+    next?: Pages.Next | null;
+
+    /**
+     * The current page
+     */
+    page?: number;
+
+    /**
+     * Number of results per page
+     */
+    per_page?: number;
+
+    /**
+     * Total number of pages
+     */
+    total_pages?: number;
+
+    /**
+     * the type of object `pages`.
+     */
+    type?: 'pages';
+  }
+
+  export namespace Pages {
+    export interface Next {
+      page?: number;
+
+      starting_after?: string;
+    }
   }
 }
 
@@ -141,82 +372,7 @@ export interface DeletedCompanyObject {
   object?: 'company';
 }
 
-export interface CompanyRetrieveParams {
-  /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
-   * package.
-   */
-  'Intercom-Version'?:
-    | '1.0'
-    | '1.1'
-    | '1.2'
-    | '1.3'
-    | '1.4'
-    | '2.0'
-    | '2.1'
-    | '2.2'
-    | '2.3'
-    | '2.4'
-    | '2.5'
-    | '2.6'
-    | '2.7'
-    | '2.8'
-    | '2.9'
-    | '2.10'
-    | 'Unstable';
-}
-
-export interface CompanyUpdateParams {
-  /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
-   * package.
-   */
-  'Intercom-Version'?:
-    | '1.0'
-    | '1.1'
-    | '1.2'
-    | '1.3'
-    | '1.4'
-    | '2.0'
-    | '2.1'
-    | '2.2'
-    | '2.3'
-    | '2.4'
-    | '2.5'
-    | '2.6'
-    | '2.7'
-    | '2.8'
-    | '2.9'
-    | '2.10'
-    | 'Unstable';
-}
-
-export interface CompanyDeleteParams {
-  /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
-   * package.
-   */
-  'Intercom-Version'?:
-    | '1.0'
-    | '1.1'
-    | '1.2'
-    | '1.3'
-    | '1.4'
-    | '2.0'
-    | '2.1'
-    | '2.2'
-    | '2.3'
-    | '2.4'
-    | '2.5'
-    | '2.6'
-    | '2.7'
-    | '2.8'
-    | '2.9'
-    | '2.10'
-    | 'Unstable';
-}
-
-export interface CompanyCreateUpdateParams {
+export interface CompanyCreateParams {
   /**
    * Body param: The company id you have defined for the company. Can't be updated
    */
@@ -267,8 +423,175 @@ export interface CompanyCreateUpdateParams {
   website?: string;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | 'Unstable';
+}
+
+export interface CompanyRetrieveParams {
+  /**
+   * Intercom API version.By default, it's equal to the version set in the app
+   * package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | 'Unstable';
+}
+
+export interface CompanyUpdateParams {
+  /**
+   * Intercom API version.By default, it's equal to the version set in the app
+   * package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | 'Unstable';
+}
+
+export interface CompanyListParams {
+  /**
+   * Query param: The `id` of the tag to filter by.
+   */
+  filter: CompanyListParams.FilterByTag | CompanyListParams.FilterBySegment;
+
+  /**
+   * Query param: `asc` or `desc`. Return the companies in ascending or descending
+   * order. Defaults to desc
+   */
+  order?: string;
+
+  /**
+   * Query param: what page of results to fetch. Defaults to first page
+   */
+  page?: string;
+
+  /**
+   * Query param: how many results per page. Defaults to 15
+   */
+  per_page?: string;
+
+  /**
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | 'Unstable';
+}
+
+export namespace CompanyListParams {
+  /**
+   * The `id` of the tag to filter by.
+   */
+  export interface FilterByTag {
+    tag_id: string;
+  }
+
+  /**
+   * The `id` of the segment to filter by.
+   */
+  export interface FilterBySegment {
+    segment_id: string;
+  }
+}
+
+export interface CompanyDeleteParams {
+  /**
+   * Intercom API version.By default, it's equal to the version set in the app
+   * package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | 'Unstable';
+}
+
+export interface CompanyScrollParams {
+  /**
+   * Query param:
+   */
+  scroll_param?: string;
+
+  /**
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -291,19 +614,19 @@ export interface CompanyCreateUpdateParams {
 }
 
 export namespace Companies {
+  export import CompanyList = CompaniesAPI.CompanyList;
+  export import CompanyScroll = CompaniesAPI.CompanyScroll;
   export import DeletedCompanyObject = CompaniesAPI.DeletedCompanyObject;
+  export import CompanyCreateParams = CompaniesAPI.CompanyCreateParams;
   export import CompanyRetrieveParams = CompaniesAPI.CompanyRetrieveParams;
   export import CompanyUpdateParams = CompaniesAPI.CompanyUpdateParams;
+  export import CompanyListParams = CompaniesAPI.CompanyListParams;
   export import CompanyDeleteParams = CompaniesAPI.CompanyDeleteParams;
-  export import CompanyCreateUpdateParams = CompaniesAPI.CompanyCreateUpdateParams;
+  export import CompanyScrollParams = CompaniesAPI.CompanyScrollParams;
   export import Contacts = ContactsAPI.Contacts;
   export import CompanyAttachedContacts = ContactsAPI.CompanyAttachedContacts;
   export import ContactListParams = ContactsAPI.ContactListParams;
   export import Segments = SegmentsAPI.Segments;
   export import CompanyAttachedSegments = SegmentsAPI.CompanyAttachedSegments;
   export import SegmentListParams = SegmentsAPI.SegmentListParams;
-  export import List = ListAPI.List;
-  export import CompanyList = ListAPI.CompanyList;
-  export import Scroll = ScrollAPI.Scroll;
-  export import CompanyScroll = ScrollAPI.CompanyScroll;
 }

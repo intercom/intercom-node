@@ -1,7 +1,7 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export { AdminList, AdminRetrieveParams, AdminListParams, Admins } from './admins/admins';
+export { AdminList, AdminRetrieveParams, AdminListParams, AdminAwayParams, Admins } from './admins/admins';
 export { AdminWithApp, MeRetrieveParams, Me } from './me';
 export {
   Article,
@@ -16,6 +16,18 @@ export {
   ArticleSearchParams,
   Articles,
 } from './articles';
+export {
+  CompanyList,
+  CompanyScroll,
+  DeletedCompanyObject,
+  CompanyCreateParams,
+  CompanyRetrieveParams,
+  CompanyUpdateParams,
+  CompanyListParams,
+  CompanyDeleteParams,
+  CompanyScrollParams,
+  Companies,
+} from './companies/companies';
 export {
   ContactArchived,
   ContactDeleted,
@@ -33,12 +45,14 @@ export {
   Contacts,
 } from './contacts/contacts';
 export {
+  ConversationList,
   ConversationCreateParams,
   ConversationRetrieveParams,
   ConversationUpdateParams,
   ConversationListParams,
   ConversationConvertParams,
   ConversationRedactParams,
+  ConversationSearchParams,
   Conversations,
 } from './conversations/conversations';
 export {
@@ -57,14 +71,6 @@ export {
   DataEvents,
 } from './data-events';
 export { DataExport, DataExportContentDataParams, DataExports } from './data-exports';
-export {
-  DeletedCompanyObject,
-  CompanyRetrieveParams,
-  CompanyUpdateParams,
-  CompanyDeleteParams,
-  CompanyCreateUpdateParams,
-  Companies,
-} from './companies/companies';
 export { Download } from './download/download';
 export { ExportCancelParams, Export } from './export/export';
 export { HelpCenter } from './help-center/help-center';

@@ -1,14 +1,16 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export { CompanyAttachedContacts, ContactListParams, Contacts } from './contacts';
 export { CompanyAttachedSegments, SegmentListParams, Segments } from './segments';
-export { CompanyList, List } from './list';
-export { CompanyScroll, Scroll } from './scroll';
 export {
+  CompanyList,
+  CompanyScroll,
   DeletedCompanyObject,
+  CompanyCreateParams,
   CompanyRetrieveParams,
   CompanyUpdateParams,
+  CompanyListParams,
   CompanyDeleteParams,
-  CompanyCreateUpdateParams,
+  CompanyScrollParams,
   Companies,
 } from './companies';

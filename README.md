@@ -1,23 +1,24 @@
 # Intercom Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/intercom.svg)](https://npmjs.org/package/intercom)
+[![NPM version](https://img.shields.io/npm/v/intercom.svg)](https://npmjs.org/package/intercom) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/intercom)
 
 This library provides convenient access to the Intercom REST API from server-side TypeScript or JavaScript.
 
-The API documentation can be found [here](https://developers.intercom.com).
+The REST API documentation can be found [on developers.intercom.com](https://developers.intercom.com). The full API of this library can be found in [api.md](api.md).
+
+It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Installation
 
 ```sh
-npm install --save intercom
-# or
-yarn add intercom
+npm install intercom
 ```
 
 ## Usage
 
-The full API of this library can be found in [api.md](https://www.github.com/intercom/intercom-node/blob/main/api.md).
+The full API of this library can be found in [api.md](api.md).
 
+<!-- prettier-ignore -->
 ```js
 import Intercom from 'intercom';
 
@@ -39,6 +40,7 @@ main();
 
 This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
 
+<!-- prettier-ignore -->
 ```ts
 import Intercom from 'intercom';
 
@@ -62,9 +64,10 @@ When the library is unable to connect to the API,
 or if the API returns a non-success status code (i.e., 4xx or 5xx response),
 a subclass of `APIError` will be thrown:
 
+<!-- prettier-ignore -->
 ```ts
 async function main() {
-  const me = await intercom.me.retrieve().catch((err) => {
+  const adminWithApp = await intercom.me.retrieve().catch(async (err) => {
     if (err instanceof Intercom.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -141,6 +144,7 @@ The "raw" `Response` returned by `fetch()` can be accessed through the `.asRespo
 
 You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
 
+<!-- prettier-ignore -->
 ```ts
 const intercom = new Intercom();
 
@@ -153,7 +157,51 @@ console.log(raw.headers.get('X-My-Header'));
 console.log(adminWithApp.id);
 ```
 
-## Customizing the fetch client
+### Making custom/undocumented requests
+
+This library is typed for convenient access to the documented API. If you need to access undocumented
+endpoints, params, or response properties, the library can still be used.
+
+#### Undocumented endpoints
+
+To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.
+Options on the client, such as retries, will be respected when making these requests.
+
+```ts
+await client.post('/some/path', {
+  body: { some_prop: 'foo' },
+  query: { some_query_arg: 'bar' },
+});
+```
+
+#### Undocumented request params
+
+To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented
+parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you
+send will be sent as-is.
+
+```ts
+client.foo.create({
+  foo: 'my_param',
+  bar: 12,
+  // @ts-expect-error baz is not yet public
+  baz: 'undocumented option',
+});
+```
+
+For requests with the `GET` verb, any extra params will be in the query, all other requests will send the
+extra param in the body.
+
+If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request
+options.
+
+#### Undocumented response properties
+
+To access undocumented response properties, you may access the response object with `// @ts-expect-error` on
+the response object, or cast the response object to the requisite type. Like the request params, we do not
+validate or strip extra properties from the response from the API.
+
+### Customizing the fetch client
 
 By default, this library uses `node-fetch` in Node, and expects a global `fetch` function in other environments.
 
@@ -161,16 +209,17 @@ If you would prefer to use a global, web-standards-compliant `fetch` function ev
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
 add the following import before your first import `from "Intercom"`:
 
-<!-- prettier-ignore -->
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import "intercom/shims/web";
-import Intercom from "intercom";
+import 'intercom/shims/web';
+import Intercom from 'intercom';
 ```
 
 To do the inverse, add `import "intercom/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` - more details [here](https://github.com/intercom/intercom-node/tree/main/src/_shims#readme).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/intercom/intercom-node/tree/main/src/_shims#readme)).
+
+### Logging and middleware
 
 You may also provide a custom `fetch` function when instantiating the client,
 which can be used to inspect or alter the `Request` or `Response` before/after each request:
@@ -180,8 +229,8 @@ import { fetch } from 'undici'; // as one example
 import Intercom from 'intercom';
 
 const client = new Intercom({
-  fetch: (url: RequestInfo, init?: RequestInfo): Response => {
-    console.log('About to make request', url, init);
+  fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
+    console.log('About to make a request', url, init);
     const response = await fetch(url, init);
     console.log('Got response', response);
     return response;
@@ -192,7 +241,7 @@ const client = new Intercom({
 Note that if given a `DEBUG=true` environment variable, this library will log all requests and responses automatically.
 This is intended for debugging purposes only and may change in the future without notice.
 
-## Configuring an HTTP(S) Agent (e.g., for proxies)
+### Configuring an HTTP(S) Agent (e.g., for proxies)
 
 By default, this library uses a stable agent for all http/https requests to reuse TCP connections, eliminating many TCP & TLS handshakes and shaving around 100ms off most requests.
 
@@ -201,7 +250,7 @@ If you would like to disable or customize this behavior, for example to use the 
 <!-- prettier-ignore -->
 ```ts
 import http from 'http';
-import HttpsProxyAgent from 'https-proxy-agent';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
 const intercom = new Intercom({
@@ -210,12 +259,11 @@ const intercom = new Intercom({
 
 // Override per-request:
 await intercom.me.retrieve({
-  baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
-})
+});
 ```
 
-## Semantic Versioning
+## Semantic versioning
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
 

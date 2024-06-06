@@ -1,9 +1,9 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import * as PartsAPI from 'intercom/resources/conversations/parts';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import * as PartsAPI from './parts';
+import * as Shared from '../shared';
 
 export class Parts extends APIResource {
   /**
@@ -20,7 +20,12 @@ export class Parts extends APIResource {
     return this._client.post(`/conversations/${id}/parts`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -55,8 +60,8 @@ export namespace PartCreateParams {
     body?: string;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -95,8 +100,8 @@ export namespace PartCreateParams {
     snoozed_until: number;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -130,8 +135,8 @@ export namespace PartCreateParams {
     message_type: 'open';
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -183,8 +188,8 @@ export namespace PartCreateParams {
     body?: string;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'

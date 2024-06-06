@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
   ContactArchived,
@@ -29,6 +29,7 @@ export {
   SubscriptionType,
   SubscriptionCreateParams,
   SubscriptionListParams,
+  SubscriptionDeleteParams,
   Subscriptions,
 } from './subscriptions';
-export { TagCreateParams, TagListParams, Tags } from './tags';
+export { TagCreateParams, TagListParams, TagDeleteParams, Tags } from './tags';

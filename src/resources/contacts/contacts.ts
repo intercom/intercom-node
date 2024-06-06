@@ -1,15 +1,15 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as ContactsAPI from 'intercom/resources/contacts/contacts';
-import * as Shared from 'intercom/resources/shared';
-import * as CompaniesAPI from 'intercom/resources/contacts/companies';
-import * as NotesAPI from 'intercom/resources/contacts/notes';
-import * as SegmentsAPI from 'intercom/resources/contacts/segments';
-import * as SubscriptionsAPI from 'intercom/resources/contacts/subscriptions';
-import * as TagsAPI from 'intercom/resources/contacts/tags';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as ContactsAPI from './contacts';
+import * as Shared from '../shared';
+import * as CompaniesAPI from './companies';
+import * as NotesAPI from './notes';
+import * as SegmentsAPI from './segments';
+import * as SubscriptionsAPI from './subscriptions';
+import * as TagsAPI from './tags';
 
 export class Contacts extends APIResource {
   companies: CompaniesAPI.Companies = new CompaniesAPI.Companies(this._client);
@@ -21,20 +21,17 @@ export class Contacts extends APIResource {
   /**
    * You can create a new contact (ie. user or lead).
    */
-  create(params?: ContactCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Contact>;
-  create(options?: Core.RequestOptions): Core.APIPromise<Shared.Contact>;
-  create(
-    params: ContactCreateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Contact> {
-    if (isRequestOptions(params)) {
-      return this.create({}, params);
-    }
-    const { 'Intercom-Version': intercomVersion, ...body } = params;
+  create(params: ContactCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Contact> {
+    const { body, 'Intercom-Version': intercomVersion } = params;
     return this._client.post('/contacts', {
-      body,
+      body: body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -58,7 +55,12 @@ export class Contacts extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/contacts/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -83,7 +85,12 @@ export class Contacts extends APIResource {
     return this._client.put(`/contacts/${id}`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -102,7 +109,12 @@ export class Contacts extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get('/contacts', {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -126,7 +138,12 @@ export class Contacts extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.delete(`/contacts/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -150,7 +167,12 @@ export class Contacts extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.post(`/contacts/${id}/archive`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -171,7 +193,12 @@ export class Contacts extends APIResource {
     return this._client.post('/contacts/merge', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -222,57 +249,63 @@ export class Contacts extends APIResource {
    * query will fail (ie. as `created_at` accepts a date, the `value` cannot be a
    * string such as `"foorbar"`).
    *
-   * | Field                              | Type                           |
-   * | ---------------------------------- | ------------------------------ |
-   * | id                                 | String                         |
-   * | role                               | String<br>Accepts user or lead |
-   * | name                               | String                         |
-   * | avatar                             | String                         |
-   * | owner_id                           | Integer                        |
-   * | email                              | String                         |
-   * | phone                              | String                         |
-   * | formatted_phone                    | String                         |
-   * | external_id                        | String                         |
-   * | created_at                         | Date (UNIX Timestamp)          |
-   * | signed_up_at                       | Date (UNIX Timestamp)          |
-   * | updated_at                         | Date (UNIX Timestamp)          |
-   * | last_seen_at                       | Date (UNIX Timestamp)          |
-   * | last_contacted_at                  | Date (UNIX Timestamp)          |
-   * | last_replied_at                    | Date (UNIX Timestamp)          |
-   * | last_email_opened_at               | Date (UNIX Timestamp)          |
-   * | last_email_clicked_at              | Date (UNIX Timestamp)          |
-   * | language_override                  | String                         |
-   * | browser                            | String                         |
-   * | browser_language                   | String                         |
-   * | os                                 | String                         |
-   * | location.country                   | String                         |
-   * | location.region                    | String                         |
-   * | location.city                      | String                         |
-   * | unsubscribed_from_emails           | Boolean                        |
-   * | marked_email_as_spam               | Boolean                        |
-   * | has_hard_bounced                   | Boolean                        |
-   * | ios_last_seen_at                   | Date (UNIX Timestamp)          |
-   * | ios_app_version                    | String                         |
-   * | ios_device                         | String                         |
-   * | ios_app_device                     | String                         |
-   * | ios_os_version                     | String                         |
-   * | ios_app_name                       | String                         |
-   * | ios_sdk_version                    | String                         |
-   * | android_last_seen_at               | Date (UNIX Timestamp)          |
-   * | android_app_version                | String                         |
-   * | android_device                     | String                         |
-   * | android_app_name                   | String                         |
-   * | andoid_sdk_version                 | String                         |
-   * | segment_id                         | String                         |
-   * | tag_id                             | String                         |
-   * | custom_attributes.{attribute_name} | String                         |
+   * | Field                              | Type                  |
+   * | ---------------------------------- | --------------------- |
+   * | id                                 | String                |
+   * | role                               | String                |
+   * | Accepts user or lead               |
+   * | name                               | String                |
+   * | avatar                             | String                |
+   * | owner_id                           | Integer               |
+   * | email                              | String                |
+   * | phone                              | String                |
+   * | formatted_phone                    | String                |
+   * | external_id                        | String                |
+   * | created_at                         | Date (UNIX Timestamp) |
+   * | signed_up_at                       | Date (UNIX Timestamp) |
+   * | updated_at                         | Date (UNIX Timestamp) |
+   * | last_seen_at                       | Date (UNIX Timestamp) |
+   * | last_contacted_at                  | Date (UNIX Timestamp) |
+   * | last_replied_at                    | Date (UNIX Timestamp) |
+   * | last_email_opened_at               | Date (UNIX Timestamp) |
+   * | last_email_clicked_at              | Date (UNIX Timestamp) |
+   * | language_override                  | String                |
+   * | browser                            | String                |
+   * | browser_language                   | String                |
+   * | os                                 | String                |
+   * | location.country                   | String                |
+   * | location.region                    | String                |
+   * | location.city                      | String                |
+   * | unsubscribed_from_emails           | Boolean               |
+   * | marked_email_as_spam               | Boolean               |
+   * | has_hard_bounced                   | Boolean               |
+   * | ios_last_seen_at                   | Date (UNIX Timestamp) |
+   * | ios_app_version                    | String                |
+   * | ios_device                         | String                |
+   * | ios_app_device                     | String                |
+   * | ios_os_version                     | String                |
+   * | ios_app_name                       | String                |
+   * | ios_sdk_version                    | String                |
+   * | android_last_seen_at               | Date (UNIX Timestamp) |
+   * | android_app_version                | String                |
+   * | android_device                     | String                |
+   * | android_app_name                   | String                |
+   * | andoid_sdk_version                 | String                |
+   * | segment_id                         | String                |
+   * | tag_id                             | String                |
+   * | custom_attributes.{attribute_name} | String                |
    */
   search(params: ContactSearchParams, options?: Core.RequestOptions): Core.APIPromise<ContactList> {
     const { 'Intercom-Version': intercomVersion, ...body } = params;
     return this._client.post('/contacts/search', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -296,7 +329,12 @@ export class Contacts extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.post(`/contacts/${id}/unarchive`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
@@ -444,91 +482,106 @@ export interface ContactUnarchived {
   type?: 'contact';
 }
 
-export interface ContactCreateParams {
-  /**
-   * Body param: An image URL containing the avatar of a contact
-   */
-  avatar?: string | null;
+export type ContactCreateParams =
+  | ContactCreateParams.CreateContactWithEmail
+  | ContactCreateParams.CreateContactWithExternalID
+  | ContactCreateParams.CreateContactWithRole;
 
-  /**
-   * Body param: The custom attributes which are set for the contact
-   */
-  custom_attributes?: unknown | null;
+export namespace ContactCreateParams {
+  export interface CreateContactWithEmail {
+    /**
+     * Body param:
+     */
+    body: unknown;
 
-  /**
-   * Body param: The contacts email
-   */
-  email?: string;
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
 
-  /**
-   * Body param: A unique identifier for the contact which is given to Intercom
-   */
-  external_id?: string;
+  export interface CreateContactWithExternalID {
+    /**
+     * Body param:
+     */
+    body: unknown;
 
-  /**
-   * Body param: The time when the contact was last seen (either where the Intercom
-   * Messenger was installed or when specified manually)
-   */
-  last_seen_at?: number | null;
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
 
-  /**
-   * Body param: The contacts name
-   */
-  name?: string | null;
+  export interface CreateContactWithRole {
+    /**
+     * Body param:
+     */
+    body: unknown;
 
-  /**
-   * Body param: The id of an admin that has been assigned account ownership of the
-   * contact
-   */
-  owner_id?: number | null;
-
-  /**
-   * Body param: The contacts phone
-   */
-  phone?: string | null;
-
-  /**
-   * Body param: The role of the contact.
-   */
-  role?: string;
-
-  /**
-   * Body param: The time specified for when a contact signed up
-   */
-  signed_up_at?: number | null;
-
-  /**
-   * Body param: Whether the contact is unsubscribed from emails
-   */
-  unsubscribed_from_emails?: boolean | null;
-
-  /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
-   */
-  'Intercom-Version'?:
-    | '1.0'
-    | '1.1'
-    | '1.2'
-    | '1.3'
-    | '1.4'
-    | '2.0'
-    | '2.1'
-    | '2.2'
-    | '2.3'
-    | '2.4'
-    | '2.5'
-    | '2.6'
-    | '2.7'
-    | '2.8'
-    | '2.9'
-    | '2.10'
-    | 'Unstable';
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
 }
 
 export interface ContactRetrieveParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -610,8 +663,8 @@ export interface ContactUpdateParams {
   unsubscribed_from_emails?: boolean | null;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -635,7 +688,7 @@ export interface ContactUpdateParams {
 
 export interface ContactListParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -660,7 +713,7 @@ export interface ContactListParams {
 
 export interface ContactDeleteParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -685,7 +738,7 @@ export interface ContactDeleteParams {
 
 export interface ContactArchiveParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -721,8 +774,8 @@ export interface ContactMergeParams {
   into?: string;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -748,7 +801,7 @@ export interface ContactSearchParams {
   /**
    * Body param:
    */
-  query: ContactSearchParams.SingleFilterSearchRequest | ContactSearchParams.MultipleFilterSearchRequest;
+  query: ContactSearchParams.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
 
   /**
    * Body param:
@@ -756,8 +809,8 @@ export interface ContactSearchParams {
   pagination?: ContactSearchParams.Pagination | null;
 
   /**
-   * Header param: Intercom API version.</br>By default, it's equal to the version
-   * set in the app package.
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
    */
   'Intercom-Version'?:
     | '1.0'
@@ -797,68 +850,6 @@ export namespace ContactSearchParams {
     value?: string;
   }
 
-  export interface MultipleFilterSearchRequest {
-    /**
-     * An operator to allow boolean inspection between multiple fields.
-     */
-    operator?: 'AND' | 'OR';
-
-    /**
-     * Add mutiple filters.
-     */
-    value?: Array<MultipleFilterSearchRequest.UnionMember0> | Array<MultipleFilterSearchRequest.UnionMember1>;
-  }
-
-  export namespace MultipleFilterSearchRequest {
-    export interface UnionMember0 {
-      /**
-       * An operator to allow boolean inspection between multiple fields.
-       */
-      operator?: 'AND' | 'OR';
-
-      /**
-       * Add mutiple filters.
-       */
-      value?: Array<unknown> | Array<UnionMember0.UnionMember1>;
-    }
-
-    export namespace UnionMember0 {
-      export interface UnionMember1 {
-        /**
-         * The Intercom defined id representing the company.
-         */
-        field?: string;
-
-        /**
-         * The Intercom defined id representing the company.
-         */
-        operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
-
-        /**
-         * The Intercom defined id representing the company.
-         */
-        value?: string;
-      }
-    }
-
-    export interface UnionMember1 {
-      /**
-       * The Intercom defined id representing the company.
-       */
-      field?: string;
-
-      /**
-       * The Intercom defined id representing the company.
-       */
-      operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
-
-      /**
-       * The Intercom defined id representing the company.
-       */
-      value?: string;
-    }
-  }
-
   export interface Pagination {
     page?: number;
 
@@ -868,7 +859,7 @@ export namespace ContactSearchParams {
 
 export interface ContactUnarchiveParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -921,7 +912,9 @@ export namespace Contacts {
   export import SubscriptionType = SubscriptionsAPI.SubscriptionType;
   export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
   export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
+  export import SubscriptionDeleteParams = SubscriptionsAPI.SubscriptionDeleteParams;
   export import Tags = TagsAPI.Tags;
   export import TagCreateParams = TagsAPI.TagCreateParams;
   export import TagListParams = TagsAPI.TagListParams;
+  export import TagDeleteParams = TagsAPI.TagDeleteParams;
 }

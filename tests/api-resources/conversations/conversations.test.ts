@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Intercom from 'intercom';
 import { Response } from 'node-fetch';
@@ -12,7 +12,7 @@ describe('resource conversations', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.conversations.create({
       body: 'Hello there',
-      from: { type: 'user', id: '654b70ce6abd01feb7c11081' },
+      from: { type: 'user', id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,7 +26,7 @@ describe('resource conversations', () => {
   test('create: required and optional params', async () => {
     const response = await intercom.conversations.create({
       body: 'Hello there',
-      from: { type: 'user', id: '654b70ce6abd01feb7c11081' },
+      from: { type: 'user', id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
       'Intercom-Version': '2.10',
     });
   });
@@ -161,6 +161,29 @@ describe('resource conversations', () => {
       conversation_id: '19894788788',
       conversation_part_id: '19381789428',
       type: 'conversation_part',
+      'Intercom-Version': '2.10',
+    });
+  });
+
+  test('search: only required params', async () => {
+    const responsePromise = intercom.conversations.search({ query: {} });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('search: required and optional params', async () => {
+    const response = await intercom.conversations.search({
+      query: { field: 'custom_attributes.social_network', operator: '=', value: 'string' },
+      pagination: {
+        page: 2,
+        starting_after:
+          '1HaSB+xrOyyMXAkS/c1RteCL7BzOzTvYjmjakgTergIH31eoe2v4/sbLsJWP\nIncfQLD3ouPkZlCwJ86F\n',
+      },
       'Intercom-Version': '2.10',
     });
   });

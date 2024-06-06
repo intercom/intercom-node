@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as TagsAPI from 'intercom/resources/tags';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as TagsAPI from './tags';
+import * as Shared from './shared';
 
 export class Tags extends APIResource {
   /**
@@ -28,7 +28,12 @@ export class Tags extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/tags/${id}`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -47,7 +52,12 @@ export class Tags extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get('/tags', {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -68,7 +78,13 @@ export class Tags extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.delete(`/tags/${id}`, {
       ...options,
-      headers: { Accept: '', 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        Accept: '*/*',
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -105,14 +121,19 @@ export class Tags extends APIResource {
     return this._client.post('/tags', {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
 
 export interface TagRetrieveParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -137,7 +158,7 @@ export interface TagRetrieveParams {
 
 export interface TagListParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -162,7 +183,7 @@ export interface TagListParams {
 
 export interface TagDeleteParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
@@ -205,8 +226,8 @@ export namespace TagCreateOrUpdateParams {
     id?: string;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -241,8 +262,8 @@ export namespace TagCreateOrUpdateParams {
     name: string;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -291,8 +312,8 @@ export namespace TagCreateOrUpdateParams {
     name: string;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -345,8 +366,8 @@ export namespace TagCreateOrUpdateParams {
     users: Array<TagCreateOrUpdateParams.TagMultipleUsersRequest.User>;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'

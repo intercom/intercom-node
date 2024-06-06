@@ -7,7 +7,6 @@
     "paths": {
       "intercom/*": ["dist/src/*"],
       "intercom": ["dist/src/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": false,
     "declaration": true,

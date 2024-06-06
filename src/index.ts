@@ -1,10 +1,11 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Core from './core';
 import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
-import * as API from 'intercom/resources/index';
+import * as qs from 'qs';
+import * as API from './resources/index';
 
 const environments = {
   production: 'https://api.intercom.io',
@@ -17,7 +18,7 @@ export interface ClientOptions {
   /**
    * Defaults to process.env['INTERCOM_TEST_1_BEARER_TOKEN'].
    */
-  bearerToken?: string;
+  bearerToken?: string | undefined;
 
   /**
    * Specifies the environment to use for the API.
@@ -95,7 +96,7 @@ export class Intercom extends Core.APIClient {
   /**
    * API Client for interfacing with the Intercom API.
    *
-   * @param {string} [opts.bearerToken=process.env['INTERCOM_TEST_1_BEARER_TOKEN'] ?? undefined]
+   * @param {string | undefined} [opts.bearerToken=process.env['INTERCOM_TEST_1_BEARER_TOKEN'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['INTERCOM_BASE_URL'] ?? https://api.intercom.io] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -180,6 +181,10 @@ export class Intercom extends Core.APIClient {
     return { Authorization: `Bearer ${this.bearerToken}` };
   }
 
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
+  }
+
   static Intercom = this;
 
   static IntercomError = Errors.IntercomError;
@@ -195,6 +200,9 @@ export class Intercom extends Core.APIClient {
   static InternalServerError = Errors.InternalServerError;
   static PermissionDeniedError = Errors.PermissionDeniedError;
   static UnprocessableEntityError = Errors.UnprocessableEntityError;
+
+  static toFile = Uploads.toFile;
+  static fileFromPath = Uploads.fileFromPath;
 }
 
 export const {
@@ -217,10 +225,6 @@ export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
 export namespace Intercom {
-  // Helper functions
-  export import toFile = Uploads.toFile;
-  export import fileFromPath = Uploads.fileFromPath;
-
   export import RequestOptions = Core.RequestOptions;
 
   export import Me = API.Me;
@@ -231,6 +235,7 @@ export namespace Intercom {
   export import AdminList = API.AdminList;
   export import AdminRetrieveParams = API.AdminRetrieveParams;
   export import AdminListParams = API.AdminListParams;
+  export import AdminAwayParams = API.AdminAwayParams;
 
   export import Articles = API.Articles;
   export import Article = API.Article;
@@ -247,11 +252,15 @@ export namespace Intercom {
   export import HelpCenter = API.HelpCenter;
 
   export import Companies = API.Companies;
+  export import CompanyList = API.CompanyList;
+  export import CompanyScroll = API.CompanyScroll;
   export import DeletedCompanyObject = API.DeletedCompanyObject;
+  export import CompanyCreateParams = API.CompanyCreateParams;
   export import CompanyRetrieveParams = API.CompanyRetrieveParams;
   export import CompanyUpdateParams = API.CompanyUpdateParams;
+  export import CompanyListParams = API.CompanyListParams;
   export import CompanyDeleteParams = API.CompanyDeleteParams;
-  export import CompanyCreateUpdateParams = API.CompanyCreateUpdateParams;
+  export import CompanyScrollParams = API.CompanyScrollParams;
 
   export import Contacts = API.Contacts;
   export import ContactArchived = API.ContactArchived;
@@ -269,12 +278,14 @@ export namespace Intercom {
   export import ContactUnarchiveParams = API.ContactUnarchiveParams;
 
   export import Conversations = API.Conversations;
+  export import ConversationList = API.ConversationList;
   export import ConversationCreateParams = API.ConversationCreateParams;
   export import ConversationRetrieveParams = API.ConversationRetrieveParams;
   export import ConversationUpdateParams = API.ConversationUpdateParams;
   export import ConversationListParams = API.ConversationListParams;
   export import ConversationConvertParams = API.ConversationConvertParams;
   export import ConversationRedactParams = API.ConversationRedactParams;
+  export import ConversationSearchParams = API.ConversationSearchParams;
 
   export import DataAttributes = API.DataAttributes;
   export import DataAttribute = API.DataAttribute;
@@ -358,12 +369,18 @@ export namespace Intercom {
   export import VisitorRetrieveByIDParams = API.VisitorRetrieveByIDParams;
 
   export import Admin = API.Admin;
+  export import ArticleContent = API.ArticleContent;
+  export import ArticleTranslatedContent = API.ArticleTranslatedContent;
   export import Company = API.Company;
   export import Contact = API.Contact;
   export import Conversation = API.Conversation;
+  export import GroupContent = API.GroupContent;
+  export import GroupTranslatedContent = API.GroupTranslatedContent;
   export import Message = API.Message;
+  export import MultipleFilterSearchRequest = API.MultipleFilterSearchRequest;
   export import Note = API.Note;
   export import PaginatedResponse = API.PaginatedResponse;
+  export import SearchRequest = API.SearchRequest;
   export import SubscriptionTypeList = API.SubscriptionTypeList;
   export import Tag = API.Tag;
   export import TagList = API.TagList;

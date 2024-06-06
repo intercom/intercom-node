@@ -1,7 +1,11 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-module.exports = {
-  preset: 'ts-jest',
+import type { JestConfigWithTsJest } from 'ts-jest';
+
+const config: JestConfigWithTsJest = {
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
+  transform: {
+    '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
+  },
   moduleNameMapper: {
     '^intercom$': '<rootDir>/src/index.ts',
     '^intercom/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
@@ -13,4 +17,7 @@ module.exports = {
     '<rootDir>/deno/',
     '<rootDir>/deno_tests/',
   ],
+  testPathIgnorePatterns: ['scripts'],
 };
+
+export default config;

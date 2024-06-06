@@ -3,12 +3,18 @@
 Types:
 
 - <code><a href="./src/resources/shared.ts">Admin</a></code>
+- <code><a href="./src/resources/shared.ts">ArticleContent</a></code>
+- <code><a href="./src/resources/shared.ts">ArticleTranslatedContent</a></code>
 - <code><a href="./src/resources/shared.ts">Company</a></code>
 - <code><a href="./src/resources/shared.ts">Contact</a></code>
 - <code><a href="./src/resources/shared.ts">Conversation</a></code>
+- <code><a href="./src/resources/shared.ts">GroupContent</a></code>
+- <code><a href="./src/resources/shared.ts">GroupTranslatedContent</a></code>
 - <code><a href="./src/resources/shared.ts">Message</a></code>
+- <code><a href="./src/resources/shared.ts">MultipleFilterSearchRequest</a></code>
 - <code><a href="./src/resources/shared.ts">Note</a></code>
 - <code><a href="./src/resources/shared.ts">PaginatedResponse</a></code>
+- <code><a href="./src/resources/shared.ts">SearchRequest</a></code>
 - <code><a href="./src/resources/shared.ts">SubscriptionTypeList</a></code>
 - <code><a href="./src/resources/shared.ts">Tag</a></code>
 - <code><a href="./src/resources/shared.ts">TagList</a></code>
@@ -35,6 +41,7 @@ Methods:
 
 - <code title="get /admins/{id}">client.admins.<a href="./src/resources/admins/admins.ts">retrieve</a>(id, { ...params }) -> Admin | null</code>
 - <code title="get /admins">client.admins.<a href="./src/resources/admins/admins.ts">list</a>({ ...params }) -> AdminList</code>
+- <code title="put /admins/{id}/away">client.admins.<a href="./src/resources/admins/admins.ts">away</a>(id, { ...params }) -> Admin | null</code>
 
 ## ActivityLogs
 
@@ -45,8 +52,6 @@ Types:
 Methods:
 
 - <code title="get /admins/activity_logs">client.admins.activityLogs.<a href="./src/resources/admins/activity-logs.ts">list</a>({ ...params }) -> ActivityLogList</code>
-
-## Away
 
 # Articles
 
@@ -100,14 +105,18 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/companies/companies.ts">CompanyList</a></code>
+- <code><a href="./src/resources/companies/companies.ts">CompanyScroll</a></code>
 - <code><a href="./src/resources/companies/companies.ts">DeletedCompanyObject</a></code>
 
 Methods:
 
+- <code title="post /companies">client.companies.<a href="./src/resources/companies/companies.ts">create</a>({ ...params }) -> Company</code>
 - <code title="get /companies/{id}">client.companies.<a href="./src/resources/companies/companies.ts">retrieve</a>(id, { ...params }) -> Company</code>
 - <code title="put /companies/{id}">client.companies.<a href="./src/resources/companies/companies.ts">update</a>(id, { ...params }) -> Company</code>
+- <code title="post /companies/list">client.companies.<a href="./src/resources/companies/companies.ts">list</a>({ ...params }) -> CompanyList</code>
 - <code title="delete /companies/{id}">client.companies.<a href="./src/resources/companies/companies.ts">delete</a>(id, { ...params }) -> DeletedCompanyObject</code>
-- <code title="post /companies">client.companies.<a href="./src/resources/companies/companies.ts">createUpdate</a>({ ...params }) -> Company</code>
+- <code title="get /companies/scroll">client.companies.<a href="./src/resources/companies/companies.ts">scroll</a>({ ...params }) -> CompanyScroll | null</code>
 
 ## Contacts
 
@@ -128,18 +137,6 @@ Types:
 Methods:
 
 - <code title="get /companies/{id}/segments">client.companies.segments.<a href="./src/resources/companies/segments.ts">list</a>(id, { ...params }) -> CompanyAttachedSegments</code>
-
-## List
-
-Types:
-
-- <code><a href="./src/resources/companies/list.ts">CompanyList</a></code>
-
-## Scroll
-
-Types:
-
-- <code><a href="./src/resources/companies/scroll.ts">CompanyScroll</a></code>
 
 # Contacts
 
@@ -205,6 +202,7 @@ Methods:
 
 - <code title="post /contacts/{contact_id}/subscriptions">client.contacts.subscriptions.<a href="./src/resources/contacts/subscriptions.ts">create</a>(contactId, { ...params }) -> SubscriptionType</code>
 - <code title="get /contacts/{contact_id}/subscriptions">client.contacts.subscriptions.<a href="./src/resources/contacts/subscriptions.ts">list</a>(contactId, { ...params }) -> SubscriptionTypeList</code>
+- <code title="delete /contacts/{contact_id}/subscriptions/{id}">client.contacts.subscriptions.<a href="./src/resources/contacts/subscriptions.ts">delete</a>(contactId, id, { ...params }) -> SubscriptionType</code>
 
 ## Tags
 
@@ -212,8 +210,13 @@ Methods:
 
 - <code title="post /contacts/{contact_id}/tags">client.contacts.tags.<a href="./src/resources/contacts/tags.ts">create</a>(contactId, { ...params }) -> Tag</code>
 - <code title="get /contacts/{contact_id}/tags">client.contacts.tags.<a href="./src/resources/contacts/tags.ts">list</a>(contactId, { ...params }) -> TagList</code>
+- <code title="delete /contacts/{contact_id}/tags/{id}">client.contacts.tags.<a href="./src/resources/contacts/tags.ts">delete</a>(contactId, id, { ...params }) -> Tag</code>
 
 # Conversations
+
+Types:
+
+- <code><a href="./src/resources/conversations/conversations.ts">ConversationList</a></code>
 
 Methods:
 
@@ -223,6 +226,7 @@ Methods:
 - <code title="get /conversations">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> PaginatedResponse</code>
 - <code title="post /conversations/{id}/convert">client.conversations.<a href="./src/resources/conversations/conversations.ts">convert</a>(id, { ...params }) -> Ticket | null</code>
 - <code title="post /conversations/redact">client.conversations.<a href="./src/resources/conversations/conversations.ts">redact</a>({ ...params }) -> Conversation</code>
+- <code title="post /conversations/search">client.conversations.<a href="./src/resources/conversations/conversations.ts">search</a>({ ...params }) -> ConversationList</code>
 
 ## Tags
 
@@ -230,16 +234,6 @@ Methods:
 
 - <code title="post /conversations/{conversation_id}/tags">client.conversations.tags.<a href="./src/resources/conversations/tags.ts">create</a>(conversationId, { ...params }) -> Tag</code>
 - <code title="delete /conversations/{conversation_id}/tags/{id}">client.conversations.tags.<a href="./src/resources/conversations/tags.ts">delete</a>(conversationId, id, { ...params }) -> Tag</code>
-
-## Search
-
-Types:
-
-- <code><a href="./src/resources/conversations/search.ts">ConversationList</a></code>
-
-Methods:
-
-- <code title="post /conversations/search">client.conversations.search.<a href="./src/resources/conversations/search.ts">create</a>({ ...params }) -> ConversationList</code>
 
 ## Reply
 
@@ -264,6 +258,7 @@ Methods:
 Methods:
 
 - <code title="post /conversations/{id}/customers">client.conversations.customers.<a href="./src/resources/conversations/customers.ts">create</a>(id, { ...params }) -> Conversation</code>
+- <code title="delete /conversations/{conversation_id}/customers/{contact_id}">client.conversations.customers.<a href="./src/resources/conversations/customers.ts">delete</a>(conversationId, contactId, { ...params }) -> Conversation</code>
 
 # DataAttributes
 

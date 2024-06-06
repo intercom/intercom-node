@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as ItemsAPI from 'intercom/resources/news/newsfeeds/items';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../../../core';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as ItemsAPI from './items';
+import * as Shared from '../../shared';
 
 export class Items extends APIResource {
   /**
@@ -27,14 +27,19 @@ export class Items extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/news/newsfeeds/${id}/items`, {
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
 
 export interface ItemListParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:

@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Intercom from 'intercom';
 import { Response } from 'node-fetch';
@@ -57,5 +57,24 @@ describe('resource admins', () => {
     await expect(
       intercom.admins.list({ 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
+  });
+
+  test('away: only required params', async () => {
+    const responsePromise = intercom.admins.away(0, { away_mode_enabled: true, away_mode_reassign: true });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('away: required and optional params', async () => {
+    const response = await intercom.admins.away(0, {
+      away_mode_enabled: true,
+      away_mode_reassign: true,
+      'Intercom-Version': '2.10',
+    });
   });
 });

@@ -1,9 +1,9 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import * as ReplyAPI from 'intercom/resources/conversations/reply';
-import * as Shared from 'intercom/resources/shared';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import * as ReplyAPI from './reply';
+import * as Shared from '../shared';
 
 export class Reply extends APIResource {
   /**
@@ -19,21 +19,33 @@ export class Reply extends APIResource {
     return this._client.post(`/conversations/${id}/reply`, {
       body,
       ...options,
-      headers: { 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
 
 export type ReplyCreateParams =
-  | ReplyCreateParams.ContactReplyConversationRequest
+  | ReplyCreateParams.ContactReplyIntercomUserIDRequest
+  | ReplyCreateParams.ContactReplyEmailRequest
+  | ReplyCreateParams.ContactReplyUserIDRequest
   | ReplyCreateParams.AdminReplyConversationRequest;
 
 export namespace ReplyCreateParams {
-  export interface ContactReplyConversationRequest {
+  export interface ContactReplyIntercomUserIDRequest {
     /**
      * Body param: The text body of the comment.
      */
     body: string;
+
+    /**
+     * Body param: The identifier for the contact as given by Intercom.
+     */
+    intercom_user_id: string;
 
     /**
      * Body param:
@@ -52,23 +64,110 @@ export namespace ReplyCreateParams {
     attachment_urls?: Array<string>;
 
     /**
-     * Body param: The email you have defined for the user.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
-    email?: string;
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
+
+  export interface ContactReplyEmailRequest {
+    /**
+     * Body param: The text body of the comment.
+     */
+    body: string;
 
     /**
-     * Body param: The identifier for the contact as given by Intercom.
+     * Body param: The email you have defined for the user.
      */
-    intercom_user_id?: string;
+    email: string;
+
+    /**
+     * Body param:
+     */
+    message_type: 'comment';
+
+    /**
+     * Body param:
+     */
+    type: 'user';
+
+    /**
+     * Body param: A list of image URLs that will be added as attachments. You can
+     * include up to 5 URLs.
+     */
+    attachment_urls?: Array<string>;
+
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
+     */
+    'Intercom-Version'?:
+      | '1.0'
+      | '1.1'
+      | '1.2'
+      | '1.3'
+      | '1.4'
+      | '2.0'
+      | '2.1'
+      | '2.2'
+      | '2.3'
+      | '2.4'
+      | '2.5'
+      | '2.6'
+      | '2.7'
+      | '2.8'
+      | '2.9'
+      | '2.10'
+      | 'Unstable';
+  }
+
+  export interface ContactReplyUserIDRequest {
+    /**
+     * Body param: The text body of the comment.
+     */
+    body: string;
+
+    /**
+     * Body param:
+     */
+    message_type: 'comment';
+
+    /**
+     * Body param:
+     */
+    type: 'user';
 
     /**
      * Body param: The external_id you have defined for the contact.
      */
-    user_id?: string;
+    user_id: string;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Body param: A list of image URLs that will be added as attachments. You can
+     * include up to 5 URLs.
+     */
+    attachment_urls?: Array<string>;
+
+    /**
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'
@@ -119,8 +218,8 @@ export namespace ReplyCreateParams {
     body?: string;
 
     /**
-     * Header param: Intercom API version.</br>By default, it's equal to the version
-     * set in the app package.
+     * Header param: Intercom API version.By default, it's equal to the version set in
+     * the app package.
      */
     'Intercom-Version'?:
       | '1.0'

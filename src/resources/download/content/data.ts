@@ -1,9 +1,9 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'intercom/core';
-import { APIResource } from 'intercom/resource';
-import { isRequestOptions } from 'intercom/core';
-import * as DataAPI from 'intercom/resources/download/content/data';
+import * as Core from '../../../core';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as DataAPI from './data';
 
 export class Data extends APIResource {
   /**
@@ -36,14 +36,20 @@ export class Data extends APIResource {
     const { 'Intercom-Version': intercomVersion } = params;
     return this._client.get(`/download/content/data/${jobIdentifier}`, {
       ...options,
-      headers: { Accept: '', 'Intercom-Version': intercomVersion?.toString() || '', ...options?.headers },
+      headers: {
+        Accept: '*/*',
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
     });
   }
 }
 
 export interface DataRetrieveParams {
   /**
-   * Intercom API version.</br>By default, it's equal to the version set in the app
+   * Intercom API version.By default, it's equal to the version set in the app
    * package.
    */
   'Intercom-Version'?:
