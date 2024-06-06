@@ -16,9 +16,9 @@ type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['INTERCOM_TEST_1_BEARER_TOKEN'].
+   * Defaults to process.env['INTERCOM_API_KEY'].
    */
-  bearerToken?: string | undefined;
+  apiKey?: string | undefined;
 
   /**
    * Specifies the environment to use for the API.
@@ -89,14 +89,14 @@ export interface ClientOptions {
 
 /** API Client for interfacing with the Intercom API. */
 export class Intercom extends Core.APIClient {
-  bearerToken: string;
+  apiKey: string;
 
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Intercom API.
    *
-   * @param {string | undefined} [opts.bearerToken=process.env['INTERCOM_TEST_1_BEARER_TOKEN'] ?? undefined]
+   * @param {string | undefined} [opts.apiKey=process.env['INTERCOM_API_KEY'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['INTERCOM_BASE_URL'] ?? https://api.intercom.io] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -108,17 +108,17 @@ export class Intercom extends Core.APIClient {
    */
   constructor({
     baseURL = Core.readEnv('INTERCOM_BASE_URL'),
-    bearerToken = Core.readEnv('INTERCOM_TEST_1_BEARER_TOKEN'),
+    apiKey = Core.readEnv('INTERCOM_API_KEY'),
     ...opts
   }: ClientOptions = {}) {
-    if (bearerToken === undefined) {
+    if (apiKey === undefined) {
       throw new Errors.IntercomError(
-        "The INTERCOM_TEST_1_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the Intercom client with an bearerToken option, like new Intercom({ bearerToken: 'My Bearer Token' }).",
+        "The INTERCOM_API_KEY environment variable is missing or empty; either provide it, or instantiate the Intercom client with an apiKey option, like new Intercom({ apiKey: 'My API Key' }).",
       );
     }
 
     const options: ClientOptions = {
-      bearerToken,
+      apiKey,
       ...opts,
       baseURL,
       environment: opts.environment ?? 'production',
@@ -139,7 +139,7 @@ export class Intercom extends Core.APIClient {
     });
     this._options = options;
 
-    this.bearerToken = bearerToken;
+    this.apiKey = apiKey;
   }
 
   me: API.Me = new API.Me(this);
@@ -178,7 +178,7 @@ export class Intercom extends Core.APIClient {
   }
 
   protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    return { Authorization: `Bearer ${this.bearerToken}` };
+    return { Authorization: `Bearer ${this.apiKey}` };
   }
 
   protected override stringifyQuery(query: Record<string, unknown>): string {
