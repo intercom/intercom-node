@@ -27,7 +27,7 @@ describe('resource conversations', () => {
     const response = await intercom.conversations.create({
       body: 'Hello there',
       from: { type: 'user', id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -54,7 +54,7 @@ describe('resource conversations', () => {
     await expect(
       intercom.conversations.retrieve(
         123,
-        { display_as: 'string', 'Intercom-Version': '2.10' },
+        { display_as: 'string', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -87,7 +87,7 @@ describe('resource conversations', () => {
           display_as: 'string',
           custom_attributes: { issue_type: 'Billing', priority: 'High' },
           read: true,
-          'Intercom-Version': '2.10',
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -116,14 +116,14 @@ describe('resource conversations', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.conversations.list(
-        { per_page: 0, starting_after: 'string', 'Intercom-Version': '2.10' },
+        { per_page: 0, starting_after: 'string', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('convert: only required params', async () => {
-    const responsePromise = intercom.conversations.convert(123, { ticket_type_id: '108' });
+    const responsePromise = intercom.conversations.convert(123, { ticket_type_id: '120' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -135,9 +135,9 @@ describe('resource conversations', () => {
 
   test('convert: required and optional params', async () => {
     const response = await intercom.conversations.convert(123, {
-      ticket_type_id: '108',
-      attributes: { name: 'example', question: 'Can I have some help?' },
-      'Intercom-Version': '2.10',
+      ticket_type_id: '120',
+      attributes: { _default_title_: 'Found a bug', _default_description_: 'The button is not working' },
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -161,7 +161,7 @@ describe('resource conversations', () => {
       conversation_id: '19894788788',
       conversation_part_id: '19381789428',
       type: 'conversation_part',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -178,13 +178,9 @@ describe('resource conversations', () => {
 
   test('search: required and optional params', async () => {
     const response = await intercom.conversations.search({
-      query: { field: 'custom_attributes.social_network', operator: '=', value: 'string' },
-      pagination: {
-        page: 2,
-        starting_after:
-          '1HaSB+xrOyyMXAkS/c1RteCL7BzOzTvYjmjakgTergIH31eoe2v4/sbLsJWP\nIncfQLD3ouPkZlCwJ86F\n',
-      },
-      'Intercom-Version': '2.10',
+      query: { field: 'created_at', operator: '=', value: 'string' },
+      pagination: { per_page: 5, starting_after: 'your-cursor-from-response' },
+      'Intercom-Version': '2.11',
     });
   });
 });

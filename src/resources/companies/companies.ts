@@ -15,14 +15,17 @@ export class Companies extends APIResource {
   /**
    * You can create or update a company.
    *
-   * > 📘 Companies with no users
-   * >
-   * > Companies will be only visible in Intercom when there is at least one
-   * > associated user.
+   * Companies will be only visible in Intercom when there is at least one associated
+   * user.
    *
    * Companies are looked up via `company_id` in a `POST` request, if not found via
    * `company_id`, the new company will be created, if found, that company will be
    * updated.
+   *
+   * {% admonition type="attention" name="Using `company_id`" %} You can set a unique
+   * `company_id` value when creating a company. However, it is not possible to
+   * update `company_id`. Be sure to set a unique value once upon creation of the
+   * company. {% /admonition %}
    */
   create(params?: CompanyCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Company>;
   create(options?: Core.RequestOptions): Core.APIPromise<Shared.Company>;
@@ -76,7 +79,11 @@ export class Companies extends APIResource {
   }
 
   /**
-   * You can update a single company
+   * You can update a single company using the Intercom provisioned `id`.
+   *
+   * {% admonition type="attention" name="Using `company_id`" %} When updating a
+   * company it is not possible to update `company_id`. This can only be set once
+   * upon creation of the company. {% /admonition %}
    */
   update(
     id: string,
@@ -111,17 +118,28 @@ export class Companies extends APIResource {
    * Note that the API does not include companies who have no associated users in
    * list responses.
    *
-   * > 📘
-   * >
-   * > When using the Companies endpoint and the pages object to iterate through the
-   * > returned companies, there is a limit of 10,000 Companies that can be returned.
-   * > If you need to list or iterate on more than 10,000 Companies, please use the
-   * > [Scroll API](https://developers.intercom.com/reference#iterating-over-all-companies).
+   * When using the Companies endpoint and the pages object to iterate through the
+   * returned companies, there is a limit of 10,000 Companies that can be returned.
+   * If you need to list or iterate on more than 10,000 Companies, please use the
+   * [Scroll API](https://developers.intercom.com/reference#iterating-over-all-companies).
+   * {% admonition type="warning" name="Pagination" %} You can use pagination to
+   * limit the number of results returned. The default is `20` results per page. See
+   * the
+   * [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis)
+   * for more details on how to use the `starting_after` param. {% /admonition %}
    */
-  list(params: CompanyListParams, options?: Core.RequestOptions): Core.APIPromise<CompanyList> {
-    const { filter, order, page, per_page, 'Intercom-Version': intercomVersion } = params;
+  list(params?: CompanyListParams, options?: Core.RequestOptions): Core.APIPromise<CompanyList>;
+  list(options?: Core.RequestOptions): Core.APIPromise<CompanyList>;
+  list(
+    params: CompanyListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CompanyList> {
+    if (isRequestOptions(params)) {
+      return this.list({}, params);
+    }
+    const { order, page, per_page, 'Intercom-Version': intercomVersion } = params;
     return this._client.post('/companies/list', {
-      query: { filter, order, page, per_page },
+      query: { order, page, per_page },
       ...options,
       headers: {
         ...(intercomVersion?.toString() != null ?
@@ -171,22 +189,16 @@ export class Companies extends APIResource {
    * - If the end of the scroll is reached, "companies" will be empty and the scroll
    *   parameter will expire
    *
-   * > 📘 Scroll Parameter
-   * >
-   * > You can get the first page of companies by simply sending a GET request to the
-   * > scroll endpoint. For subsequent requests you will need to use the scroll
-   * > parameter from the response.
-   *
-   * > ❗️ Scroll network timeouts
-   * >
-   * > Since scroll is often used on large datasets network errors such as timeouts
-   * > can be encountered. When this occurs you will need to restart your scroll
-   * > query as it is not possible to continue from a specific point when using
-   * > scroll.
-   * >
-   * > When this occurs you will see a HTTP 500 error with the following message:
-   * > "Request failed due to an internal network error. Please restart the scroll
-   * > operation."
+   * {% admonition type="info" name="Scroll Parameter" %} You can get the first page
+   * of companies by simply sending a GET request to the scroll endpoint. For
+   * subsequent requests you will need to use the scroll parameter from the response.
+   * {% /admonition %} {% admonition type="danger" name="Scroll network timeouts" %}
+   * Since scroll is often used on large datasets network errors such as timeouts can
+   * be encountered. When this occurs you will see a HTTP 500 error with the
+   * following message: "Request failed due to an internal network error. Please
+   * restart the scroll operation." If this happens, you will need to restart your
+   * scroll query: It is not possible to continue from a specific point when using
+   * scroll. {% /admonition %}
    */
   scroll(params?: CompanyScrollParams, options?: Core.RequestOptions): Core.APIPromise<CompanyScroll | null>;
   scroll(options?: Core.RequestOptions): Core.APIPromise<CompanyScroll | null>;
@@ -212,7 +224,7 @@ export class Companies extends APIResource {
 }
 
 /**
- * This will return a list of company for the App.
+ * This will return a list of companies for the App.
  */
 export interface CompanyList {
   /**
@@ -272,9 +284,15 @@ export namespace CompanyList {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -345,9 +363,15 @@ export namespace CompanyScroll {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -443,6 +467,7 @@ export interface CompanyCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -468,6 +493,7 @@ export interface CompanyRetrieveParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -493,15 +519,11 @@ export interface CompanyUpdateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
 export interface CompanyListParams {
-  /**
-   * Query param: The `id` of the tag to filter by.
-   */
-  filter: CompanyListParams.FilterByTag | CompanyListParams.FilterBySegment;
-
   /**
    * Query param: `asc` or `desc`. Return the companies in ascending or descending
    * order. Defaults to desc
@@ -509,14 +531,14 @@ export interface CompanyListParams {
   order?: string;
 
   /**
-   * Query param: what page of results to fetch. Defaults to first page
+   * Query param: The page of results to fetch. Defaults to first page
    */
-  page?: string;
+  page?: number;
 
   /**
-   * Query param: how many results per page. Defaults to 15
+   * Query param: How many results to return per page. Defaults to 15
    */
-  per_page?: string;
+  per_page?: number;
 
   /**
    * Header param: Intercom API version.By default, it's equal to the version set in
@@ -539,23 +561,8 @@ export interface CompanyListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
-}
-
-export namespace CompanyListParams {
-  /**
-   * The `id` of the tag to filter by.
-   */
-  export interface FilterByTag {
-    tag_id: string;
-  }
-
-  /**
-   * The `id` of the segment to filter by.
-   */
-  export interface FilterBySegment {
-    segment_id: string;
-  }
 }
 
 export interface CompanyDeleteParams {
@@ -580,6 +587,7 @@ export interface CompanyDeleteParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -610,6 +618,7 @@ export interface CompanyScrollParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

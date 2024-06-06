@@ -30,7 +30,7 @@ describe('resource tags', () => {
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.tags.retrieve('123', { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.tags.retrieve('123', { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -55,7 +55,7 @@ describe('resource tags', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.tags.list({ 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.tags.list({ 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -80,7 +80,7 @@ describe('resource tags', () => {
   test('delete: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.tags.delete('123', { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.tags.delete('123', { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -99,7 +99,7 @@ describe('resource tags', () => {
     const response = await intercom.tags.createOrUpdate({
       name: 'Independent',
       id: '656452352',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 });

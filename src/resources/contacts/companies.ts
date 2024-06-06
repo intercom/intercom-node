@@ -173,6 +173,7 @@ export interface CompanyCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -198,6 +199,7 @@ export interface CompanyListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -223,6 +225,7 @@ export interface CompanyDeleteParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

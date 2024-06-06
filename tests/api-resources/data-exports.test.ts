@@ -11,8 +11,8 @@ const intercom = new Intercom({
 describe('resource dataExports', () => {
   test('contentData: only required params', async () => {
     const responsePromise = intercom.dataExports.contentData({
-      created_at_after: 1699425120,
-      created_at_before: 1699443120,
+      created_at_after: 1717004390,
+      created_at_before: 1717022390,
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,9 +25,9 @@ describe('resource dataExports', () => {
 
   test('contentData: required and optional params', async () => {
     const response = await intercom.dataExports.contentData({
-      created_at_after: 1699425120,
-      created_at_before: 1699443120,
-      'Intercom-Version': '2.10',
+      created_at_after: 1717004390,
+      created_at_before: 1717022390,
+      'Intercom-Version': '2.11',
     });
   });
 });

@@ -24,7 +24,7 @@ describe('resource phoneCallRedirects', () => {
     const response = await intercom.phoneCallRedirects.create({
       phone: '+353832345678',
       custom_attributes: { issue_type: 'Billing', priority: 'High' },
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 });

@@ -36,7 +36,7 @@ describe('resource attributes', () => {
       required_to_create_for_contacts: false,
       visible_on_create: true,
       visible_to_contacts: true,
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -75,7 +75,7 @@ describe('resource attributes', () => {
           required_to_create_for_contacts: false,
           visible_on_create: true,
           visible_to_contacts: true,
-          'Intercom-Version': '2.10',
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),

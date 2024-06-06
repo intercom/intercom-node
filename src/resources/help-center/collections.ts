@@ -90,11 +90,9 @@ export class Collections extends APIResource {
    * You can fetch a list of all collections by making a GET request to
    * `https://api.intercom.io/help_center/collections`.
    *
-   * > 📘 How are the collections sorted and ordered?
-   * >
-   * > Collections will be returned in descending order on the `updated_at`
-   * > attribute. This means if you need to iterate through results then we'll show
-   * > the most recently updated collections first.
+   * Collections will be returned in descending order on the `updated_at` attribute.
+   * This means if you need to iterate through results then we'll show the most
+   * recently updated collections first.
    */
   list(params?: CollectionListParams, options?: Core.RequestOptions): Core.APIPromise<CollectionList>;
   list(options?: Core.RequestOptions): Core.APIPromise<CollectionList>;
@@ -158,8 +156,8 @@ export interface Collection {
   id?: string;
 
   /**
-   * The time when the article was created. For multilingual articles, this will be
-   * the timestamp of creation of the default language's content.
+   * The time when the article was created (seconds). For multilingual articles, this
+   * will be the timestamp of creation of the default language's content.
    */
   created_at?: number;
 
@@ -193,7 +191,7 @@ export interface Collection {
 
   /**
    * The order of the section in relation to others sections within a collection.
-   * Values go from ` 0`` upwards.  `0`` is the default if there's no order.
+   * Values go from `0` upwards. `0` is the default if there's no order.
    */
   order?: number;
 
@@ -210,8 +208,8 @@ export interface Collection {
   translated_content?: Shared.GroupTranslatedContent | null;
 
   /**
-   * The time when the article was last updated. For multilingual articles, this will
-   * be the timestamp of last update of the default language's content.
+   * The time when the article was last updated (seconds). For multilingual articles,
+   * this will be the timestamp of last update of the default language's content.
    */
   updated_at?: number;
 
@@ -288,9 +286,15 @@ export namespace CollectionList {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -367,6 +371,7 @@ export interface CollectionCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -392,6 +397,7 @@ export interface CollectionRetrieveParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -441,6 +447,7 @@ export interface CollectionUpdateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -466,6 +473,7 @@ export interface CollectionListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -491,6 +499,7 @@ export interface CollectionDeleteParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

@@ -11,7 +11,7 @@ const intercom = new Intercom({
 describe('resource tickets', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.tickets.create({
-      contacts: [{ id: '654b84736abd01feb7c111a1' }],
+      contacts: [{ id: '6657af026abd0167d9419def' }],
       ticket_type_id: 'string',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,17 +25,18 @@ describe('resource tickets', () => {
 
   test('create: required and optional params', async () => {
     const response = await intercom.tickets.create({
-      contacts: [{ id: '654b84736abd01feb7c111a1' }],
+      contacts: [{ id: '6657af026abd0167d9419def' }],
       ticket_type_id: 'string',
-      ticket_attributes: { title: 'example', description: 'there is a problem' },
-      'Intercom-Version': '2.10',
+      company_id: '1234',
+      created_at: 1590000000,
+      ticket_attributes: { _default_title_: 'example', _default_description_: 'there is a problem' },
+      'Intercom-Version': '2.11',
     });
   });
 
   test('reply: only required params', async () => {
     const responsePromise = intercom.tickets.reply('123', {
       body: 'string',
-      intercom_user_id: 'string',
       message_type: 'comment',
       type: 'user',
     });
@@ -51,11 +52,11 @@ describe('resource tickets', () => {
   test('reply: required and optional params', async () => {
     const response = await intercom.tickets.reply('123', {
       body: 'string',
-      intercom_user_id: 'string',
       message_type: 'comment',
       type: 'user',
       attachment_urls: ['https://example.com', 'https://example.com', 'https://example.com'],
-      'Intercom-Version': '2.10',
+      created_at: 1590000000,
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -82,7 +83,7 @@ describe('resource tickets', () => {
     await expect(
       intercom.tickets.retrieveById(
         'string',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -101,13 +102,9 @@ describe('resource tickets', () => {
 
   test('search: required and optional params', async () => {
     const response = await intercom.tickets.search({
-      query: { field: 'custom_attributes.social_network', operator: '=', value: 'string' },
-      pagination: {
-        page: 2,
-        starting_after:
-          '1HaSB+xrOyyMXAkS/c1RteCL7BzOzTvYjmjakgTergIH31eoe2v4/sbLsJWP\nIncfQLD3ouPkZlCwJ86F\n',
-      },
-      'Intercom-Version': '2.10',
+      query: { field: 'created_at', operator: '=', value: 'string' },
+      pagination: { per_page: 5, starting_after: 'your-cursor-from-response' },
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -135,13 +132,13 @@ describe('resource tickets', () => {
       intercom.tickets.updateById(
         'string',
         {
-          assignment: { admin_id: '991269042', assignee_id: '991269044' },
+          assignment: { admin_id: '991268839', assignee_id: '991268841' },
           is_shared: true,
           open: true,
           snoozed_until: 1673609604,
           state: 'in_progress',
-          ticket_attributes: { title: 'example', description: 'there is a problem' },
-          'Intercom-Version': '2.10',
+          ticket_attributes: { _default_title_: 'example', _default_description_: 'there is a problem' },
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),

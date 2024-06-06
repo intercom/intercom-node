@@ -30,8 +30,9 @@ describe('resource dataAttributes', () => {
       model: 'company',
       name: 'Mithril Shirt',
       description: 'My Data Attribute Description',
+      messenger_writable: false,
       options: ['option1', 'option2'],
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -61,8 +62,9 @@ describe('resource dataAttributes', () => {
         {
           archived: false,
           description: 'Just a plain old ring',
+          messenger_writable: false,
           options: ['string', 'string'],
-          'Intercom-Version': '2.10',
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -91,7 +93,7 @@ describe('resource dataAttributes', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.dataAttributes.list(
-        { include_archived: true, model: 'contact', 'Intercom-Version': '2.10' },
+        { include_archived: true, model: 'contact', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

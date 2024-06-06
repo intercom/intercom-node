@@ -41,7 +41,7 @@ describe('resource companies', () => {
           remote_created_at: 1374138000,
           size: 0,
           website: 'https://www.example.com',
-          'Intercom-Version': '2.10',
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -73,7 +73,7 @@ describe('resource companies', () => {
     await expect(
       intercom.companies.retrieve(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -102,14 +102,14 @@ describe('resource companies', () => {
     await expect(
       intercom.companies.update(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
-  test('list: only required params', async () => {
-    const responsePromise = intercom.companies.list({ filter: { tag_id: 'string' } });
+  test('list', async () => {
+    const responsePromise = intercom.companies.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -119,14 +119,21 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: required and optional params', async () => {
-    const response = await intercom.companies.list({
-      filter: { tag_id: 'string' },
-      order: 'string',
-      page: 'string',
-      per_page: 'string',
-      'Intercom-Version': '2.10',
-    });
+  test('list: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(intercom.companies.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Intercom.NotFoundError,
+    );
+  });
+
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      intercom.companies.list(
+        { order: 'string', page: 0, per_page: 0, 'Intercom-Version': '2.11' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('delete', async () => {
@@ -152,7 +159,7 @@ describe('resource companies', () => {
     await expect(
       intercom.companies.delete(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -180,7 +187,7 @@ describe('resource companies', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.companies.scroll(
-        { scroll_param: 'string', 'Intercom-Version': '2.10' },
+        { scroll_param: 'string', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

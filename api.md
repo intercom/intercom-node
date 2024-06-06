@@ -469,5 +469,3 @@ Methods:
 - <code title="get /visitors">client.visitors.<a href="./src/resources/visitors.ts">retrieve</a>({ ...params }) -> Visitor | null</code>
 - <code title="put /visitors">client.visitors.<a href="./src/resources/visitors.ts">update</a>({ ...params }) -> Visitor | null</code>
 - <code title="post /visitors/convert">client.visitors.<a href="./src/resources/visitors.ts">convert</a>({ ...params }) -> Contact</code>
-- <code title="delete /visitors/{id}">client.visitors.<a href="./src/resources/visitors.ts">deleteById</a>(id, { ...params }) -> VisitorDeletedObject</code>
-- <code title="get /visitors/{id}">client.visitors.<a href="./src/resources/visitors.ts">retrieveById</a>(id, { ...params }) -> Visitor | null</code>

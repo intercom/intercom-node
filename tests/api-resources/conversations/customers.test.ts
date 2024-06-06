@@ -35,10 +35,10 @@ describe('resource customers', () => {
         {
           admin_id: 'string',
           customer: {
-            intercom_user_id: '654b71376abd01feb7c110af',
+            intercom_user_id: '6657ae626abd0167d9419d6f',
             customer: { intercom_user_id: '6329bd9ffe4e2e91dac76188' },
           },
-          'Intercom-Version': '2.10',
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -59,7 +59,7 @@ describe('resource customers', () => {
   test('delete: required and optional params', async () => {
     const response = await intercom.conversations.customers.delete('123', '123', {
       admin_id: 'string',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 });

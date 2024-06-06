@@ -24,7 +24,7 @@ describe('resource activityLogs', () => {
     const response = await intercom.admins.activityLogs.list({
       created_at_after: 'string',
       created_at_before: 'string',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 });

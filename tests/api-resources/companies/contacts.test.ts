@@ -34,7 +34,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.companies.contacts.list(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

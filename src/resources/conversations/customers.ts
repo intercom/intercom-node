@@ -11,11 +11,10 @@ export class Customers extends APIResource {
    * You can add participants who are contacts to a conversation, on behalf of either
    * another contact or an admin.
    *
-   * > 🚧 Note about contacts without an email
-   * >
-   * > If you add a contact via the email parameter and there is no user/lead found
-   * > on that workspace with he given email, then we will create a new contact with
-   * > `role` set to `lead`.
+   * {% admonition type="attention" name="Contacts without an email" %} If you add a
+   * contact via the email parameter and there is no user/lead found on that
+   * workspace with he given email, then we will create a new contact with `role` set
+   * to `lead`. {% /admonition %}
    */
   create(
     id: string,
@@ -48,11 +47,10 @@ export class Customers extends APIResource {
    * You can add participants who are contacts to a conversation, on behalf of either
    * another contact or an admin.
    *
-   * > 🚧 Note about contacts without an email
-   * >
-   * > If you add a contact via the email parameter and there is no user/lead found
-   * > on that workspace with he given email, then we will create a new contact with
-   * > `role` set to `lead`.
+   * {% admonition type="attention" name="Contacts without an email" %} If you add a
+   * contact via the email parameter and there is no user/lead found on that
+   * workspace with he given email, then we will create a new contact with `role` set
+   * to `lead`. {% /admonition %}
    */
   delete(
     conversationId: string,
@@ -106,6 +104,7 @@ export interface CustomerCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -238,6 +237,7 @@ export interface CustomerDeleteParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

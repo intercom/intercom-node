@@ -9,6 +9,8 @@ import * as Shared from '../shared';
 export class RunAssignmentRules extends APIResource {
   /**
    * You can let a conversation be automatically assigned following assignment rules.
+   * {% admonition type="attention" name="When using workflows" %} It is not possible
+   * to use this endpoint with Workflows. {% /admonition %}
    */
   create(
     id: string,
@@ -59,6 +61,7 @@ export interface RunAssignmentRuleCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

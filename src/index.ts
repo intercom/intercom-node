@@ -365,8 +365,6 @@ export namespace Intercom {
   export import VisitorRetrieveParams = API.VisitorRetrieveParams;
   export import VisitorUpdateParams = API.VisitorUpdateParams;
   export import VisitorConvertParams = API.VisitorConvertParams;
-  export import VisitorDeleteByIDParams = API.VisitorDeleteByIDParams;
-  export import VisitorRetrieveByIDParams = API.VisitorRetrieveByIDParams;
 
   export import Admin = API.Admin;
   export import ArticleContent = API.ArticleContent;

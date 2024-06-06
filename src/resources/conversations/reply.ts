@@ -11,7 +11,7 @@ export class Reply extends APIResource {
    * contact, or with a note for admins.
    */
   create(
-    id: (string & {}) | 'last',
+    id: string,
     params: ReplyCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Conversation> {
@@ -43,11 +43,6 @@ export namespace ReplyCreateParams {
     body: string;
 
     /**
-     * Body param: The identifier for the contact as given by Intercom.
-     */
-    intercom_user_id: string;
-
-    /**
      * Body param:
      */
     message_type: 'comment';
@@ -59,9 +54,15 @@ export namespace ReplyCreateParams {
 
     /**
      * Body param: A list of image URLs that will be added as attachments. You can
-     * include up to 5 URLs.
+     * include up to 10 URLs.
      */
     attachment_urls?: Array<string>;
+
+    /**
+     * Body param: The time the reply was created. If not provided, the current time
+     * will be used.
+     */
+    created_at?: number;
 
     /**
      * Header param: Intercom API version.By default, it's equal to the version set in
@@ -84,6 +85,7 @@ export namespace ReplyCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -94,11 +96,6 @@ export namespace ReplyCreateParams {
     body: string;
 
     /**
-     * Body param: The email you have defined for the user.
-     */
-    email: string;
-
-    /**
      * Body param:
      */
     message_type: 'comment';
@@ -110,9 +107,15 @@ export namespace ReplyCreateParams {
 
     /**
      * Body param: A list of image URLs that will be added as attachments. You can
-     * include up to 5 URLs.
+     * include up to 10 URLs.
      */
     attachment_urls?: Array<string>;
+
+    /**
+     * Body param: The time the reply was created. If not provided, the current time
+     * will be used.
+     */
+    created_at?: number;
 
     /**
      * Header param: Intercom API version.By default, it's equal to the version set in
@@ -135,6 +138,7 @@ export namespace ReplyCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -155,15 +159,16 @@ export namespace ReplyCreateParams {
     type: 'user';
 
     /**
-     * Body param: The external_id you have defined for the contact.
-     */
-    user_id: string;
-
-    /**
      * Body param: A list of image URLs that will be added as attachments. You can
-     * include up to 5 URLs.
+     * include up to 10 URLs.
      */
     attachment_urls?: Array<string>;
+
+    /**
+     * Body param: The time the reply was created. If not provided, the current time
+     * will be used.
+     */
+    created_at?: number;
 
     /**
      * Header param: Intercom API version.By default, it's equal to the version set in
@@ -186,6 +191,7 @@ export namespace ReplyCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -206,16 +212,28 @@ export namespace ReplyCreateParams {
     type: 'admin';
 
     /**
+     * Body param: A list of files that will be added as attachments. You can include
+     * up to 10 files
+     */
+    attachment_files?: Array<ReplyCreateParams.AdminReplyConversationRequest.AttachmentFile>;
+
+    /**
      * Body param: A list of image URLs that will be added as attachments. You can
-     * include up to 5 URLs.
+     * include up to 10 URLs.
      */
     attachment_urls?: Array<string>;
 
     /**
-     * Body param: The text body of the reply.\nNotes accept some HTML
-     * formatting.\nMust be present for comment and note message types.
+     * Body param: The text body of the reply. Notes accept some HTML formatting. Must
+     * be present for comment and note message types.
      */
     body?: string;
+
+    /**
+     * Body param: The time the reply was created. If not provided, the current time
+     * will be used.
+     */
+    created_at?: number;
 
     /**
      * Header param: Intercom API version.By default, it's equal to the version set in
@@ -238,7 +256,30 @@ export namespace ReplyCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
+  }
+
+  export namespace AdminReplyConversationRequest {
+    /**
+     * Properties of the attachment files in a conversation part
+     */
+    export interface AttachmentFile {
+      /**
+       * The content type of the file
+       */
+      content_type?: string;
+
+      /**
+       * The base64 encoded file data.
+       */
+      data?: string;
+
+      /**
+       * The name of the file.
+       */
+      name?: string;
+    }
   }
 }
 

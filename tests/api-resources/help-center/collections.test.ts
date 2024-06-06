@@ -66,7 +66,7 @@ describe('resource collections', () => {
         'zh-CN': { type: 'group_content', name: 'Collection name', description: ' Collection description' },
         'zh-TW': { type: 'group_content', name: 'Collection name', description: ' Collection description' },
       },
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -93,7 +93,7 @@ describe('resource collections', () => {
     await expect(
       intercom.helpCenter.collections.retrieve(
         123,
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -178,7 +178,7 @@ describe('resource collections', () => {
               description: ' Collection description',
             },
           },
-          'Intercom-Version': '2.10',
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -207,7 +207,7 @@ describe('resource collections', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.helpCenter.collections.list(
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -236,7 +236,7 @@ describe('resource collections', () => {
     await expect(
       intercom.helpCenter.collections.delete(
         123,
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

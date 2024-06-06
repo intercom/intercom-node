@@ -98,9 +98,15 @@ export namespace CompanyAttachedContacts {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -127,6 +133,7 @@ export interface ContactListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

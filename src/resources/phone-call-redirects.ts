@@ -79,12 +79,16 @@ export interface PhoneCallRedirectCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
 export namespace PhoneCallRedirectCreateParams {
   /**
-   * An instance of a Custom Object Type.
+   * A Custom Object Instance represents an instance of a custom object type. This
+   * allows you to create and set custom attributes to store data about your
+   * customers that is not already captured by Intercom. The parent object includes
+   * recommended default attributes and you can add your own custom attributes.
    */
   export interface CustomObjectInstance {
     /**

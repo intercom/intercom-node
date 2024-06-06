@@ -27,7 +27,7 @@ describe('resource subscriptions', () => {
     const response = await intercom.contacts.subscriptions.create('63a07ddf05a32042dffac965', {
       id: 'string',
       consent_type: 'opt_in',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -54,7 +54,7 @@ describe('resource subscriptions', () => {
     await expect(
       intercom.contacts.subscriptions.list(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -86,7 +86,7 @@ describe('resource subscriptions', () => {
       intercom.contacts.subscriptions.delete(
         '63a07ddf05a32042dffac965',
         '37846',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
