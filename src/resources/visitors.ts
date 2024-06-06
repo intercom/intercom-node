@@ -2,7 +2,6 @@
 
 import * as Core from '../core';
 import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
 import * as VisitorsAPI from './visitors';
 import * as Shared from './shared';
 
@@ -62,64 +61,6 @@ export class Visitors extends APIResource {
     const { 'Intercom-Version': intercomVersion, ...body } = params;
     return this._client.post('/visitors/convert', {
       body,
-      ...options,
-      headers: {
-        ...(intercomVersion?.toString() != null ?
-          { 'Intercom-Version': intercomVersion?.toString() }
-        : undefined),
-        ...options?.headers,
-      },
-    });
-  }
-
-  /**
-   * You can delete a single visitor.
-   */
-  deleteById(
-    id: string,
-    params?: VisitorDeleteByIDParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<VisitorDeletedObject>;
-  deleteById(id: string, options?: Core.RequestOptions): Core.APIPromise<VisitorDeletedObject>;
-  deleteById(
-    id: string,
-    params: VisitorDeleteByIDParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<VisitorDeletedObject> {
-    if (isRequestOptions(params)) {
-      return this.deleteById(id, {}, params);
-    }
-    const { 'Intercom-Version': intercomVersion } = params;
-    return this._client.delete(`/visitors/${id}`, {
-      ...options,
-      headers: {
-        ...(intercomVersion?.toString() != null ?
-          { 'Intercom-Version': intercomVersion?.toString() }
-        : undefined),
-        ...options?.headers,
-      },
-    });
-  }
-
-  /**
-   * You can fetch the details of a single visitor.
-   */
-  retrieveById(
-    id: string,
-    params?: VisitorRetrieveByIDParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Visitor | null>;
-  retrieveById(id: string, options?: Core.RequestOptions): Core.APIPromise<Visitor | null>;
-  retrieveById(
-    id: string,
-    params: VisitorRetrieveByIDParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Visitor | null> {
-    if (isRequestOptions(params)) {
-      return this.retrieveById(id, {}, params);
-    }
-    const { 'Intercom-Version': intercomVersion } = params;
-    return this._client.get(`/visitors/${id}`, {
       ...options,
       headers: {
         ...(intercomVersion?.toString() != null ?
@@ -438,6 +379,7 @@ export interface VisitorRetrieveParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -471,6 +413,7 @@ export namespace VisitorUpdateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -501,6 +444,7 @@ export namespace VisitorUpdateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 }
@@ -542,6 +486,7 @@ export interface VisitorConvertParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -588,62 +533,10 @@ export namespace VisitorConvertParams {
   }
 }
 
-export interface VisitorDeleteByIDParams {
-  /**
-   * Intercom API version.By default, it's equal to the version set in the app
-   * package.
-   */
-  'Intercom-Version'?:
-    | '1.0'
-    | '1.1'
-    | '1.2'
-    | '1.3'
-    | '1.4'
-    | '2.0'
-    | '2.1'
-    | '2.2'
-    | '2.3'
-    | '2.4'
-    | '2.5'
-    | '2.6'
-    | '2.7'
-    | '2.8'
-    | '2.9'
-    | '2.10'
-    | 'Unstable';
-}
-
-export interface VisitorRetrieveByIDParams {
-  /**
-   * Intercom API version.By default, it's equal to the version set in the app
-   * package.
-   */
-  'Intercom-Version'?:
-    | '1.0'
-    | '1.1'
-    | '1.2'
-    | '1.3'
-    | '1.4'
-    | '2.0'
-    | '2.1'
-    | '2.2'
-    | '2.3'
-    | '2.4'
-    | '2.5'
-    | '2.6'
-    | '2.7'
-    | '2.8'
-    | '2.9'
-    | '2.10'
-    | 'Unstable';
-}
-
 export namespace Visitors {
   export import Visitor = VisitorsAPI.Visitor;
   export import VisitorDeletedObject = VisitorsAPI.VisitorDeletedObject;
   export import VisitorRetrieveParams = VisitorsAPI.VisitorRetrieveParams;
   export import VisitorUpdateParams = VisitorsAPI.VisitorUpdateParams;
   export import VisitorConvertParams = VisitorsAPI.VisitorConvertParams;
-  export import VisitorDeleteByIDParams = VisitorsAPI.VisitorDeleteByIDParams;
-  export import VisitorRetrieveByIDParams = VisitorsAPI.VisitorRetrieveByIDParams;
 }

@@ -7,9 +7,12 @@ import * as Shared from '../shared';
 
 export class Parts extends APIResource {
   /**
-   * You can close a conversation. You can snooze a conversation to reopen on a
-   * future date. You can open a conversation which is `snoozed` or `closed`. You can
-   * assign a conversation to an admin and/or team.
+   * For managing conversations you can:
+   *
+   * - Close a conversation
+   * - Snooze a conversation to reopen on a future date
+   * - Open a conversation which is `snoozed` or `closed`
+   * - Assign a conversation to an admin and/or team.
    */
   create(
     id: string,
@@ -80,6 +83,7 @@ export namespace PartCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -120,6 +124,7 @@ export namespace PartCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -155,6 +160,7 @@ export namespace PartCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -165,8 +171,8 @@ export namespace PartCreateParams {
     admin_id: string;
 
     /**
-     * Body param: The
-     * ` id`` of the  `admin`or`team`which will be assigned the conversation.\nA conversation can be assigned both an admin and a team.\nSet`0`
+     * Body param: The `id` of the `admin` or `team` which will be assigned the
+     * conversation. A conversation can be assigned both an admin and a team.\nSet `0`
      * if you want this assign to no admin or team (ie. Unassigned).
      */
     assignee_id: string;
@@ -208,6 +214,7 @@ export namespace PartCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 }

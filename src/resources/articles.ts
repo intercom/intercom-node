@@ -171,9 +171,7 @@ export class Articles extends APIResource {
 }
 
 /**
- * The Articles API is a central place to gather all information and take actions
- * on your articles. Articles can live within collections and sections, or
- * alternatively they can stand alone.
+ * The data returned about your articles when you list them.
  */
 export interface Article {
   /**
@@ -196,7 +194,7 @@ export interface Article {
 
   /**
    * The time when the article was created. For multilingual articles, this will be
-   * the timestamp of creation of the default language's content.
+   * the timestamp of creation of the default language's content in seconds.
    */
   created_at?: number;
 
@@ -236,11 +234,6 @@ export interface Article {
   state?: 'published' | 'draft';
 
   /**
-   * The statistics of an article.
-   */
-  statistics?: Article.Statistics | null;
-
-  /**
    * The title of the article. For multilingual articles, this will be the title of
    * the default language's content.
    */
@@ -259,7 +252,7 @@ export interface Article {
 
   /**
    * The time when the article was last updated. For multilingual articles, this will
-   * be the timestamp of last update of the default language's content.
+   * be the timestamp of last update of the default language's content in seconds.
    */
   updated_at?: number;
 
@@ -275,51 +268,6 @@ export interface Article {
   workspace_id?: string;
 }
 
-export namespace Article {
-  /**
-   * The statistics of an article.
-   */
-  export interface Statistics {
-    /**
-     * The number of conversations started from the article.
-     */
-    conversions?: number;
-
-    /**
-     * The percentage of happy reactions the article has received against other types
-     * of reaction.
-     */
-    happy_reaction_percentage?: number;
-
-    /**
-     * The percentage of neutral reactions the article has received against other types
-     * of reaction.
-     */
-    neutral_reaction_percentage?: number;
-
-    /**
-     * The number of total reactions the article has received.
-     */
-    reactions?: number;
-
-    /**
-     * The percentage of sad reactions the article has received against other types of
-     * reaction.
-     */
-    sad_reaction_percentage?: number;
-
-    /**
-     * The type of object - `article_statistics`.
-     */
-    type?: 'article_statistics';
-
-    /**
-     * The number of total views the article has received.
-     */
-    views?: number;
-  }
-}
-
 /**
  * This will return a list of articles for the App.
  */
@@ -327,7 +275,7 @@ export interface ArticleList {
   /**
    * An array of Article objects
    */
-  data?: Array<Article>;
+  data?: Array<ArticleList.Data>;
 
   /**
    * Cursor-based pagination is a technique used in the Intercom API to navigate
@@ -349,6 +297,104 @@ export interface ArticleList {
 }
 
 export namespace ArticleList {
+  /**
+   * The data returned about your articles when you list them.
+   */
+  export interface Data {
+    /**
+     * The unique identifier for the article which is given by Intercom.
+     */
+    id?: string;
+
+    /**
+     * The id of the author of the article. For multilingual articles, this will be the
+     * id of the author of the default language's content. Must be a teammate on the
+     * help center's workspace.
+     */
+    author_id?: number;
+
+    /**
+     * The body of the article in HTML. For multilingual articles, this will be the
+     * body of the default language's content.
+     */
+    body?: string | null;
+
+    /**
+     * The time when the article was created. For multilingual articles, this will be
+     * the timestamp of creation of the default language's content in seconds.
+     */
+    created_at?: number;
+
+    /**
+     * The default locale of the help center. This field is only returned for
+     * multilingual help centers.
+     */
+    default_locale?: string;
+
+    /**
+     * The description of the article. For multilingual articles, this will be the
+     * description of the default language's content.
+     */
+    description?: string | null;
+
+    /**
+     * The id of the article's parent collection or section. An article without this
+     * field stands alone.
+     */
+    parent_id?: number | null;
+
+    /**
+     * The ids of the article's parent collections or sections. An article without this
+     * field stands alone.
+     */
+    parent_ids?: Array<number>;
+
+    /**
+     * The type of parent, which can either be a `collection` or `section`.
+     */
+    parent_type?: string | null;
+
+    /**
+     * Whether the article is `published` or is a `draft`. For multilingual articles,
+     * this will be the state of the default language's content.
+     */
+    state?: 'published' | 'draft';
+
+    /**
+     * The title of the article. For multilingual articles, this will be the title of
+     * the default language's content.
+     */
+    title?: string;
+
+    /**
+     * The Translated Content of an Article. The keys are the locale codes and the
+     * values are the translated content of the article.
+     */
+    translated_content?: Shared.ArticleTranslatedContent | null;
+
+    /**
+     * The type of object - `article`.
+     */
+    type?: 'article';
+
+    /**
+     * The time when the article was last updated. For multilingual articles, this will
+     * be the timestamp of last update of the default language's content in seconds.
+     */
+    updated_at?: number;
+
+    /**
+     * The URL of the article. For multilingual articles, this will be the URL of the
+     * default language's content.
+     */
+    url?: string | null;
+
+    /**
+     * The id of the workspace which the article belongs to.
+     */
+    workspace_id?: string;
+  }
+
   /**
    * Cursor-based pagination is a technique used in the Intercom API to navigate
    * through large amounts of data. A "cursor" or pointer is used to keep track of
@@ -381,9 +427,15 @@ export namespace ArticleList {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -519,9 +571,15 @@ export namespace ArticleSearchResponse {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -617,6 +675,7 @@ export interface ArticleCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -642,6 +701,7 @@ export interface ArticleRetrieveParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -716,6 +776,7 @@ export interface ArticleUpdateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -741,6 +802,7 @@ export interface ArticleListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -766,6 +828,7 @@ export interface ArticleRemoveParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -813,6 +876,7 @@ export interface ArticleSearchParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

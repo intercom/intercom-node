@@ -24,6 +24,9 @@ export class DataEvents extends APIResource {
    * `Intercom::Event.create`, or call the `track_user` method directly on the
    * current user object (e.g. `user.track_event`).
    *
+   * **NB: For the JSON object types, please note that we do not currently support
+   * nested JSON structure.**
+   *
    * | Type            | Description                                                                                                                                                                                                     | Example                                                                           |
    * | :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
    * | String          | The value is a JSON String                                                                                                                                                                                      | `"source":"desktop"`                                                              |
@@ -33,36 +36,33 @@ export class DataEvents extends APIResource {
    * | Rich Link       | The value is a JSON object that contains `url` and `value` keys.                                                                                                                                                | `"article": {"url": "https://example.org/ab1de.html", "value":"the dude abides"}` |
    * | Monetary Amount | The value is a JSON object that contains `amount` and `currency` keys. The `amount` key is a positive integer representing the amount in cents. The price in the example to the right denotes €349.99.          | `"price": {"amount": 34999, "currency": "eur"}`                                   |
    *
-   * **NB: For the JSON object types, please note that we do not currently support
-   * nested JSON structure.**
+   * **Lead Events**
    *
-   * > 🚧 Lead Events
-   * >
-   * > When submitting events for Leads, you will need to specify the Lead's `id`.
+   * When submitting events for Leads, you will need to specify the Lead's `id`.
    *
-   * > 📘 Metadata behaviour
-   * >
-   * > - We currently limit the number of tracked metadata keys to 10 per event. Once
-   * >   the quota is reached, we ignore any further keys we receive. The first 10
-   * >   metadata keys are determined by the order in which they are sent in with the
-   * >   event.
-   * > - It is not possible to change the metadata keys once the event has been sent.
-   * >   A new event will need to be created with the new keys and you can archive
-   * >   the old one.
-   * > - There might be up to 24 hrs delay when you send a new metadata for an
-   * >   existing event.
+   * **Metadata behaviour**
    *
-   * > 📘 Event de-duplication
-   * >
-   * > The API may detect and ignore duplicate events. Each event is uniquely
-   * > identified as a combination of the following data - the Workspace identifier,
-   * > the Contact external identifier, the Data Event name and the Data Event
-   * > created time. As a result, it is **strongly recommended** to send a second
-   * > granularity Unix timestamp in the `created_at` field.
-   * >
-   * > Duplicated events are responded to using the normal `202 Accepted` code - an
-   * > error is not thrown, however repeat requests will be counted against any rate
-   * > limit that is in place.
+   * - We currently limit the number of tracked metadata keys to 10 per event. Once
+   *   the quota is reached, we ignore any further keys we receive. The first 10
+   *   metadata keys are determined by the order in which they are sent in with the
+   *   event.
+   * - It is not possible to change the metadata keys once the event has been sent. A
+   *   new event will need to be created with the new keys and you can archive the
+   *   old one.
+   * - There might be up to 24 hrs delay when you send a new metadata for an existing
+   *   event.
+   *
+   * **Event de-duplication**
+   *
+   * The API may detect and ignore duplicate events. Each event is uniquely
+   * identified as a combination of the following data - the Workspace identifier,
+   * the Contact external identifier, the Data Event name and the Data Event created
+   * time. As a result, it is **strongly recommended** to send a second granularity
+   * Unix timestamp in the `created_at` field.
+   *
+   * Duplicated events are responded to using the normal `202 Accepted` code - an
+   * error is not thrown, however repeat requests will be counted against any rate
+   * limit that is in place.
    *
    * ### HTTP API Responses
    *
@@ -251,6 +251,7 @@ export namespace DataEventCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -281,6 +282,7 @@ export namespace DataEventCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -311,6 +313,7 @@ export namespace DataEventCreateParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 }
@@ -355,6 +358,7 @@ export interface DataEventListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -407,6 +411,7 @@ export interface DataEventSummariesParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

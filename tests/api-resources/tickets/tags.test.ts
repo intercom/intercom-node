@@ -27,7 +27,7 @@ describe('resource tags', () => {
     const response = await intercom.tickets.tags.create('64619700005694', {
       id: 'string',
       admin_id: 'string',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -45,7 +45,7 @@ describe('resource tags', () => {
   test('remove: required and optional params', async () => {
     const response = await intercom.tickets.tags.remove('64619700005694', '7522907', {
       admin_id: 'string',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 });

@@ -30,7 +30,7 @@ describe('resource admins', () => {
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.admins.retrieve(123, { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.admins.retrieve(123, { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -55,7 +55,7 @@ describe('resource admins', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.admins.list({ 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.admins.list({ 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -74,7 +74,7 @@ describe('resource admins', () => {
     const response = await intercom.admins.away(0, {
       away_mode_enabled: true,
       away_mode_reassign: true,
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 });

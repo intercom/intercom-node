@@ -48,7 +48,7 @@ export interface ActivityLogList {
 
 export namespace ActivityLogList {
   /**
-   * Activities performed by admins.
+   * Activities performed by Admins.
    */
   export interface ActivityLog {
     /**
@@ -135,17 +135,70 @@ export namespace ActivityLogList {
      */
     created_at?: number;
 
-    metadata?: Record<string, unknown>;
+    /**
+     * Additional data provided about Admin activity.
+     */
+    metadata?: ActivityLog.Metadata | null;
 
     /**
-     * An object representing the admin who performed the activity.
+     * Details about the Admin involved in the activity.
      */
     performed_by?: ActivityLog.PerformedBy;
   }
 
   export namespace ActivityLog {
     /**
-     * An object representing the admin who performed the activity.
+     * Additional data provided about Admin activity.
+     */
+    export interface Metadata {
+      /**
+       * Indicates if the status was changed automatically or manually.
+       */
+      auto_changed?: string | null;
+
+      /**
+       * The away mode status which is set to true when away and false when returned.
+       */
+      away_mode?: boolean | null;
+
+      /**
+       * The reason the Admin is away.
+       */
+      away_status_reason?: string | null;
+
+      /**
+       * The unique identifier for the contact which is provided by the Client.
+       */
+      external_id?: string | null;
+
+      /**
+       * Indicates if conversations should be reassigned while an Admin is away.
+       */
+      reassign_conversations?: boolean | null;
+
+      /**
+       * The way the admin signed in.
+       */
+      sign_in_method?: string | null;
+
+      /**
+       * The action that initiated the status change.
+       */
+      source?: string | null;
+
+      /**
+       * The ID of the Admin who initiated the activity.
+       */
+      update_by?: number | null;
+
+      /**
+       * The name of the Admin who initiated the activity.
+       */
+      update_by_name?: string | null;
+    }
+
+    /**
+     * Details about the Admin involved in the activity.
      */
     export interface PerformedBy {
       /**
@@ -202,9 +255,15 @@ export namespace ActivityLogList {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -243,6 +302,7 @@ export interface ActivityLogListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

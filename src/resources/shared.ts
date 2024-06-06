@@ -101,7 +101,7 @@ export interface ArticleContent {
   body?: string;
 
   /**
-   * The time when the article was created.
+   * The time when the article was created (seconds).
    */
   created_at?: number;
 
@@ -126,7 +126,7 @@ export interface ArticleContent {
   type?: 'article_content' | null;
 
   /**
-   * The time when the article was last updated.
+   * The time when the article was last updated (seconds).
    */
   updated_at?: number;
 
@@ -465,7 +465,7 @@ export namespace Company {
    * The list of tags associated with the company
    */
   export interface Tags {
-    tags?: Array<Shared.Tag>;
+    tags?: Array<unknown>;
 
     /**
      * The type of the object
@@ -532,6 +532,7 @@ export interface Contact {
 
   /**
    * An object containing companies meta data about the companies that a contact has.
+   * Up to 10 will be displayed here. Use the url to get more.
    */
   companies?: Contact.Companies;
 
@@ -546,9 +547,14 @@ export interface Contact {
   custom_attributes?: unknown;
 
   /**
-   * The contacts email.
+   * The contact's email.
    */
   email?: string;
+
+  /**
+   * The contact's email domain.
+   */
+  email_domain?: string;
 
   /**
    * The unique identifier for the contact which is provided by the Client.
@@ -643,7 +649,8 @@ export interface Contact {
   name?: string | null;
 
   /**
-   * An object containing notes meta data about the notes that a contact has.
+   * An object containing notes meta data about the notes that a contact has. Up to
+   * 10 will be displayed here. Use the url to get more.
    */
   notes?: Contact.Notes;
 
@@ -678,7 +685,8 @@ export interface Contact {
   social_profiles?: Contact.SocialProfiles;
 
   /**
-   * An object containing tags meta data about the tags that a contact has.
+   * An object containing tags meta data about the tags that a contact has. Up to 10
+   * will be displayed here. Use the url to get more.
    */
   tags?: Contact.Tags | null;
 
@@ -718,6 +726,7 @@ export namespace Contact {
 
   /**
    * An object containing companies meta data about the companies that a contact has.
+   * Up to 10 will be displayed here. Use the url to get more.
    */
   export interface Companies {
     /**
@@ -763,7 +772,8 @@ export namespace Contact {
   }
 
   /**
-   * An object containing notes meta data about the notes that a contact has.
+   * An object containing notes meta data about the notes that a contact has. Up to
+   * 10 will be displayed here. Use the url to get more.
    */
   export interface Notes {
     /**
@@ -844,7 +854,8 @@ export namespace Contact {
   }
 
   /**
-   * An object containing tags meta data about the tags that a contact has.
+   * An object containing tags meta data about the tags that a contact has. Up to 10
+   * will be displayed here. Use the url to get more.
    */
   export interface Tags {
     /**
@@ -908,6 +919,16 @@ export interface Conversation {
    * admin it will return null.
    */
   admin_assignee_id?: number | null;
+
+  /**
+   * Data related to AI Agent involvement in the conversation.
+   */
+  ai_agent?: Conversation.AIAgent | null;
+
+  /**
+   * Indicates whether the AI Agent participated in the conversation.
+   */
+  ai_agent_participated?: boolean;
 
   /**
    * The list of contacts (users or leads) involved in this conversation. This will
@@ -1041,6 +1062,94 @@ export interface Conversation {
 }
 
 export namespace Conversation {
+  /**
+   * Data related to AI Agent involvement in the conversation.
+   */
+  export interface AIAgent {
+    content_sources?: AIAgent.ContentSources;
+
+    /**
+     * The type of the last answer delviered by AI Agent. If no answer was delivered
+     * then this will return null
+     */
+    last_answer_type?: 'ai_answer' | 'custom_answer' | null;
+
+    /**
+     * The customer satisfaction rating given to AI Agent, from 1-5.
+     */
+    rating?: number;
+
+    /**
+     * The customer satisfaction rating remark given to AI Agent.
+     */
+    rating_remark?: string;
+
+    /**
+     * The resolution state of AI Agent. If no AI or custom answer has been delivered
+     * then this will return `abandoned`.
+     */
+    resolution_state?: 'assumed_resolution' | 'confirmed_resolution' | 'routed_to_team' | 'abandoned';
+
+    /**
+     * The title of the source that triggered AI Agent involvement in the conversation.
+     * If this is `essentials_plan_setup` then it will return null.
+     */
+    source_title?: string | null;
+
+    /**
+     * The type of the source that triggered AI Agent involvement in the conversation.
+     */
+    source_type?: 'essentials_plan_setup' | 'profile' | 'workflow' | 'workflow_preview' | 'fin_preview';
+  }
+
+  export namespace AIAgent {
+    export interface ContentSources {
+      /**
+       * The content sources used by AI Agent in the conversation.
+       */
+      content_sources?: Array<ContentSources.ContentSource>;
+
+      /**
+       * The total number of content sources used by AI Agent in the conversation.
+       */
+      total_count?: number;
+
+      type?: 'content_source.list';
+    }
+
+    export namespace ContentSources {
+      /**
+       * The content source used by AI Agent in the conversation.
+       */
+      export interface ContentSource {
+        /**
+         * The type of the content source.
+         */
+        content_type?:
+          | 'file'
+          | 'article'
+          | 'external_content'
+          | 'content_snippet'
+          | 'workflow_connector_action';
+
+        /**
+         * The ISO 639 language code of the content source.
+         */
+        locale?: string;
+
+        /**
+         * The title of the content source.
+         */
+        title?: string;
+
+        /**
+         * The internal URL linking to the content source for teammates.
+         */
+        url?: string;
+      }
+    }
+  }
+
   /**
    * The list of contacts (users or leads) involved in this conversation. This will
    * only contain one customer unless more were added via the group conversation
@@ -1310,7 +1419,10 @@ export namespace Conversation {
   }
 
   /**
-   * An instance of a Custom Object Type.
+   * A Custom Object Instance represents an instance of a custom object type. This
+   * allows you to create and set custom attributes to store data about your
+   * customers that is not already captured by Intercom. The parent object includes
+   * recommended default attributes and you can add your own custom attributes.
    */
   export interface CustomObjectInstance {
     /**
@@ -1475,7 +1587,8 @@ export namespace Conversation {
     subject?: string;
 
     /**
-     * This includes conversation, push, facebook, twitter and email.
+     * This includes conversation, email, facebook, instagram, phone_call,
+     * phone_switch, push, sms, twitter and whatsapp.
      */
     type?: string;
 
@@ -1958,6 +2071,9 @@ export interface Message {
   subject?: string;
 }
 
+/**
+ * Search using Intercoms Search APIs with more than one filter.
+ */
 export interface MultipleFilterSearchRequest {
   /**
    * An operator to allow boolean inspection between multiple fields.
@@ -1971,19 +2087,23 @@ export interface MultipleFilterSearchRequest {
 }
 
 export namespace MultipleFilterSearchRequest {
+  /**
+   * Search using Intercoms Search APIs with a single filter.
+   */
   export interface SingleFilterSearchRequest {
     /**
-     * The Intercom defined id representing the company.
+     * The accepted field that you want to search on.
      */
     field?: string;
 
     /**
-     * The Intercom defined id representing the company.
+     * The accepted operators you can use to define how you want to search for the
+     * value.
      */
     operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
 
     /**
-     * The Intercom defined id representing the company.
+     * The value that you want to search on.
      */
     value?: string;
   }
@@ -2102,9 +2222,15 @@ export namespace PaginatedResponse {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -2113,33 +2239,46 @@ export namespace PaginatedResponse {
  * Search using Intercoms Search APIs.
  */
 export interface SearchRequest {
+  /**
+   * Search using Intercoms Search APIs with a single filter.
+   */
   query: SearchRequest.SingleFilterSearchRequest | MultipleFilterSearchRequest;
 
   pagination?: SearchRequest.Pagination | null;
 }
 
 export namespace SearchRequest {
+  /**
+   * Search using Intercoms Search APIs with a single filter.
+   */
   export interface SingleFilterSearchRequest {
     /**
-     * The Intercom defined id representing the company.
+     * The accepted field that you want to search on.
      */
     field?: string;
 
     /**
-     * The Intercom defined id representing the company.
+     * The accepted operators you can use to define how you want to search for the
+     * value.
      */
     operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
 
     /**
-     * The Intercom defined id representing the company.
+     * The value that you want to search on.
      */
     value?: string;
   }
 
   export interface Pagination {
-    page?: number;
+    /**
+     * The number of results to fetch per page.
+     */
+    per_page?: number;
 
-    starting_after?: string;
+    /**
+     * The cursor to use in the next request to get the next page of results.
+     */
+    starting_after?: string | null;
   }
 }
 
@@ -2296,7 +2435,19 @@ export interface Ticket {
   /**
    * The state the ticket is currenly in
    */
-  ticket_state?: 'submitted' | 'in_progress' | 'waiting_on_customer' | 'on_hold' | 'resolved';
+  ticket_state?: 'submitted' | 'in_progress' | 'waiting_on_customer' | 'resolved';
+
+  /**
+   * The state the ticket is currently in, in a human readable form - visible to
+   * customers, in the messenger, email and tickets portal.
+   */
+  ticket_state_external_label?: string;
+
+  /**
+   * The state the ticket is currently in, in a human readable form - visible in
+   * Intercom
+   */
+  ticket_state_internal_label?: string;
 
   /**
    * A ticket type, used to define the data fields to be captured in a ticket.

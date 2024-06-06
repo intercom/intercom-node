@@ -110,6 +110,7 @@ export interface DataExportContentDataParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

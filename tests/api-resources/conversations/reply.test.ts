@@ -10,9 +10,8 @@ const intercom = new Intercom({
 
 describe('resource reply', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.conversations.reply.create('123', {
+    const responsePromise = intercom.conversations.reply.create('123 or "last"', {
       body: 'string',
-      intercom_user_id: 'string',
       message_type: 'comment',
       type: 'user',
     });
@@ -26,13 +25,13 @@ describe('resource reply', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.conversations.reply.create('123', {
+    const response = await intercom.conversations.reply.create('123 or "last"', {
       body: 'string',
-      intercom_user_id: 'string',
       message_type: 'comment',
       type: 'user',
       attachment_urls: ['https://example.com', 'https://example.com', 'https://example.com'],
-      'Intercom-Version': '2.10',
+      created_at: 1590000000,
+      'Intercom-Version': '2.11',
     });
   });
 });

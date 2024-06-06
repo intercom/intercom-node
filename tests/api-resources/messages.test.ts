@@ -21,6 +21,6 @@ describe('resource messages', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.messages.create({ body: {}, 'Intercom-Version': '2.10' });
+    const response = await intercom.messages.create({ body: {}, 'Intercom-Version': '2.11' });
   });
 });

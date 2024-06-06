@@ -21,7 +21,7 @@ describe('resource contacts', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.contacts.create({ body: {}, 'Intercom-Version': '2.10' });
+    const response = await intercom.contacts.create({ body: {}, 'Intercom-Version': '2.11' });
   });
 
   test('retrieve', async () => {
@@ -47,7 +47,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.contacts.retrieve(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -88,7 +88,7 @@ describe('resource contacts', () => {
           role: 'string',
           signed_up_at: 1571672154,
           unsubscribed_from_emails: true,
-          'Intercom-Version': '2.10',
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -116,7 +116,7 @@ describe('resource contacts', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.contacts.list({ 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.contacts.list({ 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -143,7 +143,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.contacts.delete(
         'string',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -172,7 +172,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.contacts.archive(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -200,7 +200,7 @@ describe('resource contacts', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.contacts.merge(
-        { from: '654b709a6abd01feb7c11060', into: '654b709a6abd01feb7c11061', 'Intercom-Version': '2.10' },
+        { from: '6657adf76abd0167d9419d1d', into: '6657adf76abd0167d9419d1e', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -219,13 +219,9 @@ describe('resource contacts', () => {
 
   test('search: required and optional params', async () => {
     const response = await intercom.contacts.search({
-      query: { field: 'custom_attributes.social_network', operator: '=', value: 'string' },
-      pagination: {
-        page: 2,
-        starting_after:
-          '1HaSB+xrOyyMXAkS/c1RteCL7BzOzTvYjmjakgTergIH31eoe2v4/sbLsJWP\nIncfQLD3ouPkZlCwJ86F\n',
-      },
-      'Intercom-Version': '2.10',
+      query: { field: 'created_at', operator: '=', value: 'string' },
+      pagination: { per_page: 5, starting_after: 'your-cursor-from-response' },
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -252,7 +248,7 @@ describe('resource contacts', () => {
     await expect(
       intercom.contacts.unarchive(
         '63a07ddf05a32042dffac965',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

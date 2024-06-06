@@ -21,7 +21,7 @@ describe('resource dataEvents', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.dataEvents.create({ body: {}, 'Intercom-Version': '2.10' });
+    const response = await intercom.dataEvents.create({ body: {}, 'Intercom-Version': '2.11' });
   });
 
   test('list: only required params', async () => {
@@ -40,7 +40,7 @@ describe('resource dataEvents', () => {
       filter: { user_id: 'string' },
       type: 'string',
       summary: true,
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -69,7 +69,7 @@ describe('resource dataEvents', () => {
         {
           event_summaries: { event_name: 'invited-friend', count: 1, first: 1671028894, last: 1671028894 },
           user_id: '314159',
-          'Intercom-Version': '2.10',
+          'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
       ),

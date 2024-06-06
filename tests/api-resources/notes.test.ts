@@ -30,7 +30,7 @@ describe('resource notes', () => {
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.notes.retrieve(1, { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.notes.retrieve(1, { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 });

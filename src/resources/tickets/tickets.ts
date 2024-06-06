@@ -78,18 +78,26 @@ export class Tickets extends APIResource {
    * You can search for multiple tickets by the value of their attributes in order to
    * fetch exactly which ones you want.
    *
-   * To search for tickets, you send a POST request to
-   * https://api.intercom.io/tickets/search. This will accept a query object in the
-   * body which will define your filters.
+   * To search for tickets, you send a `POST` request to
+   * `https://api.intercom.io/tickets/search`.
    *
-   * > 🚧 Nesting & Limitations
-   * >
-   * > You can nest these filters in order to get even more granular insights that
-   * > pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4). There are some
-   * > limitations to the amount of multiples there can be:
-   * >
-   * > - There's a limit of max 2 nested filters
-   * > - There's a limit of max 15 filters for each AND or OR group
+   * This will accept a query object in the body which will define your filters.
+   * {% admonition type="warning" name="Optimizing search queries" %} Search queries
+   * can be complex, so optimizing them can help the performance of your search. Use
+   * the `AND` and `OR` operators to combine multiple filters to get the exact
+   * results you need and utilize pagination to limit the number of results returned.
+   * The default is `20` results per page. See the
+   * [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request)
+   * for more details on how to use the `starting_after` param. {% /admonition %}
+   *
+   * ### Nesting & Limitations
+   *
+   * You can nest these filters in order to get even more granular insights that
+   * pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4). There are some
+   * limitations to the amount of multiples there can be:
+   *
+   * - There's a limit of max 2 nested filters
+   * - There's a limit of max 15 filters for each AND or OR group
    *
    * ### Accepted Fields
    *
@@ -103,8 +111,8 @@ export class Tickets extends APIResource {
    * | id                    | String                                                         |
    * | created_at            | Date (UNIX timestamp)                                          |
    * | updated_at            | Date (UNIX timestamp)                                          |
-   * | title                 | String                                                         |
-   * | description           | String                                                         |
+   * | _default_title_       | String                                                         |
+   * | _default_description_ | String                                                         |
    * | category              | String                                                         |
    * | ticket_type_id        | String                                                         |
    * | contact_ids           | String                                                         |
@@ -115,6 +123,29 @@ export class Tickets extends APIResource {
    * | state                 | String                                                         |
    * | snoozed_until         | Date (UNIX timestamp)                                          |
    * | ticket_attribute.{id} | String or Boolean or Date (UNIX timestamp) or Float or Integer |
+   *
+   * ### Accepted Operators
+   *
+   * {% admonition type="info" name="Searching based on `created_at`" %} You may use
+   * the `<=` or `>=` operators to search by `created_at`. {% /admonition %}
+   *
+   * The table below shows the operators you can use to define how you want to search
+   * for the value. The operator should be put in as a string (`"="`). The operator
+   * has to be compatible with the field's type (eg. you cannot search with `>` for a
+   * given string value as it's only compatible for integer's and dates).
+   *
+   * | Operator | Valid Types                   | Description                                                |
+   * | :------- | :---------------------------- | :--------------------------------------------------------- |
+   * | =        | All                           | Equals                                                     |
+   * | !=       | All                           | Doesn't Equal                                              |
+   * | IN       | All                           | In Shortcut for `OR` queries Values most be in Array       |
+   * | NIN      | All                           | Not In Shortcut for `OR !` queries Values must be in Array |
+   * | >        | Integer Date (UNIX Timestamp) | Greater (or equal) than                                    |
+   * | <        | Integer Date (UNIX Timestamp) | Lower (or equal) than                                      |
+   * | ~        | String                        | Contains                                                   |
+   * | !~       | String                        | Doesn't Contain                                            |
+   * | ^        | String                        | Starts With                                                |
+   * | $        | String                        | Ends With                                                  |
    */
   search(params: TicketSearchParams, options?: Core.RequestOptions): Core.APIPromise<TicketList> {
     const { 'Intercom-Version': intercomVersion, ...body } = params;
@@ -222,9 +253,15 @@ export namespace TicketList {
 
   export namespace Pages {
     export interface Next {
-      page?: number;
+      /**
+       * The number of results to fetch per page.
+       */
+      per_page?: number;
 
-      starting_after?: string;
+      /**
+       * The cursor to use in the next request to get the next page of results.
+       */
+      starting_after?: string | null;
     }
   }
 }
@@ -359,6 +396,18 @@ export interface TicketCreateParams {
   ticket_type_id: string;
 
   /**
+   * Body param: The ID of the company that the ticket is associated with. The ID
+   * that you set upon company creation.
+   */
+  company_id?: string;
+
+  /**
+   * Body param: The time the ticket was created. If not provided, the current time
+   * will be used.
+   */
+  created_at?: number;
+
+  /**
    * Body param: The attributes set on the ticket. When setting the default title and
    * description attributes, the attribute keys that should be used are
    * `_default_title_` and `_default_description_`. When setting ticket type
@@ -392,6 +441,7 @@ export interface TicketCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -421,22 +471,17 @@ export namespace TicketCreateParams {
 }
 
 export type TicketReplyParams =
-  | TicketReplyParams.ContactReplyIntercomUserIDRequest
-  | TicketReplyParams.ContactReplyUserIDRequest
-  | TicketReplyParams.ContactReplyEmailRequest
+  | TicketReplyParams.ContactReplyTicketIntercomUserIDRequest
+  | TicketReplyParams.ContactReplyTicketUserIDRequest
+  | TicketReplyParams.ContactReplyTicketEmailRequest
   | TicketReplyParams.AdminReplyTicketRequest;
 
 export namespace TicketReplyParams {
-  export interface ContactReplyIntercomUserIDRequest {
+  export interface ContactReplyTicketIntercomUserIDRequest {
     /**
      * Body param: The text body of the comment.
      */
     body: string;
-
-    /**
-     * Body param: The identifier for the contact as given by Intercom.
-     */
-    intercom_user_id: string;
 
     /**
      * Body param:
@@ -450,9 +495,15 @@ export namespace TicketReplyParams {
 
     /**
      * Body param: A list of image URLs that will be added as attachments. You can
-     * include up to 5 URLs.
+     * include up to 10 URLs.
      */
     attachment_urls?: Array<string>;
+
+    /**
+     * Body param: The time the reply was created. If not provided, the current time
+     * will be used.
+     */
+    created_at?: number;
 
     /**
      * Header param: Intercom API version.By default, it's equal to the version set in
@@ -475,10 +526,11 @@ export namespace TicketReplyParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
-  export interface ContactReplyUserIDRequest {
+  export interface ContactReplyTicketUserIDRequest {
     /**
      * Body param: The text body of the comment.
      */
@@ -495,15 +547,16 @@ export namespace TicketReplyParams {
     type: 'user';
 
     /**
-     * Body param: The external_id you have defined for the contact.
-     */
-    user_id: string;
-
-    /**
      * Body param: A list of image URLs that will be added as attachments. You can
-     * include up to 5 URLs.
+     * include up to 10 URLs.
      */
     attachment_urls?: Array<string>;
+
+    /**
+     * Body param: The time the reply was created. If not provided, the current time
+     * will be used.
+     */
+    created_at?: number;
 
     /**
      * Header param: Intercom API version.By default, it's equal to the version set in
@@ -526,19 +579,15 @@ export namespace TicketReplyParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
-  export interface ContactReplyEmailRequest {
+  export interface ContactReplyTicketEmailRequest {
     /**
      * Body param: The text body of the comment.
      */
     body: string;
-
-    /**
-     * Body param: The email you have defined for the user.
-     */
-    email: string;
 
     /**
      * Body param:
@@ -552,9 +601,15 @@ export namespace TicketReplyParams {
 
     /**
      * Body param: A list of image URLs that will be added as attachments. You can
-     * include up to 5 URLs.
+     * include up to 10 URLs.
      */
     attachment_urls?: Array<string>;
+
+    /**
+     * Body param: The time the reply was created. If not provided, the current time
+     * will be used.
+     */
+    created_at?: number;
 
     /**
      * Header param: Intercom API version.By default, it's equal to the version set in
@@ -577,6 +632,7 @@ export namespace TicketReplyParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -598,15 +654,21 @@ export namespace TicketReplyParams {
 
     /**
      * Body param: A list of image URLs that will be added as attachments. You can
-     * include up to 5 URLs.
+     * include up to 10 URLs.
      */
     attachment_urls?: Array<string>;
 
     /**
-     * Body param: The text body of the reply.\nNotes accept some HTML formatting. Must
+     * Body param: The text body of the reply. Notes accept some HTML formatting. Must
      * be present for comment and note message types.
      */
     body?: string;
+
+    /**
+     * Body param: The time the reply was created. If not provided, the current time
+     * will be used.
+     */
+    created_at?: number;
 
     /**
      * Body param: The quick reply options to display. Must be present for quick_reply
@@ -635,6 +697,7 @@ export namespace TicketReplyParams {
       | '2.8'
       | '2.9'
       | '2.10'
+      | '2.11'
       | 'Unstable';
   }
 
@@ -677,12 +740,13 @@ export interface TicketRetrieveByIDParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
 export interface TicketSearchParams {
   /**
-   * Body param:
+   * Body param: Search using Intercoms Search APIs with a single filter.
    */
   query: TicketSearchParams.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
 
@@ -712,31 +776,42 @@ export interface TicketSearchParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
 export namespace TicketSearchParams {
+  /**
+   * Search using Intercoms Search APIs with a single filter.
+   */
   export interface SingleFilterSearchRequest {
     /**
-     * The Intercom defined id representing the company.
+     * The accepted field that you want to search on.
      */
     field?: string;
 
     /**
-     * The Intercom defined id representing the company.
+     * The accepted operators you can use to define how you want to search for the
+     * value.
      */
     operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
 
     /**
-     * The Intercom defined id representing the company.
+     * The value that you want to search on.
      */
     value?: string;
   }
 
   export interface Pagination {
-    page?: number;
+    /**
+     * The number of results to fetch per page.
+     */
+    per_page?: number;
 
-    starting_after?: string;
+    /**
+     * The cursor to use in the next request to get the next page of results.
+     */
+    starting_after?: string | null;
   }
 }
 
@@ -793,6 +868,7 @@ export interface TicketUpdateByIDParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

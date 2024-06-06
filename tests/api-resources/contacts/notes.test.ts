@@ -24,8 +24,8 @@ describe('resource notes', () => {
     const response = await intercom.contacts.notes.create(0, {
       body: 'Hello',
       admin_id: 'string',
-      contact_id: '654b70866abd01feb7c11043',
-      'Intercom-Version': '2.10',
+      contact_id: '6657adde6abd0167d9419d00',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -50,7 +50,7 @@ describe('resource notes', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.contacts.notes.list(0, { 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.contacts.notes.list(0, { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 });

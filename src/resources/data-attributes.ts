@@ -145,6 +145,11 @@ export interface DataAttribute {
   label?: string;
 
   /**
+   * Can this attribute be updated by the Messenger
+   */
+  messenger_writable?: boolean;
+
+  /**
    * Value is `contact` for user/lead attributes and `company` for company
    * attributes.
    */
@@ -214,6 +219,11 @@ export interface DataAttributeCreateParams {
   description?: string;
 
   /**
+   * Body param: Can this attribute be updated by the Messenger
+   */
+  messenger_writable?: boolean;
+
+  /**
    * Body param: To create list attributes. Provide a set of hashes with `value` as
    * the key of the options you want to make. `data_type` must be `string`.
    */
@@ -240,6 +250,7 @@ export interface DataAttributeCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -255,6 +266,11 @@ export interface DataAttributeUpdateParams {
   description?: string;
 
   /**
+   * Body param: Can this attribute be updated by the Messenger
+   */
+  messenger_writable?: boolean;
+
+  /**
    * Body param: To create list attributes. Provide a set of hashes with `value` as
    * the key of the options you want to make. `data_type` must be `string`.
    */
@@ -281,6 +297,7 @@ export interface DataAttributeUpdateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -317,6 +334,7 @@ export interface DataAttributeListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

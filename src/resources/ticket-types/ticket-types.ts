@@ -264,6 +264,7 @@ export interface TicketTypeCreateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -289,6 +290,7 @@ export interface TicketTypeRetrieveParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -346,6 +348,7 @@ export interface TicketTypeUpdateParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 
@@ -371,6 +374,7 @@ export interface TicketTypeListParams {
     | '2.8'
     | '2.9'
     | '2.10'
+    | '2.11'
     | 'Unstable';
 }
 

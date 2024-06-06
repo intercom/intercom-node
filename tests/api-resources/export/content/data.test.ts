@@ -32,7 +32,7 @@ describe('resource data', () => {
     await expect(
       intercom.export.content.data.retrieve(
         'string',
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

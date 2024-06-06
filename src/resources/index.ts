@@ -107,7 +107,5 @@ export {
   VisitorRetrieveParams,
   VisitorUpdateParams,
   VisitorConvertParams,
-  VisitorDeleteByIDParams,
-  VisitorRetrieveByIDParams,
   Visitors,
 } from './visitors';

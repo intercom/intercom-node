@@ -11,7 +11,7 @@ const intercom = new Intercom({
 describe('resource newsItems', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.news.newsItems.create({
-      sender_id: 991268887,
+      sender_id: 991268690,
       title: 'Halloween is here!',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,7 +25,7 @@ describe('resource newsItems', () => {
 
   test('create: required and optional params', async () => {
     const response = await intercom.news.newsItems.create({
-      sender_id: 991268887,
+      sender_id: 991268690,
       title: 'Halloween is here!',
       body: '<p>New costumes in store for this spooky season</p>',
       deliver_silently: true,
@@ -33,7 +33,7 @@ describe('resource newsItems', () => {
       newsfeed_assignments: [{ newsfeed_id: 103, published_at: 1664638214 }],
       reactions: ['😆', '😅'],
       state: 'live',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -60,7 +60,7 @@ describe('resource newsItems', () => {
     await expect(
       intercom.news.newsItems.retrieve(
         123,
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -68,7 +68,7 @@ describe('resource newsItems', () => {
 
   test('update: only required params', async () => {
     const responsePromise = intercom.news.newsItems.update(123, {
-      sender_id: 991268898,
+      sender_id: 991268701,
       title: 'Christmas is here!',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -82,7 +82,7 @@ describe('resource newsItems', () => {
 
   test('update: required and optional params', async () => {
     const response = await intercom.news.newsItems.update(123, {
-      sender_id: 991268898,
+      sender_id: 991268701,
       title: 'Christmas is here!',
       body: '<p>New gifts in store for the jolly season</p>',
       deliver_silently: true,
@@ -94,7 +94,7 @@ describe('resource newsItems', () => {
       ],
       reactions: ['😝', '😂'],
       state: 'live',
-      'Intercom-Version': '2.10',
+      'Intercom-Version': '2.11',
     });
   });
 
@@ -119,7 +119,7 @@ describe('resource newsItems', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.news.newsItems.list({ 'Intercom-Version': '2.10' }, { path: '/_stainless_unknown_path' }),
+      intercom.news.newsItems.list({ 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -146,7 +146,7 @@ describe('resource newsItems', () => {
     await expect(
       intercom.news.newsItems.delete(
         123,
-        { 'Intercom-Version': '2.10' },
+        { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
