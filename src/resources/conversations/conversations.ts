@@ -10,6 +10,9 @@ import * as PartsAPI from './parts';
 import * as ReplyAPI from './reply';
 import * as RunAssignmentRulesAPI from './run-assignment-rules';
 import * as TagsAPI from './tags';
+import * as NewsItemsAPI from '../news/news-items';
+import * as NewsfeedsAPI from '../news/newsfeeds/newsfeeds';
+import { CursorPagination, type CursorPaginationParams } from '../../pagination';
 
 export class Conversations extends APIResource {
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
@@ -135,17 +138,19 @@ export class Conversations extends APIResource {
   list(
     params?: ConversationListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.PaginatedResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<Shared.PaginatedResponse>;
+  ): Core.PagePromise<ConversationListResponsesCursorPagination, ConversationListResponse>;
+  list(
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ConversationListResponsesCursorPagination, ConversationListResponse>;
   list(
     params: ConversationListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.PaginatedResponse> {
+  ): Core.PagePromise<ConversationListResponsesCursorPagination, ConversationListResponse> {
     if (isRequestOptions(params)) {
       return this.list({}, params);
     }
     const { 'Intercom-Version': intercomVersion, ...query } = params;
-    return this._client.get('/conversations', {
+    return this._client.getAPIList('/conversations', ConversationListResponsesCursorPagination, {
       query,
       ...options,
       headers: {
@@ -333,6 +338,8 @@ export class Conversations extends APIResource {
   }
 }
 
+export class ConversationListResponsesCursorPagination extends CursorPagination<ConversationListResponse> {}
+
 /**
  * Conversations are how you can communicate with users in Intercom. They are
  * created when a contact replies to an outbound message, or when one admin
@@ -350,7 +357,7 @@ export interface ConversationList {
    * the current position in the result set, allowing the API to return the data in
    * small chunks or "pages" as needed.
    */
-  pages?: ConversationList.Pages | null;
+  pages?: Shared.CursorPages | null;
 
   /**
    * A count of the total number of objects.
@@ -363,51 +370,11 @@ export interface ConversationList {
   type?: 'conversation.list';
 }
 
-export namespace ConversationList {
-  /**
-   * Cursor-based pagination is a technique used in the Intercom API to navigate
-   * through large amounts of data. A "cursor" or pointer is used to keep track of
-   * the current position in the result set, allowing the API to return the data in
-   * small chunks or "pages" as needed.
-   */
-  export interface Pages {
-    next?: Pages.Next | null;
-
-    /**
-     * The current page
-     */
-    page?: number;
-
-    /**
-     * Number of results per page
-     */
-    per_page?: number;
-
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
-
-    /**
-     * the type of object `pages`.
-     */
-    type?: 'pages';
-  }
-
-  export namespace Pages {
-    export interface Next {
-      /**
-       * The number of results to fetch per page.
-       */
-      per_page?: number;
-
-      /**
-       * The cursor to use in the next request to get the next page of results.
-       */
-      starting_after?: string | null;
-    }
-  }
-}
+/**
+ * A News Item is a content type in Intercom enabling you to announce product
+ * updates, company news, promotions, events and more with your customers.
+ */
+export type ConversationListResponse = NewsItemsAPI.NewsItem | NewsfeedsAPI.Newsfeed;
 
 export interface ConversationCreateParams {
   /**
@@ -564,17 +531,7 @@ export namespace ConversationUpdateParams {
   }
 }
 
-export interface ConversationListParams {
-  /**
-   * Query param: How many results per page
-   */
-  per_page?: number;
-
-  /**
-   * Query param: String used to get the next page of conversations.
-   */
-  starting_after?: string;
-
+export interface ConversationListParams extends CursorPaginationParams {
   /**
    * Header param: Intercom API version.By default, it's equal to the version set in
    * the app package.
@@ -736,12 +693,12 @@ export interface ConversationSearchParams {
   /**
    * Body param: Search using Intercoms Search APIs with a single filter.
    */
-  query: ConversationSearchParams.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
+  query: Shared.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
 
   /**
    * Body param:
    */
-  pagination?: ConversationSearchParams.Pagination | null;
+  pagination?: Shared.StartingAfterPaging | null;
 
   /**
    * Header param: Intercom API version.By default, it's equal to the version set in
@@ -768,43 +725,10 @@ export interface ConversationSearchParams {
     | 'Unstable';
 }
 
-export namespace ConversationSearchParams {
-  /**
-   * Search using Intercoms Search APIs with a single filter.
-   */
-  export interface SingleFilterSearchRequest {
-    /**
-     * The accepted field that you want to search on.
-     */
-    field?: string;
-
-    /**
-     * The accepted operators you can use to define how you want to search for the
-     * value.
-     */
-    operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
-
-    /**
-     * The value that you want to search on.
-     */
-    value?: string;
-  }
-
-  export interface Pagination {
-    /**
-     * The number of results to fetch per page.
-     */
-    per_page?: number;
-
-    /**
-     * The cursor to use in the next request to get the next page of results.
-     */
-    starting_after?: string | null;
-  }
-}
-
 export namespace Conversations {
   export import ConversationList = ConversationsAPI.ConversationList;
+  export import ConversationListResponse = ConversationsAPI.ConversationListResponse;
+  export import ConversationListResponsesCursorPagination = ConversationsAPI.ConversationListResponsesCursorPagination;
   export import ConversationCreateParams = ConversationsAPI.ConversationCreateParams;
   export import ConversationRetrieveParams = ConversationsAPI.ConversationRetrieveParams;
   export import ConversationUpdateParams = ConversationsAPI.ConversationUpdateParams;

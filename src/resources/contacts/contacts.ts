@@ -442,7 +442,7 @@ export interface ContactList {
    * the current position in the result set, allowing the API to return the data in
    * small chunks or "pages" as needed.
    */
-  pages?: ContactList.Pages | null;
+  pages?: Shared.CursorPages | null;
 
   /**
    * A count of the total number of objects.
@@ -453,52 +453,6 @@ export interface ContactList {
    * Always list
    */
   type?: 'list';
-}
-
-export namespace ContactList {
-  /**
-   * Cursor-based pagination is a technique used in the Intercom API to navigate
-   * through large amounts of data. A "cursor" or pointer is used to keep track of
-   * the current position in the result set, allowing the API to return the data in
-   * small chunks or "pages" as needed.
-   */
-  export interface Pages {
-    next?: Pages.Next | null;
-
-    /**
-     * The current page
-     */
-    page?: number;
-
-    /**
-     * Number of results per page
-     */
-    per_page?: number;
-
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
-
-    /**
-     * the type of object `pages`.
-     */
-    type?: 'pages';
-  }
-
-  export namespace Pages {
-    export interface Next {
-      /**
-       * The number of results to fetch per page.
-       */
-      per_page?: number;
-
-      /**
-       * The cursor to use in the next request to get the next page of results.
-       */
-      starting_after?: string | null;
-    }
-  }
 }
 
 /**
@@ -854,12 +808,12 @@ export interface ContactSearchParams {
   /**
    * Body param: Search using Intercoms Search APIs with a single filter.
    */
-  query: ContactSearchParams.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
+  query: Shared.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
 
   /**
    * Body param:
    */
-  pagination?: ContactSearchParams.Pagination | null;
+  pagination?: Shared.StartingAfterPaging | null;
 
   /**
    * Header param: Intercom API version.By default, it's equal to the version set in
@@ -884,41 +838,6 @@ export interface ContactSearchParams {
     | '2.10'
     | '2.11'
     | 'Unstable';
-}
-
-export namespace ContactSearchParams {
-  /**
-   * Search using Intercoms Search APIs with a single filter.
-   */
-  export interface SingleFilterSearchRequest {
-    /**
-     * The accepted field that you want to search on.
-     */
-    field?: string;
-
-    /**
-     * The accepted operators you can use to define how you want to search for the
-     * value.
-     */
-    operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
-
-    /**
-     * The value that you want to search on.
-     */
-    value?: string;
-  }
-
-  export interface Pagination {
-    /**
-     * The number of results to fetch per page.
-     */
-    per_page?: number;
-
-    /**
-     * The cursor to use in the next request to get the next page of results.
-     */
-    starting_after?: string | null;
-  }
 }
 
 export interface ContactUnarchiveParams {
@@ -963,6 +882,7 @@ export namespace Contacts {
   export import ContactUnarchiveParams = ContactsAPI.ContactUnarchiveParams;
   export import Companies = CompaniesAPI.Companies;
   export import ContactAttachedCompanies = CompaniesAPI.ContactAttachedCompanies;
+  export import CompanyCreateParams = CompaniesAPI.CompanyCreateParams;
   export import CompanyDeleteParams = CompaniesAPI.CompanyDeleteParams;
   export import Notes = NotesAPI.Notes;
   export import NoteList = NotesAPI.NoteList;

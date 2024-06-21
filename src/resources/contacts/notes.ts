@@ -65,7 +65,7 @@ export interface NoteList {
    * the current position in the result set, allowing the API to return the data in
    * small chunks or "pages" as needed.
    */
-  pages?: NoteList.Pages | null;
+  pages?: Shared.CursorPages | null;
 
   /**
    * A count of the total number of notes.
@@ -76,52 +76,6 @@ export interface NoteList {
    * String representing the object's type. Always has the value `list`.
    */
   type?: string;
-}
-
-export namespace NoteList {
-  /**
-   * Cursor-based pagination is a technique used in the Intercom API to navigate
-   * through large amounts of data. A "cursor" or pointer is used to keep track of
-   * the current position in the result set, allowing the API to return the data in
-   * small chunks or "pages" as needed.
-   */
-  export interface Pages {
-    next?: Pages.Next | null;
-
-    /**
-     * The current page
-     */
-    page?: number;
-
-    /**
-     * Number of results per page
-     */
-    per_page?: number;
-
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
-
-    /**
-     * the type of object `pages`.
-     */
-    type?: 'pages';
-  }
-
-  export namespace Pages {
-    export interface Next {
-      /**
-       * The number of results to fetch per page.
-       */
-      per_page?: number;
-
-      /**
-       * The cursor to use in the next request to get the next page of results.
-       */
-      starting_after?: string | null;
-    }
-  }
 }
 
 export interface NoteCreateParams {

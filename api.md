@@ -7,14 +7,20 @@ Types:
 - <code><a href="./src/resources/shared.ts">ArticleTranslatedContent</a></code>
 - <code><a href="./src/resources/shared.ts">Company</a></code>
 - <code><a href="./src/resources/shared.ts">Contact</a></code>
+- <code><a href="./src/resources/shared.ts">ContactReference</a></code>
 - <code><a href="./src/resources/shared.ts">Conversation</a></code>
+- <code><a href="./src/resources/shared.ts">CursorPages</a></code>
 - <code><a href="./src/resources/shared.ts">GroupContent</a></code>
 - <code><a href="./src/resources/shared.ts">GroupTranslatedContent</a></code>
 - <code><a href="./src/resources/shared.ts">Message</a></code>
 - <code><a href="./src/resources/shared.ts">MultipleFilterSearchRequest</a></code>
 - <code><a href="./src/resources/shared.ts">Note</a></code>
 - <code><a href="./src/resources/shared.ts">PaginatedResponse</a></code>
+- <code><a href="./src/resources/shared.ts">PartAttachment</a></code>
+- <code><a href="./src/resources/shared.ts">Reference</a></code>
 - <code><a href="./src/resources/shared.ts">SearchRequest</a></code>
+- <code><a href="./src/resources/shared.ts">SingleFilterSearchRequest</a></code>
+- <code><a href="./src/resources/shared.ts">StartingAfterPaging</a></code>
 - <code><a href="./src/resources/shared.ts">SubscriptionTypeList</a></code>
 - <code><a href="./src/resources/shared.ts">Tag</a></code>
 - <code><a href="./src/resources/shared.ts">TagList</a></code>
@@ -168,6 +174,7 @@ Types:
 
 Methods:
 
+- <code title="post /contacts/{contact_id}/companies">client.contacts.companies.<a href="./src/resources/contacts/companies.ts">create</a>(contactId, { ...params }) -> Company</code>
 - <code title="delete /contacts/{contact_id}/companies/{id}">client.contacts.companies.<a href="./src/resources/contacts/companies.ts">delete</a>(contactId, id, { ...params }) -> Company</code>
 
 ## Notes
@@ -216,13 +223,14 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationList</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">ConversationListResponse</a></code>
 
 Methods:
 
 - <code title="post /conversations">client.conversations.<a href="./src/resources/conversations/conversations.ts">create</a>({ ...params }) -> Message</code>
 - <code title="get /conversations/{id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(id, { ...params }) -> Conversation</code>
 - <code title="put /conversations/{id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">update</a>(id, { ...params }) -> Conversation</code>
-- <code title="get /conversations">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> PaginatedResponse</code>
+- <code title="get /conversations">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponsesCursorPagination</code>
 - <code title="post /conversations/{id}/convert">client.conversations.<a href="./src/resources/conversations/conversations.ts">convert</a>(id, { ...params }) -> Ticket | null</code>
 - <code title="post /conversations/redact">client.conversations.<a href="./src/resources/conversations/conversations.ts">redact</a>({ ...params }) -> Conversation</code>
 - <code title="post /conversations/search">client.conversations.<a href="./src/resources/conversations/conversations.ts">search</a>({ ...params }) -> ConversationList</code>

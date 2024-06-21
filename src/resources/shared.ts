@@ -904,6 +904,26 @@ export namespace Contact {
 }
 
 /**
+ * reference to contact object
+ */
+export interface ContactReference {
+  /**
+   * The unique identifier for the contact which is given by Intercom.
+   */
+  id?: string;
+
+  /**
+   * The unique identifier for the contact which is provided by the Client.
+   */
+  external_id?: string | null;
+
+  /**
+   * always contact
+   */
+  type?: 'contact';
+}
+
+/**
  * Conversations are how you can communicate with users in Intercom. They are
  * created when a contact replies to an outbound message, or when one admin
  * directly sends a message to a single contact.
@@ -1161,31 +1181,9 @@ export namespace Conversation {
      * only contain one customer unless more were added via the group conversation
      * feature.
      */
-    contacts?: Array<Contacts.Contact>;
+    contacts?: Array<Shared.ContactReference>;
 
     type?: 'contact.list';
-  }
-
-  export namespace Contacts {
-    /**
-     * reference to contact object
-     */
-    export interface Contact {
-      /**
-       * The unique identifier for the contact which is given by Intercom.
-       */
-      id?: string;
-
-      /**
-       * The unique identifier for the contact which is provided by the Client.
-       */
-      external_id?: string | null;
-
-      /**
-       * always contact
-       */
-      type?: 'contact';
-    }
   }
 
   /**
@@ -1220,12 +1218,12 @@ export namespace Conversation {
        * The id of the admin that was assigned the conversation by this conversation_part
        * (null if there has been no change in assignment.)
        */
-      assigned_to?: ConversationPart.AssignedTo | null;
+      assigned_to?: Shared.Reference | null;
 
       /**
        * A list of attachments for the part.
        */
-      attachments?: Array<ConversationPart.Attachment>;
+      attachments?: Array<Shared.PartAttachment>;
 
       /**
        * The object who initiated the conversation, which can be a Contact, Admin or
@@ -1278,56 +1276,6 @@ export namespace Conversation {
 
     export namespace ConversationPart {
       /**
-       * The id of the admin that was assigned the conversation by this conversation_part
-       * (null if there has been no change in assignment.)
-       */
-      export interface AssignedTo {
-        id?: string | null;
-
-        type?: string;
-      }
-
-      /**
-       * The file attached to a part
-       */
-      export interface Attachment {
-        /**
-         * The content type of the attachment
-         */
-        content_type?: string;
-
-        /**
-         * The size of the attachment
-         */
-        filesize?: number;
-
-        /**
-         * The height of the attachment
-         */
-        height?: number;
-
-        /**
-         * The name of the attachment
-         */
-        name?: string;
-
-        /**
-         * The type of attachment
-         */
-        type?: string;
-
-        /**
-         * The URL of the attachment
-         */
-        url?: string;
-
-        /**
-         * The width of the attachment
-         */
-        width?: number;
-      }
-
-      /**
        * The object who initiated the conversation, which can be a Contact, Admin or
        * Team. Bots and campaigns send messages on behalf of Admins or Teams. For
        * Twitter, this will be blank.
@@ -1364,7 +1312,7 @@ export namespace Conversation {
     /**
      * reference to contact object
      */
-    contact?: ConversationRating.Contact;
+    contact?: Shared.ContactReference;
 
     /**
      * The time the rating was requested in the conversation being rated.
@@ -1384,38 +1332,7 @@ export namespace Conversation {
     /**
      * reference to another object
      */
-    teammate?: ConversationRating.Teammate;
-  }
-
-  export namespace ConversationRating {
-    /**
-     * reference to contact object
-     */
-    export interface Contact {
-      /**
-       * The unique identifier for the contact which is given by Intercom.
-       */
-      id?: string;
-
-      /**
-       * The unique identifier for the contact which is provided by the Client.
-       */
-      external_id?: string | null;
-
-      /**
-       * always contact
-       */
-      type?: 'contact';
-    }
-
-    /**
-     * reference to another object
-     */
-    export interface Teammate {
-      id?: string | null;
-
-      type?: string;
-    }
+    teammate?: Shared.Reference;
   }
 
   /**
@@ -1550,7 +1467,7 @@ export namespace Conversation {
     /**
      * A list of attachments for the part.
      */
-    attachments?: Array<Source.Attachment>;
+    attachments?: Array<Shared.PartAttachment>;
 
     /**
      * The object who initiated the conversation, which can be a Contact, Admin or
@@ -1600,46 +1517,6 @@ export namespace Conversation {
   }
 
   export namespace Source {
-    /**
-     * The file attached to a part
-     */
-    export interface Attachment {
-      /**
-       * The content type of the attachment
-       */
-      content_type?: string;
-
-      /**
-       * The size of the attachment
-       */
-      filesize?: number;
-
-      /**
-       * The height of the attachment
-       */
-      height?: number;
-
-      /**
-       * The name of the attachment
-       */
-      name?: string;
-
-      /**
-       * The type of attachment
-       */
-      type?: string;
-
-      /**
-       * The URL of the attachment
-       */
-      url?: string;
-
-      /**
-       * The width of the attachment
-       */
-      width?: number;
-    }
-
     /**
      * The object who initiated the conversation, which can be a Contact, Admin or
      * Team. Bots and campaigns send messages on behalf of Admins or Teams. For
@@ -1794,24 +1671,43 @@ export namespace Conversation {
      * The list of teammates who participated in the conversation (wrote at least one
      * conversation part).
      */
-    teammates?: Array<Teammates.Teammate>;
+    teammates?: Array<Shared.Reference>;
 
     /**
      * The type of the object - `admin.list`.
      */
     type?: string;
   }
+}
 
-  export namespace Teammates {
-    /**
-     * reference to another object
-     */
-    export interface Teammate {
-      id?: string | null;
+/**
+ * Cursor-based pagination is a technique used in the Intercom API to navigate
+ * through large amounts of data. A "cursor" or pointer is used to keep track of
+ * the current position in the result set, allowing the API to return the data in
+ * small chunks or "pages" as needed.
+ */
+export interface CursorPages {
+  next?: StartingAfterPaging | null;
 
-      type?: string;
-    }
-  }
+  /**
+   * The current page
+   */
+  page?: number;
+
+  /**
+   * Number of results per page
+   */
+  per_page?: number;
+
+  /**
+   * Total number of pages
+   */
+  total_pages?: number;
+
+  /**
+   * the type of object `pages`.
+   */
+  type?: 'pages';
 }
 
 /**
@@ -2083,30 +1979,7 @@ export interface MultipleFilterSearchRequest {
   /**
    * Add mutiple filters.
    */
-  value?: Array<MultipleFilterSearchRequest> | Array<MultipleFilterSearchRequest.SingleFilterSearchRequest>;
-}
-
-export namespace MultipleFilterSearchRequest {
-  /**
-   * Search using Intercoms Search APIs with a single filter.
-   */
-  export interface SingleFilterSearchRequest {
-    /**
-     * The accepted field that you want to search on.
-     */
-    field?: string;
-
-    /**
-     * The accepted operators you can use to define how you want to search for the
-     * value.
-     */
-    operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
-
-    /**
-     * The value that you want to search on.
-     */
-    value?: string;
-  }
+  value?: Array<MultipleFilterSearchRequest> | Array<SingleFilterSearchRequest>;
 }
 
 /**
@@ -2176,7 +2049,7 @@ export interface PaginatedResponse {
    * the current position in the result set, allowing the API to return the data in
    * small chunks or "pages" as needed.
    */
-  pages?: PaginatedResponse.Pages | null;
+  pages?: CursorPages | null;
 
   /**
    * A count of the total number of objects.
@@ -2189,50 +2062,53 @@ export interface PaginatedResponse {
   type?: 'list' | 'conversation.list';
 }
 
-export namespace PaginatedResponse {
+/**
+ * The file attached to a part
+ */
+export interface PartAttachment {
   /**
-   * Cursor-based pagination is a technique used in the Intercom API to navigate
-   * through large amounts of data. A "cursor" or pointer is used to keep track of
-   * the current position in the result set, allowing the API to return the data in
-   * small chunks or "pages" as needed.
+   * The content type of the attachment
    */
-  export interface Pages {
-    next?: Pages.Next | null;
+  content_type?: string;
 
-    /**
-     * The current page
-     */
-    page?: number;
+  /**
+   * The size of the attachment
+   */
+  filesize?: number;
 
-    /**
-     * Number of results per page
-     */
-    per_page?: number;
+  /**
+   * The height of the attachment
+   */
+  height?: number;
 
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
+  /**
+   * The name of the attachment
+   */
+  name?: string;
 
-    /**
-     * the type of object `pages`.
-     */
-    type?: 'pages';
-  }
+  /**
+   * The type of attachment
+   */
+  type?: string;
 
-  export namespace Pages {
-    export interface Next {
-      /**
-       * The number of results to fetch per page.
-       */
-      per_page?: number;
+  /**
+   * The URL of the attachment
+   */
+  url?: string;
 
-      /**
-       * The cursor to use in the next request to get the next page of results.
-       */
-      starting_after?: string | null;
-    }
-  }
+  /**
+   * The width of the attachment
+   */
+  width?: number;
+}
+
+/**
+ * reference to another object
+ */
+export interface Reference {
+  id?: string | null;
+
+  type?: string;
 }
 
 /**
@@ -2242,44 +2118,42 @@ export interface SearchRequest {
   /**
    * Search using Intercoms Search APIs with a single filter.
    */
-  query: SearchRequest.SingleFilterSearchRequest | MultipleFilterSearchRequest;
+  query: SingleFilterSearchRequest | MultipleFilterSearchRequest;
 
-  pagination?: SearchRequest.Pagination | null;
+  pagination?: StartingAfterPaging | null;
 }
 
-export namespace SearchRequest {
+/**
+ * Search using Intercoms Search APIs with a single filter.
+ */
+export interface SingleFilterSearchRequest {
   /**
-   * Search using Intercoms Search APIs with a single filter.
+   * The accepted field that you want to search on.
    */
-  export interface SingleFilterSearchRequest {
-    /**
-     * The accepted field that you want to search on.
-     */
-    field?: string;
+  field?: string;
 
-    /**
-     * The accepted operators you can use to define how you want to search for the
-     * value.
-     */
-    operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
+  /**
+   * The accepted operators you can use to define how you want to search for the
+   * value.
+   */
+  operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
 
-    /**
-     * The value that you want to search on.
-     */
-    value?: string;
-  }
+  /**
+   * The value that you want to search on.
+   */
+  value?: string;
+}
 
-  export interface Pagination {
-    /**
-     * The number of results to fetch per page.
-     */
-    per_page?: number;
+export interface StartingAfterPaging {
+  /**
+   * The number of results to fetch per page.
+   */
+  per_page?: number;
 
-    /**
-     * The cursor to use in the next request to get the next page of results.
-     */
-    starting_after?: string | null;
-  }
+  /**
+   * The cursor to use in the next request to get the next page of results.
+   */
+  starting_after?: string | null;
 }
 
 /**
@@ -2315,7 +2189,7 @@ export interface Tag {
   /**
    * reference to another object
    */
-  applied_by?: Tag.AppliedBy;
+  applied_by?: Reference;
 
   /**
    * The name of the tag
@@ -2326,17 +2200,6 @@ export interface Tag {
    * value is "tag"
    */
   type?: string;
-}
-
-export namespace Tag {
-  /**
-   * reference to another object
-   */
-  export interface AppliedBy {
-    id?: string | null;
-
-    type?: string;
-  }
 }
 
 /**
@@ -2473,34 +2336,12 @@ export namespace Ticket {
     /**
      * The list of contacts affected by this ticket.
      */
-    contacts?: Array<Contacts.Contact>;
+    contacts?: Array<Shared.ContactReference>;
 
     /**
      * always contact.list
      */
     type?: 'contact.list';
-  }
-
-  export namespace Contacts {
-    /**
-     * reference to contact object
-     */
-    export interface Contact {
-      /**
-       * The unique identifier for the contact which is given by Intercom.
-       */
-      id?: string;
-
-      /**
-       * The unique identifier for the contact which is provided by the Client.
-       */
-      external_id?: string | null;
-
-      /**
-       * always contact
-       */
-      type?: 'contact';
-    }
   }
 
   /**
@@ -2617,12 +2458,12 @@ export namespace Ticket {
        * The id of the admin that was assigned the ticket by this ticket_part (null if
        * there has been no change in assignment.)
        */
-      assigned_to?: TicketPart.AssignedTo | null;
+      assigned_to?: Shared.Reference | null;
 
       /**
        * A list of attachments for the part.
        */
-      attachments?: Array<TicketPart.Attachment>;
+      attachments?: Array<Shared.PartAttachment>;
 
       /**
        * The author that wrote or triggered the part. Can be a bot, admin, team or user.
@@ -2676,56 +2517,6 @@ export namespace Ticket {
     }
 
     export namespace TicketPart {
-      /**
-       * The id of the admin that was assigned the ticket by this ticket_part (null if
-       * there has been no change in assignment.)
-       */
-      export interface AssignedTo {
-        id?: string | null;
-
-        type?: string;
-      }
-
-      /**
-       * The file attached to a part
-       */
-      export interface Attachment {
-        /**
-         * The content type of the attachment
-         */
-        content_type?: string;
-
-        /**
-         * The size of the attachment
-         */
-        filesize?: number;
-
-        /**
-         * The height of the attachment
-         */
-        height?: number;
-
-        /**
-         * The name of the attachment
-         */
-        name?: string;
-
-        /**
-         * The type of attachment
-         */
-        type?: string;
-
-        /**
-         * The URL of the attachment
-         */
-        url?: string;
-
-        /**
-         * The width of the attachment
-         */
-        width?: number;
-      }
-
       /**
        * The author that wrote or triggered the part. Can be a bot, admin, team or user.
        */

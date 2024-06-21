@@ -8,6 +8,27 @@ import * as Shared from '../shared';
 
 export class Companies extends APIResource {
   /**
+   * You can attach a company to a single contact.
+   */
+  create(
+    contactId: string,
+    params: CompanyCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Company> {
+    const { company_id, 'Intercom-Version': intercomVersion, ...body } = params;
+    return this._client.post(`/contacts/${contactId}/companies`, {
+      body: { id: company_id, ...body },
+      ...options,
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
+    });
+  }
+
+  /**
    * You can detach a company from a single contact.
    */
   delete(
@@ -95,6 +116,37 @@ export namespace ContactAttachedCompanies {
   }
 }
 
+export interface CompanyCreateParams {
+  /**
+   * Body param: The unique identifier for the company which is given by Intercom
+   */
+  company_id: string;
+
+  /**
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | '2.11'
+    | 'Unstable';
+}
+
 export interface CompanyDeleteParams {
   /**
    * Intercom API version.By default, it's equal to the version set in the app
@@ -123,5 +175,6 @@ export interface CompanyDeleteParams {
 
 export namespace Companies {
   export import ContactAttachedCompanies = CompaniesAPI.ContactAttachedCompanies;
+  export import CompanyCreateParams = CompaniesAPI.CompanyCreateParams;
   export import CompanyDeleteParams = CompaniesAPI.CompanyDeleteParams;
 }

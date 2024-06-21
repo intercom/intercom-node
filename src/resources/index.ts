@@ -47,6 +47,7 @@ export {
 } from './contacts/contacts';
 export {
   ConversationList,
+  ConversationListResponse,
   ConversationCreateParams,
   ConversationRetrieveParams,
   ConversationUpdateParams,
@@ -54,6 +55,7 @@ export {
   ConversationConvertParams,
   ConversationRedactParams,
   ConversationSearchParams,
+  ConversationListResponsesCursorPagination,
   Conversations,
 } from './conversations/conversations';
 export {

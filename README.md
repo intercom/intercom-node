@@ -11,8 +11,11 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 ## Installation
 
 ```sh
-npm install intercom-client
+npm install git+ssh://git@github.com:intercom/intercom-node.git
 ```
+
+> [!NOTE]
+> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install intercom-client`
 
 ## Usage
 
@@ -217,7 +220,7 @@ import Intercom from 'intercom-client';
 ```
 
 To do the inverse, add `import "intercom-client/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/intercom/intercom-node/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/intercom/intercom-node/tree/v3/src/_shims#readme)).
 
 ### Logging and middleware
 

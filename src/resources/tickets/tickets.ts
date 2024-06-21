@@ -202,7 +202,7 @@ export interface TicketList {
    * the current position in the result set, allowing the API to return the data in
    * small chunks or "pages" as needed.
    */
-  pages?: TicketList.Pages | null;
+  pages?: Shared.CursorPages | null;
 
   /**
    * The list of ticket objects
@@ -220,52 +220,6 @@ export interface TicketList {
   type?: 'ticket.list';
 }
 
-export namespace TicketList {
-  /**
-   * Cursor-based pagination is a technique used in the Intercom API to navigate
-   * through large amounts of data. A "cursor" or pointer is used to keep track of
-   * the current position in the result set, allowing the API to return the data in
-   * small chunks or "pages" as needed.
-   */
-  export interface Pages {
-    next?: Pages.Next | null;
-
-    /**
-     * The current page
-     */
-    page?: number;
-
-    /**
-     * Number of results per page
-     */
-    per_page?: number;
-
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
-
-    /**
-     * the type of object `pages`.
-     */
-    type?: 'pages';
-  }
-
-  export namespace Pages {
-    export interface Next {
-      /**
-       * The number of results to fetch per page.
-       */
-      per_page?: number;
-
-      /**
-       * The cursor to use in the next request to get the next page of results.
-       */
-      starting_after?: string | null;
-    }
-  }
-}
-
 /**
  * A Ticket Part representing a note, comment, or quick_reply on a ticket
  */
@@ -278,7 +232,7 @@ export interface TicketReply {
   /**
    * A list of attachments for the part.
    */
-  attachments?: Array<TicketReply.Attachment>;
+  attachments?: Array<Shared.PartAttachment>;
 
   /**
    * The author that wrote or triggered the part. Can be a bot, admin, team or user.
@@ -317,46 +271,6 @@ export interface TicketReply {
 }
 
 export namespace TicketReply {
-  /**
-   * The file attached to a part
-   */
-  export interface Attachment {
-    /**
-     * The content type of the attachment
-     */
-    content_type?: string;
-
-    /**
-     * The size of the attachment
-     */
-    filesize?: number;
-
-    /**
-     * The height of the attachment
-     */
-    height?: number;
-
-    /**
-     * The name of the attachment
-     */
-    name?: string;
-
-    /**
-     * The type of attachment
-     */
-    type?: string;
-
-    /**
-     * The URL of the attachment
-     */
-    url?: string;
-
-    /**
-     * The width of the attachment
-     */
-    width?: number;
-  }
-
   /**
    * The author that wrote or triggered the part. Can be a bot, admin, team or user.
    */
@@ -748,12 +662,12 @@ export interface TicketSearchParams {
   /**
    * Body param: Search using Intercoms Search APIs with a single filter.
    */
-  query: TicketSearchParams.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
+  query: Shared.SingleFilterSearchRequest | Shared.MultipleFilterSearchRequest;
 
   /**
    * Body param:
    */
-  pagination?: TicketSearchParams.Pagination | null;
+  pagination?: Shared.StartingAfterPaging | null;
 
   /**
    * Header param: Intercom API version.By default, it's equal to the version set in
@@ -778,41 +692,6 @@ export interface TicketSearchParams {
     | '2.10'
     | '2.11'
     | 'Unstable';
-}
-
-export namespace TicketSearchParams {
-  /**
-   * Search using Intercoms Search APIs with a single filter.
-   */
-  export interface SingleFilterSearchRequest {
-    /**
-     * The accepted field that you want to search on.
-     */
-    field?: string;
-
-    /**
-     * The accepted operators you can use to define how you want to search for the
-     * value.
-     */
-    operator?: '=' | '!=' | 'IN' | 'NIN' | '<' | '>' | '~' | '!~' | '^' | '$';
-
-    /**
-     * The value that you want to search on.
-     */
-    value?: string;
-  }
-
-  export interface Pagination {
-    /**
-     * The number of results to fetch per page.
-     */
-    per_page?: number;
-
-    /**
-     * The cursor to use in the next request to get the next page of results.
-     */
-    starting_after?: string | null;
-  }
 }
 
 export interface TicketUpdateByIDParams {

@@ -4,12 +4,12 @@ on:
     - cron: '0 5 * * *' # every day at 5am UTC
   push:
     branches:
-      - main
+      - v3
 
 jobs:
   release:
     name: release
-    if: github.ref == 'refs/heads/main' && github.repository == 'intercom/intercom-node'
+    if: github.ref == 'refs/heads/v3' && github.repository == 'intercom/intercom-node'
     runs-on: ubuntu-latest
 
     steps:

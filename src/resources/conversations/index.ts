@@ -2,6 +2,7 @@
 
 export {
   ConversationList,
+  ConversationListResponse,
   ConversationCreateParams,
   ConversationRetrieveParams,
   ConversationUpdateParams,
@@ -9,6 +10,7 @@ export {
   ConversationConvertParams,
   ConversationRedactParams,
   ConversationSearchParams,
+  ConversationListResponsesCursorPagination,
   Conversations,
 } from './conversations';
 export { CustomerCreateParams, CustomerDeleteParams, Customers } from './customers';
