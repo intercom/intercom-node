@@ -16,13 +16,7 @@ export {
   ContactUnarchiveParams,
   Contacts,
 } from './contacts';
-export {
-  ContactAttachedCompanies,
-  CompanyCreateParams,
-  CompanyListParams,
-  CompanyDeleteParams,
-  Companies,
-} from './companies';
+export { ContactAttachedCompanies, CompanyDeleteParams, Companies } from './companies';
 export { ContactSegments, SegmentListParams, Segments } from './segments';
 export { NoteList, NoteCreateParams, NoteListParams, Notes } from './notes';
 export {
