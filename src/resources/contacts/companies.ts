@@ -10,10 +10,14 @@ export class Companies extends APIResource {
   /**
    * You can attach a company to a single contact.
    */
-  create(params: CompanyCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Company> {
-    const { path_id, body_id, 'Intercom-Version': intercomVersion, ...body } = params;
-    return this._client.post(`/contacts/${path_id}/companies`, {
-      body: { id: body_id, ...body },
+  create(
+    id: string,
+    params: CompanyCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Company> {
+    const { company_id, 'Intercom-Version': intercomVersion, ...body } = params;
+    return this._client.post(`/contacts/${id}/companies`, {
+      body: { id: company_id, ...body },
       ...options,
       headers: {
         ...(intercomVersion?.toString() != null ?
@@ -143,14 +147,9 @@ export namespace ContactAttachedCompanies {
 
 export interface CompanyCreateParams {
   /**
-   * Path param: The unique identifier for the contact which is given by Intercom
-   */
-  path_id: string;
-
-  /**
    * Body param: The unique identifier for the company which is given by Intercom
    */
-  body_id: string;
+  company_id: string;
 
   /**
    * Header param: Intercom API version.By default, it's equal to the version set in
