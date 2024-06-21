@@ -165,6 +165,42 @@ describe('resource companies', () => {
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
+  test('retrieveList', async () => {
+    const responsePromise = intercom.companies.retrieveList();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retrieveList: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(intercom.companies.retrieveList({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Intercom.NotFoundError,
+    );
+  });
+
+  test('retrieveList: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      intercom.companies.retrieveList(
+        {
+          company_id: 'string',
+          name: 'string',
+          page: 0,
+          per_page: 0,
+          segment_id: 'string',
+          tag_id: 'string',
+          'Intercom-Version': '2.11',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Intercom.NotFoundError);
+  });
+
   test('scroll', async () => {
     const responsePromise = intercom.companies.scroll();
     const rawResponse = await responsePromise.asResponse();

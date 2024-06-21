@@ -116,6 +116,7 @@ Methods:
 - <code title="put /companies/{id}">client.companies.<a href="./src/resources/companies/companies.ts">update</a>(id, { ...params }) -> Company</code>
 - <code title="post /companies/list">client.companies.<a href="./src/resources/companies/companies.ts">list</a>({ ...params }) -> CompanyList</code>
 - <code title="delete /companies/{id}">client.companies.<a href="./src/resources/companies/companies.ts">delete</a>(id, { ...params }) -> DeletedCompanyObject</code>
+- <code title="get /companies">client.companies.<a href="./src/resources/companies/companies.ts">retrieveList</a>({ ...params }) -> CompanyList</code>
 - <code title="get /companies/scroll">client.companies.<a href="./src/resources/companies/companies.ts">scroll</a>({ ...params }) -> CompanyScroll | null</code>
 
 ## Contacts
