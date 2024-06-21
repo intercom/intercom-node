@@ -13,7 +13,7 @@ export namespace HelpCenter {
   export import Collections = CollectionsAPI.Collections;
   export import Collection = CollectionsAPI.Collection;
   export import CollectionList = CollectionsAPI.CollectionList;
-  export import DeletedCollectionObject = CollectionsAPI.DeletedCollectionObject;
+  export import DeletedCollection = CollectionsAPI.DeletedCollection;
   export import CollectionCreateParams = CollectionsAPI.CollectionCreateParams;
   export import CollectionRetrieveParams = CollectionsAPI.CollectionRetrieveParams;
   export import CollectionUpdateParams = CollectionsAPI.CollectionUpdateParams;

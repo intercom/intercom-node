@@ -66,9 +66,9 @@ export class Admins extends APIResource {
   /**
    * You can set an Admin as away for the Inbox.
    */
-  away(
+  setAway(
     id: number,
-    params: AdminAwayParams,
+    params: AdminSetAwayParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Admin | null> {
     const { 'Intercom-Version': intercomVersion, ...body } = params;
@@ -152,7 +152,7 @@ export interface AdminListParams {
     | 'Unstable';
 }
 
-export interface AdminAwayParams {
+export interface AdminSetAwayParams {
   /**
    * Body param: Set to "true" to change the status of the admin to away.
    */
@@ -193,7 +193,7 @@ export namespace Admins {
   export import AdminList = AdminsAPI.AdminList;
   export import AdminRetrieveParams = AdminsAPI.AdminRetrieveParams;
   export import AdminListParams = AdminsAPI.AdminListParams;
-  export import AdminAwayParams = AdminsAPI.AdminAwayParams;
+  export import AdminSetAwayParams = AdminsAPI.AdminSetAwayParams;
   export import ActivityLogs = ActivityLogsAPI.ActivityLogs;
   export import ActivityLogList = ActivityLogsAPI.ActivityLogList;
   export import ActivityLogListParams = ActivityLogsAPI.ActivityLogListParams;

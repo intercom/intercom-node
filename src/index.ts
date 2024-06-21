@@ -235,7 +235,7 @@ export namespace Intercom {
   export import AdminList = API.AdminList;
   export import AdminRetrieveParams = API.AdminRetrieveParams;
   export import AdminListParams = API.AdminListParams;
-  export import AdminAwayParams = API.AdminAwayParams;
+  export import AdminSetAwayParams = API.AdminSetAwayParams;
 
   export import Articles = API.Articles;
   export import Article = API.Article;
