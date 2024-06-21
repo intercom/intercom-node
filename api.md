@@ -41,7 +41,7 @@ Methods:
 
 - <code title="get /admins/{id}">client.admins.<a href="./src/resources/admins/admins.ts">retrieve</a>(id, { ...params }) -> Admin | null</code>
 - <code title="get /admins">client.admins.<a href="./src/resources/admins/admins.ts">list</a>({ ...params }) -> AdminList</code>
-- <code title="put /admins/{id}/away">client.admins.<a href="./src/resources/admins/admins.ts">away</a>(id, { ...params }) -> Admin | null</code>
+- <code title="put /admins/{id}/away">client.admins.<a href="./src/resources/admins/admins.ts">setAway</a>(id, { ...params }) -> Admin | null</code>
 
 ## ActivityLogs
 
@@ -79,7 +79,7 @@ Types:
 
 - <code><a href="./src/resources/help-center/collections.ts">Collection</a></code>
 - <code><a href="./src/resources/help-center/collections.ts">CollectionList</a></code>
-- <code><a href="./src/resources/help-center/collections.ts">DeletedCollectionObject</a></code>
+- <code><a href="./src/resources/help-center/collections.ts">DeletedCollection</a></code>
 
 Methods:
 
@@ -87,7 +87,7 @@ Methods:
 - <code title="get /help_center/collections/{id}">client.helpCenter.collections.<a href="./src/resources/help-center/collections.ts">retrieve</a>(id, { ...params }) -> Collection</code>
 - <code title="put /help_center/collections/{id}">client.helpCenter.collections.<a href="./src/resources/help-center/collections.ts">update</a>(id, { ...params }) -> Collection</code>
 - <code title="get /help_center/collections">client.helpCenter.collections.<a href="./src/resources/help-center/collections.ts">list</a>({ ...params }) -> CollectionList</code>
-- <code title="delete /help_center/collections/{id}">client.helpCenter.collections.<a href="./src/resources/help-center/collections.ts">delete</a>(id, { ...params }) -> DeletedCollectionObject</code>
+- <code title="delete /help_center/collections/{id}">client.helpCenter.collections.<a href="./src/resources/help-center/collections.ts">delete</a>(id, { ...params }) -> DeletedCollection</code>
 
 ## HelpCenters
 

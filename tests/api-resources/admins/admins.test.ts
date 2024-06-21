@@ -59,8 +59,8 @@ describe('resource admins', () => {
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
-  test('away: only required params', async () => {
-    const responsePromise = intercom.admins.away(0, { away_mode_enabled: true, away_mode_reassign: true });
+  test('setAway: only required params', async () => {
+    const responsePromise = intercom.admins.setAway(0, { away_mode_enabled: true, away_mode_reassign: true });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -70,8 +70,8 @@ describe('resource admins', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('away: required and optional params', async () => {
-    const response = await intercom.admins.away(0, {
+  test('setAway: required and optional params', async () => {
+    const response = await intercom.admins.setAway(0, {
       away_mode_enabled: true,
       away_mode_reassign: true,
       'Intercom-Version': '2.11',

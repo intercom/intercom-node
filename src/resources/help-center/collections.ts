@@ -123,13 +123,13 @@ export class Collections extends APIResource {
     id: number,
     params?: CollectionDeleteParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<DeletedCollectionObject>;
-  delete(id: number, options?: Core.RequestOptions): Core.APIPromise<DeletedCollectionObject>;
+  ): Core.APIPromise<DeletedCollection>;
+  delete(id: number, options?: Core.RequestOptions): Core.APIPromise<DeletedCollection>;
   delete(
     id: number,
     params: CollectionDeleteParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<DeletedCollectionObject> {
+  ): Core.APIPromise<DeletedCollection> {
     if (isRequestOptions(params)) {
       return this.delete(id, {}, params);
     }
@@ -302,7 +302,7 @@ export namespace CollectionList {
 /**
  * Response returned when an object is deleted
  */
-export interface DeletedCollectionObject {
+export interface DeletedCollection {
   /**
    * The unique identifier for the collection which you provided in the URL.
    */
@@ -506,7 +506,7 @@ export interface CollectionDeleteParams {
 export namespace Collections {
   export import Collection = CollectionsAPI.Collection;
   export import CollectionList = CollectionsAPI.CollectionList;
-  export import DeletedCollectionObject = CollectionsAPI.DeletedCollectionObject;
+  export import DeletedCollection = CollectionsAPI.DeletedCollection;
   export import CollectionCreateParams = CollectionsAPI.CollectionCreateParams;
   export import CollectionRetrieveParams = CollectionsAPI.CollectionRetrieveParams;
   export import CollectionUpdateParams = CollectionsAPI.CollectionUpdateParams;

@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export { AdminList, AdminRetrieveParams, AdminListParams, AdminAwayParams, Admins } from './admins/admins';
+export { AdminList, AdminRetrieveParams, AdminListParams, AdminSetAwayParams, Admins } from './admins/admins';
 export { AdminWithApp, MeRetrieveParams, Me } from './me';
 export {
   Article,

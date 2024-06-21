@@ -3,7 +3,7 @@
 export {
   Collection,
   CollectionList,
-  DeletedCollectionObject,
+  DeletedCollection,
   CollectionCreateParams,
   CollectionRetrieveParams,
   CollectionUpdateParams,
