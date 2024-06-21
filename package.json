@@ -1,5 +1,5 @@
 {
-  "name": "intercom",
+  "name": "intercom-client",
   "version": "0.0.1",
   "description": "The official TypeScript library for the Intercom API",
   "author": "Intercom <dev-feedback@intercom.com>",
@@ -62,8 +62,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "intercom": ".",
-    "intercom/*": "./src/*"
+    "intercom-client": ".",
+    "intercom-client/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {

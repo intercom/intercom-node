@@ -7,9 +7,9 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^intercom$': '<rootDir>/src/index.ts',
-    '^intercom/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
-    '^intercom/(.*)$': '<rootDir>/src/$1',
+    '^intercom-client$': '<rootDir>/src/index.ts',
+    '^intercom-client/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
+    '^intercom-client/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

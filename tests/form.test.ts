@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from 'intercom/core';
-import { Blob } from 'intercom/_shims/index';
-import { toFile } from 'intercom';
+import { multipartFormRequestOptions, createForm } from 'intercom-client/core';
+import { Blob } from 'intercom-client/_shims/index';
+import { toFile } from 'intercom-client';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

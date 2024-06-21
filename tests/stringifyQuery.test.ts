@@ -1,4 +1,4 @@
-import { APIClient } from 'intercom/core';
+import { APIClient } from 'intercom-client/core';
 
 const { stringifyQuery } = APIClient.prototype as any;
 

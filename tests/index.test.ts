@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Intercom from 'intercom';
-import { APIUserAbortError } from 'intercom';
-import { Headers } from 'intercom/core';
+import Intercom from 'intercom-client';
+import { APIUserAbortError } from 'intercom-client';
+import { Headers } from 'intercom-client/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Intercom from 'intercom';
+import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
 const intercom = new Intercom({

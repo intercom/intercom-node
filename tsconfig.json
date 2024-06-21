@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "intercom/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "intercom/*": ["src/*"],
-      "intercom": ["src/index.ts"],
+      "intercom-client/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "intercom-client/*": ["src/*"],
+      "intercom-client": ["src/index.ts"],
     },
     "noEmit": true,
 

@@ -1,5 +1,5 @@
-import { createResponseHeaders } from 'intercom/core';
-import { Headers } from 'intercom/_shims/index';
+import { createResponseHeaders } from 'intercom-client/core';
+import { Headers } from 'intercom-client/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters

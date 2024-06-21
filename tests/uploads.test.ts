@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { toFile, type ResponseLike } from 'intercom/uploads';
-import { File } from 'intercom/_shims/index';
+import { toFile, type ResponseLike } from 'intercom-client/uploads';
+import { File } from 'intercom-client/_shims/index';
 
 class MyClass {
   name: string = 'foo';
