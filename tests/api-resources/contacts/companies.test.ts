@@ -10,9 +10,8 @@ const intercom = new Intercom({
 
 describe('resource companies', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.contacts.companies.create({
-      path_id: 'string',
-      body_id: '6657add46abd0167d9419cd2',
+    const responsePromise = intercom.contacts.companies.create('string', {
+      company_id: '6657add46abd0167d9419cd2',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -24,9 +23,8 @@ describe('resource companies', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.contacts.companies.create({
-      path_id: 'string',
-      body_id: '6657add46abd0167d9419cd2',
+    const response = await intercom.contacts.companies.create('string', {
+      company_id: '6657add46abd0167d9419cd2',
       'Intercom-Version': '2.11',
     });
   });
