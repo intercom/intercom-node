@@ -11,11 +11,8 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:intercom/intercom-node.git
+npm install intercom-client
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install intercom-client`
 
 ## Usage
 
