@@ -42,12 +42,12 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'intercom/shims/${shims.kind}'\` before importing anything else from intercom`,
+      `you must \`import 'intercom-client/shims/${shims.kind}'\` before importing anything else from intercom-client`,
     );
   }
   if (kind) {
     throw new Error(
-      `can't \`import 'intercom/shims/${shims.kind}'\` after \`import 'intercom/shims/${kind}'\``,
+      `can't \`import 'intercom-client/shims/${shims.kind}'\` after \`import 'intercom-client/shims/${kind}'\``,
     );
   }
   auto = options.auto;

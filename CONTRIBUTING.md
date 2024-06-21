@@ -55,12 +55,12 @@ cd intercom-node
 # With yarn
 yarn link
 cd ../my-package
-yarn link intercom
+yarn link intercom-client
 
 # With pnpm
 pnpm link --global
 cd ../my-package
-pnpm link -—global intercom
+pnpm link -—global intercom-client
 ```
 
 ## Running tests

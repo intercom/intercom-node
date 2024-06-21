@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "intercom/*": ["dist/src/*"],
-      "intercom": ["dist/src/index.ts"],
+      "intercom-client/*": ["dist/src/*"],
+      "intercom-client": ["dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,
