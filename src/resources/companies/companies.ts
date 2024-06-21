@@ -180,6 +180,45 @@ export class Companies extends APIResource {
   }
 
   /**
+   * You can fetch a single company by passing in `company_id` or `name`.
+   *
+   * `https://api.intercom.io/companies?name={name}`
+   *
+   * `https://api.intercom.io/companies?company_id={company_id}`
+   *
+   * You can fetch all companies and filter by `segment_id` or `tag_id` as a query
+   * parameter.
+   *
+   * `https://api.intercom.io/companies?tag_id={tag_id}`
+   *
+   * `https://api.intercom.io/companies?segment_id={segment_id}`
+   */
+  retrieveList(
+    params?: CompanyRetrieveListParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CompanyList>;
+  retrieveList(options?: Core.RequestOptions): Core.APIPromise<CompanyList>;
+  retrieveList(
+    params: CompanyRetrieveListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CompanyList> {
+    if (isRequestOptions(params)) {
+      return this.retrieveList({}, params);
+    }
+    const { 'Intercom-Version': intercomVersion, ...query } = params;
+    return this._client.get('/companies', {
+      query,
+      ...options,
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
+    });
+  }
+
+  /**
    * The `list all companies` functionality does not work well for huge datasets, and can result in errors and performance problems when paging deeply. The Scroll API provides an efficient mechanism for iterating over all companies in a dataset.
    *
    * - Each app can only have 1 scroll open at a time. You'll get an error message if
@@ -591,6 +630,62 @@ export interface CompanyDeleteParams {
     | 'Unstable';
 }
 
+export interface CompanyRetrieveListParams {
+  /**
+   * Query param: The `company_id` of the company to filter by.
+   */
+  company_id?: string;
+
+  /**
+   * Query param: The `name` of the company to filter by.
+   */
+  name?: string;
+
+  /**
+   * Query param: The page of results to fetch. Defaults to first page
+   */
+  page?: number;
+
+  /**
+   * Query param: How many results to display per page. Defaults to 15
+   */
+  per_page?: number;
+
+  /**
+   * Query param: The `segment_id` of the company to filter by.
+   */
+  segment_id?: string;
+
+  /**
+   * Query param: The `tag_id` of the company to filter by.
+   */
+  tag_id?: string;
+
+  /**
+   * Header param: Intercom API version.By default, it's equal to the version set in
+   * the app package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | '2.11'
+    | 'Unstable';
+}
+
 export interface CompanyScrollParams {
   /**
    * Query param:
@@ -631,6 +726,7 @@ export namespace Companies {
   export import CompanyUpdateParams = CompaniesAPI.CompanyUpdateParams;
   export import CompanyListParams = CompaniesAPI.CompanyListParams;
   export import CompanyDeleteParams = CompaniesAPI.CompanyDeleteParams;
+  export import CompanyRetrieveListParams = CompaniesAPI.CompanyRetrieveListParams;
   export import CompanyScrollParams = CompaniesAPI.CompanyScrollParams;
   export import Contacts = ContactsAPI.Contacts;
   export import CompanyAttachedContacts = ContactsAPI.CompanyAttachedContacts;

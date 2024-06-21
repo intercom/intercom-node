@@ -25,6 +25,7 @@ export {
   CompanyUpdateParams,
   CompanyListParams,
   CompanyDeleteParams,
+  CompanyRetrieveListParams,
   CompanyScrollParams,
   Companies,
 } from './companies/companies';

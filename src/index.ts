@@ -260,6 +260,7 @@ export namespace Intercom {
   export import CompanyUpdateParams = API.CompanyUpdateParams;
   export import CompanyListParams = API.CompanyListParams;
   export import CompanyDeleteParams = API.CompanyDeleteParams;
+  export import CompanyRetrieveListParams = API.CompanyRetrieveListParams;
   export import CompanyScrollParams = API.CompanyScrollParams;
 
   export import Contacts = API.Contacts;
