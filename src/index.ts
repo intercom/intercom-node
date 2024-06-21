@@ -5,6 +5,7 @@ import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
 import * as qs from 'qs';
+import * as Pagination from './pagination';
 import * as API from './resources/index';
 
 const environments = {
@@ -227,6 +228,10 @@ export import fileFromPath = Uploads.fileFromPath;
 export namespace Intercom {
   export import RequestOptions = Core.RequestOptions;
 
+  export import CursorPagination = Pagination.CursorPagination;
+  export import CursorPaginationParams = Pagination.CursorPaginationParams;
+  export import CursorPaginationResponse = Pagination.CursorPaginationResponse;
+
   export import Me = API.Me;
   export import AdminWithApp = API.AdminWithApp;
   export import MeRetrieveParams = API.MeRetrieveParams;
@@ -280,6 +285,8 @@ export namespace Intercom {
 
   export import Conversations = API.Conversations;
   export import ConversationList = API.ConversationList;
+  export import ConversationListResponse = API.ConversationListResponse;
+  export import ConversationListResponsesCursorPagination = API.ConversationListResponsesCursorPagination;
   export import ConversationCreateParams = API.ConversationCreateParams;
   export import ConversationRetrieveParams = API.ConversationRetrieveParams;
   export import ConversationUpdateParams = API.ConversationUpdateParams;
@@ -372,14 +379,20 @@ export namespace Intercom {
   export import ArticleTranslatedContent = API.ArticleTranslatedContent;
   export import Company = API.Company;
   export import Contact = API.Contact;
+  export import ContactReference = API.ContactReference;
   export import Conversation = API.Conversation;
+  export import CursorPages = API.CursorPages;
   export import GroupContent = API.GroupContent;
   export import GroupTranslatedContent = API.GroupTranslatedContent;
   export import Message = API.Message;
   export import MultipleFilterSearchRequest = API.MultipleFilterSearchRequest;
   export import Note = API.Note;
   export import PaginatedResponse = API.PaginatedResponse;
+  export import PartAttachment = API.PartAttachment;
+  export import Reference = API.Reference;
   export import SearchRequest = API.SearchRequest;
+  export import SingleFilterSearchRequest = API.SingleFilterSearchRequest;
+  export import StartingAfterPaging = API.StartingAfterPaging;
   export import SubscriptionTypeList = API.SubscriptionTypeList;
   export import Tag = API.Tag;
   export import TagList = API.TagList;

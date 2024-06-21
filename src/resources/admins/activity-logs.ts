@@ -3,6 +3,7 @@
 import * as Core from '../../core';
 import { APIResource } from '../../resource';
 import * as ActivityLogsAPI from './activity-logs';
+import * as Shared from '../shared';
 
 export class ActivityLogs extends APIResource {
   /**
@@ -38,7 +39,7 @@ export interface ActivityLogList {
    * the current position in the result set, allowing the API to return the data in
    * small chunks or "pages" as needed.
    */
-  pages?: ActivityLogList.Pages | null;
+  pages?: Shared.CursorPages | null;
 
   /**
    * String representing the object's type. Always has the value `activity_log.list`.
@@ -220,50 +221,6 @@ export namespace ActivityLogList {
        * String representing the object's type. Always has the value `admin`.
        */
       type?: string;
-    }
-  }
-
-  /**
-   * Cursor-based pagination is a technique used in the Intercom API to navigate
-   * through large amounts of data. A "cursor" or pointer is used to keep track of
-   * the current position in the result set, allowing the API to return the data in
-   * small chunks or "pages" as needed.
-   */
-  export interface Pages {
-    next?: Pages.Next | null;
-
-    /**
-     * The current page
-     */
-    page?: number;
-
-    /**
-     * Number of results per page
-     */
-    per_page?: number;
-
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
-
-    /**
-     * the type of object `pages`.
-     */
-    type?: 'pages';
-  }
-
-  export namespace Pages {
-    export interface Next {
-      /**
-       * The number of results to fetch per page.
-       */
-      per_page?: number;
-
-      /**
-       * The cursor to use in the next request to get the next page of results.
-       */
-      starting_after?: string | null;
     }
   }
 }
