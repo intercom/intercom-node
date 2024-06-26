@@ -29,6 +29,35 @@ export class Companies extends APIResource {
   }
 
   /**
+   * You can fetch a list of companies that are associated to a contact.
+   */
+  list(
+    contactId: string,
+    params?: CompanyListParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ContactAttachedCompanies>;
+  list(contactId: string, options?: Core.RequestOptions): Core.APIPromise<ContactAttachedCompanies>;
+  list(
+    contactId: string,
+    params: CompanyListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ContactAttachedCompanies> {
+    if (isRequestOptions(params)) {
+      return this.list(contactId, {}, params);
+    }
+    const { 'Intercom-Version': intercomVersion } = params;
+    return this._client.get(`/contacts/${contactId}/companies`, {
+      ...options,
+      headers: {
+        ...(intercomVersion?.toString() != null ?
+          { 'Intercom-Version': intercomVersion?.toString() }
+        : undefined),
+        ...options?.headers,
+      },
+    });
+  }
+
+  /**
    * You can detach a company from a single contact.
    */
   delete(
@@ -147,6 +176,32 @@ export interface CompanyCreateParams {
     | 'Unstable';
 }
 
+export interface CompanyListParams {
+  /**
+   * Intercom API version.By default, it's equal to the version set in the app
+   * package.
+   */
+  'Intercom-Version'?:
+    | '1.0'
+    | '1.1'
+    | '1.2'
+    | '1.3'
+    | '1.4'
+    | '2.0'
+    | '2.1'
+    | '2.2'
+    | '2.3'
+    | '2.4'
+    | '2.5'
+    | '2.6'
+    | '2.7'
+    | '2.8'
+    | '2.9'
+    | '2.10'
+    | '2.11'
+    | 'Unstable';
+}
+
 export interface CompanyDeleteParams {
   /**
    * Intercom API version.By default, it's equal to the version set in the app
@@ -176,5 +231,6 @@ export interface CompanyDeleteParams {
 export namespace Companies {
   export import ContactAttachedCompanies = CompaniesAPI.ContactAttachedCompanies;
   export import CompanyCreateParams = CompaniesAPI.CompanyCreateParams;
+  export import CompanyListParams = CompaniesAPI.CompanyListParams;
   export import CompanyDeleteParams = CompaniesAPI.CompanyDeleteParams;
 }

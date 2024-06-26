@@ -175,6 +175,7 @@ Types:
 Methods:
 
 - <code title="post /contacts/{contact_id}/companies">client.contacts.companies.<a href="./src/resources/contacts/companies.ts">create</a>(contactId, { ...params }) -> Company</code>
+- <code title="get /contacts/{contact_id}/companies">client.contacts.companies.<a href="./src/resources/contacts/companies.ts">list</a>(contactId, { ...params }) -> ContactAttachedCompanies</code>
 - <code title="delete /contacts/{contact_id}/companies/{id}">client.contacts.companies.<a href="./src/resources/contacts/companies.ts">delete</a>(contactId, id, { ...params }) -> Company</code>
 
 ## Notes

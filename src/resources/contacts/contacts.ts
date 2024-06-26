@@ -883,6 +883,7 @@ export namespace Contacts {
   export import Companies = CompaniesAPI.Companies;
   export import ContactAttachedCompanies = CompaniesAPI.ContactAttachedCompanies;
   export import CompanyCreateParams = CompaniesAPI.CompanyCreateParams;
+  export import CompanyListParams = CompaniesAPI.CompanyListParams;
   export import CompanyDeleteParams = CompaniesAPI.CompanyDeleteParams;
   export import Notes = NotesAPI.Notes;
   export import NoteList = NotesAPI.NoteList;
