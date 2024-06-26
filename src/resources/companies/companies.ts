@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../../core';
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
+import * as Core from '../../core';
 import * as CompaniesAPI from './companies';
 import * as Shared from '../shared';
 import * as ContactsAPI from './contacts';

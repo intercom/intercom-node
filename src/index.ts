@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from './core';
 import * as Errors from './error';
-import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import { type Agent } from './_shims/index';
 import * as qs from 'qs';
+import * as Core from './core';
 import * as Pagination from './pagination';
 import * as API from './resources/index';
 
@@ -88,7 +88,9 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Intercom API. */
+/**
+ * API Client for interfacing with the Intercom API.
+ */
 export class Intercom extends Core.APIClient {
   accessToken: string;
 
@@ -138,6 +140,7 @@ export class Intercom extends Core.APIClient {
       maxRetries: options.maxRetries,
       fetch: options.fetch,
     });
+
     this._options = options;
 
     this.accessToken = accessToken;
