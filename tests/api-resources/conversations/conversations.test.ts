@@ -54,7 +54,7 @@ describe('resource conversations', () => {
     await expect(
       intercom.conversations.retrieve(
         123,
-        { display_as: 'string', 'Intercom-Version': '2.11' },
+        { display_as: 'display_as', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -84,7 +84,7 @@ describe('resource conversations', () => {
       intercom.conversations.update(
         123,
         {
-          display_as: 'string',
+          display_as: 'display_as',
           custom_attributes: { issue_type: 'Billing', priority: 'High' },
           read: true,
           'Intercom-Version': '2.11',
@@ -116,7 +116,7 @@ describe('resource conversations', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.conversations.list(
-        { per_page: 0, starting_after: 'string', 'Intercom-Version': '2.11' },
+        { per_page: 0, starting_after: 'starting_after', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -178,7 +178,7 @@ describe('resource conversations', () => {
 
   test('search: required and optional params', async () => {
     const response = await intercom.conversations.search({
-      query: { field: 'created_at', operator: '=', value: 'string' },
+      query: { field: 'created_at', operator: '=', value: 'value' },
       pagination: { per_page: 5, starting_after: 'your-cursor-from-response' },
       'Intercom-Version': '2.11',
     });

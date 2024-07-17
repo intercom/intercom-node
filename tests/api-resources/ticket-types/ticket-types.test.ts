@@ -32,7 +32,7 @@ describe('resource ticketTypes', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = intercom.ticketTypes.retrieve('string');
+    const responsePromise = intercom.ticketTypes.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -44,16 +44,16 @@ describe('resource ticketTypes', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      intercom.ticketTypes.retrieve('string', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Intercom.NotFoundError);
+    await expect(intercom.ticketTypes.retrieve('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Intercom.NotFoundError,
+    );
   });
 
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.ticketTypes.retrieve(
-        'string',
+        'id',
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
@@ -61,7 +61,7 @@ describe('resource ticketTypes', () => {
   });
 
   test('update', async () => {
-    const responsePromise = intercom.ticketTypes.update('string');
+    const responsePromise = intercom.ticketTypes.update('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,7 +73,7 @@ describe('resource ticketTypes', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.ticketTypes.update('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(intercom.ticketTypes.update('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -82,7 +82,7 @@ describe('resource ticketTypes', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.ticketTypes.update(
-        'string',
+        'id',
         {
           archived: false,
           category: 'Customer',

@@ -130,7 +130,7 @@ describe('resource companies', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.companies.list(
-        { order: 'string', page: 0, per_page: 0, 'Intercom-Version': '2.11' },
+        { order: 'order', page: 0, per_page: 0, 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);
@@ -188,12 +188,12 @@ describe('resource companies', () => {
     await expect(
       intercom.companies.retrieveList(
         {
-          company_id: 'string',
-          name: 'string',
+          company_id: 'company_id',
+          name: 'name',
           page: 0,
           per_page: 0,
-          segment_id: 'string',
-          tag_id: 'string',
+          segment_id: 'segment_id',
+          tag_id: 'tag_id',
           'Intercom-Version': '2.11',
         },
         { path: '/_stainless_unknown_path' },
@@ -223,7 +223,7 @@ describe('resource companies', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.companies.scroll(
-        { scroll_param: 'string', 'Intercom-Version': '2.11' },
+        { scroll_param: 'scroll_param', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

@@ -10,7 +10,7 @@ const intercom = new Intercom({
 
 describe('resource activityLogs', () => {
   test('list: only required params', async () => {
-    const responsePromise = intercom.admins.activityLogs.list({ created_at_after: 'string' });
+    const responsePromise = intercom.admins.activityLogs.list({ created_at_after: 'created_at_after' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,8 +22,8 @@ describe('resource activityLogs', () => {
 
   test('list: required and optional params', async () => {
     const response = await intercom.admins.activityLogs.list({
-      created_at_after: 'string',
-      created_at_before: 'string',
+      created_at_after: 'created_at_after',
+      created_at_before: 'created_at_before',
       'Intercom-Version': '2.11',
     });
   });

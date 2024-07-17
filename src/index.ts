@@ -289,7 +289,6 @@ export namespace Intercom {
   export import Conversations = API.Conversations;
   export import ConversationList = API.ConversationList;
   export import ConversationListResponse = API.ConversationListResponse;
-  export import ConversationListResponsesCursorPagination = API.ConversationListResponsesCursorPagination;
   export import ConversationCreateParams = API.ConversationCreateParams;
   export import ConversationRetrieveParams = API.ConversationRetrieveParams;
   export import ConversationUpdateParams = API.ConversationUpdateParams;

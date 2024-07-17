@@ -11,7 +11,7 @@ const intercom = new Intercom({
 describe('resource subscriptions', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.contacts.subscriptions.create('63a07ddf05a32042dffac965', {
-      id: 'string',
+      id: 'id',
       consent_type: 'opt_in',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,7 +25,7 @@ describe('resource subscriptions', () => {
 
   test('create: required and optional params', async () => {
     const response = await intercom.contacts.subscriptions.create('63a07ddf05a32042dffac965', {
-      id: 'string',
+      id: 'id',
       consent_type: 'opt_in',
       'Intercom-Version': '2.11',
     });
