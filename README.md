@@ -1,4 +1,9 @@
-# intercom-node
+# Intercom TypeScript Library
+
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+[![npm shield](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
+
+The Intercom TypeScript library provides convenient access to the Intercom API from TypeScript.
 
 ## Maintenance mode
 
@@ -19,24 +24,127 @@ The Node SDK has been updated to support latest API version (2.6). The update al
 
 ## Installation
 
-```bash
-yarn add intercom-client
+```sh
+npm i -s intercom-client
 ```
-
-**This client is intended for server side use only. Please use the [Intercom Javascript SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-web) for client-side operations.**
 
 ## Usage
 
-Import Intercom:
+Instantiate and use the client with the following:
 
 ```typescript
-import { Client } from 'intercom-client';
+import { IntercomClient, Intercom } from "intercom-client";
+
+const client = new IntercomClient({ token: "YOUR_TOKEN" });
+await client.articles.create({
+    title: "Thanks for everything",
+    description: "Description of the Article",
+    body: "Body of the Article",
+    author_id: 1295,
+    state: Intercom.CreateArticleRequestState.Published,
+});
 ```
 
-Create a client using access tokens:
+## Request And Response Types
+
+The SDK exports all request and response types as TypeScript interfaces. Simply import them with the
+following namespace:
 
 ```typescript
-const client = new Client({ tokenAuth: { token: 'my_token' } });
+import { Intercom } from "intercom-client";
+
+const request: Intercom.AdminsAwayRequest = {
+    ...
+};
+```
+
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
+will be thrown.
+
+```typescript
+import { IntercomError } from "intercom-client";
+
+try {
+    await client.articles.create(...);
+} catch (err) {
+    if (err instanceof IntercomError) {
+        console.log(err.statusCode);
+        console.log(err.message);
+        console.log(err.body);
+    }
+}
+```
+
+## Advanced
+
+### Retries
+
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retriable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
+
+A request is deemed retriable when any of the following HTTP status codes is returned:
+
+-   [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+-   [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+-   [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+
+Use the `maxRetries` request option to configure this behavior.
+
+```typescript
+const response = await client.articles.create(..., {
+    maxRetries: 0 // override maxRetries at the request level
+});
+```
+
+### Timeouts
+
+The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
+
+```typescript
+const response = await client.articles.create(..., {
+    timeoutInSeconds: 30 // override timeout to 30s
+});
+```
+
+### Aborting Requests
+
+The SDK allows users to abort requests at any point by passing in an abort signal.
+
+```typescript
+const controller = new AbortController();
+const response = await client.articles.create(..., {
+    abortSignal: controller.signal
+});
+controller.abort(); // aborts the request
+```
+
+### Runtime Compatibility
+
+The SDK defaults to `node-fetch` but will use the global fetch client if present. The SDK works in the following
+runtimes:
+
+-   Node.js 18+
+-   Vercel
+-   Cloudflare Workers
+-   Deno v1.25+
+-   Bun 1.0+
+-   React Native
+
+### Customizing Fetch Client
+
+The SDK provides a way for your to customize the underlying HTTP client / Fetch function. If you're running in an
+unsupported environment, this provides a way for you to break glass and ensure the SDK works.
+
+```typescript
+import { IntercomClient } from "intercom-client";
+
+const client = new IntercomClient({
+    ...
+    fetcher: // provide your implementation here
+});
 ```
 
 ## Request Options
@@ -44,9 +152,9 @@ const client = new Client({ tokenAuth: { token: 'my_token' } });
 This client library also supports passing in [`request` options](https://github.com/axios/axios#request-config):
 
 ```typescript
-const client = new Client({ tokenAuth: { token: 'my_token' } });
+const client = new Client({ tokenAuth: { token: "my_token" } });
 client.useRequestOpts({
-    baseURL: 'http://local.test-server.com',
+    baseURL: "http://local.test-server.com",
 });
 ```
 
@@ -57,10 +165,10 @@ Note that certain request options (such as `json`, and certain `headers` names c
 We version our API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
 
 ```typescript
-const client = new Client({ tokenAuth: { token: 'my_token' } });
+const client = new Client({ tokenAuth: { token: "my_token" } });
 client.useRequestOpts({
     headers: {
-        'Intercom-Version': 2.6,
+        "Intercom-Version": 2.6,
     },
 });
 ```
@@ -70,9 +178,9 @@ client.useRequestOpts({
 If you are using the european instance of intercom and would like to call it directly and not be redirected through our US instance, you can set the `baseUrl` as follows:
 
 ```typescript
-const client = new Client({ tokenAuth: { token: 'my_token' } });
+const client = new Client({ tokenAuth: { token: "my_token" } });
 client.useRequestOpts({
-    baseURL: 'https://api.eu.intercom.io',
+    baseURL: "https://api.eu.intercom.io",
 });
 ```
 
@@ -83,14 +191,14 @@ client.useRequestOpts({
 #### [Retrieve admin](https://developers.intercom.com/intercom-api-reference/reference/view-an-admin)
 
 ```typescript
-const admin = await client.admins.find({ id: '123' });
+const admin = await client.admins.find({ id: "123" });
 ```
 
 #### [Set Admin away](https://developers.intercom.com/intercom-api-reference/reference/set-admin-away-mode)
 
 ```typescript
 await client.admins.away({
-    adminId: '123',
+    adminId: "123",
     enableAwayMode: true,
     enableReassignMode: false,
 });
@@ -117,20 +225,20 @@ const admins = await client.admins.list();
 
 ```typescript
 const article = await client.articles.create({
-    title: 'Thanks for everything',
-    description: 'English description',
-    body: '<p>This is the body in html</p>',
+    title: "Thanks for everything",
+    description: "English description",
+    body: "<p>This is the body in html</p>",
     authorId: 1,
-    state: 'published',
+    state: "published",
     parentId: 1,
-    parentType: 'collection',
+    parentType: "collection",
     translatedContent: {
         fr: {
-            title: 'Allez les verts',
-            description: 'French description',
-            body: '<p>French body in html</p>',
+            title: "Allez les verts",
+            description: "French description",
+            body: "<p>French body in html</p>",
             author_id: 1,
-            state: 'published',
+            state: "published",
         },
     },
 });
@@ -139,28 +247,28 @@ const article = await client.articles.create({
 #### [Retrieve an article](https://developers.intercom.com/intercom-api-reference/reference/retrieve-an-article)
 
 ```typescript
-const response = await client.articles.find({ id: '123' });
+const response = await client.articles.find({ id: "123" });
 ```
 
 #### [Update an article](https://developers.intercom.com/intercom-api-reference/reference/update-an-article)
 
 ```typescript
 const article = await client.articles.update({
-    id: '123',
-    title: 'Thanks for everything',
-    description: 'English description',
-    body: '<p>This is the body in html</p>',
+    id: "123",
+    title: "Thanks for everything",
+    description: "English description",
+    body: "<p>This is the body in html</p>",
     authorId: 1,
-    state: 'published',
+    state: "published",
     parentId: 1,
-    parentType: 'collection',
+    parentType: "collection",
     translatedContent: {
         fr: {
-            title: 'Allez les verts',
-            description: 'French description',
-            body: '<p>French body in html</p>',
+            title: "Allez les verts",
+            description: "French description",
+            body: "<p>French body in html</p>",
             author_id: 1,
-            state: 'published',
+            state: "published",
         },
     },
 });
@@ -169,7 +277,7 @@ const article = await client.articles.update({
 #### [Delete an article](https://developers.intercom.com/intercom-api-reference/reference/delete-an-article)
 
 ```typescript
-await client.articles.delete({ id: '123' });
+await client.articles.delete({ id: "123" });
 ```
 
 #### [List all articles](https://developers.intercom.com/intercom-api-reference/reference/list-all-articles)
@@ -188,13 +296,13 @@ const response = await client.articles.list({
 ```typescript
 const company = await client.companies.create({
     createdAt: dateToUnixTimestamp(new Date()),
-    companyId: '46029',
-    name: 'BestCompanyInc.',
+    companyId: "46029",
+    name: "BestCompanyInc.",
     monthlySpend: 9001,
-    plan: '1. Get pizzaid',
+    plan: "1. Get pizzaid",
     size: 62049,
-    website: 'http://the-best.one',
-    industry: 'The Best One',
+    website: "http://the-best.one",
+    industry: "The Best One",
     customAttributes: {},
 });
 ```
@@ -204,13 +312,13 @@ const company = await client.companies.create({
 ```typescript
 const company = await client.companies.update({
     createdAt: dateToUnixTimestamp(new Date()),
-    companyId: '46029',
-    name: 'BestCompanyInc.',
+    companyId: "46029",
+    name: "BestCompanyInc.",
     monthlySpend: 9001,
-    plan: '1. Get pizzaid',
+    plan: "1. Get pizzaid",
     size: 62049,
-    website: 'http://the-best.one',
-    industry: 'The Best One',
+    website: "http://the-best.one",
+    industry: "The Best One",
     customAttributes: {},
 });
 ```
@@ -229,7 +337,7 @@ const company = await client.companies.find({
 
 ```typescript
 const company = await client.companies.find({
-    name: 'bruh moment inc.',
+    name: "bruh moment inc.",
 });
 ```
 
@@ -257,8 +365,8 @@ const companies = await client.companies.list({
 
 ```typescript
 const companies = await client.companies.list({
-    tagId: '1234',
-    segmentId: '4567',
+    tagId: "1234",
+    segmentId: "4567",
 });
 ```
 
@@ -274,7 +382,7 @@ const companies = await client.companies.scroll.each({});
 
 ```typescript
 const companies = await client.companies.scroll.next({
-    scrollParam: '123_soleil',
+    scrollParam: "123_soleil",
 });
 ```
 
@@ -282,8 +390,8 @@ const companies = await client.companies.scroll.next({
 
 ```typescript
 const response = await client.companies.attachContact({
-    contactId: '123',
-    companyId: '234',
+    contactId: "123",
+    companyId: "234",
 });
 ```
 
@@ -291,8 +399,8 @@ const response = await client.companies.attachContact({
 
 ```typescript
 const response = await client.companies.detachContact({
-    contactId: '123',
-    companyId: '234',
+    contactId: "123",
+    companyId: "234",
 });
 ```
 
@@ -300,7 +408,7 @@ const response = await client.companies.detachContact({
 
 ```typescript
 const response = await client.companies.listAttachedContacts({
-    companyId: '123',
+    companyId: "123",
     page: 1,
     perPage: 15,
 });
@@ -310,7 +418,7 @@ const response = await client.companies.listAttachedContacts({
 
 ```typescript
 const response = await client.companies.listAttachedSegments({
-    companyId: '123',
+    companyId: "123",
 });
 ```
 
@@ -322,13 +430,13 @@ const response = await client.companies.listAttachedSegments({
 
 ```typescript
 const user = await client.contacts.createUser({
-    externalId: '536e564f316c83104c000020',
-    phone: '+48370044567',
-    name: 'Niko Bellic',
-    avatar: 'https://nico-from-gta-iv.com/lets_go_bowling.jpg',
+    externalId: "536e564f316c83104c000020",
+    phone: "+48370044567",
+    name: "Niko Bellic",
+    avatar: "https://nico-from-gta-iv.com/lets_go_bowling.jpg",
     signedUpAt: 1638203719,
     lastSeenAt: 1638203720,
-    ownerId: '536e564f316c83104c000021',
+    ownerId: "536e564f316c83104c000021",
     isUnsubscribedFromEmails: true,
 });
 ```
@@ -337,12 +445,12 @@ const user = await client.contacts.createUser({
 
 ```typescript
 const lead = await client.contacts.createLead({
-    phone: '+48370044567',
-    name: 'Roman Bellic',
-    avatar: 'https://nico-from-gta-iv.com/lets_go_bowling_yey.jpg',
+    phone: "+48370044567",
+    name: "Roman Bellic",
+    avatar: "https://nico-from-gta-iv.com/lets_go_bowling_yey.jpg",
     signedUpAt: 1638203719,
     lastSeenAt: 1638203720,
-    ownerId: '536e564f316c83104c000021',
+    ownerId: "536e564f316c83104c000021",
     isUnsubscribedFromEmails: true,
 });
 ```
@@ -350,16 +458,16 @@ const lead = await client.contacts.createLead({
 #### [Retrieve a Contact](https://developers.intercom.com/intercom-api-reference/reference/get-contact)
 
 ```typescript
-const response = await client.contacts.find({ id: '123' });
+const response = await client.contacts.find({ id: "123" });
 ```
 
 #### [Update a Contact](https://developers.intercom.com/intercom-api-reference/reference/update-contact)
 
 ```typescript
 const response = await client.contacts.update({
-    id: '123',
+    id: "123",
     role: Role.USER,
-    name: 'Roman The Bowling Fan',
+    name: "Roman The Bowling Fan",
     customAttributes: {
         callBrother: "Hey Niko, it's me – Roman. Let's go bowling!",
     },
@@ -369,27 +477,27 @@ const response = await client.contacts.update({
 #### [Delete a Contact](https://developers.intercom.com/intercom-api-reference/reference/delete-contact)
 
 ```typescript
-const response = await client.contacts.delete({ id: '123' });
+const response = await client.contacts.delete({ id: "123" });
 ```
 
 #### [Archive a Contact](https://developers.intercom.com/intercom-api-reference/reference/archive-a-contact)
 
 ```typescript
-const response = await client.contacts.archive({ id: '123' });
+const response = await client.contacts.archive({ id: "123" });
 ```
 
 #### [Unarchive a Contact](https://developers.intercom.com/intercom-api-reference/reference/unarchive-a-contact)
 
 ```typescript
-const response = await client.contacts.unarchive({ id: '123' });
+const response = await client.contacts.unarchive({ id: "123" });
 ```
 
 #### [Merge two Contacts](https://developers.intercom.com/intercom-api-reference/reference/merge-contact)
 
 ```typescript
 const response = await client.contacts.mergeLeadInUser({
-    leadId: '123',
-    userId: '234',
+    leadId: "123",
+    userId: "234",
 });
 ```
 
@@ -405,12 +513,12 @@ const response = await client.contacts.search({
                     operator: Operators.AND,
                     value: [
                         {
-                            field: 'updated_at',
+                            field: "updated_at",
                             operator: Operators.GREATER_THAN,
                             value: 1560436650,
                         },
                         {
-                            field: 'conversation_rating.rating',
+                            field: "conversation_rating.rating",
                             operator: Operators.EQUALS,
                             value: 1,
                         },
@@ -420,12 +528,12 @@ const response = await client.contacts.search({
                     operator: Operators.OR,
                     value: [
                         {
-                            field: 'updated_at',
+                            field: "updated_at",
                             operator: Operators.GREATER_THAN,
                             value: 1560436650,
                         },
                         {
-                            field: 'conversation_rating.rating',
+                            field: "conversation_rating.rating",
                             operator: Operators.EQUALS,
                             value: 2,
                         },
@@ -435,10 +543,9 @@ const response = await client.contacts.search({
         },
         pagination: {
             per_page: 5,
-            starting_after:
-                'WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0=',
+            starting_after: "WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0=",
         },
-        sort: { field: 'name', order: SearchContactOrderBy.ASC },
+        sort: { field: "name", order: SearchContactOrderBy.ASC },
     },
 });
 ```
@@ -450,8 +557,7 @@ const response = await client.contacts.search({
 ```typescript
 const response = await client.contacts.list({
     perPage: 5,
-    startingAfter:
-        'WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=',
+    startingAfter: "WzE2MzU3NzU4NjkwMDAsIjYxODJiNjJhMDMwZTk4OTBkZWU4NGM5YiIsMl0=",
 });
 ```
 
@@ -465,7 +571,7 @@ const response = await client.contacts.list();
 
 ```typescript
 const response = await client.contacts.listAttachedCompanies({
-    id: '123',
+    id: "123",
     perPage: 5,
     page: 1,
 });
@@ -474,20 +580,20 @@ const response = await client.contacts.listAttachedCompanies({
 #### [List attached tags](https://developers.intercom.com/intercom-api-reference/reference/list-tags-of-contact)
 
 ```typescript
-const response = await client.contacts.listAttachedTags({ id: '123' });
+const response = await client.contacts.listAttachedTags({ id: "123" });
 ```
 
 #### [List attached segments](https://developers.intercom.com/intercom-api-reference/reference/list-attached-segments)
 
 ```typescript
-const response = await client.contacts.listAttachedSegments({ id: '123' });
+const response = await client.contacts.listAttachedSegments({ id: "123" });
 ```
 
 #### [List attached email subscriptions](https://developers.intercom.com/intercom-api-reference/reference/list-attached-email-subscriptions)
 
 ```typescript
 const response = await client.contacts.listAttachedEmailSubscriptions({
-    id: '123',
+    id: "123",
 });
 ```
 
@@ -497,8 +603,8 @@ const response = await client.contacts.listAttachedEmailSubscriptions({
 
 ```typescript
 const response = await client.conversations.create({
-    userId: '123',
-    body: 'Hello darkness my old friend',
+    userId: "123",
+    body: "Hello darkness my old friend",
 });
 ```
 
@@ -508,7 +614,7 @@ const response = await client.conversations.create({
 
 ```typescript
 const response = await client.conversations.find({
-    id: '123',
+    id: "123",
 });
 ```
 
@@ -516,7 +622,7 @@ const response = await client.conversations.find({
 
 ```typescript
 const response = await client.conversations.find({
-    id: '123',
+    id: "123",
     inPlainText: true,
 });
 ```
@@ -528,7 +634,7 @@ const response = await client.conversations.update({
     id,
     markRead: true,
     customAttributes: {
-        anything: 'you want',
+        anything: "you want",
     },
 });
 ```
@@ -541,10 +647,10 @@ const response = await client.conversations.update({
 
 ```typescript
 const response = await client.conversations.replyByIdAsUser({
-    id: '098',
-    body: 'blablbalba',
-    intercomUserId: '123',
-    attachmentUrls: '345',
+    id: "098",
+    body: "blablbalba",
+    intercomUserId: "123",
+    attachmentUrls: "345",
 });
 ```
 
@@ -552,11 +658,11 @@ const response = await client.conversations.replyByIdAsUser({
 
 ```typescript
 const response = await client.conversations.replyByIdAsAdmin({
-    id: '098',
-    adminId: '458',
+    id: "098",
+    adminId: "458",
     messageType: ReplyToConversationMessageType.NOTE,
-    body: '<b>Bee C</b>',
-    attachmentUrls: ['https://site.org/bebra.jpg'],
+    body: "<b>Bee C</b>",
+    attachmentUrls: ["https://site.org/bebra.jpg"],
 });
 ```
 
@@ -566,9 +672,9 @@ const response = await client.conversations.replyByIdAsAdmin({
 
 ```typescript
 const response = await client.conversations.replyByLastAsUser({
-    body: 'blablbalba',
-    intercomUserId: '123',
-    attachmentUrls: '345',
+    body: "blablbalba",
+    intercomUserId: "123",
+    attachmentUrls: "345",
 });
 ```
 
@@ -576,10 +682,10 @@ const response = await client.conversations.replyByLastAsUser({
 
 ```typescript
 const response = await client.conversations.replyByLastAsAdmin({
-    adminId: '458',
+    adminId: "458",
     messageType: ReplyToConversationMessageType.NOTE,
-    body: '<b>Bee C</b>',
-    attachmentUrls: ['https://site.org/bebra.jpg'],
+    body: "<b>Bee C</b>",
+    attachmentUrls: ["https://site.org/bebra.jpg"],
 });
 ```
 
@@ -589,11 +695,11 @@ const response = await client.conversations.replyByLastAsAdmin({
 
 ```typescript
 const response = await client.conversations.assign({
-    id: '123',
+    id: "123",
     type: AssignToConversationUserType.TEAM,
-    adminId: '456',
-    assigneeId: '789',
-    body: '<b>blablbalba</b>',
+    adminId: "456",
+    assigneeId: "789",
+    body: "<b>blablbalba</b>",
 });
 ```
 
@@ -601,7 +707,7 @@ const response = await client.conversations.assign({
 
 ```typescript
 const response = await client.conversations.assign({
-    id: '123',
+    id: "123",
     withRunningAssignmentRules: true,
 });
 ```
@@ -610,9 +716,9 @@ const response = await client.conversations.assign({
 
 ```typescript
 const response = await client.conversations.snooze({
-    id: '123',
-    adminId: '234',
-    snoozedUntil: '1501512795',
+    id: "123",
+    adminId: "234",
+    snoozedUntil: "1501512795",
 });
 ```
 
@@ -620,8 +726,8 @@ const response = await client.conversations.snooze({
 
 ```typescript
 const response = await client.conversations.close({
-    id: '123',
-    adminId: '456',
+    id: "123",
+    adminId: "456",
     body: "That's it...",
 });
 ```
@@ -630,8 +736,8 @@ const response = await client.conversations.close({
 
 ```typescript
 const response = await client.conversations.open({
-    id: '123',
-    adminId: '234',
+    id: "123",
+    adminId: "234",
 });
 ```
 
@@ -641,10 +747,10 @@ const response = await client.conversations.open({
 
 ```typescript
 const response = await client.conversations.attachContactAsAdmin({
-    id: '123',
-    adminId: '234',
+    id: "123",
+    adminId: "234",
     customer: {
-        intercomUserId: '456',
+        intercomUserId: "456",
     },
 });
 ```
@@ -653,10 +759,10 @@ const response = await client.conversations.attachContactAsAdmin({
 
 ```typescript
 const response = await client.conversations.attachContactAsAdmin({
-    id: '123',
-    userId: '234',
+    id: "123",
+    userId: "234",
     customer: {
-        intercomUserId: '456',
+        intercomUserId: "456",
     },
 });
 ```
@@ -665,9 +771,9 @@ const response = await client.conversations.attachContactAsAdmin({
 
 ```typescript
 const response = await client.conversations.detachContactAsAdmin({
-    conversationId: '123',
-    contactId: '456',
-    adminId: '789',
+    conversationId: "123",
+    contactId: "456",
+    adminId: "789",
 });
 ```
 
@@ -683,12 +789,12 @@ const response = await client.conversations.search({
                     operator: Operators.AND,
                     value: [
                         {
-                            field: 'updated_at',
+                            field: "updated_at",
                             operator: Operators.GREATER_THAN,
                             value: 1560436650,
                         },
                         {
-                            field: 'conversation_rating.rating',
+                            field: "conversation_rating.rating",
                             operator: Operators.EQUALS,
                             value: 1,
                         },
@@ -698,12 +804,12 @@ const response = await client.conversations.search({
                     operator: Operators.OR,
                     value: [
                         {
-                            field: 'updated_at',
+                            field: "updated_at",
                             operator: Operators.GREATER_THAN,
                             value: 1560436650,
                         },
                         {
-                            field: 'conversation_rating.rating',
+                            field: "conversation_rating.rating",
                             operator: Operators.EQUALS,
                             value: 2,
                         },
@@ -713,11 +819,10 @@ const response = await client.conversations.search({
         },
         pagination: {
             per_page: 5,
-            starting_after:
-                'WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0=',
+            starting_after: "WzE2MzU4NjA2NDgwMDAsIjYxODJiNjJlNDM4YjdhM2EwMWE4YWYxNSIsMl0=",
         },
         sort: {
-            field: 'name',
+            field: "name",
             order: SearchConversationOrderBy.DESC,
         },
     },
@@ -728,7 +833,7 @@ const response = await client.conversations.search({
 
 ```typescript
 const response = await client.conversations.list({
-    startingAfter: 'WzE2NzA0MjI1MjkwMDAsMjQzMTY3NzA2ODcsMl0=',
+    startingAfter: "WzE2NzA0MjI1MjkwMDAsMjQzMTY3NzA2ODcsMl0=",
     perPage: 10,
 });
 ```
@@ -738,8 +843,8 @@ const response = await client.conversations.list({
 ```typescript
 const response = await client.conversations.redactConversationPart({
     type: RedactConversationPartType.CONVERSATION_PART,
-    conversationId: '123',
-    conversationPartId: '456',
+    conversationId: "123",
+    conversationPartId: "456",
 });
 ```
 
@@ -805,11 +910,11 @@ const response = await client.counts.countCompanyUser();
 
 ```typescript
 const response = await client.dataAttributes.create({
-    name: 'list_cda',
+    name: "list_cda",
     model: ModelType.CONTACT,
     dataType: DataType.STRING,
-    description: 'You are either alive or dead',
-    options: [{ value: 'alive' }, { value: 'dead' }],
+    description: "You are either alive or dead",
+    options: [{ value: "alive" }, { value: "dead" }],
 });
 ```
 
@@ -817,9 +922,9 @@ const response = await client.dataAttributes.create({
 
 ```typescript
 const response = await client.dataAttributes.update({
-    id: '123',
-    description: 'You are either alive or dead',
-    options: [{ value: 'alive' }, { value: 'dead' }],
+    id: "123",
+    description: "You are either alive or dead",
+    options: [{ value: "alive" }, { value: "dead" }],
     archived: true,
 });
 ```
@@ -862,18 +967,18 @@ const response = await client.dataExport.cancel({id: export.id})
 
 ```typescript
 const response = await client.events.create({
-    eventName: 'placed-order',
+    eventName: "placed-order",
     createdAt: 1389913941,
-    userId: 'f4ca124298',
+    userId: "f4ca124298",
     metadata: {
         order_date: 1392036272,
-        stripe_invoice: 'inv_3434343434',
+        stripe_invoice: "inv_3434343434",
         order_number: {
-            value: '3434-3434',
-            url: 'https://example.org/orders/3434-3434',
+            value: "3434-3434",
+            url: "https://example.org/orders/3434-3434",
         },
         price: {
-            currency: 'usd',
+            currency: "usd",
             amount: 2999,
         },
     },
@@ -884,10 +989,10 @@ const response = await client.events.create({
 
 ```typescript
 const response = await client.events.listBy({
-    userId: '1234',
+    userId: "1234",
     perPage: 2,
     summary: true,
-    email: 'i_love_memes@gmail.com',
+    email: "i_love_memes@gmail.com",
 });
 ```
 
@@ -897,12 +1002,12 @@ const response = await client.events.listBy({
 
 ```typescript
 const collection = await client.helpCenter.collections.create({
-    name: 'Thanks for everything',
-    description: 'English description',
+    name: "Thanks for everything",
+    description: "English description",
     translatedContent: {
         fr: {
-            name: 'Allez les verts',
-            description: 'French description',
+            name: "Allez les verts",
+            description: "French description",
         },
     },
 });
@@ -911,20 +1016,20 @@ const collection = await client.helpCenter.collections.create({
 #### [Retrieve a collection](https://developers.intercom.com/intercom-api-reference/reference/retrieve-a-collection)
 
 ```typescript
-const response = await client.helpCenter.collections.find({ id: '123' });
+const response = await client.helpCenter.collections.find({ id: "123" });
 ```
 
 #### [Update a collection](https://developers.intercom.com/intercom-api-reference/reference/update-a-collection)
 
 ```typescript
 const article = await client.helpCenter.collections.update({
-    id: '123',
-    name: 'Thanks for everything',
-    description: 'English description',
+    id: "123",
+    name: "Thanks for everything",
+    description: "English description",
     translatedContent: {
         fr: {
-            name: 'Allez les verts',
-            description: 'French description',
+            name: "Allez les verts",
+            description: "French description",
         },
     },
 });
@@ -934,7 +1039,7 @@ const article = await client.helpCenter.collections.update({
 
 ```typescript
 await client.helpCenter.collections.delete({
-    id: '123',
+    id: "123",
 });
 ```
 
@@ -953,12 +1058,12 @@ const response = client.helpCenter.collections.list({
 
 ```typescript
 const collection = await client.helpCenter.sections.create({
-    name: 'Thanks for everything',
-    parentId: '1234',
+    name: "Thanks for everything",
+    parentId: "1234",
     translatedContent: {
         fr: {
-            name: 'Allez les verts',
-            description: 'French description',
+            name: "Allez les verts",
+            description: "French description",
         },
     },
 });
@@ -967,20 +1072,20 @@ const collection = await client.helpCenter.sections.create({
 #### [Retrieve a section](https://developers.intercom.com/intercom-api-reference/reference/retrieve-a-section)
 
 ```typescript
-const response = await client.helpCenter.sections.find({ id: '123' });
+const response = await client.helpCenter.sections.find({ id: "123" });
 ```
 
 #### [Update a section](https://developers.intercom.com/intercom-api-reference/reference/update-a-section)
 
 ```typescript
 const article = await client.helpCenter.sections.update({
-    id: '123',
-    name: 'Thanks for everything',
-    parentId: '456',
+    id: "123",
+    name: "Thanks for everything",
+    parentId: "456",
     translatedContent: {
         fr: {
-            name: 'Allez les verts',
-            description: 'French description',
+            name: "Allez les verts",
+            description: "French description",
         },
     },
 });
@@ -990,7 +1095,7 @@ const article = await client.helpCenter.sections.update({
 
 ```typescript
 await client.helpCenter.sections.delete({
-    id: '123',
+    id: "123",
 });
 ```
 
@@ -1009,17 +1114,17 @@ const response = client.helpCenter.sections.list({
 
 ```typescript
 const response = await client.messages.create({
-    messageType: 'email',
-    subject: 'This is our demand now',
-    body: 'Destroy ponies',
-    template: 'plain',
+    messageType: "email",
+    subject: "This is our demand now",
+    body: "Destroy ponies",
+    template: "plain",
     from: {
-        type: 'admin',
-        id: '394051',
+        type: "admin",
+        id: "394051",
     },
     to: {
-        type: 'user',
-        id: '536e564f316c83104c000020',
+        type: "user",
+        id: "536e564f316c83104c000020",
     },
 });
 ```
@@ -1028,15 +1133,15 @@ const response = await client.messages.create({
 
 ```typescript
 const response = await client.messages.create({
-    messageType: 'inapp',
-    body: 'Look at me, I am a conversation now',
+    messageType: "inapp",
+    body: "Look at me, I am a conversation now",
     from: {
-        type: 'admin',
-        id: '394051',
+        type: "admin",
+        id: "394051",
     },
     to: {
-        type: 'user',
-        id: '536e564f316c83104c000020',
+        type: "user",
+        id: "536e564f316c83104c000020",
     },
     createConversationWithoutContactReply: true,
 });
@@ -1048,23 +1153,23 @@ const response = await client.messages.create({
 
 ```typescript
 const response = await client.notes.create({
-    adminId: '12345',
-    body: 'Shiny',
-    contactId: '5678',
+    adminId: "12345",
+    body: "Shiny",
+    contactId: "5678",
 });
 ```
 
 #### [Retrieve a note](https://developers.intercom.com/intercom-api-reference/reference/view-a-note)
 
 ```typescript
-const response = await client.notes.find({ id: '123' });
+const response = await client.notes.find({ id: "123" });
 ```
 
 #### [List all notes](https://developers.intercom.com/intercom-api-reference/reference/list-notes-of-contact)
 
 ```typescript
 const response = await client.notes.list({
-    contactId: '123',
+    contactId: "123",
     page: 2,
     perPage: 3,
 });
@@ -1076,7 +1181,7 @@ const response = await client.notes.list({
 
 ```typescript
 const response = await client.segments.find({
-    id: '123',
+    id: "123",
     includeCount: true,
 });
 ```
@@ -1103,7 +1208,7 @@ const response = await client.subscriptions.listTypes();
 
 ```typescript
 const response = await client.phoneCallRedirect.create({
-    phone: '+353871234567',
+    phone: "+353871234567",
 });
 ```
 
@@ -1114,27 +1219,27 @@ const response = await client.phoneCallRedirect.create({
 ##### Create
 
 ```typescript
-const response = await client.tags.create({ name: 'haven' });
+const response = await client.tags.create({ name: "haven" });
 ```
 
 ##### Update
 
 ```typescript
-const response = await client.tags.update({ id: '123', name: 'haven' });
+const response = await client.tags.update({ id: "123", name: "haven" });
 ```
 
 #### [Delete a tag](https://developers.intercom.com/intercom-api-reference/reference/delete-a-tag)
 
 ```typescript
-const response = await client.tags.delete({ id: 'baz' });
+const response = await client.tags.delete({ id: "baz" });
 ```
 
 #### [Attach a contact](https://developers.intercom.com/intercom-api-reference/reference/tag-contact)
 
 ```typescript
 const response = await client.tags.tagContact({
-    contactId: '123',
-    tagId: '234',
+    contactId: "123",
+    tagId: "234",
 });
 ```
 
@@ -1142,9 +1247,9 @@ const response = await client.tags.tagContact({
 
 ```typescript
 const response = await client.tags.tagConversation({
-    conversationId: '123',
-    tagId: '456',
-    adminId: '789',
+    conversationId: "123",
+    tagId: "456",
+    adminId: "789",
 });
 ```
 
@@ -1152,8 +1257,8 @@ const response = await client.tags.tagConversation({
 
 ```typescript
 const response = await client.tags.tagCompanies({
-    tagName: 'gutenTag',
-    companiesIds: ['123', '234', '456'],
+    tagName: "gutenTag",
+    companiesIds: ["123", "234", "456"],
 });
 ```
 
@@ -1161,8 +1266,8 @@ const response = await client.tags.tagCompanies({
 
 ```typescript
 const response = await client.tags.untagCompanies({
-    tagName: 'gutenTag',
-    companiesIds: ['123', '234', '456'],
+    tagName: "gutenTag",
+    companiesIds: ["123", "234", "456"],
 });
 ```
 
@@ -1170,9 +1275,9 @@ const response = await client.tags.untagCompanies({
 
 ```typescript
 const response = await client.tags.untagConversation({
-    conversationId: '123',
-    tagId: '345',
-    adminId: '678',
+    conversationId: "123",
+    tagId: "345",
+    adminId: "678",
 });
 ```
 
@@ -1180,8 +1285,8 @@ const response = await client.tags.untagConversation({
 
 ```typescript
 const response = await client.tags.untagContact({
-    contactId: '123',
-    tagId: '345',
+    contactId: "123",
+    tagId: "345",
 });
 ```
 
@@ -1197,7 +1302,7 @@ const response = await client.tags.list();
 
 ```typescript
 const response = await client.teams.find({
-    id: '123',
+    id: "123",
 });
 ```
 
@@ -1212,21 +1317,21 @@ const response = await client.teams.list();
 #### [Retrieve a Visitor](https://developers.intercom.com/intercom-api-reference/reference/view-a-visitor)
 
 ```typescript
-const response = await client.visitors.find({ id: '123' });
+const response = await client.visitors.find({ id: "123" });
 ```
 
 OR
 
 ```typescript
-const response = await client.visitors.find({ userId: '123' });
+const response = await client.visitors.find({ userId: "123" });
 ```
 
 #### [Update a Visitor](https://developers.intercom.com/intercom-api-reference/reference/update-a-visitor)
 
 ```typescript
 const response = await client.visitors.update({
-    userId: '123',
-    name: 'anonymous bruh',
+    userId: "123",
+    name: "anonymous bruh",
     customAttributes: {
         paid_subscriber: true,
     },
@@ -1246,10 +1351,10 @@ const response = await client.visitors.delete({
 ```typescript
 const response = await client.visitors.mergeToContact({
     visitor: {
-        id: '123',
+        id: "123",
     },
     user: {
-        userId: '123',
+        userId: "123",
     },
     type: Role.USER,
 });
@@ -1260,11 +1365,11 @@ const response = await client.visitors.mergeToContact({
 `intercom-node` provides a helper for using [identity verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product):
 
 ```node
-import { IdentityVerification } from 'intercom-client';
+import { IdentityVerification } from "intercom-client";
 
 IdentityVerification.userHash({
-    secretKey: 's3cre7',
-    identifier: 'jayne@serenity.io',
+    secretKey: "s3cre7",
+    identifier: "jayne@serenity.io",
 });
 ```
 
@@ -1286,18 +1391,12 @@ Compile using babel:
 yarn prepublish
 ```
 
-## Pull Requests
+## Contributing
 
--   **Add tests!** Your patch won't be accepted if it doesn't have tests.
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
 
--   **Document any change in behaviour**. Make sure the README and any other
-    relevant documentation are kept up-to-date.
-
--   **Create topic branches**. Don't ask us to pull from your master branch.
-
--   **One pull request per feature**. If you want to do more than one thing, send
-    multiple pull requests.
-
--   **Send coherent history**. Make sure each individual commit in your pull
-    request is meaningful. If you had to make multiple intermediate commits while
-    developing, please squash them before sending them to us.
+On the other hand, contributions to the README are always very welcome!
