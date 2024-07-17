@@ -991,7 +991,7 @@ describe('resource articles', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.articles.search(
-        { help_center_id: 0, highlight: true, phrase: 'string', state: 'string', 'Intercom-Version': '2.11' },
+        { help_center_id: 0, highlight: true, phrase: 'phrase', state: 'state', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Intercom.NotFoundError);

@@ -10,7 +10,7 @@ const intercom = new Intercom({
 
 describe('resource export', () => {
   test('cancel', async () => {
-    const responsePromise = intercom.export.cancel('string');
+    const responsePromise = intercom.export.cancel('job_identifier');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,15 +22,19 @@ describe('resource export', () => {
 
   test('cancel: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.export.cancel('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Intercom.NotFoundError,
-    );
+    await expect(
+      intercom.export.cancel('job_identifier', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('cancel: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.export.cancel('string', { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
+      intercom.export.cancel(
+        'job_identifier',
+        { 'Intercom-Version': '2.11' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 });
