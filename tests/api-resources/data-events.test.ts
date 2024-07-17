@@ -25,7 +25,7 @@ describe('resource dataEvents', () => {
   });
 
   test('list: only required params', async () => {
-    const responsePromise = intercom.dataEvents.list({ filter: { user_id: 'string' }, type: 'string' });
+    const responsePromise = intercom.dataEvents.list({ filter: { user_id: 'user_id' }, type: 'type' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -37,8 +37,8 @@ describe('resource dataEvents', () => {
 
   test('list: required and optional params', async () => {
     const response = await intercom.dataEvents.list({
-      filter: { user_id: 'string' },
-      type: 'string',
+      filter: { user_id: 'user_id' },
+      type: 'type',
       summary: true,
       'Intercom-Version': '2.11',
     });

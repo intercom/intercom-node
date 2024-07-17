@@ -10,7 +10,7 @@ const intercom = new Intercom({
 
 describe('resource attributes', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.ticketTypes.attributes.create('string', {
+    const responsePromise = intercom.ticketTypes.attributes.create('ticket_type_id', {
       data_type: 'string',
       description: 'Attribute Description',
       name: 'Attribute Title',
@@ -25,7 +25,7 @@ describe('resource attributes', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.ticketTypes.attributes.create('string', {
+    const response = await intercom.ticketTypes.attributes.create('ticket_type_id', {
       data_type: 'string',
       description: 'Attribute Description',
       name: 'Attribute Title',
@@ -41,7 +41,7 @@ describe('resource attributes', () => {
   });
 
   test('update', async () => {
-    const responsePromise = intercom.ticketTypes.attributes.update('string', 'string');
+    const responsePromise = intercom.ticketTypes.attributes.update('ticket_type_id', 'id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -54,7 +54,7 @@ describe('resource attributes', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.ticketTypes.attributes.update('string', 'string', { path: '/_stainless_unknown_path' }),
+      intercom.ticketTypes.attributes.update('ticket_type_id', 'id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -62,8 +62,8 @@ describe('resource attributes', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.ticketTypes.attributes.update(
-        'string',
-        'string',
+        'ticket_type_id',
+        'id',
         {
           allow_multiple_values: false,
           archived: false,

@@ -10,7 +10,7 @@ const intercom = new Intercom({
 
 describe('resource visitors', () => {
   test('retrieve: only required params', async () => {
-    const responsePromise = intercom.visitors.retrieve({ user_id: 'string' });
+    const responsePromise = intercom.visitors.retrieve({ user_id: 'user_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource visitors', () => {
   });
 
   test('retrieve: required and optional params', async () => {
-    const response = await intercom.visitors.retrieve({ user_id: 'string', 'Intercom-Version': '2.11' });
+    const response = await intercom.visitors.retrieve({ user_id: 'user_id', 'Intercom-Version': '2.11' });
   });
 
   test('update: only required params', async () => {

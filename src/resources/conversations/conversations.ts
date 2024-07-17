@@ -5,6 +5,7 @@ import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as ConversationsAPI from './conversations';
 import * as Shared from '../shared';
+import { ConversationListResponsesCursorPagination } from '../shared';
 import * as CustomersAPI from './customers';
 import * as PartsAPI from './parts';
 import * as ReplyAPI from './reply';
@@ -12,7 +13,7 @@ import * as RunAssignmentRulesAPI from './run-assignment-rules';
 import * as TagsAPI from './tags';
 import * as NewsItemsAPI from '../news/news-items';
 import * as NewsfeedsAPI from '../news/newsfeeds/newsfeeds';
-import { CursorPagination, type CursorPaginationParams } from '../../pagination';
+import { type CursorPaginationParams } from '../../pagination';
 
 export class Conversations extends APIResource {
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
@@ -337,8 +338,6 @@ export class Conversations extends APIResource {
     });
   }
 }
-
-export class ConversationListResponsesCursorPagination extends CursorPagination<ConversationListResponse> {}
 
 /**
  * Conversations are how you can communicate with users in Intercom. They are
@@ -728,7 +727,6 @@ export interface ConversationSearchParams {
 export namespace Conversations {
   export import ConversationList = ConversationsAPI.ConversationList;
   export import ConversationListResponse = ConversationsAPI.ConversationListResponse;
-  export import ConversationListResponsesCursorPagination = ConversationsAPI.ConversationListResponsesCursorPagination;
   export import ConversationCreateParams = ConversationsAPI.ConversationCreateParams;
   export import ConversationRetrieveParams = ConversationsAPI.ConversationRetrieveParams;
   export import ConversationUpdateParams = ConversationsAPI.ConversationUpdateParams;
@@ -749,3 +747,5 @@ export namespace Conversations {
   export import CustomerCreateParams = CustomersAPI.CustomerCreateParams;
   export import CustomerDeleteParams = CustomersAPI.CustomerDeleteParams;
 }
+
+export { ConversationListResponsesCursorPagination };

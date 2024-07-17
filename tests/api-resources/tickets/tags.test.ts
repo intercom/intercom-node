@@ -11,8 +11,8 @@ const intercom = new Intercom({
 describe('resource tags', () => {
   test('create: only required params', async () => {
     const responsePromise = intercom.tickets.tags.create('64619700005694', {
-      id: 'string',
-      admin_id: 'string',
+      id: 'id',
+      admin_id: 'admin_id',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,14 +25,16 @@ describe('resource tags', () => {
 
   test('create: required and optional params', async () => {
     const response = await intercom.tickets.tags.create('64619700005694', {
-      id: 'string',
-      admin_id: 'string',
+      id: 'id',
+      admin_id: 'admin_id',
       'Intercom-Version': '2.11',
     });
   });
 
   test('remove: only required params', async () => {
-    const responsePromise = intercom.tickets.tags.remove('64619700005694', '7522907', { admin_id: 'string' });
+    const responsePromise = intercom.tickets.tags.remove('64619700005694', '7522907', {
+      admin_id: 'admin_id',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -44,7 +46,7 @@ describe('resource tags', () => {
 
   test('remove: required and optional params', async () => {
     const response = await intercom.tickets.tags.remove('64619700005694', '7522907', {
-      admin_id: 'string',
+      admin_id: 'admin_id',
       'Intercom-Version': '2.11',
     });
   });
