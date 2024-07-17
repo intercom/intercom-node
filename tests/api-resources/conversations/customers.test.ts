@@ -33,7 +33,7 @@ describe('resource customers', () => {
       intercom.conversations.customers.create(
         '123',
         {
-          admin_id: 'string',
+          admin_id: 'admin_id',
           customer: {
             intercom_user_id: '6657ae626abd0167d9419d6f',
             customer: { intercom_user_id: '6329bd9ffe4e2e91dac76188' },
@@ -46,7 +46,7 @@ describe('resource customers', () => {
   });
 
   test('delete: only required params', async () => {
-    const responsePromise = intercom.conversations.customers.delete('123', '123', { admin_id: 'string' });
+    const responsePromise = intercom.conversations.customers.delete('123', '123', { admin_id: 'admin_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -58,7 +58,7 @@ describe('resource customers', () => {
 
   test('delete: required and optional params', async () => {
     const response = await intercom.conversations.customers.delete('123', '123', {
-      admin_id: 'string',
+      admin_id: 'admin_id',
       'Intercom-Version': '2.11',
     });
   });

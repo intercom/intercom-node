@@ -10,7 +10,7 @@ const intercom = new Intercom({
 
 describe('resource data', () => {
   test('retrieve', async () => {
-    const responsePromise = intercom.export.content.data.retrieve('string');
+    const responsePromise = intercom.export.content.data.retrieve('job_identifier');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource data', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.export.content.data.retrieve('string', { path: '/_stainless_unknown_path' }),
+      intercom.export.content.data.retrieve('job_identifier', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -31,7 +31,7 @@ describe('resource data', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       intercom.export.content.data.retrieve(
-        'string',
+        'job_identifier',
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),

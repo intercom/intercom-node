@@ -1,6 +1,6 @@
 {
   "name": "intercom-client",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "The official TypeScript library for the Intercom API",
   "author": "Intercom <dev-feedback@intercom.com>",
   "types": "dist/index.d.ts",

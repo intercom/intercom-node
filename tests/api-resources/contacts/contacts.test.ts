@@ -80,12 +80,12 @@ describe('resource contacts', () => {
           avatar: 'https://www.example.com/avatar_image.jpg',
           custom_attributes: {},
           email: 'jdoe@example.com',
-          external_id: 'string',
+          external_id: 'external_id',
           last_seen_at: 1571672154,
           name: 'John Doe',
           owner_id: 123,
           phone: '+353871234567',
-          role: 'string',
+          role: 'role',
           signed_up_at: 1571672154,
           unsubscribed_from_emails: true,
           'Intercom-Version': '2.11',
@@ -121,7 +121,7 @@ describe('resource contacts', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = intercom.contacts.delete('string');
+    const responsePromise = intercom.contacts.delete('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -133,7 +133,7 @@ describe('resource contacts', () => {
 
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.contacts.delete('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(intercom.contacts.delete('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -141,11 +141,7 @@ describe('resource contacts', () => {
   test('delete: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.contacts.delete(
-        'string',
-        { 'Intercom-Version': '2.11' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      intercom.contacts.delete('id', { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
@@ -219,7 +215,7 @@ describe('resource contacts', () => {
 
   test('search: required and optional params', async () => {
     const response = await intercom.contacts.search({
-      query: { field: 'created_at', operator: '=', value: 'string' },
+      query: { field: 'created_at', operator: '=', value: 'value' },
       pagination: { per_page: 5, starting_after: 'your-cursor-from-response' },
       'Intercom-Version': '2.11',
     });

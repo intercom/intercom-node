@@ -10,7 +10,7 @@ const intercom = new Intercom({
 
 describe('resource tags', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.contacts.tags.create('63a07ddf05a32042dffac965', { id: 'string' });
+    const responsePromise = intercom.contacts.tags.create('63a07ddf05a32042dffac965', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource tags', () => {
 
   test('create: required and optional params', async () => {
     const response = await intercom.contacts.tags.create('63a07ddf05a32042dffac965', {
-      id: 'string',
+      id: 'id',
       'Intercom-Version': '2.11',
     });
   });
