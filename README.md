@@ -8,7 +8,7 @@ The Intercom TypeScript library provides convenient access to the Intercom API f
 ## V6 Release
 
 The Intercom team is excited to announce a new and improved TypeScript SDK, currently available as an `alpha` version. Check out the
-API reference [here](./reference.md).
+API reference [here](https://github.com/intercom/intercom-node/blob/6.0.0-alpha/reference.md).
 
 During this time, we hope to gather feedback from the Intercom community to help drive the direction of the latest API changes.
 
