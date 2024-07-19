@@ -79,6 +79,11 @@ Methods:
 
 # HelpCenter
 
+Types:
+
+- <code><a href="./src/resources/help-center/help-center.ts">HelpCenter</a></code>
+- <code><a href="./src/resources/help-center/help-center.ts">HelpCenterList</a></code>
+
 ## Collections
 
 Types:
@@ -96,11 +101,6 @@ Methods:
 - <code title="delete /help_center/collections/{id}">client.helpCenter.collections.<a href="./src/resources/help-center/collections.ts">delete</a>(id, { ...params }) -> DeletedCollection</code>
 
 ## HelpCenters
-
-Types:
-
-- <code><a href="./src/resources/help-center/help-centers.ts">HelpCenter</a></code>
-- <code><a href="./src/resources/help-center/help-centers.ts">HelpCenterList</a></code>
 
 Methods:
 
