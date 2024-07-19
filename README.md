@@ -22,7 +22,7 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Intercom from 'intercom-client';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: process.env['INTERCOM_ACCESS_TOKEN'], // This is the default and can be omitted
   environment: 'eu', // or 'us' | 'au'; defaults to 'us'
 });
@@ -44,7 +44,7 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Intercom from 'intercom-client';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: process.env['INTERCOM_ACCESS_TOKEN'], // This is the default and can be omitted
   environment: 'eu', // or 'us' | 'au'; defaults to 'us'
 });
@@ -105,7 +105,7 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const intercom = new Intercom({
+const client = new Intercom({
   maxRetries: 0, // default is 2
 });
 
@@ -122,7 +122,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const intercom = new Intercom({
+const client = new Intercom({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
@@ -146,7 +146,7 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const intercom = new Intercom();
+const client = new Intercom();
 
 const response = await intercom.me.retrieve().asResponse();
 console.log(response.headers.get('X-My-Header'));
@@ -253,7 +253,7 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const intercom = new Intercom({
+const client = new Intercom({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
