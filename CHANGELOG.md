@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.0.0-beta.1 (2024-07-19)
+
+Full Changelog: [v6.0.0-beta.0...v6.0.0-beta.1](https://github.com/intercom/intercom-node/compare/v6.0.0-beta.0...v6.0.0-beta.1)
+
+### Features
+
+* **api:** update via SDK Studio ([#421](https://github.com/intercom/intercom-node/issues/421)) ([c9ffc43](https://github.com/intercom/intercom-node/commit/c9ffc43f3c2115e60b30c8dc6f6b373249daaaad))
+* **api:** update via SDK Studio ([#423](https://github.com/intercom/intercom-node/issues/423)) ([eadf458](https://github.com/intercom/intercom-node/commit/eadf458bf52580cfb513320022464be59ed50a2f))
+* **api:** update via SDK Studio ([#424](https://github.com/intercom/intercom-node/issues/424)) ([0691397](https://github.com/intercom/intercom-node/commit/0691397a0a4236b277f6e4b53da70fa24e201de7))
+
 ## 6.0.0-beta.0 (2024-07-19)
 
 Full Changelog: [v0.1.0...v6.0.0-beta.0](https://github.com/intercom/intercom-node/compare/v0.1.0...v6.0.0-beta.0)
