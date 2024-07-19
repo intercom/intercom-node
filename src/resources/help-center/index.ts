@@ -11,11 +11,5 @@ export {
   CollectionDeleteParams,
   Collections,
 } from './collections';
-export { HelpCenter } from './help-center';
-export {
-  HelpCenter,
-  HelpCenterList,
-  HelpCenterRetrieveParams,
-  HelpCenterListParams,
-  HelpCenters,
-} from './help-centers';
+export { HelpCenter, HelpCenterList, HelpCenterResource } from './help-center';
+export { HelpCenterRetrieveParams, HelpCenterListParams, HelpCenters } from './help-centers';
