@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.0-beta.0 (2024-07-19)
+
+Full Changelog: [v0.1.0...v6.0.0-beta.0](https://github.com/intercom/intercom-node/compare/v0.1.0...v6.0.0-beta.0)
+
+### Chores
+
+* **internal:** version bump ([#418](https://github.com/intercom/intercom-node/issues/418)) ([2af6a94](https://github.com/intercom/intercom-node/commit/2af6a94721dd1d1ef36609608c36666ea9a56407))
+
 ## 0.1.0 (2024-07-17)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/intercom/intercom-node/compare/v0.0.1...v0.1.0)
