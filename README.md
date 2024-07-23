@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 ## Installation
 
 ```sh
-npm install intercom-client
+npm install intercom-client@6.0.0-beta.1
 ```
 
 ## Usage
