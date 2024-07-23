@@ -4,6 +4,7 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as HelpCentersAPI from './help-centers';
+import * as HelpCenterAPI from './help-center';
 
 export class HelpCenters extends APIResource {
   /**
@@ -14,13 +15,13 @@ export class HelpCenters extends APIResource {
     id: number,
     params?: HelpCenterRetrieveParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<HelpCenter>;
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<HelpCenter>;
+  ): Core.APIPromise<HelpCenterAPI.HelpCenter>;
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<HelpCenterAPI.HelpCenter>;
   retrieve(
     id: number,
     params: HelpCenterRetrieveParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<HelpCenter> {
+  ): Core.APIPromise<HelpCenterAPI.HelpCenter> {
     if (isRequestOptions(params)) {
       return this.retrieve(id, {}, params);
     }
@@ -40,12 +41,15 @@ export class HelpCenters extends APIResource {
    * You can list all Help Centers by making a GET request to
    * `https://api.intercom.io/help_center/help_centers`.
    */
-  list(params?: HelpCenterListParams, options?: Core.RequestOptions): Core.APIPromise<HelpCenterList>;
-  list(options?: Core.RequestOptions): Core.APIPromise<HelpCenterList>;
+  list(
+    params?: HelpCenterListParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<HelpCenterAPI.HelpCenterList>;
+  list(options?: Core.RequestOptions): Core.APIPromise<HelpCenterAPI.HelpCenterList>;
   list(
     params: HelpCenterListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<HelpCenterList> {
+  ): Core.APIPromise<HelpCenterAPI.HelpCenterList> {
     if (isRequestOptions(params)) {
       return this.list({}, params);
     }
@@ -60,62 +64,6 @@ export class HelpCenters extends APIResource {
       },
     });
   }
-}
-
-/**
- * Help Centers contain collections
- */
-export interface HelpCenter {
-  /**
-   * The unique identifier for the Help Center which is given by Intercom.
-   */
-  id?: string;
-
-  /**
-   * The time when the Help Center was created.
-   */
-  created_at?: number;
-
-  /**
-   * The display name of the Help Center only seen by teammates.
-   */
-  display_name?: string;
-
-  /**
-   * The identifier of the Help Center. This is used in the URL of the Help Center.
-   */
-  identifier?: string;
-
-  /**
-   * The time when the Help Center was last updated.
-   */
-  updated_at?: number;
-
-  /**
-   * Whether the Help Center is turned on or not. This is controlled in your Help
-   * Center settings.
-   */
-  website_turned_on?: boolean;
-
-  /**
-   * The id of the workspace which the Help Center belongs to.
-   */
-  workspace_id?: string;
-}
-
-/**
- * A list of Help Centers belonging to the App
- */
-export interface HelpCenterList {
-  /**
-   * An array of Help Center objects
-   */
-  data?: Array<HelpCenter>;
-
-  /**
-   * The type of the object - `list`.
-   */
-  type?: 'list';
 }
 
 export interface HelpCenterRetrieveParams {
@@ -171,8 +119,6 @@ export interface HelpCenterListParams {
 }
 
 export namespace HelpCenters {
-  export import HelpCenter = HelpCentersAPI.HelpCenter;
-  export import HelpCenterList = HelpCentersAPI.HelpCenterList;
   export import HelpCenterRetrieveParams = HelpCentersAPI.HelpCenterRetrieveParams;
   export import HelpCenterListParams = HelpCentersAPI.HelpCenterListParams;
 }

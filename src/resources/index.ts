@@ -76,7 +76,7 @@ export {
 export { DataExport, DataExportContentDataParams, DataExports } from './data-exports';
 export { Download } from './download/download';
 export { ExportCancelParams, Export } from './export/export';
-export { HelpCenter } from './help-center/help-center';
+export { HelpCenter, HelpCenterList, HelpCenterResource } from './help-center/help-center';
 export { MessageCreateParams, Messages } from './messages';
 export { News } from './news/news';
 export { NoteRetrieveParams, Notes } from './notes';
