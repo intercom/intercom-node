@@ -46,7 +46,6 @@ export {
   Contacts,
 } from './contacts/contacts';
 export {
-  Conversation,
   ConversationListResponse,
   ConversationSearchResponse,
   ConversationCreateParams,

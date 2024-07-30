@@ -223,7 +223,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/conversations/conversations.ts">Conversation</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationListResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationSearchResponse</a></code>
 
