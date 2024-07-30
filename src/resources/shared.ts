@@ -3,9 +3,7 @@
 import * as Shared from './shared';
 import * as SegmentsAPI from './segments';
 import * as SubscriptionsAPI from './contacts/subscriptions';
-import * as NewsItemsAPI from './news/news-items';
 import * as TicketTypesAPI from './ticket-types/ticket-types';
-import * as NewsfeedsAPI from './news/newsfeeds/newsfeeds';
 
 /**
  * Admins are teammate accounts that have access to a workspace.
@@ -2032,34 +2030,6 @@ export namespace Note {
      */
     type?: string;
   }
-}
-
-/**
- * Paginated Response
- */
-export interface PaginatedResponse {
-  /**
-   * An array of Objects
-   */
-  data?: Array<NewsItemsAPI.NewsItem | NewsfeedsAPI.Newsfeed>;
-
-  /**
-   * Cursor-based pagination is a technique used in the Intercom API to navigate
-   * through large amounts of data. A "cursor" or pointer is used to keep track of
-   * the current position in the result set, allowing the API to return the data in
-   * small chunks or "pages" as needed.
-   */
-  pages?: CursorPages | null;
-
-  /**
-   * A count of the total number of objects.
-   */
-  total_count?: number;
-
-  /**
-   * The type of object
-   */
-  type?: 'list' | 'conversation.list';
 }
 
 /**
