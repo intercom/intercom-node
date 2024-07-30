@@ -324,7 +324,10 @@ export class Conversations extends APIResource {
    * | ^        | String                        | Starts With                                                |
    * | $        | String                        | Ends With                                                  |
    */
-  search(params: ConversationSearchParams, options?: Core.RequestOptions): Core.APIPromise<ConversationList> {
+  search(
+    params: ConversationSearchParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ConversationSearchResponse> {
     const { 'Intercom-Version': intercomVersion, ...body } = params;
     return this._client.post('/conversations/search', {
       body,
@@ -344,7 +347,770 @@ export class Conversations extends APIResource {
  * created when a contact replies to an outbound message, or when one admin
  * directly sends a message to a single contact.
  */
-export interface ConversationList {
+export interface Conversation {
+  /**
+   * The id representing the conversation.
+   */
+  id?: string;
+
+  /**
+   * The id of the admin assigned to the conversation. If it's not assigned to an
+   * admin it will return null.
+   */
+  admin_assignee_id?: number | null;
+
+  /**
+   * Data related to AI Agent involvement in the conversation.
+   */
+  ai_agent?: Conversation.AIAgent | null;
+
+  /**
+   * Indicates whether the AI Agent participated in the conversation.
+   */
+  ai_agent_participated?: boolean;
+
+  /**
+   * The list of contacts (users or leads) involved in this conversation. This will
+   * only contain one customer unless more were added via the group conversation
+   * feature.
+   */
+  contacts?: Conversation.Contacts;
+
+  /**
+   * A list of Conversation Part objects for each part message in the conversation.
+   * This is only returned when Retrieving a Conversation, and ignored when Listing
+   * all Conversations. There is a limit of 500 parts.
+   */
+  conversation_parts?: Conversation.ConversationParts;
+
+  /**
+   * The Conversation Rating object which contains information on the rating and/or
+   * remark added by a Contact and the Admin assigned to the conversation.
+   */
+  conversation_rating?: Conversation.ConversationRating | null;
+
+  /**
+   * The time the conversation was created.
+   */
+  created_at?: number;
+
+  /**
+   * An object containing the different custom attributes associated to the
+   * conversation as key-value pairs. For relationship attributes the value will be a
+   * list of custom object instance models.
+   */
+  custom_attributes?: Record<string, string | Conversation.CustomObjectInstance | null>;
+
+  /**
+   * An object containing information on the first users message. For a contact
+   * initiated message this will represent the users original message.
+   */
+  first_contact_reply?: Conversation.FirstContactReply | null;
+
+  /**
+   * An object containing metadata about linked conversations and linked tickets. Up
+   * to 1000 can be returned.
+   */
+  linked_objects?: Conversation.LinkedObjects;
+
+  /**
+   * Indicates whether a conversation is open (true) or closed (false).
+   */
+  open?: boolean;
+
+  /**
+   * If marked as priority, it will return priority or else not_priority.
+   */
+  priority?: 'priority' | 'not_priority';
+
+  /**
+   * Indicates whether a conversation has been read.
+   */
+  read?: boolean;
+
+  /**
+   * The SLA Applied object contains the details for which SLA has been applied to
+   * this conversation. Important: if there are any canceled sla_events for the
+   * conversation - meaning an SLA has been manually removed from a conversation, the
+   * sla_status will always be returned as null.
+   */
+  sla_applied?: Conversation.SlaApplied | null;
+
+  /**
+   * If set this is the time in the future when this conversation will be marked as
+   * open. i.e. it will be in a snoozed state until this time. i.e. it will be in a
+   * snoozed state until this time.
+   */
+  snoozed_until?: number | null;
+
+  /**
+   * The Conversation Part that originated this conversation, which can be Contact,
+   * Admin, Campaign, Automated or Operator initiated.
+   */
+  source?: Conversation.Source;
+
+  /**
+   * Can be set to "open", "closed" or "snoozed".
+   */
+  state?: 'open' | 'closed' | 'snoozed';
+
+  /**
+   * A Statistics object containing all information required for reporting, with
+   * timestamps and calculated metrics.
+   */
+  statistics?: Conversation.Statistics | null;
+
+  /**
+   * A list of tags objects associated with a conversation
+   */
+  tags?: Conversation.Tags;
+
+  /**
+   * The id of the team assigned to the conversation. If it's not assigned to a team
+   * it will return null.
+   */
+  team_assignee_id?: string | null;
+
+  /**
+   * The list of teammates who participated in the conversation (wrote at least one
+   * conversation part).
+   */
+  teammates?: Conversation.Teammates | null;
+
+  /**
+   * The title given to the conversation.
+   */
+  title?: string | null;
+
+  /**
+   * Always conversation.
+   */
+  type?: string;
+
+  /**
+   * The last time the conversation was updated.
+   */
+  updated_at?: number;
+
+  /**
+   * The last time a Contact responded to an Admin. In other words, the time a
+   * customer started waiting for a response. Set to null if last reply is from an
+   * Admin.
+   */
+  waiting_since?: number | null;
+}
+
+export namespace Conversation {
+  /**
+   * Data related to AI Agent involvement in the conversation.
+   */
+  export interface AIAgent {
+    content_sources?: AIAgent.ContentSources;
+
+    /**
+     * The type of the last answer delviered by AI Agent. If no answer was delivered
+     * then this will return null
+     */
+    last_answer_type?: 'ai_answer' | 'custom_answer' | null;
+
+    /**
+     * The customer satisfaction rating given to AI Agent, from 1-5.
+     */
+    rating?: number;
+
+    /**
+     * The customer satisfaction rating remark given to AI Agent.
+     */
+    rating_remark?: string;
+
+    /**
+     * The resolution state of AI Agent. If no AI or custom answer has been delivered
+     * then this will return `abandoned`.
+     */
+    resolution_state?: 'assumed_resolution' | 'confirmed_resolution' | 'routed_to_team' | 'abandoned';
+
+    /**
+     * The title of the source that triggered AI Agent involvement in the conversation.
+     * If this is `essentials_plan_setup` then it will return null.
+     */
+    source_title?: string | null;
+
+    /**
+     * The type of the source that triggered AI Agent involvement in the conversation.
+     */
+    source_type?: 'essentials_plan_setup' | 'profile' | 'workflow' | 'workflow_preview' | 'fin_preview';
+  }
+
+  export namespace AIAgent {
+    export interface ContentSources {
+      /**
+       * The content sources used by AI Agent in the conversation.
+       */
+      content_sources?: Array<ContentSources.ContentSource>;
+
+      /**
+       * The total number of content sources used by AI Agent in the conversation.
+       */
+      total_count?: number;
+
+      type?: 'content_source.list';
+    }
+
+    export namespace ContentSources {
+      /**
+       * The content source used by AI Agent in the conversation.
+       */
+      export interface ContentSource {
+        /**
+         * The type of the content source.
+         */
+        content_type?:
+          | 'file'
+          | 'article'
+          | 'external_content'
+          | 'content_snippet'
+          | 'workflow_connector_action';
+
+        /**
+         * The ISO 639 language code of the content source.
+         */
+        locale?: string;
+
+        /**
+         * The title of the content source.
+         */
+        title?: string;
+
+        /**
+         * The internal URL linking to the content source for teammates.
+         */
+        url?: string;
+      }
+    }
+  }
+
+  /**
+   * The list of contacts (users or leads) involved in this conversation. This will
+   * only contain one customer unless more were added via the group conversation
+   * feature.
+   */
+  export interface Contacts {
+    /**
+     * The list of contacts (users or leads) involved in this conversation. This will
+     * only contain one customer unless more were added via the group conversation
+     * feature.
+     */
+    contacts?: Array<Shared.ContactReference>;
+
+    type?: 'contact.list';
+  }
+
+  /**
+   * A list of Conversation Part objects for each part message in the conversation.
+   * This is only returned when Retrieving a Conversation, and ignored when Listing
+   * all Conversations. There is a limit of 500 parts.
+   */
+  export interface ConversationParts {
+    /**
+     * A list of Conversation Part objects for each part message in the conversation.
+     * This is only returned when Retrieving a Conversation, and ignored when Listing
+     * all Conversations. There is a limit of 500 parts.
+     */
+    conversation_parts?: Array<ConversationParts.ConversationPart>;
+
+    total_count?: number;
+
+    type?: 'conversation_part.list';
+  }
+
+  export namespace ConversationParts {
+    /**
+     * A Conversation Part represents a message in the conversation.
+     */
+    export interface ConversationPart {
+      /**
+       * The id representing the conversation part.
+       */
+      id?: string;
+
+      /**
+       * The id of the admin that was assigned the conversation by this conversation_part
+       * (null if there has been no change in assignment.)
+       */
+      assigned_to?: Shared.Reference | null;
+
+      /**
+       * A list of attachments for the part.
+       */
+      attachments?: Array<Shared.PartAttachment>;
+
+      /**
+       * The object who initiated the conversation, which can be a Contact, Admin or
+       * Team. Bots and campaigns send messages on behalf of Admins or Teams. For
+       * Twitter, this will be blank.
+       */
+      author?: ConversationPart.Author;
+
+      /**
+       * The message body, which may contain HTML. For Twitter, this will show a generic
+       * message regarding why the body is obscured.
+       */
+      body?: string | null;
+
+      /**
+       * The time the conversation part was created.
+       */
+      created_at?: number;
+
+      /**
+       * The external id of the conversation part
+       */
+      external_id?: string | null;
+
+      /**
+       * The time the user was notified with the conversation part.
+       */
+      notified_at?: number;
+
+      /**
+       * The type of conversation part.
+       */
+      part_type?: string;
+
+      /**
+       * Whether or not the conversation part has been redacted.
+       */
+      redacted?: boolean;
+
+      /**
+       * Always conversation_part
+       */
+      type?: string;
+
+      /**
+       * The last time the conversation part was updated.
+       */
+      updated_at?: number;
+    }
+
+    export namespace ConversationPart {
+      /**
+       * The object who initiated the conversation, which can be a Contact, Admin or
+       * Team. Bots and campaigns send messages on behalf of Admins or Teams. For
+       * Twitter, this will be blank.
+       */
+      export interface Author {
+        /**
+         * The id of the author
+         */
+        id?: string;
+
+        /**
+         * The email of the author
+         */
+        email?: string;
+
+        /**
+         * The name of the author
+         */
+        name?: string;
+
+        /**
+         * The type of the author
+         */
+        type?: string;
+      }
+    }
+  }
+
+  /**
+   * The Conversation Rating object which contains information on the rating and/or
+   * remark added by a Contact and the Admin assigned to the conversation.
+   */
+  export interface ConversationRating {
+    /**
+     * reference to contact object
+     */
+    contact?: Shared.ContactReference;
+
+    /**
+     * The time the rating was requested in the conversation being rated.
+     */
+    created_at?: number;
+
+    /**
+     * The rating, between 1 and 5, for the conversation.
+     */
+    rating?: number;
+
+    /**
+     * An optional field to add a remark to correspond to the number rating
+     */
+    remark?: string;
+
+    /**
+     * reference to another object
+     */
+    teammate?: Shared.Reference;
+  }
+
+  /**
+   * A Custom Object Instance represents an instance of a custom object type. This
+   * allows you to create and set custom attributes to store data about your
+   * customers that is not already captured by Intercom. The parent object includes
+   * recommended default attributes and you can add your own custom attributes.
+   */
+  export interface CustomObjectInstance {
+    /**
+     * The Intercom defined id representing the custom object instance.
+     */
+    id?: string;
+
+    /**
+     * The custom attributes you have set on the custom object instance.
+     */
+    custom_attributes?: Record<string, string>;
+
+    /**
+     * The id you have defined for the custom object instance.
+     */
+    external_id?: string;
+
+    /**
+     * The identifier of the custom object type that defines the structure of the
+     * custom object instance.
+     */
+    type?: string;
+  }
+
+  /**
+   * An object containing information on the first users message. For a contact
+   * initiated message this will represent the users original message.
+   */
+  export interface FirstContactReply {
+    created_at?: number;
+
+    type?: string;
+
+    url?: string | null;
+  }
+
+  /**
+   * An object containing metadata about linked conversations and linked tickets. Up
+   * to 1000 can be returned.
+   */
+  export interface LinkedObjects {
+    /**
+     * An array containing the linked conversations and linked tickets.
+     */
+    data?: Array<LinkedObjects.Data>;
+
+    /**
+     * Whether or not there are more linked objects than returned.
+     */
+    has_more?: boolean;
+
+    /**
+     * The total number of linked objects.
+     */
+    total_count?: number;
+
+    /**
+     * Always list.
+     */
+    type?: 'list';
+  }
+
+  export namespace LinkedObjects {
+    /**
+     * A linked conversation or ticket.
+     */
+    export interface Data {
+      /**
+       * The ID of the linked object
+       */
+      id?: string;
+
+      /**
+       * Category of the Linked Ticket Object.
+       */
+      category?: 'Customer' | 'Back-office' | 'Tracker' | null;
+
+      /**
+       * ticket or conversation
+       */
+      type?: 'ticket' | 'conversation';
+    }
+  }
+
+  /**
+   * The SLA Applied object contains the details for which SLA has been applied to
+   * this conversation. Important: if there are any canceled sla_events for the
+   * conversation - meaning an SLA has been manually removed from a conversation, the
+   * sla_status will always be returned as null.
+   */
+  export interface SlaApplied {
+    /**
+     * The name of the SLA as given by the teammate when it was created.
+     */
+    sla_name?: string;
+
+    /**
+     * SLA statuses: - `hit`: If there’s at least one hit event in the underlying
+     * sla_events table, and no “missed” or “canceled” events for the conversation. -
+     * `missed`: If there are any missed sla_events for the conversation and no
+     * canceled events. If there’s even a single missed sla event, the status will
+     * always be missed. A missed status is not applied when the SLA expires, only the
+     * next time a teammate replies. - `active`: An SLA has been applied to a
+     * conversation, but has not yet been fulfilled. SLA status is active only if there
+     * are no “hit, “missed”, or “canceled” events.
+     */
+    sla_status?: 'hit' | 'missed' | 'cancelled' | 'active';
+
+    /**
+     * object type
+     */
+    type?: string;
+  }
+
+  /**
+   * The Conversation Part that originated this conversation, which can be Contact,
+   * Admin, Campaign, Automated or Operator initiated.
+   */
+  export interface Source {
+    /**
+     * The id representing the message.
+     */
+    id?: string;
+
+    /**
+     * A list of attachments for the part.
+     */
+    attachments?: Array<Shared.PartAttachment>;
+
+    /**
+     * The object who initiated the conversation, which can be a Contact, Admin or
+     * Team. Bots and campaigns send messages on behalf of Admins or Teams. For
+     * Twitter, this will be blank.
+     */
+    author?: Source.Author;
+
+    /**
+     * The message body, which may contain HTML. For Twitter, this will show a generic
+     * message regarding why the body is obscured.
+     */
+    body?: string;
+
+    /**
+     * The conversation's initiation type. Possible values are customer_initiated,
+     * campaigns_initiated (legacy campaigns), operator_initiated (Custom bot),
+     * automated (Series and other outbounds with dynamic audience message) and
+     * admin_initiated (fixed audience message, ticket initiated by an admin, group
+     * email).
+     */
+    delivered_as?: string;
+
+    /**
+     * Whether or not the source message has been redacted. Only applicable for contact
+     * initiated messages.
+     */
+    redacted?: boolean;
+
+    /**
+     * Optional. The message subject. For Twitter, this will show a generic message
+     * regarding why the subject is obscured.
+     */
+    subject?: string;
+
+    /**
+     * This includes conversation, email, facebook, instagram, phone_call,
+     * phone_switch, push, sms, twitter and whatsapp.
+     */
+    type?: string;
+
+    /**
+     * The URL where the conversation was started. For Twitter, Email, and Bots, this
+     * will be blank.
+     */
+    url?: string | null;
+  }
+
+  export namespace Source {
+    /**
+     * The object who initiated the conversation, which can be a Contact, Admin or
+     * Team. Bots and campaigns send messages on behalf of Admins or Teams. For
+     * Twitter, this will be blank.
+     */
+    export interface Author {
+      /**
+       * The id of the author
+       */
+      id?: string;
+
+      /**
+       * The email of the author
+       */
+      email?: string;
+
+      /**
+       * The name of the author
+       */
+      name?: string;
+
+      /**
+       * The type of the author
+       */
+      type?: string;
+    }
+  }
+
+  /**
+   * A Statistics object containing all information required for reporting, with
+   * timestamps and calculated metrics.
+   */
+  export interface Statistics {
+    /**
+     * Number of assignments after first_contact_reply_at.
+     */
+    count_assignments?: number;
+
+    /**
+     * Total number of conversation parts.
+     */
+    count_conversation_parts?: number;
+
+    /**
+     * Number of reopens after first_contact_reply_at.
+     */
+    count_reopens?: number;
+
+    /**
+     * Time of first admin reply after first_contact_reply_at.
+     */
+    first_admin_reply_at?: number;
+
+    /**
+     * Time of first assignment after first_contact_reply_at.
+     */
+    first_assignment_at?: number;
+
+    /**
+     * Time of first close after first_contact_reply_at.
+     */
+    first_close_at?: number;
+
+    /**
+     * Time of first text conversation part from a contact.
+     */
+    first_contact_reply_at?: number;
+
+    /**
+     * Time of the last conversation part from an admin.
+     */
+    last_admin_reply_at?: number;
+
+    /**
+     * Time of first admin reply since most recent assignment.
+     */
+    last_assignment_admin_reply_at?: number;
+
+    /**
+     * Time of last assignment after first_contact_reply_at.
+     */
+    last_assignment_at?: number;
+
+    /**
+     * Time of the last conversation close.
+     */
+    last_close_at?: number;
+
+    /**
+     * The last admin who closed the conversation. Returns a reference to an Admin
+     * object.
+     */
+    last_closed_by_id?: string;
+
+    /**
+     * Time of the last conversation part from a contact.
+     */
+    last_contact_reply_at?: number;
+
+    /**
+     * Median based on all admin replies after a contact reply. Subtracts out of
+     * business hours. In seconds.
+     */
+    median_time_to_reply?: number;
+
+    /**
+     * Duration until first admin reply. Subtracts out of business hours. In seconds.
+     */
+    time_to_admin_reply?: number;
+
+    /**
+     * Duration until last assignment before first admin reply. In seconds.
+     */
+    time_to_assignment?: number;
+
+    /**
+     * Duration until conversation was closed first time. Subtracts out of business
+     * hours. In seconds.
+     */
+    time_to_first_close?: number;
+
+    /**
+     * Duration until conversation was closed last time. Subtracts out of business
+     * hours. In seconds.
+     */
+    time_to_last_close?: number;
+
+    type?: string;
+  }
+
+  /**
+   * A list of tags objects associated with a conversation
+   */
+  export interface Tags {
+    /**
+     * A list of tags objects associated with the conversation.
+     */
+    tags?: Array<Shared.Tag>;
+
+    /**
+     * The type of the object
+     */
+    type?: 'tag.list';
+  }
+
+  /**
+   * The list of teammates who participated in the conversation (wrote at least one
+   * conversation part).
+   */
+  export interface Teammates {
+    /**
+     * The list of teammates who participated in the conversation (wrote at least one
+     * conversation part).
+     */
+    teammates?: Array<Shared.Reference>;
+
+    /**
+     * The type of the object - `admin.list`.
+     */
+    type?: string;
+  }
+}
+
+/**
+ * A News Item is a content type in Intercom enabling you to announce product
+ * updates, company news, promotions, events and more with your customers.
+ */
+export type ConversationListResponse = NewsItemsAPI.NewsItem | NewsfeedsAPI.Newsfeed;
+
+/**
+ * Conversations are how you can communicate with users in Intercom. They are
+ * created when a contact replies to an outbound message, or when one admin
+ * directly sends a message to a single contact.
+ */
+export interface ConversationSearchResponse {
   /**
    * The list of conversation objects
    */
@@ -368,12 +1134,6 @@ export interface ConversationList {
    */
   type?: 'conversation.list';
 }
-
-/**
- * A News Item is a content type in Intercom enabling you to announce product
- * updates, company news, promotions, events and more with your customers.
- */
-export type ConversationListResponse = NewsItemsAPI.NewsItem | NewsfeedsAPI.Newsfeed;
 
 export interface ConversationCreateParams {
   /**
@@ -725,8 +1485,9 @@ export interface ConversationSearchParams {
 }
 
 export namespace Conversations {
-  export import ConversationList = ConversationsAPI.ConversationList;
+  export import Conversation = ConversationsAPI.Conversation;
   export import ConversationListResponse = ConversationsAPI.ConversationListResponse;
+  export import ConversationSearchResponse = ConversationsAPI.ConversationSearchResponse;
   export import ConversationCreateParams = ConversationsAPI.ConversationCreateParams;
   export import ConversationRetrieveParams = ConversationsAPI.ConversationRetrieveParams;
   export import ConversationUpdateParams = ConversationsAPI.ConversationUpdateParams;
