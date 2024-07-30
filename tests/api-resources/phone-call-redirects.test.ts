@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource phoneCallRedirects', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.phoneCallRedirects.create({ phone: '+353832345678' });
+    const responsePromise = client.phoneCallRedirects.create({ phone: '+353832345678' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource phoneCallRedirects', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.phoneCallRedirects.create({
+    const response = await client.phoneCallRedirects.create({
       phone: '+353832345678',
       custom_attributes: { issue_type: 'Billing', priority: 'High' },
       'Intercom-Version': '2.11',

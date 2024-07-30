@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource dataEvents', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.dataEvents.create({ body: {} });
+    const responsePromise = client.dataEvents.create({ body: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,11 +21,11 @@ describe('resource dataEvents', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.dataEvents.create({ body: {}, 'Intercom-Version': '2.11' });
+    const response = await client.dataEvents.create({ body: {}, 'Intercom-Version': '2.11' });
   });
 
   test('list: only required params', async () => {
-    const responsePromise = intercom.dataEvents.list({ filter: { user_id: 'user_id' }, type: 'type' });
+    const responsePromise = client.dataEvents.list({ filter: { user_id: 'user_id' }, type: 'type' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -36,7 +36,7 @@ describe('resource dataEvents', () => {
   });
 
   test('list: required and optional params', async () => {
-    const response = await intercom.dataEvents.list({
+    const response = await client.dataEvents.list({
       filter: { user_id: 'user_id' },
       type: 'type',
       summary: true,
@@ -45,7 +45,7 @@ describe('resource dataEvents', () => {
   });
 
   test('summaries', async () => {
-    const responsePromise = intercom.dataEvents.summaries();
+    const responsePromise = client.dataEvents.summaries();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,7 +57,7 @@ describe('resource dataEvents', () => {
 
   test('summaries: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.dataEvents.summaries({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.dataEvents.summaries({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -65,7 +65,7 @@ describe('resource dataEvents', () => {
   test('summaries: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.dataEvents.summaries(
+      client.dataEvents.summaries(
         {
           event_summaries: { event_name: 'invited-friend', count: 1, first: 1671028894, last: 1671028894 },
           user_id: '314159',

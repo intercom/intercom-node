@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource helpCenters', () => {
   test('retrieve', async () => {
-    const responsePromise = intercom.helpCenter.helpCenters.retrieve(123);
+    const responsePromise = client.helpCenter.helpCenters.retrieve(123);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,14 +23,14 @@ describe('resource helpCenters', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.helpCenters.retrieve(123, { path: '/_stainless_unknown_path' }),
+      client.helpCenter.helpCenters.retrieve(123, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.helpCenters.retrieve(
+      client.helpCenter.helpCenters.retrieve(
         123,
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
@@ -39,7 +39,7 @@ describe('resource helpCenters', () => {
   });
 
   test('list', async () => {
-    const responsePromise = intercom.helpCenter.helpCenters.list();
+    const responsePromise = client.helpCenter.helpCenters.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -51,7 +51,7 @@ describe('resource helpCenters', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.helpCenter.helpCenters.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.helpCenter.helpCenters.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -59,7 +59,7 @@ describe('resource helpCenters', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.helpCenters.list(
+      client.helpCenter.helpCenters.list(
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
