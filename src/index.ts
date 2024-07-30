@@ -292,6 +292,7 @@ export namespace Intercom {
   export import Conversations = API.Conversations;
   export import ConversationListResponse = API.ConversationListResponse;
   export import ConversationSearchResponse = API.ConversationSearchResponse;
+  export import ConversationListResponsesCursorPagination = API.ConversationListResponsesCursorPagination;
   export import ConversationCreateParams = API.ConversationCreateParams;
   export import ConversationRetrieveParams = API.ConversationRetrieveParams;
   export import ConversationUpdateParams = API.ConversationUpdateParams;
@@ -392,7 +393,6 @@ export namespace Intercom {
   export import Message = API.Message;
   export import MultipleFilterSearchRequest = API.MultipleFilterSearchRequest;
   export import Note = API.Note;
-  export import PaginatedResponse = API.PaginatedResponse;
   export import PartAttachment = API.PartAttachment;
   export import Reference = API.Reference;
   export import SearchRequest = API.SearchRequest;

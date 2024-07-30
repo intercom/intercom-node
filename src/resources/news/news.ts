@@ -12,6 +12,7 @@ export class News extends APIResource {
 export namespace News {
   export import NewsItems = NewsItemsAPI.NewsItems;
   export import NewsItem = NewsItemsAPI.NewsItem;
+  export import NewsItemListResponse = NewsItemsAPI.NewsItemListResponse;
   export import NewsItemDeleteResponse = NewsItemsAPI.NewsItemDeleteResponse;
   export import NewsItemCreateParams = NewsItemsAPI.NewsItemCreateParams;
   export import NewsItemRetrieveParams = NewsItemsAPI.NewsItemRetrieveParams;
@@ -20,6 +21,7 @@ export namespace News {
   export import NewsItemDeleteParams = NewsItemsAPI.NewsItemDeleteParams;
   export import Newsfeeds = NewsfeedsAPI.Newsfeeds;
   export import Newsfeed = NewsfeedsAPI.Newsfeed;
+  export import NewsfeedListResponse = NewsfeedsAPI.NewsfeedListResponse;
   export import NewsfeedRetrieveParams = NewsfeedsAPI.NewsfeedRetrieveParams;
   export import NewsfeedListParams = NewsfeedsAPI.NewsfeedListParams;
 }

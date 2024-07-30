@@ -15,7 +15,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">Message</a></code>
 - <code><a href="./src/resources/shared.ts">MultipleFilterSearchRequest</a></code>
 - <code><a href="./src/resources/shared.ts">Note</a></code>
-- <code><a href="./src/resources/shared.ts">PaginatedResponse</a></code>
 - <code><a href="./src/resources/shared.ts">PartAttachment</a></code>
 - <code><a href="./src/resources/shared.ts">Reference</a></code>
 - <code><a href="./src/resources/shared.ts">SearchRequest</a></code>
@@ -340,6 +339,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/news/news-items.ts">NewsItem</a></code>
+- <code><a href="./src/resources/news/news-items.ts">NewsItemListResponse</a></code>
 - <code><a href="./src/resources/news/news-items.ts">NewsItemDeleteResponse</a></code>
 
 Methods:
@@ -347,7 +347,7 @@ Methods:
 - <code title="post /news/news_items">client.news.newsItems.<a href="./src/resources/news/news-items.ts">create</a>({ ...params }) -> NewsItem</code>
 - <code title="get /news/news_items/{id}">client.news.newsItems.<a href="./src/resources/news/news-items.ts">retrieve</a>(id, { ...params }) -> NewsItem</code>
 - <code title="put /news/news_items/{id}">client.news.newsItems.<a href="./src/resources/news/news-items.ts">update</a>(id, { ...params }) -> NewsItem</code>
-- <code title="get /news/news_items">client.news.newsItems.<a href="./src/resources/news/news-items.ts">list</a>({ ...params }) -> PaginatedResponse</code>
+- <code title="get /news/news_items">client.news.newsItems.<a href="./src/resources/news/news-items.ts">list</a>({ ...params }) -> NewsItemListResponse</code>
 - <code title="delete /news/news_items/{id}">client.news.newsItems.<a href="./src/resources/news/news-items.ts">delete</a>(id, { ...params }) -> NewsItemDeleteResponse</code>
 
 ## Newsfeeds
@@ -355,17 +355,22 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/news/newsfeeds/newsfeeds.ts">Newsfeed</a></code>
+- <code><a href="./src/resources/news/newsfeeds/newsfeeds.ts">NewsfeedListResponse</a></code>
 
 Methods:
 
 - <code title="get /news/newsfeeds/{id}">client.news.newsfeeds.<a href="./src/resources/news/newsfeeds/newsfeeds.ts">retrieve</a>(id, { ...params }) -> Newsfeed</code>
-- <code title="get /news/newsfeeds">client.news.newsfeeds.<a href="./src/resources/news/newsfeeds/newsfeeds.ts">list</a>({ ...params }) -> PaginatedResponse</code>
+- <code title="get /news/newsfeeds">client.news.newsfeeds.<a href="./src/resources/news/newsfeeds/newsfeeds.ts">list</a>({ ...params }) -> NewsfeedListResponse</code>
 
 ### Items
 
+Types:
+
+- <code><a href="./src/resources/news/newsfeeds/items.ts">ItemListResponse</a></code>
+
 Methods:
 
-- <code title="get /news/newsfeeds/{id}/items">client.news.newsfeeds.items.<a href="./src/resources/news/newsfeeds/items.ts">list</a>(id, { ...params }) -> PaginatedResponse</code>
+- <code title="get /news/newsfeeds/{id}/items">client.news.newsfeeds.items.<a href="./src/resources/news/newsfeeds/items.ts">list</a>(id, { ...params }) -> ItemListResponse</code>
 
 # Notes
 

@@ -5,6 +5,7 @@ import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
 import * as NewsfeedsAPI from './newsfeeds';
 import * as Shared from '../../shared';
+import * as NewsItemsAPI from '../news-items';
 import * as ItemsAPI from './items';
 
 export class Newsfeeds extends APIResource {
@@ -42,12 +43,12 @@ export class Newsfeeds extends APIResource {
   /**
    * You can fetch a list of all newsfeeds
    */
-  list(params?: NewsfeedListParams, options?: Core.RequestOptions): Core.APIPromise<Shared.PaginatedResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<Shared.PaginatedResponse>;
+  list(params?: NewsfeedListParams, options?: Core.RequestOptions): Core.APIPromise<NewsfeedListResponse>;
+  list(options?: Core.RequestOptions): Core.APIPromise<NewsfeedListResponse>;
   list(
     params: NewsfeedListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.PaginatedResponse> {
+  ): Core.APIPromise<NewsfeedListResponse> {
     if (isRequestOptions(params)) {
       return this.list({}, params);
     }
@@ -96,6 +97,34 @@ export interface Newsfeed {
    * Timestamp for when the newsfeed was last updated.
    */
   updated_at?: number;
+}
+
+/**
+ * Paginated Response
+ */
+export interface NewsfeedListResponse {
+  /**
+   * An array of Objects
+   */
+  data?: Array<NewsItemsAPI.NewsItem | Newsfeed>;
+
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  pages?: Shared.CursorPages | null;
+
+  /**
+   * A count of the total number of objects.
+   */
+  total_count?: number;
+
+  /**
+   * The type of object
+   */
+  type?: 'list' | 'conversation.list';
 }
 
 export interface NewsfeedRetrieveParams {
@@ -152,8 +181,10 @@ export interface NewsfeedListParams {
 
 export namespace Newsfeeds {
   export import Newsfeed = NewsfeedsAPI.Newsfeed;
+  export import NewsfeedListResponse = NewsfeedsAPI.NewsfeedListResponse;
   export import NewsfeedRetrieveParams = NewsfeedsAPI.NewsfeedRetrieveParams;
   export import NewsfeedListParams = NewsfeedsAPI.NewsfeedListParams;
   export import Items = ItemsAPI.Items;
+  export import ItemListResponse = ItemsAPI.ItemListResponse;
   export import ItemListParams = ItemsAPI.ItemListParams;
 }
