@@ -190,6 +190,7 @@ export class Intercom extends Core.APIClient {
   }
 
   static Intercom = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static IntercomError = Errors.IntercomError;
   static APIError = Errors.APIError;
@@ -289,8 +290,9 @@ export namespace Intercom {
   export import ContactUnarchiveParams = API.ContactUnarchiveParams;
 
   export import Conversations = API.Conversations;
-  export import ConversationList = API.ConversationList;
   export import ConversationListResponse = API.ConversationListResponse;
+  export import ConversationSearchResponse = API.ConversationSearchResponse;
+  export import ConversationListResponsesCursorPagination = API.ConversationListResponsesCursorPagination;
   export import ConversationCreateParams = API.ConversationCreateParams;
   export import ConversationRetrieveParams = API.ConversationRetrieveParams;
   export import ConversationUpdateParams = API.ConversationUpdateParams;
@@ -391,7 +393,6 @@ export namespace Intercom {
   export import Message = API.Message;
   export import MultipleFilterSearchRequest = API.MultipleFilterSearchRequest;
   export import Note = API.Note;
-  export import PaginatedResponse = API.PaginatedResponse;
   export import PartAttachment = API.PartAttachment;
   export import Reference = API.Reference;
   export import SearchRequest = API.SearchRequest;

@@ -1,5 +1,29 @@
 # Changelog
 
+## 6.0.0-beta.2 (2024-07-30)
+
+Full Changelog: [v6.0.0-beta.1...v6.0.0-beta.2](https://github.com/intercom/intercom-node/compare/v6.0.0-beta.1...v6.0.0-beta.2)
+
+### Features
+
+* **api:** update via SDK Studio ([#426](https://github.com/intercom/intercom-node/issues/426)) ([ef7e2da](https://github.com/intercom/intercom-node/commit/ef7e2da5db3c43bc5c418d2d225152824f1fee98))
+* **api:** update via SDK Studio ([#429](https://github.com/intercom/intercom-node/issues/429)) ([87e2fc5](https://github.com/intercom/intercom-node/commit/87e2fc5a69de4ff9cbcd965dee87c116ffa0351c))
+* **api:** update via SDK Studio ([#435](https://github.com/intercom/intercom-node/issues/435)) ([00dfaa7](https://github.com/intercom/intercom-node/commit/00dfaa769e2e82e30824b7530fb10dca0074a29e))
+
+
+### Bug Fixes
+
+* **compat:** remove ReadableStream polyfill redundant since node v16 ([#431](https://github.com/intercom/intercom-node/issues/431)) ([063c487](https://github.com/intercom/intercom-node/commit/063c487e24daafd0c062ebf76802c4a63e0e81b8))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#433](https://github.com/intercom/intercom-node/issues/433)) ([4a0ad83](https://github.com/intercom/intercom-node/commit/4a0ad830f2f68faa88aaa614e625776a19310092))
+* **internal:** add constant for default timeout ([#434](https://github.com/intercom/intercom-node/issues/434)) ([0a41a59](https://github.com/intercom/intercom-node/commit/0a41a59c08f3c3225113464ee1fa336179e740c9))
+* **internal:** codegen related update ([#432](https://github.com/intercom/intercom-node/issues/432)) ([c76e487](https://github.com/intercom/intercom-node/commit/c76e48745a679b3155c22736e14b61af6df8aaf4))
+* **tests:** update prism version ([#428](https://github.com/intercom/intercom-node/issues/428)) ([425939f](https://github.com/intercom/intercom-node/commit/425939f4145d533621e53c36b786caebb8a1932f))
+* **tests:** update prism version ([#430](https://github.com/intercom/intercom-node/issues/430)) ([d123ec9](https://github.com/intercom/intercom-node/commit/d123ec9ea199e56b76f8ae9cc9f4cc31318659f8))
+
 ## 6.0.0-beta.1 (2024-07-19)
 
 Full Changelog: [v6.0.0-beta.0...v6.0.0-beta.1](https://github.com/intercom/intercom-node/compare/v6.0.0-beta.0...v6.0.0-beta.1)

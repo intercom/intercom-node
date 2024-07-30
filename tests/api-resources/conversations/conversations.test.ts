@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource conversations', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.conversations.create({
+    const responsePromise = client.conversations.create({
       body: 'Hello there',
       from: { type: 'user', id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
     });
@@ -24,7 +24,7 @@ describe('resource conversations', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.conversations.create({
+    const response = await client.conversations.create({
       body: 'Hello there',
       from: { type: 'user', id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
       'Intercom-Version': '2.11',
@@ -32,7 +32,7 @@ describe('resource conversations', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = intercom.conversations.retrieve(123);
+    const responsePromise = client.conversations.retrieve(123);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -44,7 +44,7 @@ describe('resource conversations', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.conversations.retrieve(123, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.conversations.retrieve(123, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -52,7 +52,7 @@ describe('resource conversations', () => {
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.conversations.retrieve(
+      client.conversations.retrieve(
         123,
         { display_as: 'display_as', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
@@ -61,7 +61,7 @@ describe('resource conversations', () => {
   });
 
   test('update', async () => {
-    const responsePromise = intercom.conversations.update(123);
+    const responsePromise = client.conversations.update(123);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,7 +73,7 @@ describe('resource conversations', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.conversations.update(123, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.conversations.update(123, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -81,7 +81,7 @@ describe('resource conversations', () => {
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.conversations.update(
+      client.conversations.update(
         123,
         {
           display_as: 'display_as',
@@ -95,7 +95,7 @@ describe('resource conversations', () => {
   });
 
   test('list', async () => {
-    const responsePromise = intercom.conversations.list();
+    const responsePromise = client.conversations.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -107,7 +107,7 @@ describe('resource conversations', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.conversations.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.conversations.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -115,7 +115,7 @@ describe('resource conversations', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.conversations.list(
+      client.conversations.list(
         { per_page: 0, starting_after: 'starting_after', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
@@ -123,7 +123,7 @@ describe('resource conversations', () => {
   });
 
   test('convert: only required params', async () => {
-    const responsePromise = intercom.conversations.convert(123, { ticket_type_id: '120' });
+    const responsePromise = client.conversations.convert(123, { ticket_type_id: '120' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -134,7 +134,7 @@ describe('resource conversations', () => {
   });
 
   test('convert: required and optional params', async () => {
-    const response = await intercom.conversations.convert(123, {
+    const response = await client.conversations.convert(123, {
       ticket_type_id: '120',
       attributes: { _default_title_: 'Found a bug', _default_description_: 'The button is not working' },
       'Intercom-Version': '2.11',
@@ -142,7 +142,7 @@ describe('resource conversations', () => {
   });
 
   test('redact: only required params', async () => {
-    const responsePromise = intercom.conversations.redact({
+    const responsePromise = client.conversations.redact({
       conversation_id: '19894788788',
       conversation_part_id: '19381789428',
       type: 'conversation_part',
@@ -157,7 +157,7 @@ describe('resource conversations', () => {
   });
 
   test('redact: required and optional params', async () => {
-    const response = await intercom.conversations.redact({
+    const response = await client.conversations.redact({
       conversation_id: '19894788788',
       conversation_part_id: '19381789428',
       type: 'conversation_part',
@@ -166,7 +166,7 @@ describe('resource conversations', () => {
   });
 
   test('search: only required params', async () => {
-    const responsePromise = intercom.conversations.search({ query: {} });
+    const responsePromise = client.conversations.search({ query: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -177,7 +177,7 @@ describe('resource conversations', () => {
   });
 
   test('search: required and optional params', async () => {
-    const response = await intercom.conversations.search({
+    const response = await client.conversations.search({
       query: { field: 'created_at', operator: '=', value: 'value' },
       pagination: { per_page: 5, starting_after: 'your-cursor-from-response' },
       'Intercom-Version': '2.11',

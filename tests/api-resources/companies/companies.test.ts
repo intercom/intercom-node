@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource companies', () => {
   test('create', async () => {
-    const responsePromise = intercom.companies.create();
+    const responsePromise = client.companies.create();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource companies', () => {
 
   test('create: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.companies.create({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.companies.create({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -30,7 +30,7 @@ describe('resource companies', () => {
   test('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.create(
+      client.companies.create(
         {
           company_id: 'company_remote_id',
           custom_attributes: { paid_subscriber: 'string', monthly_spend: 'string', team_mates: 'string' },
@@ -49,7 +49,7 @@ describe('resource companies', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = intercom.companies.retrieve('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632');
+    const responsePromise = client.companies.retrieve('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -62,16 +62,14 @@ describe('resource companies', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.retrieve('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.companies.retrieve('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.retrieve(
+      client.companies.retrieve(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
@@ -80,7 +78,7 @@ describe('resource companies', () => {
   });
 
   test('update', async () => {
-    const responsePromise = intercom.companies.update('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632');
+    const responsePromise = client.companies.update('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -93,14 +91,14 @@ describe('resource companies', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.update('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632', { path: '/_stainless_unknown_path' }),
+      client.companies.update('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.update(
+      client.companies.update(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
@@ -109,7 +107,7 @@ describe('resource companies', () => {
   });
 
   test('list', async () => {
-    const responsePromise = intercom.companies.list();
+    const responsePromise = client.companies.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -121,7 +119,7 @@ describe('resource companies', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.companies.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.companies.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -129,7 +127,7 @@ describe('resource companies', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.list(
+      client.companies.list(
         { order: 'order', page: 0, per_page: 0, 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
@@ -137,7 +135,7 @@ describe('resource companies', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = intercom.companies.delete('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632');
+    const responsePromise = client.companies.delete('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -150,14 +148,14 @@ describe('resource companies', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.delete('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632', { path: '/_stainless_unknown_path' }),
+      client.companies.delete('5f4d3c1c-7b1b-4d7d-a97e-6095715c6632', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('delete: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.delete(
+      client.companies.delete(
         '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
@@ -166,7 +164,7 @@ describe('resource companies', () => {
   });
 
   test('retrieveList', async () => {
-    const responsePromise = intercom.companies.retrieveList();
+    const responsePromise = client.companies.retrieveList();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -178,7 +176,7 @@ describe('resource companies', () => {
 
   test('retrieveList: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.companies.retrieveList({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.companies.retrieveList({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -186,7 +184,7 @@ describe('resource companies', () => {
   test('retrieveList: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.retrieveList(
+      client.companies.retrieveList(
         {
           company_id: 'company_id',
           name: 'name',
@@ -202,7 +200,7 @@ describe('resource companies', () => {
   });
 
   test('scroll', async () => {
-    const responsePromise = intercom.companies.scroll();
+    const responsePromise = client.companies.scroll();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -214,7 +212,7 @@ describe('resource companies', () => {
 
   test('scroll: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.companies.scroll({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.companies.scroll({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -222,7 +220,7 @@ describe('resource companies', () => {
   test('scroll: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.companies.scroll(
+      client.companies.scroll(
         { scroll_param: 'scroll_param', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),

@@ -28,7 +28,7 @@ const client = new Intercom({
 });
 
 async function main() {
-  const adminWithApp = await intercom.me.retrieve();
+  const adminWithApp = await client.me.retrieve();
 
   console.log(adminWithApp.id);
 }
@@ -50,7 +50,7 @@ const client = new Intercom({
 });
 
 async function main() {
-  const adminWithApp: Intercom.AdminWithApp | null = await intercom.me.retrieve();
+  const adminWithApp: Intercom.AdminWithApp | null = await client.me.retrieve();
 }
 
 main();
@@ -67,7 +67,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const adminWithApp = await intercom.me.retrieve().catch(async (err) => {
+  const adminWithApp = await client.me.retrieve().catch(async (err) => {
     if (err instanceof Intercom.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -110,7 +110,7 @@ const client = new Intercom({
 });
 
 // Or, configure per-request:
-await intercom.me.retrieve({
+await client.me.retrieve({
   maxRetries: 5,
 });
 ```
@@ -127,7 +127,7 @@ const client = new Intercom({
 });
 
 // Override per-request:
-await intercom.me.retrieve({
+await client.me.retrieve({
   timeout: 5 * 1000,
 });
 ```
@@ -148,11 +148,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Intercom();
 
-const response = await intercom.me.retrieve().asResponse();
+const response = await client.me.retrieve().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: adminWithApp, response: raw } = await intercom.me.retrieve().withResponse();
+const { data: adminWithApp, response: raw } = await client.me.retrieve().withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(adminWithApp.id);
 ```
@@ -258,7 +258,7 @@ const client = new Intercom({
 });
 
 // Override per-request:
-await intercom.me.retrieve({
+await client.me.retrieve({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```

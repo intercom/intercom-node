@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource activityLogs', () => {
   test('list: only required params', async () => {
-    const responsePromise = intercom.admins.activityLogs.list({ created_at_after: 'created_at_after' });
+    const responsePromise = client.admins.activityLogs.list({ created_at_after: 'created_at_after' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource activityLogs', () => {
   });
 
   test('list: required and optional params', async () => {
-    const response = await intercom.admins.activityLogs.list({
+    const response = await client.admins.activityLogs.list({
       created_at_after: 'created_at_after',
       created_at_before: 'created_at_before',
       'Intercom-Version': '2.11',

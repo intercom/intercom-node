@@ -5,22 +5,20 @@ import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
 import * as ItemsAPI from './items';
 import * as Shared from '../../shared';
+import * as NewsItemsAPI from '../news-items';
+import * as NewsfeedsAPI from './newsfeeds';
 
 export class Items extends APIResource {
   /**
    * You can fetch a list of all news items that are live on a given newsfeed
    */
-  list(
-    id: string,
-    params?: ItemListParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.PaginatedResponse>;
-  list(id: string, options?: Core.RequestOptions): Core.APIPromise<Shared.PaginatedResponse>;
+  list(id: string, params?: ItemListParams, options?: Core.RequestOptions): Core.APIPromise<ItemListResponse>;
+  list(id: string, options?: Core.RequestOptions): Core.APIPromise<ItemListResponse>;
   list(
     id: string,
     params: ItemListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.PaginatedResponse> {
+  ): Core.APIPromise<ItemListResponse> {
     if (isRequestOptions(params)) {
       return this.list(id, {}, params);
     }
@@ -35,6 +33,34 @@ export class Items extends APIResource {
       },
     });
   }
+}
+
+/**
+ * Paginated Response
+ */
+export interface ItemListResponse {
+  /**
+   * An array of Objects
+   */
+  data?: Array<NewsItemsAPI.NewsItem | NewsfeedsAPI.Newsfeed>;
+
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  pages?: Shared.CursorPages | null;
+
+  /**
+   * A count of the total number of objects.
+   */
+  total_count?: number;
+
+  /**
+   * The type of object
+   */
+  type?: 'list' | 'conversation.list';
 }
 
 export interface ItemListParams {
@@ -64,5 +90,6 @@ export interface ItemListParams {
 }
 
 export namespace Items {
+  export import ItemListResponse = ItemsAPI.ItemListResponse;
   export import ItemListParams = ItemsAPI.ItemListParams;
 }
