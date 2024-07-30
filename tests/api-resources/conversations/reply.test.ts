@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource reply', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.conversations.reply.create('123 or "last"', {
+    const responsePromise = client.conversations.reply.create('123 or "last"', {
       body: 'body',
       message_type: 'comment',
       type: 'user',
@@ -25,7 +25,7 @@ describe('resource reply', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.conversations.reply.create('123 or "last"', {
+    const response = await client.conversations.reply.create('123 or "last"', {
       body: 'body',
       message_type: 'comment',
       type: 'user',

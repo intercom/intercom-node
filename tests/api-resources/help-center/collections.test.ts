@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource collections', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.helpCenter.collections.create({ name: 'Thanks for everything' });
+    const responsePromise = client.helpCenter.collections.create({ name: 'Thanks for everything' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource collections', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.helpCenter.collections.create({
+    const response = await client.helpCenter.collections.create({
       name: 'Thanks for everything',
       description: 'English description',
       help_center_id: 0,
@@ -71,7 +71,7 @@ describe('resource collections', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = intercom.helpCenter.collections.retrieve(123);
+    const responsePromise = client.helpCenter.collections.retrieve(123);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -84,14 +84,14 @@ describe('resource collections', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.collections.retrieve(123, { path: '/_stainless_unknown_path' }),
+      client.helpCenter.collections.retrieve(123, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.collections.retrieve(
+      client.helpCenter.collections.retrieve(
         123,
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
@@ -100,7 +100,7 @@ describe('resource collections', () => {
   });
 
   test('update', async () => {
-    const responsePromise = intercom.helpCenter.collections.update(123);
+    const responsePromise = client.helpCenter.collections.update(123);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -113,14 +113,14 @@ describe('resource collections', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.collections.update(123, { path: '/_stainless_unknown_path' }),
+      client.helpCenter.collections.update(123, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.collections.update(
+      client.helpCenter.collections.update(
         123,
         {
           description: 'English description',
@@ -186,7 +186,7 @@ describe('resource collections', () => {
   });
 
   test('list', async () => {
-    const responsePromise = intercom.helpCenter.collections.list();
+    const responsePromise = client.helpCenter.collections.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -198,7 +198,7 @@ describe('resource collections', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.helpCenter.collections.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.helpCenter.collections.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -206,7 +206,7 @@ describe('resource collections', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.collections.list(
+      client.helpCenter.collections.list(
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),
@@ -214,7 +214,7 @@ describe('resource collections', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = intercom.helpCenter.collections.delete(123);
+    const responsePromise = client.helpCenter.collections.delete(123);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -227,14 +227,14 @@ describe('resource collections', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.collections.delete(123, { path: '/_stainless_unknown_path' }),
+      client.helpCenter.collections.delete(123, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('delete: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.helpCenter.collections.delete(
+      client.helpCenter.collections.delete(
         123,
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
