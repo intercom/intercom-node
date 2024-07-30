@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource newsItems', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.news.newsItems.create({
+    const responsePromise = client.news.newsItems.create({
       sender_id: 991268690,
       title: 'Halloween is here!',
     });
@@ -24,7 +24,7 @@ describe('resource newsItems', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.news.newsItems.create({
+    const response = await client.news.newsItems.create({
       sender_id: 991268690,
       title: 'Halloween is here!',
       body: '<p>New costumes in store for this spooky season</p>',
@@ -38,7 +38,7 @@ describe('resource newsItems', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = intercom.news.newsItems.retrieve(123);
+    const responsePromise = client.news.newsItems.retrieve(123);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -50,7 +50,7 @@ describe('resource newsItems', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.news.newsItems.retrieve(123, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.news.newsItems.retrieve(123, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -58,7 +58,7 @@ describe('resource newsItems', () => {
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.news.newsItems.retrieve(
+      client.news.newsItems.retrieve(
         123,
         { 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
@@ -67,7 +67,7 @@ describe('resource newsItems', () => {
   });
 
   test('update: only required params', async () => {
-    const responsePromise = intercom.news.newsItems.update(123, {
+    const responsePromise = client.news.newsItems.update(123, {
       sender_id: 991268701,
       title: 'Christmas is here!',
     });
@@ -81,7 +81,7 @@ describe('resource newsItems', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await intercom.news.newsItems.update(123, {
+    const response = await client.news.newsItems.update(123, {
       sender_id: 991268701,
       title: 'Christmas is here!',
       body: '<p>New gifts in store for the jolly season</p>',
@@ -99,7 +99,7 @@ describe('resource newsItems', () => {
   });
 
   test('list', async () => {
-    const responsePromise = intercom.news.newsItems.list();
+    const responsePromise = client.news.newsItems.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -111,7 +111,7 @@ describe('resource newsItems', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.news.newsItems.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.news.newsItems.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -119,12 +119,12 @@ describe('resource newsItems', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.news.newsItems.list({ 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
+      client.news.newsItems.list({ 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('delete', async () => {
-    const responsePromise = intercom.news.newsItems.delete(123);
+    const responsePromise = client.news.newsItems.delete(123);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -136,7 +136,7 @@ describe('resource newsItems', () => {
 
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.news.newsItems.delete(123, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.news.newsItems.delete(123, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -144,11 +144,7 @@ describe('resource newsItems', () => {
   test('delete: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.news.newsItems.delete(
-        123,
-        { 'Intercom-Version': '2.11' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.news.newsItems.delete(123, { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 });

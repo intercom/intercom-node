@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource customers', () => {
   test('create', async () => {
-    const responsePromise = intercom.conversations.customers.create('123');
+    const responsePromise = client.conversations.customers.create('123');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,14 +23,14 @@ describe('resource customers', () => {
   test('create: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.conversations.customers.create('123', { path: '/_stainless_unknown_path' }),
+      client.conversations.customers.create('123', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.conversations.customers.create(
+      client.conversations.customers.create(
         '123',
         {
           admin_id: 'admin_id',
@@ -46,7 +46,7 @@ describe('resource customers', () => {
   });
 
   test('delete: only required params', async () => {
-    const responsePromise = intercom.conversations.customers.delete('123', '123', { admin_id: 'admin_id' });
+    const responsePromise = client.conversations.customers.delete('123', '123', { admin_id: 'admin_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,7 +57,7 @@ describe('resource customers', () => {
   });
 
   test('delete: required and optional params', async () => {
-    const response = await intercom.conversations.customers.delete('123', '123', {
+    const response = await client.conversations.customers.delete('123', '123', {
       admin_id: 'admin_id',
       'Intercom-Version': '2.11',
     });

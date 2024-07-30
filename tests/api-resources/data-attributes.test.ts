@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource dataAttributes', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.dataAttributes.create({
+    const responsePromise = client.dataAttributes.create({
       data_type: 'string',
       model: 'company',
       name: 'Mithril Shirt',
@@ -25,7 +25,7 @@ describe('resource dataAttributes', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.dataAttributes.create({
+    const response = await client.dataAttributes.create({
       data_type: 'string',
       model: 'company',
       name: 'Mithril Shirt',
@@ -37,7 +37,7 @@ describe('resource dataAttributes', () => {
   });
 
   test('update', async () => {
-    const responsePromise = intercom.dataAttributes.update(1);
+    const responsePromise = client.dataAttributes.update(1);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -49,7 +49,7 @@ describe('resource dataAttributes', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.dataAttributes.update(1, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.dataAttributes.update(1, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -57,7 +57,7 @@ describe('resource dataAttributes', () => {
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.dataAttributes.update(
+      client.dataAttributes.update(
         1,
         {
           archived: false,
@@ -72,7 +72,7 @@ describe('resource dataAttributes', () => {
   });
 
   test('list', async () => {
-    const responsePromise = intercom.dataAttributes.list();
+    const responsePromise = client.dataAttributes.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -84,7 +84,7 @@ describe('resource dataAttributes', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.dataAttributes.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.dataAttributes.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -92,7 +92,7 @@ describe('resource dataAttributes', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.dataAttributes.list(
+      client.dataAttributes.list(
         { include_archived: true, model: 'contact', 'Intercom-Version': '2.11' },
         { path: '/_stainless_unknown_path' },
       ),

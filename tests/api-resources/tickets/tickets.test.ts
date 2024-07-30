@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource tickets', () => {
   test('create: only required params', async () => {
-    const responsePromise = intercom.tickets.create({
+    const responsePromise = client.tickets.create({
       contacts: [{ id: '6657af026abd0167d9419def' }],
       ticket_type_id: 'ticket_type_id',
     });
@@ -24,7 +24,7 @@ describe('resource tickets', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await intercom.tickets.create({
+    const response = await client.tickets.create({
       contacts: [{ id: '6657af026abd0167d9419def' }],
       ticket_type_id: 'ticket_type_id',
       company_id: '1234',
@@ -35,7 +35,7 @@ describe('resource tickets', () => {
   });
 
   test('reply: only required params', async () => {
-    const responsePromise = intercom.tickets.reply('123', {
+    const responsePromise = client.tickets.reply('123', {
       body: 'body',
       message_type: 'comment',
       type: 'user',
@@ -50,7 +50,7 @@ describe('resource tickets', () => {
   });
 
   test('reply: required and optional params', async () => {
-    const response = await intercom.tickets.reply('123', {
+    const response = await client.tickets.reply('123', {
       body: 'body',
       message_type: 'comment',
       type: 'user',
@@ -61,7 +61,7 @@ describe('resource tickets', () => {
   });
 
   test('retrieveById', async () => {
-    const responsePromise = intercom.tickets.retrieveById('id');
+    const responsePromise = client.tickets.retrieveById('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,7 +73,7 @@ describe('resource tickets', () => {
 
   test('retrieveById: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.tickets.retrieveById('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.tickets.retrieveById('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -81,16 +81,12 @@ describe('resource tickets', () => {
   test('retrieveById: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.tickets.retrieveById(
-        'id',
-        { 'Intercom-Version': '2.11' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.tickets.retrieveById('id', { 'Intercom-Version': '2.11' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Intercom.NotFoundError);
   });
 
   test('search: only required params', async () => {
-    const responsePromise = intercom.tickets.search({ query: {} });
+    const responsePromise = client.tickets.search({ query: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -101,7 +97,7 @@ describe('resource tickets', () => {
   });
 
   test('search: required and optional params', async () => {
-    const response = await intercom.tickets.search({
+    const response = await client.tickets.search({
       query: { field: 'created_at', operator: '=', value: 'value' },
       pagination: { per_page: 5, starting_after: 'your-cursor-from-response' },
       'Intercom-Version': '2.11',
@@ -109,7 +105,7 @@ describe('resource tickets', () => {
   });
 
   test('updateById', async () => {
-    const responsePromise = intercom.tickets.updateById('id');
+    const responsePromise = client.tickets.updateById('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -121,7 +117,7 @@ describe('resource tickets', () => {
 
   test('updateById: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(intercom.tickets.updateById('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.tickets.updateById('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Intercom.NotFoundError,
     );
   });
@@ -129,7 +125,7 @@ describe('resource tickets', () => {
   test('updateById: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      intercom.tickets.updateById(
+      client.tickets.updateById(
         'id',
         {
           assignment: { admin_id: '991268839', assignee_id: '991268841' },

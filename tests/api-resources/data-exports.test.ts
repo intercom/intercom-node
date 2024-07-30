@@ -3,14 +3,14 @@
 import Intercom from 'intercom-client';
 import { Response } from 'node-fetch';
 
-const intercom = new Intercom({
+const client = new Intercom({
   accessToken: 'My Access Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource dataExports', () => {
   test('contentData: only required params', async () => {
-    const responsePromise = intercom.dataExports.contentData({
+    const responsePromise = client.dataExports.contentData({
       created_at_after: 1717004390,
       created_at_before: 1717022390,
     });
@@ -24,7 +24,7 @@ describe('resource dataExports', () => {
   });
 
   test('contentData: required and optional params', async () => {
-    const response = await intercom.dataExports.contentData({
+    const response = await client.dataExports.contentData({
       created_at_after: 1717004390,
       created_at_before: 1717022390,
       'Intercom-Version': '2.11',
