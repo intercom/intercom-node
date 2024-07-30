@@ -3,6 +3,7 @@
 export { News } from './news';
 export {
   NewsItem,
+  NewsItemListResponse,
   NewsItemDeleteResponse,
   NewsItemCreateParams,
   NewsItemRetrieveParams,
@@ -11,4 +12,10 @@ export {
   NewsItemDeleteParams,
   NewsItems,
 } from './news-items';
-export { Newsfeed, NewsfeedRetrieveParams, NewsfeedListParams, Newsfeeds } from './newsfeeds/index';
+export {
+  Newsfeed,
+  NewsfeedListResponse,
+  NewsfeedRetrieveParams,
+  NewsfeedListParams,
+  Newsfeeds,
+} from './newsfeeds/index';

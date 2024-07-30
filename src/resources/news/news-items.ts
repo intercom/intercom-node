@@ -5,6 +5,7 @@ import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as NewsItemsAPI from './news-items';
 import * as Shared from '../shared';
+import * as NewsfeedsAPI from './newsfeeds/newsfeeds';
 
 export class NewsItems extends APIResource {
   /**
@@ -73,12 +74,12 @@ export class NewsItems extends APIResource {
   /**
    * You can fetch a list of all news items
    */
-  list(params?: NewsItemListParams, options?: Core.RequestOptions): Core.APIPromise<Shared.PaginatedResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<Shared.PaginatedResponse>;
+  list(params?: NewsItemListParams, options?: Core.RequestOptions): Core.APIPromise<NewsItemListResponse>;
+  list(options?: Core.RequestOptions): Core.APIPromise<NewsItemListResponse>;
   list(
     params: NewsItemListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.PaginatedResponse> {
+  ): Core.APIPromise<NewsItemListResponse> {
     if (isRequestOptions(params)) {
       return this.list({}, params);
     }
@@ -222,6 +223,34 @@ export namespace NewsItem {
      */
     published_at?: number;
   }
+}
+
+/**
+ * Paginated Response
+ */
+export interface NewsItemListResponse {
+  /**
+   * An array of Objects
+   */
+  data?: Array<NewsItem | NewsfeedsAPI.Newsfeed>;
+
+  /**
+   * Cursor-based pagination is a technique used in the Intercom API to navigate
+   * through large amounts of data. A "cursor" or pointer is used to keep track of
+   * the current position in the result set, allowing the API to return the data in
+   * small chunks or "pages" as needed.
+   */
+  pages?: Shared.CursorPages | null;
+
+  /**
+   * A count of the total number of objects.
+   */
+  total_count?: number;
+
+  /**
+   * The type of object
+   */
+  type?: 'list' | 'conversation.list';
 }
 
 /**
@@ -506,6 +535,7 @@ export interface NewsItemDeleteParams {
 
 export namespace NewsItems {
   export import NewsItem = NewsItemsAPI.NewsItem;
+  export import NewsItemListResponse = NewsItemsAPI.NewsItemListResponse;
   export import NewsItemDeleteResponse = NewsItemsAPI.NewsItemDeleteResponse;
   export import NewsItemCreateParams = NewsItemsAPI.NewsItemCreateParams;
   export import NewsItemRetrieveParams = NewsItemsAPI.NewsItemRetrieveParams;
