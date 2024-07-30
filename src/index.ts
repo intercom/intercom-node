@@ -190,6 +190,7 @@ export class Intercom extends Core.APIClient {
   }
 
   static Intercom = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static IntercomError = Errors.IntercomError;
   static APIError = Errors.APIError;
