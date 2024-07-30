@@ -223,8 +223,9 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/conversations/conversations.ts">ConversationList</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">Conversation</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationListResponse</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">ConversationSearchResponse</a></code>
 
 Methods:
 
@@ -234,7 +235,7 @@ Methods:
 - <code title="get /conversations">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponsesCursorPagination</code>
 - <code title="post /conversations/{id}/convert">client.conversations.<a href="./src/resources/conversations/conversations.ts">convert</a>(id, { ...params }) -> Ticket | null</code>
 - <code title="post /conversations/redact">client.conversations.<a href="./src/resources/conversations/conversations.ts">redact</a>({ ...params }) -> Conversation</code>
-- <code title="post /conversations/search">client.conversations.<a href="./src/resources/conversations/conversations.ts">search</a>({ ...params }) -> ConversationList</code>
+- <code title="post /conversations/search">client.conversations.<a href="./src/resources/conversations/conversations.ts">search</a>({ ...params }) -> ConversationSearchResponse</code>
 
 ## Tags
 
