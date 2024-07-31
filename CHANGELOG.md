@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.0-beta.3 (2024-07-31)
+
+Full Changelog: [v6.0.0-beta.2...v6.0.0-beta.3](https://github.com/intercom/intercom-node/compare/v6.0.0-beta.2...v6.0.0-beta.3)
+
+### Chores
+
+* **ci:** correctly tag pre-release npm packages ([#437](https://github.com/intercom/intercom-node/issues/437)) ([0553b28](https://github.com/intercom/intercom-node/commit/0553b28bc795f640167eb9592f855ea4cab5792d))
+
 ## 6.0.0-beta.2 (2024-07-30)
 
 Full Changelog: [v6.0.0-beta.1...v6.0.0-beta.2](https://github.com/intercom/intercom-node/compare/v6.0.0-beta.1...v6.0.0-beta.2)
