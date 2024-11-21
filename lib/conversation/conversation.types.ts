@@ -1,5 +1,6 @@
 import { AdminObject } from '../admin/admin.types';
 import { JavascriptObject, Seconds, Timestamp } from '../common/common.types';
+import { TagListObject } from '../tag/tag.types';
 
 export interface ConversationObject {
     type: 'conversation';
@@ -19,7 +20,7 @@ export interface ConversationObject {
     read: boolean;
     waiting_since: Timestamp;
     snoozed_until: Timestamp;
-    tags: JavascriptObject[];
+    tags: TagListObject[];
     first_contact_reply: FirstContactReplyObject;
     priority: ConversationPriority;
     sla_applied: SLAObject;
