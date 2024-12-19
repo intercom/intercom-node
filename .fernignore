@@ -1,0 +1,6 @@
+# Specify files that shouldn't be modified by Fern
+.github/ISSUE_TEMPLATE.md
+.github/PULL_REQUEST_TEMPLATE.md
+.gitattributes
+LICENSE
+REPO_OWNER
