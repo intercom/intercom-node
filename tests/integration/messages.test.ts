@@ -46,7 +46,7 @@ describe("Messages", () => {
         const messageId = response.id;
 
         // Give Intercom a few seconds to index conversation
-        await wait(5000);
+        await wait(10_000);
 
         const searchResults = await client.conversations.search({
             query: {
@@ -58,7 +58,7 @@ describe("Messages", () => {
 
         // assert
         expect(searchResults.data.length).toBeGreaterThan(0);
-    }, 10_000);
+    }, 20_000);
 
     it("Create message, no conversation", async () => {
         // act
