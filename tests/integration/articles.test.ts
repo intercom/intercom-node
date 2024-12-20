@@ -83,9 +83,7 @@ describe("Articles", () => {
         // act
         const response = await client.articles.update({
             article_id: article.id,
-            body: {
-                title: "Biba & Boba",
-            },
+            title: "Biba & Boba",
         });
 
         // assert

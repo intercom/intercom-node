@@ -301,30 +301,26 @@ export class Items {
      * @example
      *     await client.news.items.update({
      *         news_item_id: "123",
-     *         body: {
-     *             title: "Christmas is here!",
-     *             body: "<p>New gifts in store for the jolly season</p>",
-     *             sender_id: 991267745,
-     *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
-     *         }
+     *         title: "Christmas is here!",
+     *         body: "<p>New gifts in store for the jolly season</p>",
+     *         sender_id: 991267745,
+     *         reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
      *     })
      *
      * @example
      *     await client.news.items.update({
      *         news_item_id: "123",
-     *         body: {
-     *             title: "Christmas is here!",
-     *             body: "<p>New gifts in store for the jolly season</p>",
-     *             sender_id: 991267748,
-     *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
-     *         }
+     *         title: "Christmas is here!",
+     *         body: "<p>New gifts in store for the jolly season</p>",
+     *         sender_id: 991267748,
+     *         reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
      *     })
      */
     public async update(
         request: Intercom.news.UpdateNewsItemRequest,
         requestOptions?: Items.RequestOptions
     ): Promise<Intercom.NewsItem> {
-        const { news_item_id: newsItemId, body: _body } = request;
+        const { news_item_id: newsItemId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,

@@ -8,15 +8,12 @@ import * as Intercom from "../../../../index";
  * @example
  *     {
  *         ticket_type_id: "ticket_type_id",
- *         body: {
- *             name: "Bug Report 2"
- *         }
+ *         name: "Bug Report 2"
  *     }
  */
-export interface UpdateTicketTypeRequest {
+export type UpdateTicketTypeRequest = {
     /**
      * The unique identifier for the ticket type which is given by Intercom.
      */
     ticket_type_id: string;
-    body?: Intercom.UpdateTicketTypeRequestBody;
-}
+} & Intercom.UpdateTicketTypeRequestBody;

@@ -8,29 +8,24 @@ import * as Intercom from "../../../../../../index";
  * @example
  *     {
  *         news_item_id: "123",
- *         body: {
- *             title: "Christmas is here!",
- *             body: "<p>New gifts in store for the jolly season</p>",
- *             sender_id: 991267745,
- *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
- *         }
+ *         title: "Christmas is here!",
+ *         body: "<p>New gifts in store for the jolly season</p>",
+ *         sender_id: 991267745,
+ *         reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
  *     }
  *
  * @example
  *     {
  *         news_item_id: "123",
- *         body: {
- *             title: "Christmas is here!",
- *             body: "<p>New gifts in store for the jolly season</p>",
- *             sender_id: 991267748,
- *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
- *         }
+ *         title: "Christmas is here!",
+ *         body: "<p>New gifts in store for the jolly season</p>",
+ *         sender_id: 991267748,
+ *         reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
  *     }
  */
-export interface UpdateNewsItemRequest {
+export type UpdateNewsItemRequest = {
     /**
      * The unique identifier for the news item which is given by Intercom.
      */
     news_item_id: string;
-    body: Intercom.NewsItemRequest;
-}
+} & Intercom.NewsItemRequest;

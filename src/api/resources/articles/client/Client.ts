@@ -350,17 +350,15 @@ export class Articles {
      * @example
      *     await client.articles.update({
      *         article_id: "123",
-     *         body: {
-     *             title: "Christmas is here!",
-     *             body: "<p>New gifts in store for the jolly season</p>"
-     *         }
+     *         title: "Christmas is here!",
+     *         body: "<p>New gifts in store for the jolly season</p>"
      *     })
      */
     public async update(
         request: Intercom.UpdateArticleRequest,
         requestOptions?: Articles.RequestOptions
     ): Promise<Intercom.Article> {
-        const { article_id: articleId, body: _body } = request;
+        const { article_id: articleId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,

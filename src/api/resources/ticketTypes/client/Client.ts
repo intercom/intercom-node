@@ -311,16 +311,14 @@ export class TicketTypes {
      * @example
      *     await client.ticketTypes.update({
      *         ticket_type_id: "ticket_type_id",
-     *         body: {
-     *             name: "Bug Report 2"
-     *         }
+     *         name: "Bug Report 2"
      *     })
      */
     public async update(
         request: Intercom.UpdateTicketTypeRequest,
         requestOptions?: TicketTypes.RequestOptions
     ): Promise<Intercom.TicketType | undefined> {
-        const { ticket_type_id: ticketTypeId, body: _body } = request;
+        const { ticket_type_id: ticketTypeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
