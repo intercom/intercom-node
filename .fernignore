@@ -4,3 +4,4 @@
 .gitattributes
 LICENSE
 REPO_OWNER
+tests/integration
