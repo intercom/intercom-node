@@ -27,4 +27,10 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Compile
-        run: yarn && yarn test    
+        run: yarn
+
+      - name: Test
+        run: yarn test
+        env:
+          INTERCOM_API_KEY: ${{ secrets.INTERCOM_API_KEY }}
+

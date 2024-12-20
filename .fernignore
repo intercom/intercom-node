@@ -5,3 +5,4 @@
 LICENSE
 REPO_OWNER
 tests/integration
+.github/workflows/ci.yml
