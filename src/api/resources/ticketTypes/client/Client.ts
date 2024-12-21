@@ -100,8 +100,9 @@ export class TicketTypes {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -167,7 +168,7 @@ export class TicketTypes {
     public async create(
         request: Intercom.CreateTicketTypeRequest,
         requestOptions?: TicketTypes.RequestOptions
-    ): Promise<Intercom.TicketType | undefined> {
+    ): Promise<Intercom.TicketType> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
@@ -177,8 +178,9 @@ export class TicketTypes {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -192,7 +194,7 @@ export class TicketTypes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketType | undefined;
+            return _response.body as Intercom.TicketType;
         }
 
         if (_response.error.reason === "status-code") {
@@ -238,7 +240,7 @@ export class TicketTypes {
     public async get(
         request: Intercom.FindTicketTypeRequest,
         requestOptions?: TicketTypes.RequestOptions
-    ): Promise<Intercom.TicketType | undefined> {
+    ): Promise<Intercom.TicketType> {
         const { ticket_type_id: ticketTypeId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -249,8 +251,9 @@ export class TicketTypes {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -263,7 +266,7 @@ export class TicketTypes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketType | undefined;
+            return _response.body as Intercom.TicketType;
         }
 
         if (_response.error.reason === "status-code") {
@@ -317,7 +320,7 @@ export class TicketTypes {
     public async update(
         request: Intercom.UpdateTicketTypeRequest,
         requestOptions?: TicketTypes.RequestOptions
-    ): Promise<Intercom.TicketType | undefined> {
+    ): Promise<Intercom.TicketType> {
         const { ticket_type_id: ticketTypeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -328,8 +331,9 @@ export class TicketTypes {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -337,13 +341,13 @@ export class TicketTypes {
             },
             contentType: "application/json",
             requestType: "json",
-            body: _body != null ? _body : undefined,
+            body: _body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketType | undefined;
+            return _response.body as Intercom.TicketType;
         }
 
         if (_response.error.reason === "status-code") {

@@ -116,8 +116,9 @@ export class Conversations {
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "",
-                    "X-Fern-SDK-Version": "6.0.0",
+                    "X-Fern-SDK-Name": "intercom-client",
+                    "X-Fern-SDK-Version": "5.0.1",
+                    "User-Agent": "intercom-client/5.0.1",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -220,8 +221,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -313,8 +315,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -410,8 +413,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -596,8 +600,9 @@ export class Conversations {
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "",
-                    "X-Fern-SDK-Version": "6.0.0",
+                    "X-Fern-SDK-Name": "intercom-client",
+                    "X-Fern-SDK-Version": "5.0.1",
+                    "User-Agent": "intercom-client/5.0.1",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -658,44 +663,52 @@ export class Conversations {
      * @example
      *     await client.conversations.reply({
      *         conversation_id: "123 or \"last\"",
-     *         message_type: "comment",
-     *         type: "user",
-     *         body: "Thanks again :)",
-     *         intercom_user_id: "667d60f18a68186f43bafdf4"
+     *         body: {
+     *             message_type: "comment",
+     *             type: "user",
+     *             body: "Thanks again :)",
+     *             intercom_user_id: "667d60f18a68186f43bafdf4"
+     *         }
      *     })
      *
      * @example
      *     await client.conversations.reply({
      *         conversation_id: "123 or \"last\"",
-     *         message_type: "note",
-     *         type: "admin",
-     *         body: "<html> <body>  <h2>An Unordered HTML List</h2>  <ul>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ul>    <h2>An Ordered HTML List</h2>  <ol>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ol>   </body> </html>",
-     *         admin_id: "3156780"
+     *         body: {
+     *             message_type: "note",
+     *             type: "admin",
+     *             body: "<html> <body>  <h2>An Unordered HTML List</h2>  <ul>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ul>    <h2>An Ordered HTML List</h2>  <ol>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ol>   </body> </html>",
+     *             admin_id: "3156780"
+     *         }
      *     })
      *
      * @example
      *     await client.conversations.reply({
      *         conversation_id: "123 or \"last\"",
-     *         message_type: "comment",
-     *         type: "user",
-     *         body: "Thanks again :)",
-     *         intercom_user_id: "667d60f78a68186f43bafdf7"
+     *         body: {
+     *             message_type: "comment",
+     *             type: "user",
+     *             body: "Thanks again :)",
+     *             intercom_user_id: "667d60f78a68186f43bafdf7"
+     *         }
      *     })
      *
      * @example
      *     await client.conversations.reply({
      *         conversation_id: "123 or \"last\"",
-     *         message_type: "comment",
-     *         type: "user",
-     *         body: "Thanks again :)",
-     *         intercom_user_id: "667d60f98a68186f43bafdf8"
+     *         body: {
+     *             message_type: "comment",
+     *             type: "user",
+     *             body: "Thanks again :)",
+     *             intercom_user_id: "667d60f98a68186f43bafdf8"
+     *         }
      *     })
      */
     public async reply(
         request: Intercom.ReplyToConversationRequest,
         requestOptions?: Conversations.RequestOptions
     ): Promise<Intercom.Conversation> {
-        const { conversation_id: conversationId, ..._body } = request;
+        const { conversation_id: conversationId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
@@ -705,8 +718,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -773,29 +787,32 @@ export class Conversations {
      * @example
      *     await client.conversations.manage({
      *         conversation_id: "123",
-     *         message_type: "assignment",
-     *         type: "admin",
-     *         admin_id: "12345",
-     *         assignee_id: "4324241",
-     *         body: "Goodbye :)"
+     *         body: {
+     *             message_type: "assignment",
+     *             type: "admin",
+     *             admin_id: "12345",
+     *             assignee_id: "4324241",
+     *             body: "Goodbye :)"
+     *         }
      *     })
      *
      * @example
      *     await client.conversations.manage({
      *         conversation_id: "123",
-     *         message_type: "assignment",
-     *         type: "admin",
-     *         admin_id: "12345",
-     *         assignee_id: "4324241",
-     *         body: "Let me pass you over to one of my colleagues."
-     *     })
+     *         body: {
+     *             message_type: "assignment",
+     *             type: "admin",
+     *             admin_id: "12345",
+     *             assignee_id: "4324241",
+     *             body: "Let me pass you over to one of my colleagues."
+     *         }
      *     })
      */
     public async manage(
         request: Intercom.ManageConversationPartsRequest,
         requestOptions?: Conversations.RequestOptions
     ): Promise<Intercom.Conversation> {
-        const { conversation_id: conversationId, ..._body } = request;
+        const { conversation_id: conversationId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
@@ -805,8 +822,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -888,8 +906,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -985,8 +1004,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1073,8 +1093,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1167,8 +1188,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1237,7 +1259,7 @@ export class Conversations {
     public async convertToTicket(
         request: Intercom.ConvertConversationToTicketRequest,
         requestOptions?: Conversations.RequestOptions
-    ): Promise<Intercom.Ticket | undefined> {
+    ): Promise<Intercom.Ticket> {
         const { conversation_id: conversationId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -1248,8 +1270,9 @@ export class Conversations {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1263,7 +1286,7 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Ticket | undefined;
+            return _response.body as Intercom.Ticket;
         }
 
         if (_response.error.reason === "status-code") {

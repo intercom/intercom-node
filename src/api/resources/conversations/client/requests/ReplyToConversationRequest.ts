@@ -8,69 +8,84 @@ import * as Intercom from "../../../../index";
  * @example
  *     {
  *         conversation_id: "123 or \"last\"",
- *         message_type: "comment",
- *         type: "user",
- *         body: "Thanks again :)",
- *         intercom_user_id: "667d60f18a68186f43bafdf4"
+ *         body: {
+ *             message_type: "comment",
+ *             type: "user",
+ *             body: "Thanks again :)",
+ *             intercom_user_id: "667d60f18a68186f43bafdf4"
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123 or \"last\"",
- *         message_type: "note",
- *         type: "admin",
- *         body: "<html> <body>  <h2>An Unordered HTML List</h2>  <ul>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ul>    <h2>An Ordered HTML List</h2>  <ol>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ol>   </body> </html>",
- *         admin_id: "3156780"
+ *         body: {
+ *             message_type: "note",
+ *             type: "admin",
+ *             body: "<html> <body>  <h2>An Unordered HTML List</h2>  <ul>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ul>    <h2>An Ordered HTML List</h2>  <ol>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ol>   </body> </html>",
+ *             admin_id: "3156780"
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123 or \"last\"",
- *         message_type: "comment",
- *         type: "user",
- *         body: "Thanks again :)",
- *         intercom_user_id: "667d60f78a68186f43bafdf7"
+ *         body: {
+ *             message_type: "comment",
+ *             type: "user",
+ *             body: "Thanks again :)",
+ *             intercom_user_id: "667d60f78a68186f43bafdf7"
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123 or \"last\"",
- *         message_type: "comment",
- *         type: "user",
- *         body: "Thanks again :)",
- *         intercom_user_id: "667d60f98a68186f43bafdf8"
+ *         body: {
+ *             message_type: "comment",
+ *             type: "user",
+ *             body: "Thanks again :)",
+ *             intercom_user_id: "667d60f98a68186f43bafdf8"
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123 or \"last\"",
- *         message_type: "comment",
- *         type: "user",
- *         body: "Thanks again :)",
- *         intercom_user_id: "667d60f18a68186f43bafdf4"
+ *         body: {
+ *             message_type: "comment",
+ *             type: "user",
+ *             body: "Thanks again :)",
+ *             intercom_user_id: "667d60f18a68186f43bafdf4"
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123 or \"last\"",
- *         message_type: "comment",
- *         type: "user",
- *         body: "Thanks again :)",
- *         intercom_user_id: "667d60f18a68186f43bafdf4"
+ *         body: {
+ *             message_type: "comment",
+ *             type: "user",
+ *             body: "Thanks again :)",
+ *             intercom_user_id: "667d60f18a68186f43bafdf4"
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123 or \"last\"",
- *         message_type: "comment",
- *         type: "user",
- *         body: "Thanks again :)",
- *         intercom_user_id: "667d60f18a68186f43bafdf4"
+ *         body: {
+ *             message_type: "comment",
+ *             type: "user",
+ *             body: "Thanks again :)",
+ *             intercom_user_id: "667d60f18a68186f43bafdf4"
+ *         }
  *     }
  */
-export type ReplyToConversationRequest = {
+export interface ReplyToConversationRequest {
     /**
      * The Intercom provisioned identifier for the conversation or the string "last" to reply to the last part of the conversation
      */
     conversation_id: string;
-} & Intercom.ReplyConversationRequest;
+    body: Intercom.ReplyConversationRequest;
+}

@@ -90,8 +90,9 @@ export class Items {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -170,8 +171,9 @@ export class Items {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -243,8 +245,9 @@ export class Items {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -301,26 +304,30 @@ export class Items {
      * @example
      *     await client.news.items.update({
      *         news_item_id: "123",
-     *         title: "Christmas is here!",
-     *         body: "<p>New gifts in store for the jolly season</p>",
-     *         sender_id: 991267745,
-     *         reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
+     *         body: {
+     *             title: "Christmas is here!",
+     *             body: "<p>New gifts in store for the jolly season</p>",
+     *             sender_id: 991267745,
+     *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
+     *         }
      *     })
      *
      * @example
      *     await client.news.items.update({
      *         news_item_id: "123",
-     *         title: "Christmas is here!",
-     *         body: "<p>New gifts in store for the jolly season</p>",
-     *         sender_id: 991267748,
-     *         reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
+     *         body: {
+     *             title: "Christmas is here!",
+     *             body: "<p>New gifts in store for the jolly season</p>",
+     *             sender_id: 991267748,
+     *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
+     *         }
      *     })
      */
     public async update(
         request: Intercom.news.UpdateNewsItemRequest,
         requestOptions?: Items.RequestOptions
     ): Promise<Intercom.NewsItem> {
-        const { news_item_id: newsItemId, ..._body } = request;
+        const { news_item_id: newsItemId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
@@ -330,8 +337,9 @@ export class Items {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -407,8 +415,9 @@ export class Items {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

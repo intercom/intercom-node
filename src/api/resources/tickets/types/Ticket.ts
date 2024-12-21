@@ -19,7 +19,7 @@ export interface Ticket {
     ticket_attributes: Intercom.TicketCustomAttributes;
     /** The state the ticket is currently in */
     ticket_state: Ticket.TicketState;
-    ticket_type?: Intercom.TicketType;
+    ticket_type: Intercom.TicketType;
     contacts: Intercom.TicketContacts;
     /** The id representing the admin assigned to the ticket. */
     admin_assignee_id?: string;

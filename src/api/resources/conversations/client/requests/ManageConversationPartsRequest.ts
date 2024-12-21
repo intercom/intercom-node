@@ -8,56 +8,67 @@ import * as Intercom from "../../../../index";
  * @example
  *     {
  *         conversation_id: "123",
- *         message_type: "assignment",
- *         type: "admin",
- *         admin_id: "12345",
- *         assignee_id: "4324241",
- *         body: "Goodbye :)"
+ *         body: {
+ *             message_type: "assignment",
+ *             type: "admin",
+ *             admin_id: "12345",
+ *             assignee_id: "4324241",
+ *             body: "Goodbye :)"
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123",
- *         message_type: "assignment",
- *         type: "admin",
- *         admin_id: "12345",
- *         assignee_id: "4324241",
- *         body: "Let me pass you over to one of my colleagues."
+ *         body: {
+ *             message_type: "assignment",
+ *             type: "admin",
+ *             admin_id: "12345",
+ *             assignee_id: "4324241",
+ *             body: "Let me pass you over to one of my colleagues."
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123",
- *         message_type: "assignment",
- *         type: "admin",
- *         admin_id: "12345",
- *         assignee_id: "4324241",
- *         body: "Let me pass you over to one of my colleagues."
+ *         body: {
+ *             message_type: "assignment",
+ *             type: "admin",
+ *             admin_id: "12345",
+ *             assignee_id: "4324241",
+ *             body: "Let me pass you over to one of my colleagues."
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123",
- *         message_type: "assignment",
- *         type: "admin",
- *         admin_id: "12345",
- *         assignee_id: "4324241",
- *         body: "Let me pass you over to one of my colleagues."
+ *         body: {
+ *             message_type: "assignment",
+ *             type: "admin",
+ *             admin_id: "12345",
+ *             assignee_id: "4324241",
+ *             body: "Let me pass you over to one of my colleagues."
+ *         }
  *     }
  *
  * @example
  *     {
  *         conversation_id: "123",
- *         message_type: "assignment",
- *         type: "admin",
- *         admin_id: "12345",
- *         assignee_id: "4324241",
- *         body: "Goodbye :)"
+ *         body: {
+ *             message_type: "assignment",
+ *             type: "admin",
+ *             admin_id: "12345",
+ *             assignee_id: "4324241",
+ *             body: "Goodbye :)"
+ *         }
  *     }
  */
-export type ManageConversationPartsRequest = {
+export interface ManageConversationPartsRequest {
     /**
      * The identifier for the conversation as given by Intercom.
      */
     conversation_id: string;
-} & Intercom.ConversationsManageRequestBody;
+    body: Intercom.ConversationsManageRequestBody;
+}

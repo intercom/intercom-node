@@ -1,7 +1,7 @@
 # Intercom TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fintercom%2Fintercom-node)
-[![npm shield](https://img.shields.io/npm/v/)](https://www.npmjs.com/package/)
+[![npm shield](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
 
 The Intercom TypeScript library provides convenient access to the Intercom API from TypeScript.
 
@@ -25,7 +25,7 @@ The Node SDK has been updated to support latest API version (2.6). The update al
 ## Installation
 
 ```sh
-npm i -s
+npm i -s intercom-client
 ```
 
 ## Reference
@@ -37,7 +37,7 @@ A full reference for this library is available [here](./reference.md).
 Instantiate and use the client with the following:
 
 ```typescript
-import { IntercomClient } from "";
+import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({ token: "YOUR_TOKEN" });
 await client.articles.create({
@@ -55,7 +55,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Intercom } from "Intercom";
+import { Intercom } from "intercom-client";
 
 const request: Intercom.ConfigureAwayAdminRequest = {
     ...
@@ -68,7 +68,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { IntercomError } from "Intercom";
+import { IntercomError } from "intercom-client";
 
 try {
     await client.articles.create(...);
@@ -1330,7 +1330,7 @@ yarn prepublish
 List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
 
 ```typescript
-import { IntercomClient } from "";
+import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({ token: "YOUR_TOKEN" });
 const response = await client.articles.list();
@@ -1419,7 +1419,7 @@ The SDK provides a way for your to customize the underlying HTTP client / Fetch 
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { IntercomClient } from "Intercom";
+import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({
     ...

@@ -113,8 +113,6 @@ export * from "./TicketTypeAttributeList";
 export * from "./TicketTypeList";
 export * from "./Translation";
 export * from "./UntagCompanyRequest";
-export * from "./UpdateArticleRequestBody";
-export * from "./UpdateTicketTypeRequestBody";
 export * from "./UpdateVisitorRequest";
 export * from "./Visitor";
 export * from "./VisitorDeletedObject";

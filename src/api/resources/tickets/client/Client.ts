@@ -86,43 +86,51 @@ export class Tickets {
      * @example
      *     await client.tickets.reply({
      *         ticket_id: "123",
-     *         message_type: "comment",
-     *         type: "user",
-     *         body: "Thanks again :)",
-     *         intercom_user_id: "667d619d8a68186f43bafe82"
+     *         body: {
+     *             message_type: "comment",
+     *             type: "user",
+     *             body: "Thanks again :)",
+     *             intercom_user_id: "667d619d8a68186f43bafe82"
+     *         }
      *     })
      *
      * @example
      *     await client.tickets.reply({
      *         ticket_id: "123",
-     *         message_type: "note",
-     *         type: "admin",
-     *         body: "<html> <body>  <h2>An Unordered HTML List</h2>  <ul>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ul>    <h2>An Ordered HTML List</h2>  <ol>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ol>   </body> </html>",
-     *         admin_id: "3156780"
+     *         body: {
+     *             message_type: "note",
+     *             type: "admin",
+     *             body: "<html> <body>  <h2>An Unordered HTML List</h2>  <ul>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ul>    <h2>An Ordered HTML List</h2>  <ol>   <li>Coffee</li>   <li>Tea</li>   <li>Milk</li> </ol>   </body> </html>",
+     *             admin_id: "3156780"
+     *         }
      *     })
      *
      * @example
      *     await client.tickets.reply({
      *         ticket_id: "123",
-     *         message_type: "quick_reply",
-     *         type: "admin",
-     *         admin_id: "3156780",
-     *         reply_options: [{
-     *             text: "Yes",
-     *             uuid: "22d6d1f4-1a19-41d0-94c2-e54031f78aca"
-     *         }, {
-     *             text: "No",
-     *             uuid: "fbc3dbe0-ec0c-4fb6-826d-e19127191906"
-     *         }]
+     *         body: {
+     *             message_type: "quick_reply",
+     *             type: "admin",
+     *             admin_id: "3156780",
+     *             reply_options: [{
+     *                     text: "Yes",
+     *                     uuid: "22d6d1f4-1a19-41d0-94c2-e54031f78aca"
+     *                 }, {
+     *                     text: "No",
+     *                     uuid: "fbc3dbe0-ec0c-4fb6-826d-e19127191906"
+     *                 }]
+     *         }
      *     })
      *
      * @example
      *     await client.tickets.reply({
      *         ticket_id: "123",
-     *         message_type: "comment",
-     *         type: "user",
-     *         body: "Thanks again :)",
-     *         intercom_user_id: "667d61a68a68186f43bafe85"
+     *         body: {
+     *             message_type: "comment",
+     *             type: "user",
+     *             body: "Thanks again :)",
+     *             intercom_user_id: "667d61a68a68186f43bafe85"
+     *         }
      *     })
      */
     public async reply(
@@ -139,8 +147,9 @@ export class Tickets {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -211,7 +220,7 @@ export class Tickets {
     public async create(
         request: Intercom.CreateTicketRequest,
         requestOptions?: Tickets.RequestOptions
-    ): Promise<Intercom.Ticket | undefined> {
+    ): Promise<Intercom.Ticket> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
@@ -221,8 +230,9 @@ export class Tickets {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -236,7 +246,7 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Ticket | undefined;
+            return _response.body as Intercom.Ticket;
         }
 
         if (_response.error.reason === "status-code") {
@@ -282,7 +292,7 @@ export class Tickets {
     public async get(
         request: Intercom.FindTicketRequest,
         requestOptions?: Tickets.RequestOptions
-    ): Promise<Intercom.Ticket | undefined> {
+    ): Promise<Intercom.Ticket> {
         const { ticket_id: ticketId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -293,8 +303,9 @@ export class Tickets {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -307,7 +318,7 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Ticket | undefined;
+            return _response.body as Intercom.Ticket;
         }
 
         if (_response.error.reason === "status-code") {
@@ -393,7 +404,7 @@ export class Tickets {
     public async update(
         request: Intercom.UpdateTicketRequest,
         requestOptions?: Tickets.RequestOptions
-    ): Promise<Intercom.Ticket | undefined> {
+    ): Promise<Intercom.Ticket> {
         const { ticket_id: ticketId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -404,8 +415,9 @@ export class Tickets {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -419,7 +431,7 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Ticket | undefined;
+            return _response.body as Intercom.Ticket;
         }
 
         if (_response.error.reason === "status-code") {
@@ -535,7 +547,7 @@ export class Tickets {
     public async search(
         request: Intercom.SearchRequest,
         requestOptions?: Tickets.RequestOptions
-    ): Promise<core.Page<Intercom.Ticket | undefined>> {
+    ): Promise<core.Page<Intercom.Ticket>> {
         const list = async (request: Intercom.SearchRequest): Promise<Intercom.TicketList> => {
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
@@ -547,8 +559,9 @@ export class Tickets {
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "",
-                    "X-Fern-SDK-Version": "6.0.0",
+                    "X-Fern-SDK-Name": "intercom-client",
+                    "X-Fern-SDK-Version": "5.0.1",
+                    "User-Agent": "intercom-client/5.0.1",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -584,7 +597,7 @@ export class Tickets {
                     });
             }
         };
-        return new core.Pageable<Intercom.TicketList, Intercom.Ticket | undefined>({
+        return new core.Pageable<Intercom.TicketList, Intercom.Ticket>({
             response: await list(request),
             hasNextPage: (response) => response?.pages?.next?.starting_after != null,
             getItems: (response) => response?.tickets ?? [],

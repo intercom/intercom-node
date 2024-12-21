@@ -568,10 +568,8 @@ You can update the details of a single article by making a PUT request to `https
 ```typescript
 await client.articles.update({
     article_id: "123",
-    body: {
-        title: "Christmas is here!",
-        body: "<p>New gifts in store for the jolly season</p>",
-    },
+    title: "Christmas is here!",
+    body: "<p>New gifts in store for the jolly season</p>",
 });
 ```
 
@@ -4626,7 +4624,7 @@ await client.conversations.redactConversationPart({
 </dl>
 </details>
 
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">convertToTicket</a>({ ...params }) -> Intercom.Ticket | undefined</code></summary>
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">convertToTicket</a>({ ...params }) -> Intercom.Ticket</code></summary>
 <dl>
 <dd>
 
@@ -5717,7 +5715,7 @@ await client.subscriptionTypes.list();
 
 ## PhoneCallRedirects
 
-<details><summary><code>client.phoneCallRedirects.<a href="/src/api/resources/phoneCallRedirects/client/Client.ts">create</a>({ ...params }) -> Intercom.PhoneSwitch | undefined</code></summary>
+<details><summary><code>client.phoneCallRedirects.<a href="/src/api/resources/phoneCallRedirects/client/Client.ts">create</a>({ ...params }) -> Intercom.PhoneSwitch</code></summary>
 <dl>
 <dd>
 
@@ -5968,7 +5966,7 @@ await client.ticketTypes.list();
 </dl>
 </details>
 
-<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">create</a>({ ...params }) -> Intercom.TicketType | undefined</code></summary>
+<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">create</a>({ ...params }) -> Intercom.TicketType</code></summary>
 <dl>
 <dd>
 
@@ -6041,7 +6039,7 @@ await client.ticketTypes.create({
 </dl>
 </details>
 
-<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">get</a>({ ...params }) -> Intercom.TicketType | undefined</code></summary>
+<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">get</a>({ ...params }) -> Intercom.TicketType</code></summary>
 <dl>
 <dd>
 
@@ -6106,7 +6104,7 @@ await client.ticketTypes.get({
 </dl>
 </details>
 
-<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">update</a>({ ...params }) -> Intercom.TicketType | undefined</code></summary>
+<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">update</a>({ ...params }) -> Intercom.TicketType</code></summary>
 <dl>
 <dd>
 
@@ -6140,9 +6138,7 @@ You can update a ticket type.
 ```typescript
 await client.ticketTypes.update({
     ticket_type_id: "ticket_type_id",
-    body: {
-        name: "Bug Report 2",
-    },
+    name: "Bug Report 2",
 });
 ```
 
@@ -6251,7 +6247,7 @@ await client.tickets.reply({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">create</a>({ ...params }) -> Intercom.Ticket | undefined</code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">create</a>({ ...params }) -> Intercom.Ticket</code></summary>
 <dl>
 <dd>
 
@@ -6325,7 +6321,7 @@ await client.tickets.create({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">get</a>({ ...params }) -> Intercom.Ticket | undefined</code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">get</a>({ ...params }) -> Intercom.Ticket</code></summary>
 <dl>
 <dd>
 
@@ -6390,7 +6386,7 @@ await client.tickets.get({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">update</a>({ ...params }) -> Intercom.Ticket | undefined</code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">update</a>({ ...params }) -> Intercom.Ticket</code></summary>
 <dl>
 <dd>
 
@@ -6466,7 +6462,7 @@ await client.tickets.update({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">search</a>({ ...params }) -> core.Page<Intercom.Ticket | undefined></code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">search</a>({ ...params }) -> core.Page<Intercom.Ticket></code></summary>
 <dl>
 <dd>
 
@@ -6629,7 +6625,7 @@ while (page.hasNextPage()) {
 
 ## Visitors
 
-<details><summary><code>client.visitors.<a href="/src/api/resources/visitors/client/Client.ts">find</a>({ ...params }) -> Intercom.Visitor | undefined</code></summary>
+<details><summary><code>client.visitors.<a href="/src/api/resources/visitors/client/Client.ts">find</a>({ ...params }) -> Intercom.Visitor</code></summary>
 <dl>
 <dd>
 
@@ -6694,7 +6690,7 @@ await client.visitors.find({
 </dl>
 </details>
 
-<details><summary><code>client.visitors.<a href="/src/api/resources/visitors/client/Client.ts">update</a>({ ...params }) -> Intercom.Visitor | undefined</code></summary>
+<details><summary><code>client.visitors.<a href="/src/api/resources/visitors/client/Client.ts">update</a>({ ...params }) -> Intercom.Visitor</code></summary>
 <dl>
 <dd>
 
@@ -7686,7 +7682,7 @@ await client.news.feeds.find({
 
 ## TicketTypes Attributes
 
-<details><summary><code>client.ticketTypes.attributes.<a href="/src/api/resources/ticketTypes/resources/attributes/client/Client.ts">create</a>({ ...params }) -> Intercom.TicketTypeAttribute | undefined</code></summary>
+<details><summary><code>client.ticketTypes.attributes.<a href="/src/api/resources/ticketTypes/resources/attributes/client/Client.ts">create</a>({ ...params }) -> Intercom.TicketTypeAttribute</code></summary>
 <dl>
 <dd>
 
@@ -7755,7 +7751,7 @@ await client.ticketTypes.attributes.create({
 </dl>
 </details>
 
-<details><summary><code>client.ticketTypes.attributes.<a href="/src/api/resources/ticketTypes/resources/attributes/client/Client.ts">update</a>({ ...params }) -> Intercom.TicketTypeAttribute | undefined</code></summary>
+<details><summary><code>client.ticketTypes.attributes.<a href="/src/api/resources/ticketTypes/resources/attributes/client/Client.ts">update</a>({ ...params }) -> Intercom.TicketTypeAttribute</code></summary>
 <dl>
 <dd>
 

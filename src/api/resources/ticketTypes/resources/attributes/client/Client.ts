@@ -90,7 +90,7 @@ export class Attributes {
     public async create(
         request: Intercom.ticketTypes.CreateTicketTypeAttributeRequest,
         requestOptions?: Attributes.RequestOptions
-    ): Promise<Intercom.TicketTypeAttribute | undefined> {
+    ): Promise<Intercom.TicketTypeAttribute> {
         const { ticket_type_id: ticketTypeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -101,8 +101,9 @@ export class Attributes {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -116,7 +117,7 @@ export class Attributes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketTypeAttribute | undefined;
+            return _response.body as Intercom.TicketTypeAttribute;
         }
 
         if (_response.error.reason === "status-code") {
@@ -166,7 +167,7 @@ export class Attributes {
     public async update(
         request: Intercom.ticketTypes.UpdateTicketTypeAttributeRequest,
         requestOptions?: Attributes.RequestOptions
-    ): Promise<Intercom.TicketTypeAttribute | undefined> {
+    ): Promise<Intercom.TicketTypeAttribute> {
         const { ticket_type_id: ticketTypeId, attribute_id: attributeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -177,8 +178,9 @@ export class Attributes {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "6.0.0",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "5.0.1",
+                "User-Agent": "intercom-client/5.0.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -192,7 +194,7 @@ export class Attributes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketTypeAttribute | undefined;
+            return _response.body as Intercom.TicketTypeAttribute;
         }
 
         if (_response.error.reason === "status-code") {

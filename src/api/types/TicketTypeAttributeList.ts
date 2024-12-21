@@ -11,5 +11,5 @@ export interface TicketTypeAttributeList {
     /** String representing the object's type. Always has the value `ticket_type_attributes.list`. */
     type: "ticket_type_attributes.list";
     /** A list of ticket type attributes associated with a given ticket type. */
-    ticket_type_attributes: (Intercom.TicketTypeAttribute | undefined)[];
+    ticket_type_attributes: Intercom.TicketTypeAttribute[];
 }

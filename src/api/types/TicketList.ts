@@ -11,7 +11,7 @@ export interface TicketList {
     /** Always ticket.list */
     type: "ticket.list";
     /** The list of ticket objects */
-    tickets: (Intercom.Ticket | undefined)[];
+    tickets: Intercom.Ticket[];
     /** A count of the total number of objects. */
     total_count: number;
     pages?: Intercom.CursorPages;
