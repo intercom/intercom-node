@@ -1,29 +1,17 @@
 {
     "compilerOptions": {
-        "lib": ["es5", "es6"],
-        "outDir": "./dist",
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "target": "es5",
-        "module": "commonjs",
+        "extendedDiagnostics": true,
+        "strict": true,
+        "target": "ES6",
+        "module": "CommonJS",
         "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitReturns": true,
-        "stripInternal": true,
-        "pretty": true,
-        "strictNullChecks": true,
-        "noUnusedLocals": true,
-        "downlevelIteration": true,
-        "rootDir": ".",
-        // Ensure that .d.ts files are created by tsc, but not .js files
+        "esModuleInterop": true,
+        "skipLibCheck": true,
         "declaration": true,
-        "declarationMap": true,
-        "resolveJsonModule": true
+        "outDir": "dist",
+        "rootDir": "src",
+        "baseUrl": "src"
     },
-    "include": ["lib/**/*"],
-    "exclude": ["node_modules"]
+    "include": ["src"],
+    "exclude": []
 }

@@ -1,0 +1,13 @@
+export { type ListAttachedCompaniesRequest } from "./ListAttachedCompaniesRequest";
+export { type ListSegmentsAttachedToContactRequest } from "./ListSegmentsAttachedToContactRequest";
+export { type ListAttachedSubscriptionsRequest } from "./ListAttachedSubscriptionsRequest";
+export { type AttachSubscriptionToContactRequest } from "./AttachSubscriptionToContactRequest";
+export { type DetachSubscriptionFromContactRequest } from "./DetachSubscriptionFromContactRequest";
+export { type ListTagsAttachedToContactRequest } from "./ListTagsAttachedToContactRequest";
+export { type FindContactRequest } from "./FindContactRequest";
+export { type UpdateContactRequest } from "./UpdateContactRequest";
+export { type DeleteContactRequest } from "./DeleteContactRequest";
+export { type MergeContactsRequest } from "./MergeContactsRequest";
+export { type ListContactsRequest } from "./ListContactsRequest";
+export { type ArchiveContactRequest } from "./ArchiveContactRequest";
+export { type UnarchiveContactRequest } from "./UnarchiveContactRequest";

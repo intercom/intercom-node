@@ -1,2 +1,9 @@
-# Should exist, because dist is in .gitignore
-# More here: https://docs.npmjs.com/cli/v8/using-npm/developers#keeping-files-out-of-your-package
+node_modules
+src
+tests
+.gitignore
+.github
+.fernignore
+.prettierrc.yml
+tsconfig.json
+yarn.lock
