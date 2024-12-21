@@ -118,10 +118,12 @@ describe("Conversations", () => {
         // act
         const response = await client.conversations.reply({
             conversation_id: conversationId,
-            message_type: "comment",
-            type: "admin",
-            body: "test",
-            admin_id: adminId,
+            body: {
+                message_type: "comment",
+                type: "admin",
+                body: "test",
+                admin_id: adminId,
+            }
         });
 
         // assert
@@ -132,10 +134,12 @@ describe("Conversations", () => {
         // act
         const response = await client.conversations.reply({
             conversation_id: conversationId,
-            message_type: "comment",
-            type: "user",
-            body: "*click* Nice!",
-            intercom_user_id: user.id,
+            body: {
+                message_type: "comment",
+                type: "user",
+                body: "*click* Nice!",
+                intercom_user_id: user.id,
+            }
         });
 
         // assert
@@ -149,11 +153,13 @@ describe("Conversations", () => {
         // act
         const response = await client.conversations.manage({
             conversation_id: message.conversation_id,
-            message_type: "assignment",
-            type: "admin",
-            admin_id: adminId,
-            assignee_id: secondAdminId,
-            body: "Goodbye :)",
+            body: {
+                message_type: "assignment",
+                type: "admin",
+                admin_id: adminId,
+                assignee_id: secondAdminId,
+                body: "Goodbye :)",
+            }
         });
 
         // assert
@@ -177,9 +183,11 @@ describe("Conversations", () => {
         // act
         const response = await client.conversations.manage({
             conversation_id: conversationId,
-            message_type: "snoozed",
-            admin_id: adminId,
-            snoozed_until: new Date("2040.06.19").getTime() / 1000,
+            body: {
+                message_type: "snoozed",
+                admin_id: adminId,
+                snoozed_until: new Date("2040.06.19").getTime() / 1000,
+            }
         });
 
         // assert
@@ -190,8 +198,10 @@ describe("Conversations", () => {
         // act
         const response = await client.conversations.manage({
             conversation_id: conversationId,
-            message_type: "open",
-            admin_id: adminId,
+            body: {
+                message_type: "open",
+                admin_id: adminId,
+            }
         });
 
         // assert
@@ -243,10 +253,12 @@ describe("Conversations", () => {
         // act
         const response = await client.conversations.manage({
             conversation_id: conversationId,
-            type: "admin",
-            message_type: "close",
-            admin_id: adminId,
-            body: "Hasta la vista, baby",
+            body: {
+                type: "admin",
+                message_type: "close",
+                admin_id: adminId,
+                body: "Hasta la vista, baby",
+            }
         });
 
         // assert
