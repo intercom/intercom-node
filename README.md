@@ -34,9 +34,9 @@ import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({ token: "YOUR_TOKEN" });
 await client.articles.create({
-    title: "Thanks for everything",
-    description: "Description of the Article",
-    body: "Body of the Article",
+    title: "How to create an account",
+    description: "Example article about creating an account.",
+    body: "Here are the steps to create an account.",
     author_id: 1295,
     state: "published",
 });
@@ -87,19 +87,6 @@ client.useRequestOpts({
 
 Note that certain request options (such as `json`, and certain `headers` names cannot be overriden).
 
-### Setting the API version
-
-We version our API (see the "Choose Version" section of the [API & Webhooks Reference](https://developers.intercom.com/intercom-api-reference/reference) for details). You can specify which version of the API to use when performing API requests using request options:
-
-```typescript
-const client = new Client({ tokenAuth: { token: "my_token" } });
-client.useRequestOpts({
-    headers: {
-        "Intercom-Version": 2.6,
-    },
-});
-```
-
 ### Setting the API base url
 
 If you are using the european instance of intercom and would like to call it directly and not be redirected through our US instance, you can set the `baseUrl` as follows:
@@ -115,13 +102,13 @@ client.useRequestOpts({
 
 ### Admins
 
-#### [Retrieve admin](https://developers.intercom.com/intercom-api-reference/reference/view-an-admin)
+#### [Retrieve admin](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/admins/retrieveadmin)
 
 ```typescript
 const admin = await client.admins.find({ id: "123" });
 ```
 
-#### [Set Admin away](https://developers.intercom.com/intercom-api-reference/reference/set-admin-away-mode)
+#### [Set Admin away](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/admins/setawayadmin)
 
 ```typescript
 await client.admins.away({
@@ -131,7 +118,7 @@ await client.admins.away({
 });
 ```
 
-#### [List all activity logs](https://developers.intercom.com/intercom-api-reference/reference/view-admin-activity-logs)
+#### [List all activity logs](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/admins/listactivitylogs)
 
 ```typescript
 await client.admins.listAllActivityLogs({
@@ -140,7 +127,7 @@ await client.admins.listAllActivityLogs({
 });
 ```
 
-#### [List all admins](https://developers.intercom.com/intercom-api-reference/reference/list-admins)
+#### [List all admins](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/admins/listadmins)
 
 ```typescript
 const admins = await client.admins.list();
@@ -148,22 +135,22 @@ const admins = await client.admins.list();
 
 ### Articles
 
-#### [Create an article](https://developers.intercom.com/intercom-api-reference/reference/create-an-article)
+#### [Create an article](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/articles/createarticle)
 
 ```typescript
 const article = await client.articles.create({
-    title: "Thanks for everything",
-    description: "English description",
-    body: "<p>This is the body in html</p>",
+    title: "How to create an account",
+    description: "Example article about creating an account.",
+    body: "<p>Here are the steps to create an account.</p>",
     authorId: 1,
     state: "published",
     parentId: 1,
     parentType: "collection",
     translatedContent: {
         fr: {
-            title: "Allez les verts",
-            description: "French description",
-            body: "<p>French body in html</p>",
+            title: "Comment créer un compte",
+            description: "Exemple d'article sur la création d'un compte.",
+            body: "<p>Voici les étapes pour créer un compte.</p>",
             author_id: 1,
             state: "published",
         },
@@ -171,29 +158,29 @@ const article = await client.articles.create({
 });
 ```
 
-#### [Retrieve an article](https://developers.intercom.com/intercom-api-reference/reference/retrieve-an-article)
+#### [Retrieve an article](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/articles/retrievearticle)
 
 ```typescript
 const response = await client.articles.find({ id: "123" });
 ```
 
-#### [Update an article](https://developers.intercom.com/intercom-api-reference/reference/update-an-article)
+#### [Update an article](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/articles/updatearticle)
 
 ```typescript
 const article = await client.articles.update({
     id: "123",
-    title: "Thanks for everything",
-    description: "English description",
-    body: "<p>This is the body in html</p>",
+    title: "How to create an account",
+    description: "Example article about creating an account.",
+    body: "<p>Here are the steps to create an account.</p>",
     authorId: 1,
     state: "published",
     parentId: 1,
     parentType: "collection",
     translatedContent: {
         fr: {
-            title: "Allez les verts",
-            description: "French description",
-            body: "<p>French body in html</p>",
+            title: "Comment créer un compte",
+            description: "Exemple d'article sur la création d'un compte.",
+            body: "<p>Voici les étapes pour créer un compte.</p>",
             author_id: 1,
             state: "published",
         },
@@ -201,13 +188,13 @@ const article = await client.articles.update({
 });
 ```
 
-#### [Delete an article](https://developers.intercom.com/intercom-api-reference/reference/delete-an-article)
+#### [Delete an article](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/articles/deletearticle)
 
 ```typescript
 await client.articles.delete({ id: "123" });
 ```
 
-#### [List all articles](https://developers.intercom.com/intercom-api-reference/reference/list-all-articles)
+#### [List all articles](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/articles/listarticles)
 
 ```typescript
 const response = await client.articles.list({
@@ -218,39 +205,39 @@ const response = await client.articles.list({
 
 ### Companies
 
-#### [Create a company](https://developers.intercom.com/intercom-api-reference/reference/create-or-update-company)
+#### [Create a company](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/companies/createorupdatecompany)
 
 ```typescript
 const company = await client.companies.create({
     createdAt: dateToUnixTimestamp(new Date()),
-    companyId: "46029",
-    name: "BestCompanyInc.",
+    companyId: "1234",
+    name: "Acme Inc.",
     monthlySpend: 9001,
-    plan: "1. Get pizzaid",
+    plan: "Premium",
     size: 62049,
-    website: "http://the-best.one",
-    industry: "The Best One",
+    website: "http://acme-example.com",
+    industry: "Software",
     customAttributes: {},
 });
 ```
 
-#### [Update a company](https://developers.intercom.com/intercom-api-reference/reference/update-a-company)
+#### [Update a company](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/companies/updatecompany)
 
 ```typescript
 const company = await client.companies.update({
     createdAt: dateToUnixTimestamp(new Date()),
-    companyId: "46029",
-    name: "BestCompanyInc.",
+    companyId: "1234",
+    name: "Acme Inc.",
     monthlySpend: 9001,
-    plan: "1. Get pizzaid",
+    plan: "Premium",
     size: 62049,
-    website: "http://the-best.one",
-    industry: "The Best One",
+    website: "http://acme-example.com",
+    industry: "Software",
     customAttributes: {},
 });
 ```
 
-#### [Retrieve a company](https://developers.intercom.com/intercom-api-reference/reference/view-a-company)
+#### [Retrieve a company](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/companies/retrieveacompanybyid)
 
 ##### By id
 
@@ -268,7 +255,7 @@ const company = await client.companies.find({
 });
 ```
 
-#### [Delete a company](https://developers.intercom.com/intercom-api-reference/reference/delete-a-company)
+#### [Delete a company](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/companies/deletecompany)
 
 ```typescript
 const company = await client.companies.delete({
@@ -276,7 +263,7 @@ const company = await client.companies.delete({
 });
 ```
 
-#### [List all companies](https://developers.intercom.com/intercom-api-reference/reference/list-companies)
+#### [List all companies](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/companies/listallcompanies)
 
 ##### With pagination
 
@@ -297,7 +284,7 @@ const companies = await client.companies.list({
 });
 ```
 
-#### [Scroll over companies](https://developers.intercom.com/intercom-api-reference/reference/iterating-over-all-companies)
+#### [Scroll over companies](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/companies/scrolloverallcompanies)
 
 ##### Using infinite scroll
 
@@ -313,7 +300,7 @@ const companies = await client.companies.scroll.next({
 });
 ```
 
-#### [Attach a contact](https://developers.intercom.com/intercom-api-reference/reference/attach-contact-to-company)
+#### [Attach a contact](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/contacts/attachcontacttoacompany)
 
 ```typescript
 const response = await client.companies.attachContact({
@@ -322,7 +309,7 @@ const response = await client.companies.attachContact({
 });
 ```
 
-#### [Detach a contact](https://developers.intercom.com/intercom-api-reference/reference/detach-contact-from-company)
+#### [Detach a contact](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/contacts/detachcontactfromacompany)
 
 ```typescript
 const response = await client.companies.detachContact({
@@ -331,7 +318,7 @@ const response = await client.companies.detachContact({
 });
 ```
 
-#### [List attached contacts](https://developers.intercom.com/intercom-api-reference/reference/list-company-contacts)
+#### [List attached contacts](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/contacts/listattachedcontacts)
 
 ```typescript
 const response = await client.companies.listAttachedContacts({
@@ -341,7 +328,7 @@ const response = await client.companies.listAttachedContacts({
 });
 ```
 
-#### [List attached segments](https://developers.intercom.com/intercom-api-reference/reference/list-attached-segments-1)
+#### [List attached segments](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/contacts/listsegmentsforacontact)
 
 ```typescript
 const response = await client.companies.listAttachedSegments({
@@ -351,16 +338,16 @@ const response = await client.companies.listAttachedSegments({
 
 ### Contacts
 
-#### [Create Contact](https://developers.intercom.com/intercom-api-reference/reference/create-contact)
+#### [Create Contact](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/contacts/createcontact)
 
 ##### With User Role
 
 ```typescript
 const user = await client.contacts.createUser({
     externalId: "536e564f316c83104c000020",
-    phone: "+48370044567",
-    name: "Niko Bellic",
-    avatar: "https://nico-from-gta-iv.com/lets_go_bowling.jpg",
+    phone: "+447778889999",
+    name: "Joe Example",
+    avatar: "https://example.com/photo.jpg",
     signedUpAt: 1638203719,
     lastSeenAt: 1638203720,
     ownerId: "536e564f316c83104c000021",
@@ -372,9 +359,9 @@ const user = await client.contacts.createUser({
 
 ```typescript
 const lead = await client.contacts.createLead({
-    phone: "+48370044567",
-    name: "Roman Bellic",
-    avatar: "https://nico-from-gta-iv.com/lets_go_bowling_yey.jpg",
+    phone: "+447778889999",
+    name: "Joe Example",
+    avatar: "https://example.com/photo.jpg",
     signedUpAt: 1638203719,
     lastSeenAt: 1638203720,
     ownerId: "536e564f316c83104c000021",
@@ -382,26 +369,26 @@ const lead = await client.contacts.createLead({
 });
 ```
 
-#### [Retrieve a Contact](https://developers.intercom.com/intercom-api-reference/reference/get-contact)
+#### [Retrieve a Contact](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/contacts/showcontact)
 
 ```typescript
 const response = await client.contacts.find({ id: "123" });
 ```
 
-#### [Update a Contact](https://developers.intercom.com/intercom-api-reference/reference/update-contact)
+#### [Update a Contact](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/contacts/updatecontact)
 
 ```typescript
 const response = await client.contacts.update({
     id: "123",
     role: Role.USER,
-    name: "Roman The Bowling Fan",
+    name: "Jane Example",
     customAttributes: {
-        callBrother: "Hey Niko, it's me – Roman. Let's go bowling!",
+        billingType: "Monthly",
     },
 });
 ```
 
-#### [Delete a Contact](https://developers.intercom.com/intercom-api-reference/reference/delete-contact)
+#### [Delete a Contact](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/contacts/deletecontact)
 
 ```typescript
 const response = await client.contacts.delete({ id: "123" });
