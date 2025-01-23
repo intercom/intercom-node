@@ -265,7 +265,7 @@ describe("Conversations", () => {
         expect(response).toBeDefined();
     });
 
-    it("search", async () => {
+    it("search with string value", async () => {
         // act
         const response = await client.conversations.search({
             query: {
@@ -275,6 +275,25 @@ describe("Conversations", () => {
                         field: "id",
                         operator: "!=",
                         value: "123",
+                    },
+                ],
+            },
+        });
+
+        // assert
+        expect(response).toBeDefined();
+    });
+
+    it("search with array value", async () => {
+        // act
+        const response = await client.conversations.search({
+            query: {
+                operator: "AND",
+                value: [
+                    {
+                        field: "id",
+                        operator: "IN",
+                        value: ["123", '321'],
                     },
                 ],
             },
