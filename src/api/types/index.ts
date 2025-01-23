@@ -116,3 +116,4 @@ export * from "./UntagCompanyRequest";
 export * from "./UpdateVisitorRequest";
 export * from "./Visitor";
 export * from "./VisitorDeletedObject";
+export * from "./canvas-kit";
