@@ -19,7 +19,7 @@ export interface Contact {
     /** The role of the contact. */
     role: string;
     /** The contact's email. */
-    email: string;
+    email?: string;
     /** The contact's email domain. */
     email_domain?: string;
     /** The contacts phone. */
@@ -97,10 +97,12 @@ export interface Contact {
 }
 
 export namespace Contact {
-    export interface Avatar {
-        /** The type of object */
-        type?: string;
-        /** An image URL containing the avatar of a contact. */
-        image_url?: string;
-    }
+    export type Avatar =
+        /**
+         * An image URL containing the avatar of a contact. */
+        | string
+        | {
+              type: "avatar";
+              image_url?: string | undefined;
+          };
 }

@@ -22,6 +22,7 @@ export * from "./CompanyScroll";
 export * from "./ContactArchived";
 export * from "./ContactAttachedCompanies";
 export * from "./ContactCompanies";
+export * from "./ContactCompany";
 export * from "./ContactDeleted";
 export * from "./ContactList";
 export * from "./ContactLocation";
