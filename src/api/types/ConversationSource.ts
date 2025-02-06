@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface ConversationSource {
     /** This includes conversation, email, facebook, instagram, phone_call, phone_switch, push, sms, twitter and whatsapp. */
-    type: string;
+    type: ConversationSource.Type;
     /** The id representing the message. */
     id: string;
     /** The conversation's initiation type. Possible values are customer_initiated, campaigns_initiated (legacy campaigns), operator_initiated (Custom bot), automated (Series and other outbounds with dynamic audience message) and admin_initiated (fixed audience message, ticket initiated by an admin, group email). */
@@ -25,4 +25,33 @@ export interface ConversationSource {
     url?: string;
     /** Whether or not the source message has been redacted. Only applicable for contact initiated messages. */
     redacted: boolean;
+}
+
+export namespace ConversationSource {
+    /**
+     * This includes conversation, email, facebook, instagram, phone_call, phone_switch, push, sms, twitter and whatsapp.
+     */
+    export type Type =
+        | "conversation"
+        | "email"
+        | "facebook"
+        | "instagram"
+        | "phone_call"
+        | "phone_switch"
+        | "push"
+        | "sms"
+        | "twitter"
+        | "whatsapp";
+    export const Type = {
+        Conversation: "conversation",
+        Email: "email",
+        Facebook: "facebook",
+        Instagram: "instagram",
+        PhoneCall: "phone_call",
+        PhoneSwitch: "phone_switch",
+        Push: "push",
+        Sms: "sms",
+        Twitter: "twitter",
+        Whatsapp: "whatsapp",
+    } as const;
 }
