@@ -103,7 +103,7 @@ export class Companies {
     public async retrieve(
         request: Intercom.RetrieveCompanyRequest = {},
         requestOptions?: Companies.RequestOptions
-    ): Promise<Intercom.CompanyList> {
+    ): Promise<Intercom.CompanyList | Intercom.Company> {
         const { name, company_id: companyId, tag_id: tagId, segment_id: segmentId, page, per_page: perPage } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (name != null) {
@@ -155,6 +155,9 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
+            if (name != null || companyId != null) {
+                return _response.body as Intercom.Company;
+            }
             return _response.body as Intercom.CompanyList;
         }
 
