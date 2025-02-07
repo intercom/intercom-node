@@ -11,7 +11,7 @@ export interface SingleFilterSearchRequest {
     /** The accepted operators you can use to define how you want to search for the value. */
     operator?: SingleFilterSearchRequest.Operator;
     /** The value that you want to search on. */
-    value?: string;
+    value?: SingleFilterSearchRequest.Value;
 }
 
 export namespace SingleFilterSearchRequest {
@@ -31,4 +31,8 @@ export namespace SingleFilterSearchRequest {
         StartsWith: "^",
         EndsWith: "$",
     } as const;
+    /**
+     * The value that you want to search on.
+     */
+    export type Value = string | number | string[] | number[];
 }
