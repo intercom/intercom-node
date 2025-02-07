@@ -1,8 +1,8 @@
 import { Intercom } from "../../src";
-import { randomString } from "./utils/random";
 import { createConversation, tryDeleteContact } from "./helpers";
-import { wait } from "./utils/wait";
 import { createClient } from "./utils/createClient";
+import { randomString } from "./utils/random";
+import { wait } from "./utils/wait";
 
 describe("Conversations", () => {
     let user: Intercom.Contact;
@@ -31,11 +31,12 @@ describe("Conversations", () => {
         secondUser = await client.contacts.create({
             external_id: randomString(),
             name: "Babushka Boy",
-            email: "babushka_boy@bababooey.com",
+            email: `${randomString()}@bababooey.com`,
         });
         lead = await client.contacts.create({
+            external_id: randomString(),
             name: "Babushka Lead",
-            email: "babushka_lead@bababooey.com",
+            email: `${randomString()}@bababooey.com`,
             role: "lead",
         });
 
