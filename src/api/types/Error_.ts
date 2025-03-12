@@ -7,7 +7,7 @@
  */
 export interface Error_ {
     /** The type is error.list */
-    type: string;
+    type: "error.list";
     /** */
     request_id?: string;
     /** An array of one or more error objects */

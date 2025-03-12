@@ -53,7 +53,7 @@ export interface Visitor {
     tags?: Visitor.Tags;
     segments?: Visitor.Segments;
     /** The custom attributes you have set on the Visitor. */
-    custom_attributes?: Record<string, string>;
+    custom_attributes?: Record<string, unknown>;
     /** The referer of the visitor. */
     referrer?: string;
     /** The utm_campaign of the visitor. */

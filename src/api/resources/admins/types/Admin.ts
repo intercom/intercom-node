@@ -26,7 +26,17 @@ export interface Admin {
     has_inbox_seat: boolean;
     /** This object represents the avatar associated with the admin. */
     team_ids: number[];
-    /** Image for the associated team or teammate */
-    avatar?: string;
+    /** The avatar object associated with the admin */
+    avatar?: Admin.Avatar;
     team_priority_level?: Intercom.TeamPriorityLevel;
+}
+
+export namespace Admin {
+    /**
+     * The avatar object associated with the admin
+     */
+    export interface Avatar {
+        /** URL of the admin's avatar image */
+        image_url: string;
+    }
 }

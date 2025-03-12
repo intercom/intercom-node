@@ -40,7 +40,7 @@ export interface Company {
     /** The number of users in the company. */
     user_count: number;
     /** The custom attributes you have set on the company. */
-    custom_attributes?: Record<string, string>;
+    custom_attributes?: Record<string, unknown>;
     /** The list of tags associated with the company */
     tags?: Company.Tags;
     /** The list of segments associated with the company */
