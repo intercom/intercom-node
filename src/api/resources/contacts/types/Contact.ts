@@ -19,7 +19,7 @@ export interface Contact {
     /** The role of the contact. */
     role: string;
     /** The contact's email. */
-    email: string;
+    email?: string;
     /** The contact's email domain. */
     email_domain?: string;
     /** The contacts phone. */

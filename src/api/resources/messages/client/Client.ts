@@ -96,9 +96,9 @@ export class Messages {
      *
      * @example
      *     await client.messages.create({
-     *         message_type: "inapp",
+     *         message_type: "email",
      *         subject: "Thanks for everything",
-     *         body: "heyy",
+     *         body: "Hello there",
      *         template: "plain",
      *         from: {
      *             type: "admin",
@@ -107,27 +107,7 @@ export class Messages {
      *         to: {
      *             type: "user",
      *             id: "536e564f316c83104c000020"
-     *         },
-     *         created_at: 1590000000,
-     *         create_conversation_without_contact_reply: true
-     *     })
-     *
-     * @example
-     *     await client.messages.create({
-     *         message_type: "inapp",
-     *         subject: "Thanks for everything",
-     *         body: "heyy",
-     *         template: "plain",
-     *         from: {
-     *             type: "admin",
-     *             id: 394051
-     *         },
-     *         to: {
-     *             type: "user",
-     *             id: "667d616c8a68186f43bafe52"
-     *         },
-     *         created_at: 1590000000,
-     *         create_conversation_without_contact_reply: true
+     *         }
      *     })
      *
      * @example
@@ -198,8 +178,8 @@ export class Messages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "v6.1.0b0",
+                "User-Agent": "intercom-client/v6.1.0b0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -208,7 +188,7 @@ export class Messages {
             contentType: "application/json",
             requestType: "json",
             body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });

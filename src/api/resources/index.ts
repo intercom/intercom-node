@@ -32,8 +32,6 @@ export * as helpCenter from "./helpCenter";
 export * from "./helpCenter/types";
 export * as aiContentSource from "./aiContentSource";
 export * from "./aiContentSource/types";
-export * as customObjectInstances from "./customObjectInstances";
-export * from "./customObjectInstances/types";
 export * as dataEvents from "./dataEvents";
 export * from "./dataEvents/types";
 export * as news from "./news";

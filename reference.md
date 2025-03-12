@@ -973,7 +973,7 @@ Companies will be only visible in Intercom when there is at least one associated
 
 Companies are looked up via `company_id` in a `POST` request, if not found via `company_id`, the new company will be created, if found, that company will be updated.
 
-{% admonition type="attention" name="Using `company_id`" %}
+{% admonition type="warning" name="Using `company_id`" %}
 You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
 {% /admonition %}
 
@@ -1109,7 +1109,7 @@ await client.companies.find({
 
 You can update a single company using the Intercom provisioned `id`.
 
-{% admonition type="attention" name="Using `company_id`" %}
+{% admonition type="warning" name="Using `company_id`" %}
 When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
 {% /admonition %}
 
@@ -2400,7 +2400,6 @@ Most key listed as part of the Contacts Model are searchable, whether writeable 
 | email                              | String                         |
 | email_domain                       | String                         |
 | phone                              | String                         |
-| formatted_phone                    | String                         |
 | external_id                        | String                         |
 | created_at                         | Date (UNIX Timestamp)          |
 | signed_up_at                       | Date (UNIX Timestamp)          |
@@ -2438,7 +2437,7 @@ Most key listed as part of the Contacts Model are searchable, whether writeable 
 
 ### Accepted Operators
 
-{% admonition type="attention" name="Searching based on `created_at`" %}
+{% admonition type="warning" name="Searching based on `created_at`" %}
 You cannot use the `<=` or `>=` operators to search by `created_at`.
 {% /admonition %}
 
@@ -4300,11 +4299,9 @@ For managing conversations you can:
 await client.conversations.manage({
     conversation_id: "123",
     body: {
-        message_type: "assignment",
+        message_type: "close",
         type: "admin",
         admin_id: "12345",
-        assignee_id: "4324241",
-        body: "Goodbye :)",
     },
 });
 ```
@@ -4353,8 +4350,11 @@ await client.conversations.manage({
 <dl>
 <dd>
 
+{% admonition type="danger" name="Deprecation of Run Assignment Rules" %}
+Run assignment rules is now deprecated in version 2.12 and future versions and will be permanently removed on December 31, 2026. After this date, any requests made to this endpoint will fail.
+{% /admonition %}
 You can let a conversation be automatically assigned following assignment rules.
-{% admonition type="attention" name="When using workflows" %}
+{% admonition type="warning" name="When using workflows" %}
 It is not possible to use this endpoint with Workflows.
 {% /admonition %}
 
@@ -4423,7 +4423,7 @@ await client.conversations.runAssignmentRules({
 
 You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
 
-{% admonition type="attention" name="Contacts without an email" %}
+{% admonition type="warning" name="Contacts without an email" %}
 If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
 {% /admonition %}
 
@@ -4496,7 +4496,7 @@ await client.conversations.attachContactAsAdmin({
 
 You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
 
-{% admonition type="attention" name="Contacts without an email" %}
+{% admonition type="warning" name="Contacts without an email" %}
 If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
 {% /admonition %}
 
@@ -5477,9 +5477,9 @@ This will return the Message model that has been created.
 
 ```typescript
 await client.messages.create({
-    message_type: "inapp",
+    message_type: "email",
     subject: "Thanks for everything",
-    body: "heyy",
+    body: "Hello there",
     template: "plain",
     from: {
         type: "admin",
@@ -5489,8 +5489,6 @@ await client.messages.create({
         type: "user",
         id: "536e564f316c83104c000020",
     },
-    created_at: 1590000000,
-    create_conversation_without_contact_reply: true,
 });
 ```
 
