@@ -9,11 +9,28 @@ import * as Intercom from "../../../../index";
  *     {
  *         conversation_id: "123",
  *         body: {
- *             message_type: "assignment",
+ *             message_type: "close",
  *             type: "admin",
- *             admin_id: "12345",
- *             assignee_id: "4324241",
- *             body: "Goodbye :)"
+ *             admin_id: "12345"
+ *         }
+ *     }
+ *
+ * @example
+ *     {
+ *         conversation_id: "123",
+ *         body: {
+ *             message_type: "snoozed",
+ *             admin_id: "5017691",
+ *             snoozed_until: 1673609604
+ *         }
+ *     }
+ *
+ * @example
+ *     {
+ *         conversation_id: "123",
+ *         body: {
+ *             message_type: "open",
+ *             admin_id: "5017690"
  *         }
  *     }
  *
@@ -24,8 +41,7 @@ import * as Intercom from "../../../../index";
  *             message_type: "assignment",
  *             type: "admin",
  *             admin_id: "12345",
- *             assignee_id: "4324241",
- *             body: "Let me pass you over to one of my colleagues."
+ *             assignee_id: "4324241"
  *         }
  *     }
  *
@@ -33,35 +49,9 @@ import * as Intercom from "../../../../index";
  *     {
  *         conversation_id: "123",
  *         body: {
- *             message_type: "assignment",
+ *             message_type: "close",
  *             type: "admin",
- *             admin_id: "12345",
- *             assignee_id: "4324241",
- *             body: "Let me pass you over to one of my colleagues."
- *         }
- *     }
- *
- * @example
- *     {
- *         conversation_id: "123",
- *         body: {
- *             message_type: "assignment",
- *             type: "admin",
- *             admin_id: "12345",
- *             assignee_id: "4324241",
- *             body: "Let me pass you over to one of my colleagues."
- *         }
- *     }
- *
- * @example
- *     {
- *         conversation_id: "123",
- *         body: {
- *             message_type: "assignment",
- *             type: "admin",
- *             admin_id: "12345",
- *             assignee_id: "4324241",
- *             body: "Goodbye :)"
+ *             admin_id: "12345"
  *         }
  *     }
  */

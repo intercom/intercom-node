@@ -9,7 +9,7 @@ import * as Intercom from "../../../index";
  */
 export interface SubscriptionType {
     /** The type of the object - subscription */
-    type: string;
+    type: "subscription";
     /** The unique identifier representing the subscription type. */
     id: string;
     /** The state of the subscription type. */

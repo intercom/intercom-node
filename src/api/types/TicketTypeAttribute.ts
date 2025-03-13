@@ -17,7 +17,7 @@ export interface TicketTypeAttribute {
     /** The description of the ticket type attribute */
     description: string;
     /** The type of the data attribute (allowed values: "string list integer decimal boolean datetime files") */
-    data_type: string;
+    data_type: TicketTypeAttribute.DataType;
     /** Input options for the attribute */
     input_options: Record<string, unknown>;
     /** The order of the attribute against other attributes */
@@ -40,4 +40,20 @@ export interface TicketTypeAttribute {
     created_at: number;
     /** The date and time the ticket type attribute was last updated. */
     updated_at?: number;
+}
+
+export namespace TicketTypeAttribute {
+    /**
+     * The type of the data attribute (allowed values: "string list integer decimal boolean datetime files")
+     */
+    export type DataType = "string" | "list" | "integer" | "decimal" | "boolean" | "datetime" | "files";
+    export const DataType = {
+        String: "string",
+        List: "list",
+        Integer: "integer",
+        Decimal: "decimal",
+        Boolean: "boolean",
+        Datetime: "datetime",
+        Files: "files",
+    } as const;
 }

@@ -27,7 +27,7 @@ export interface CreateOrUpdateCompanyRequest {
     /** The industry that this company operates in. */
     industry?: string;
     /** A hash of key/value pairs containing any other data about the company you want Intercom to store. */
-    custom_attributes?: Record<string, string>;
+    custom_attributes?: Record<string, unknown>;
     /** The time the company was created by you. */
     remote_created_at?: number;
     /** How much revenue the company generates for your business. Note that this will truncate floats. i.e. it only allow for whole integers, 155.98 will be truncated to 155. Note that this has an upper limit of 2**31-1 or 2147483647.. */
