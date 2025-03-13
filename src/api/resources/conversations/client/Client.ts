@@ -117,8 +117,8 @@ export class Conversations {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.0.0",
-                    "User-Agent": "intercom-client/6.0.0",
+                    "X-Fern-SDK-Version": "6.1.0",
+                    "User-Agent": "intercom-client/6.1.0",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -127,7 +127,7 @@ export class Conversations {
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
                 maxRetries: requestOptions?.maxRetries,
                 abortSignal: requestOptions?.abortSignal,
             });
@@ -222,8 +222,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -232,7 +232,7 @@ export class Conversations {
             contentType: "application/json",
             requestType: "json",
             body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -316,8 +316,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -326,7 +326,7 @@ export class Conversations {
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -414,8 +414,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -425,7 +425,7 @@ export class Conversations {
             queryParameters: _queryParams,
             requestType: "json",
             body: _body,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -601,8 +601,8 @@ export class Conversations {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.0.0",
-                    "User-Agent": "intercom-client/6.0.0",
+                    "X-Fern-SDK-Version": "6.1.0",
+                    "User-Agent": "intercom-client/6.1.0",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -611,7 +611,7 @@ export class Conversations {
                 contentType: "application/json",
                 requestType: "json",
                 body: request,
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
                 maxRetries: requestOptions?.maxRetries,
                 abortSignal: requestOptions?.abortSignal,
             });
@@ -719,8 +719,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -729,7 +729,7 @@ export class Conversations {
             contentType: "application/json",
             requestType: "json",
             body: _body,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -788,11 +788,28 @@ export class Conversations {
      *     await client.conversations.manage({
      *         conversation_id: "123",
      *         body: {
-     *             message_type: "assignment",
+     *             message_type: "close",
      *             type: "admin",
-     *             admin_id: "12345",
-     *             assignee_id: "4324241",
-     *             body: "Goodbye :)"
+     *             admin_id: "12345"
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.conversations.manage({
+     *         conversation_id: "123",
+     *         body: {
+     *             message_type: "snoozed",
+     *             admin_id: "5017691",
+     *             snoozed_until: 1673609604
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.conversations.manage({
+     *         conversation_id: "123",
+     *         body: {
+     *             message_type: "open",
+     *             admin_id: "5017690"
      *         }
      *     })
      *
@@ -803,8 +820,7 @@ export class Conversations {
      *             message_type: "assignment",
      *             type: "admin",
      *             admin_id: "12345",
-     *             assignee_id: "4324241",
-     *             body: "Let me pass you over to one of my colleagues."
+     *             assignee_id: "4324241"
      *         }
      *     })
      */
@@ -823,8 +839,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -833,7 +849,7 @@ export class Conversations {
             contentType: "application/json",
             requestType: "json",
             body: _body,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -875,8 +891,11 @@ export class Conversations {
     }
 
     /**
+     * {% admonition type="danger" name="Deprecation of Run Assignment Rules" %}
+     * Run assignment rules is now deprecated in version 2.12 and future versions and will be permanently removed on December 31, 2026. After this date, any requests made to this endpoint will fail.
+     * {% /admonition %}
      * You can let a conversation be automatically assigned following assignment rules.
-     * {% admonition type="attention" name="When using workflows" %}
+     * {% admonition type="warning" name="When using workflows" %}
      * It is not possible to use this endpoint with Workflows.
      * {% /admonition %}
      *
@@ -907,8 +926,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -916,7 +935,7 @@ export class Conversations {
             },
             contentType: "application/json",
             requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -960,7 +979,7 @@ export class Conversations {
     /**
      * You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
      *
-     * {% admonition type="attention" name="Contacts without an email" %}
+     * {% admonition type="warning" name="Contacts without an email" %}
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
      *
@@ -1005,8 +1024,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1015,7 +1034,7 @@ export class Conversations {
             contentType: "application/json",
             requestType: "json",
             body: _body,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -1059,7 +1078,7 @@ export class Conversations {
     /**
      * You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
      *
-     * {% admonition type="attention" name="Contacts without an email" %}
+     * {% admonition type="warning" name="Contacts without an email" %}
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
      *
@@ -1094,8 +1113,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1104,7 +1123,7 @@ export class Conversations {
             contentType: "application/json",
             requestType: "json",
             body: _body,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -1189,8 +1208,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1199,7 +1218,7 @@ export class Conversations {
             contentType: "application/json",
             requestType: "json",
             body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
@@ -1271,8 +1290,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.0.0",
-                "User-Agent": "intercom-client/6.0.0",
+                "X-Fern-SDK-Version": "6.1.0",
+                "User-Agent": "intercom-client/6.1.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1281,7 +1300,7 @@ export class Conversations {
             contentType: "application/json",
             requestType: "json",
             body: _body,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });

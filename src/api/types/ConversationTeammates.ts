@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface ConversationTeammates {
     /** The type of the object - `admin.list`. */
-    type: string;
+    type: "admin.list";
     /** The list of teammates who participated in the conversation (wrote at least one conversation part). */
-    teammates: Intercom.Reference[];
+    admins: Intercom.Reference[];
 }

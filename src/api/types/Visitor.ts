@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface Visitor {
     /** Value is 'visitor' */
-    type: string;
+    type: "visitor";
     /** The Intercom defined id representing the Visitor. */
     id: string;
     /** Automatically generated identifier for the Visitor. */
@@ -53,7 +53,7 @@ export interface Visitor {
     tags?: Visitor.Tags;
     segments?: Visitor.Segments;
     /** The custom attributes you have set on the Visitor. */
-    custom_attributes?: Record<string, string>;
+    custom_attributes?: Record<string, unknown>;
     /** The referer of the visitor. */
     referrer?: string;
     /** The utm_campaign of the visitor. */

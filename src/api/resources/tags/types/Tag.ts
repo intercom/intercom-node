@@ -9,7 +9,7 @@ import * as Intercom from "../../../index";
  */
 export interface Tag {
     /** value is "tag" */
-    type: string;
+    type: "tag";
     /** The id of the tag */
     id: string;
     /** The name of the tag */

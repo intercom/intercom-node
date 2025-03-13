@@ -9,7 +9,7 @@ import * as Intercom from "../../../index";
  */
 export interface Contact {
     /** The type of object. */
-    type?: string;
+    type?: "contact";
     /** The unique identifier for the contact which is given by Intercom. */
     id: string;
     /** The unique identifier for the contact which is provided by the Client. */
@@ -19,7 +19,7 @@ export interface Contact {
     /** The role of the contact. */
     role: string;
     /** The contact's email. */
-    email: string;
+    email?: string;
     /** The contact's email domain. */
     email_domain?: string;
     /** The contacts phone. */
@@ -99,7 +99,7 @@ export interface Contact {
 export namespace Contact {
     export interface Avatar {
         /** The type of object */
-        type?: string;
+        type?: "avatar";
         /** An image URL containing the avatar of a contact. */
         image_url?: string;
     }

@@ -37,7 +37,7 @@ export interface UpdateArticleRequest {
     /** The id of the article's parent collection or section. An article without this field stands alone. */
     parent_id?: string;
     /** The type of parent, which can either be a `collection` or `section`. */
-    parent_type?: string;
+    parent_type?: UpdateArticleRequest.ParentType;
     translated_content?: Intercom.ArticleTranslatedContent;
 }
 
@@ -49,5 +49,13 @@ export namespace UpdateArticleRequest {
     export const State = {
         Published: "published",
         Draft: "draft",
+    } as const;
+    /**
+     * The type of parent, which can either be a `collection` or `section`.
+     */
+    export type ParentType = "collection" | "section";
+    export const ParentType = {
+        Collection: "collection",
+        Section: "section",
     } as const;
 }
