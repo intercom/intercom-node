@@ -156,3 +156,4 @@ export * from "./UrlActionComponent";
 export * from "./Visitor";
 export * from "./VisitorDeletedObject";
 export * from "./CustomAttributes";
+export * from "./OffsetPages";

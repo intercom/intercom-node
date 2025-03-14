@@ -140,8 +140,8 @@ export class Events {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -228,7 +228,6 @@ export class Events {
      * - Event lists containing duplicate events will have those duplicates ignored.
      * - Server errors will return a `500` response code and may contain an error message in the body.
      *
-     *
      * @param {Intercom.CreateDataEventRequest} request
      * @param {Events.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -255,8 +254,8 @@ export class Events {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -303,7 +302,6 @@ export class Events {
     /**
      * Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
      *
-     *
      * @param {Intercom.ListEventSummariesRequest} request
      * @param {Events.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -326,8 +324,8 @@ export class Events {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

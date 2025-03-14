@@ -10,7 +10,7 @@ import * as Intercom from "../index";
 export interface CollectionList {
     /** The type of the object - `list`. */
     type: "list";
-    pages?: Intercom.CursorPages;
+    pages?: Intercom.OffsetPages;
     /** A count of the total number of collections. */
     total_count: number;
     /** An array of collection objects */
