@@ -88,28 +88,6 @@ while (page.hasNextPage()) {
 }
 ```
 
-## Request Options
-
-This client library also supports passing in [`request` options](https://github.com/axios/axios#request-config):
-
-```typescript
-client.useRequestOpts({
-    baseURL: "http://local.test-server.com",
-});
-```
-
-Note that certain request options (such as `json`, and certain `headers` names cannot be overriden).
-
-### Setting the API base url
-
-If you are using the european instance of intercom and would like to call it directly and not be redirected through our US instance, you can set the `baseUrl` as follows:
-
-```typescript
-client.useRequestOpts({
-    baseURL: "https://api.eu.intercom.io",
-});
-```
-
 ## Advanced
 
 ### Additional Headers
@@ -189,6 +167,28 @@ import { IntercomClient } from "intercom-client";
 const client = new IntercomClient({
     ...
     fetcher: // provide your implementation here
+});
+```
+
+## Request Options
+
+This client library also supports passing in [`request` options](https://github.com/axios/axios#request-config):
+
+```typescript
+client.useRequestOpts({
+    baseURL: "http://local.test-server.com",
+});
+```
+
+Note that certain request options (such as `json`, and certain `headers` names cannot be overriden).
+
+### Setting the API base url
+
+If you are using the european instance of intercom and would like to call it directly and not be redirected through our US instance, you can set the `baseUrl` as follows:
+
+```typescript
+client.useRequestOpts({
+    baseURL: "https://api.eu.intercom.io",
 });
 ```
 

@@ -5032,7 +5032,6 @@ Duplicated events are responded to using the normal `202 Accepted` code - an err
 -   Events sent about users that cannot be found will return a `404 Not Found`.
 -   Event lists containing duplicate events will have those duplicates ignored.
 -   Server errors will return a `500` response code and may contain an error message in the body.
-
 </dd>
 </dl>
 </dd>
