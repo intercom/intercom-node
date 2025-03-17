@@ -25,6 +25,8 @@ export interface CreateConversationRequest {
     from: CreateConversationRequest.From;
     /** The content of the message. HTML is not supported. */
     body: string;
+    /** The time the conversation was created as a UTC Unix timestamp. If not provided, the current time will be used. This field is only recommneded for migrating past conversations from another source into Intercom. */
+    created_at?: number;
 }
 
 export namespace CreateConversationRequest {

@@ -1,13 +1,9 @@
-# Intercom TypeScript Library (intercom-client)
+# Intercom TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fintercom%2Fintercom-node)
 [![npm shield](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
 
 The Intercom TypeScript library provides convenient access to the Intercom API from TypeScript.
-
-[![npm](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
-![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-2.11-blue)
-![Typescript Supported](https://img.shields.io/badge/Typescript-Supported-lightgrey)
 
 ## Project Updates
 
@@ -32,9 +28,9 @@ import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({ token: "YOUR_TOKEN" });
 await client.articles.create({
-    title: "How to create an account",
-    description: "Example article about creating an account.",
-    body: "Here are the steps to create an account.",
+    title: "Thanks for everything",
+    description: "Description of the Article",
+    body: "Body of the Article",
     author_id: 1295,
     state: "published",
 });
@@ -72,6 +68,26 @@ try {
 }
 ```
 
+## Pagination
+
+List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
+
+```typescript
+import { IntercomClient } from "intercom-client";
+
+const client = new IntercomClient({ token: "YOUR_TOKEN" });
+const response = await client.articles.list();
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.articles.list();
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+```
+
 ## Request Options
 
 This client library also supports passing in [`request` options](https://github.com/axios/axios#request-config):
@@ -92,26 +108,6 @@ If you are using the european instance of intercom and would like to call it dir
 client.useRequestOpts({
     baseURL: "https://api.eu.intercom.io",
 });
-```
-
-## Pagination
-
-List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
-
-```typescript
-import { IntercomClient } from "intercom-client";
-
-const client = new IntercomClient({ token: "YOUR_TOKEN" });
-const response = await client.articles.list();
-for await (const item of response) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-const page = await client.articles.list();
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
 ```
 
 ## Advanced

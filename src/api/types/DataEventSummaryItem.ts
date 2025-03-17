@@ -15,5 +15,5 @@ export interface DataEventSummaryItem {
     /** The number of times the event was sent */
     count: number;
     /** The description of the event */
-    description: string;
+    description?: string;
 }
