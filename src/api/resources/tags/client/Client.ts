@@ -9,8 +9,10 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Tags {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Intercom-Version header */
         version?:
@@ -35,7 +37,7 @@ export declare namespace Tags {
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -96,21 +98,23 @@ export class Tags {
      */
     public async tagContact(
         request: Intercom.TagContactRequest,
-        requestOptions?: Tags.RequestOptions
+        requestOptions?: Tags.RequestOptions,
     ): Promise<Intercom.Tag> {
         const { contact_id: contactId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `contacts/${encodeURIComponent(contactId)}/tags`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `contacts/${encodeURIComponent(contactId)}/tags`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -149,7 +153,7 @@ export class Tags {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /contacts/{contact_id}/tags."
+                    "Timeout exceeded when calling POST /contacts/{contact_id}/tags.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -175,21 +179,23 @@ export class Tags {
      */
     public async untagContact(
         request: Intercom.UntagContactRequest,
-        requestOptions?: Tags.RequestOptions
+        requestOptions?: Tags.RequestOptions,
     ): Promise<Intercom.Tag> {
         const { contact_id: contactId, tag_id: tagId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `contacts/${encodeURIComponent(contactId)}/tags/${encodeURIComponent(tagId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `contacts/${encodeURIComponent(contactId)}/tags/${encodeURIComponent(tagId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -227,7 +233,7 @@ export class Tags {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling DELETE /contacts/{contact_id}/tags/{tag_id}."
+                    "Timeout exceeded when calling DELETE /contacts/{contact_id}/tags/{tag_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -254,21 +260,23 @@ export class Tags {
      */
     public async tagConversation(
         request: Intercom.TagConversationRequest,
-        requestOptions?: Tags.RequestOptions
+        requestOptions?: Tags.RequestOptions,
     ): Promise<Intercom.Tag> {
         const { conversation_id: conversationId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/tags`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/tags`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -307,7 +315,7 @@ export class Tags {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /conversations/{conversation_id}/tags."
+                    "Timeout exceeded when calling POST /conversations/{conversation_id}/tags.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -334,21 +342,23 @@ export class Tags {
      */
     public async untagConversation(
         request: Intercom.UntagConversationRequest,
-        requestOptions?: Tags.RequestOptions
+        requestOptions?: Tags.RequestOptions,
     ): Promise<Intercom.Tag> {
         const { conversation_id: conversationId, tag_id: tagId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/tags/${encodeURIComponent(tagId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/tags/${encodeURIComponent(tagId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -387,7 +397,7 @@ export class Tags {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling DELETE /conversations/{conversation_id}/tags/{tag_id}."
+                    "Timeout exceeded when calling DELETE /conversations/{conversation_id}/tags/{tag_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -409,16 +419,18 @@ export class Tags {
     public async list(requestOptions?: Tags.RequestOptions): Promise<Intercom.TagList> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "tags"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "tags",
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -511,20 +523,22 @@ export class Tags {
      */
     public async create(
         request: Intercom.TagsCreateRequestBody,
-        requestOptions?: Tags.RequestOptions
+        requestOptions?: Tags.RequestOptions,
     ): Promise<Intercom.Tag> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "tags"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "tags",
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -591,16 +605,18 @@ export class Tags {
         const { tag_id: tagId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `tags/${encodeURIComponent(tagId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `tags/${encodeURIComponent(tagId)}`,
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -664,16 +680,18 @@ export class Tags {
         const { tag_id: tagId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `tags/${encodeURIComponent(tagId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `tags/${encodeURIComponent(tagId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -738,21 +756,23 @@ export class Tags {
      */
     public async tagTicket(
         request: Intercom.TagTicketRequest,
-        requestOptions?: Tags.RequestOptions
+        requestOptions?: Tags.RequestOptions,
     ): Promise<Intercom.Tag> {
         const { ticket_id: ticketId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `tickets/${encodeURIComponent(ticketId)}/tags`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `tickets/${encodeURIComponent(ticketId)}/tags`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -816,21 +836,23 @@ export class Tags {
      */
     public async untagTicket(
         request: Intercom.UntagTicketRequest,
-        requestOptions?: Tags.RequestOptions
+        requestOptions?: Tags.RequestOptions,
     ): Promise<Intercom.Tag> {
         const { ticket_id: ticketId, tag_id: tagId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `tickets/${encodeURIComponent(ticketId)}/tags/${encodeURIComponent(tagId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `tickets/${encodeURIComponent(ticketId)}/tags/${encodeURIComponent(tagId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -869,7 +891,7 @@ export class Tags {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling DELETE /tickets/{ticket_id}/tags/{tag_id}."
+                    "Timeout exceeded when calling DELETE /tickets/{ticket_id}/tags/{tag_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -882,7 +904,8 @@ export class Tags {
         const bearer = (await core.Supplier.get(this._options.token)) ?? process?.env["INTERCOM_API_KEY"];
         if (bearer == null) {
             throw new errors.IntercomError({
-                message: "Please specify INTERCOM_API_KEY when instantiating the client.",
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a INTERCOM_API_KEY environment variable",
             });
         }
 

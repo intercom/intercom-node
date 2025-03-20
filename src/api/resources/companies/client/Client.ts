@@ -9,8 +9,10 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Companies {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Intercom-Version header */
         version?:
@@ -35,7 +37,7 @@ export declare namespace Companies {
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -102,10 +104,10 @@ export class Companies {
      */
     public async retrieve(
         request: Intercom.RetrieveCompanyRequest = {},
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.CompanyList> {
         const { name, company_id: companyId, tag_id: tagId, segment_id: segmentId, page, per_page: perPage } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (name != null) {
             _queryParams["name"] = name;
         }
@@ -132,16 +134,18 @@ export class Companies {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "companies"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "companies",
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -216,20 +220,22 @@ export class Companies {
      */
     public async createOrUpdate(
         request: Intercom.CreateOrUpdateCompanyRequest = {},
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.Company> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "companies"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "companies",
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -291,21 +297,23 @@ export class Companies {
      */
     public async find(
         request: Intercom.FindCompanyRequest,
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.Company> {
         const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `companies/${encodeURIComponent(companyId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `companies/${encodeURIComponent(companyId)}`,
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -370,21 +378,23 @@ export class Companies {
      */
     public async update(
         request: Intercom.UpdateCompanyRequest,
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.Company> {
         const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `companies/${encodeURIComponent(companyId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `companies/${encodeURIComponent(companyId)}`,
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -445,21 +455,23 @@ export class Companies {
      */
     public async delete(
         request: Intercom.DeleteCompanyRequest,
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.DeletedCompanyObject> {
         const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `companies/${encodeURIComponent(companyId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `companies/${encodeURIComponent(companyId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -520,10 +532,10 @@ export class Companies {
      */
     public async listAttachedContacts(
         request: Intercom.ListAttachedContactsRequest,
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.CompanyAttachedContacts> {
         const { company_id: companyId, page, per_page: perPage } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
             _queryParams["page"] = page.toString();
         }
@@ -534,16 +546,18 @@ export class Companies {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `companies/${encodeURIComponent(companyId)}/contacts`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `companies/${encodeURIComponent(companyId)}/contacts`,
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -582,7 +596,7 @@ export class Companies {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling GET /companies/{company_id}/contacts."
+                    "Timeout exceeded when calling GET /companies/{company_id}/contacts.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -607,21 +621,23 @@ export class Companies {
      */
     public async listAttachedSegments(
         request: Intercom.ListSegmentsAttachedToCompanyRequest,
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.CompanyAttachedSegments> {
         const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `companies/${encodeURIComponent(companyId)}/segments`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `companies/${encodeURIComponent(companyId)}/segments`,
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -659,7 +675,7 @@ export class Companies {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling GET /companies/{company_id}/segments."
+                    "Timeout exceeded when calling GET /companies/{company_id}/segments.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -691,11 +707,11 @@ export class Companies {
      */
     public async list(
         request: Intercom.ListCompaniesRequest = {},
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<core.Page<Intercom.Company>> {
         const list = async (request: Intercom.ListCompaniesRequest): Promise<Intercom.CompanyList> => {
             const { page, per_page: perPage, order } = request;
-            const _queryParams: Record<string, string | string[] | object | object[]> = {};
+            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
             if (page != null) {
                 _queryParams["page"] = page.toString();
             }
@@ -707,17 +723,18 @@ export class Companies {
             }
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ??
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
                         environments.IntercomEnvironment.UsProduction,
-                    "companies/list"
+                    "companies/list",
                 ),
                 method: "POST",
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "v6.1.1",
-                    "User-Agent": "intercom-client/v6.1.1",
+                    "X-Fern-SDK-Version": "6.2.0",
+                    "User-Agent": "intercom-client/6.2.0",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -797,27 +814,28 @@ export class Companies {
      */
     public async scroll(
         request: Intercom.ScrollCompaniesRequest = {},
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<core.Page<Intercom.Company>> {
         const list = async (request: Intercom.ScrollCompaniesRequest): Promise<Intercom.CompanyScroll> => {
             const { scroll_param: scrollParam } = request;
-            const _queryParams: Record<string, string | string[] | object | object[]> = {};
+            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
             if (scrollParam != null) {
                 _queryParams["scroll_param"] = scrollParam;
             }
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ??
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
                         environments.IntercomEnvironment.UsProduction,
-                    "companies/scroll"
+                    "companies/scroll",
                 ),
                 method: "GET",
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "v6.1.1",
-                    "User-Agent": "intercom-client/v6.1.1",
+                    "X-Fern-SDK-Version": "6.2.0",
+                    "User-Agent": "intercom-client/6.2.0",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -898,21 +916,23 @@ export class Companies {
      */
     public async attachContact(
         request: Intercom.AttachContactToCompanyRequest,
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.Company> {
         const { contact_id: contactId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `contacts/${encodeURIComponent(contactId)}/companies`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `contacts/${encodeURIComponent(contactId)}/companies`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -953,7 +973,7 @@ export class Companies {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /contacts/{contact_id}/companies."
+                    "Timeout exceeded when calling POST /contacts/{contact_id}/companies.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -979,21 +999,23 @@ export class Companies {
      */
     public async detachContact(
         request: Intercom.DetachContactFromCompanyRequest,
-        requestOptions?: Companies.RequestOptions
+        requestOptions?: Companies.RequestOptions,
     ): Promise<Intercom.Company> {
         const { contact_id: contactId, company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `contacts/${encodeURIComponent(contactId)}/companies/${encodeURIComponent(companyId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `contacts/${encodeURIComponent(contactId)}/companies/${encodeURIComponent(companyId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1031,7 +1053,7 @@ export class Companies {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling DELETE /contacts/{contact_id}/companies/{company_id}."
+                    "Timeout exceeded when calling DELETE /contacts/{contact_id}/companies/{company_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -1044,7 +1066,8 @@ export class Companies {
         const bearer = (await core.Supplier.get(this._options.token)) ?? process?.env["INTERCOM_API_KEY"];
         if (bearer == null) {
             throw new errors.IntercomError({
-                message: "Please specify INTERCOM_API_KEY when instantiating the client.",
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a INTERCOM_API_KEY environment variable",
             });
         }
 

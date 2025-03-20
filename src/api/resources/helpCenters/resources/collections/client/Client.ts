@@ -9,8 +9,10 @@ import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Collections {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Intercom-Version header */
         version?:
@@ -35,7 +37,7 @@ export declare namespace Collections {
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -85,11 +87,11 @@ export class Collections {
      */
     public async list(
         request: Intercom.helpCenters.ListCollectionsRequest = {},
-        requestOptions?: Collections.RequestOptions
+        requestOptions?: Collections.RequestOptions,
     ): Promise<core.Page<Intercom.Collection>> {
         const list = async (request: Intercom.helpCenters.ListCollectionsRequest): Promise<Intercom.CollectionList> => {
             const { page, per_page: perPage } = request;
-            const _queryParams: Record<string, string | string[] | object | object[]> = {};
+            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
             if (page != null) {
                 _queryParams["page"] = page.toString();
             }
@@ -98,17 +100,18 @@ export class Collections {
             }
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ??
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
                         environments.IntercomEnvironment.UsProduction,
-                    "help_center/collections"
+                    "help_center/collections",
                 ),
                 method: "GET",
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "v6.1.1",
-                    "User-Agent": "intercom-client/v6.1.1",
+                    "X-Fern-SDK-Version": "6.2.0",
+                    "User-Agent": "intercom-client/6.2.0",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -143,7 +146,7 @@ export class Collections {
                     });
                 case "timeout":
                     throw new errors.IntercomTimeoutError(
-                        "Timeout exceeded when calling GET /help_center/collections."
+                        "Timeout exceeded when calling GET /help_center/collections.",
                     );
                 case "unknown":
                     throw new errors.IntercomError({
@@ -185,20 +188,22 @@ export class Collections {
      */
     public async create(
         request: Intercom.helpCenters.CreateCollectionRequest,
-        requestOptions?: Collections.RequestOptions
+        requestOptions?: Collections.RequestOptions,
     ): Promise<Intercom.Collection> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "help_center/collections"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "help_center/collections",
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -260,21 +265,23 @@ export class Collections {
      */
     public async find(
         request: Intercom.helpCenters.FindCollectionRequest,
-        requestOptions?: Collections.RequestOptions
+        requestOptions?: Collections.RequestOptions,
     ): Promise<Intercom.Collection> {
         const { collection_id: collectionId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `help_center/collections/${encodeURIComponent(collectionId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `help_center/collections/${encodeURIComponent(collectionId)}`,
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -312,7 +319,7 @@ export class Collections {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling GET /help_center/collections/{collection_id}."
+                    "Timeout exceeded when calling GET /help_center/collections/{collection_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -338,21 +345,23 @@ export class Collections {
      */
     public async update(
         request: Intercom.helpCenters.UpdateCollectionRequest,
-        requestOptions?: Collections.RequestOptions
+        requestOptions?: Collections.RequestOptions,
     ): Promise<Intercom.Collection> {
         const { collection_id: collectionId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `help_center/collections/${encodeURIComponent(collectionId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `help_center/collections/${encodeURIComponent(collectionId)}`,
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -391,7 +400,7 @@ export class Collections {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling PUT /help_center/collections/{collection_id}."
+                    "Timeout exceeded when calling PUT /help_center/collections/{collection_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -416,21 +425,23 @@ export class Collections {
      */
     public async delete(
         request: Intercom.helpCenters.DeleteCollectionRequest,
-        requestOptions?: Collections.RequestOptions
+        requestOptions?: Collections.RequestOptions,
     ): Promise<Intercom.DeletedCollectionObject> {
         const { collection_id: collectionId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `help_center/collections/${encodeURIComponent(collectionId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `help_center/collections/${encodeURIComponent(collectionId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -468,7 +479,7 @@ export class Collections {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling DELETE /help_center/collections/{collection_id}."
+                    "Timeout exceeded when calling DELETE /help_center/collections/{collection_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -481,7 +492,8 @@ export class Collections {
         const bearer = (await core.Supplier.get(this._options.token)) ?? process?.env["INTERCOM_API_KEY"];
         if (bearer == null) {
             throw new errors.IntercomError({
-                message: "Please specify INTERCOM_API_KEY when instantiating the client.",
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a INTERCOM_API_KEY environment variable",
             });
         }
 

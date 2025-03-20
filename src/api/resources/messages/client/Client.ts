@@ -9,8 +9,10 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Messages {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Intercom-Version header */
         version?:
@@ -35,7 +37,7 @@ export declare namespace Messages {
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -166,20 +168,22 @@ export class Messages {
      */
     public async create(
         request: Intercom.CreateMessageRequest,
-        requestOptions?: Messages.RequestOptions
+        requestOptions?: Messages.RequestOptions,
     ): Promise<Intercom.Message> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "messages"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "messages",
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -233,7 +237,8 @@ export class Messages {
         const bearer = (await core.Supplier.get(this._options.token)) ?? process?.env["INTERCOM_API_KEY"];
         if (bearer == null) {
             throw new errors.IntercomError({
-                message: "Please specify INTERCOM_API_KEY when instantiating the client.",
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a INTERCOM_API_KEY environment variable",
             });
         }
 
