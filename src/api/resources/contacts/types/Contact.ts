@@ -88,19 +88,11 @@ export interface Contact {
     ios_last_seen_at?: number;
     /** The custom attributes which are set for the contact. */
     custom_attributes?: Record<string, unknown>;
-    avatar?: Contact.Avatar;
+    /** An image URL containing the avatar of a contact. */
+    avatar?: string;
     tags?: Intercom.ContactTags;
     notes?: Intercom.ContactNotes;
     companies?: Intercom.ContactCompanies;
     location: Intercom.ContactLocation;
     social_profiles: Intercom.ContactSocialProfiles;
-}
-
-export namespace Contact {
-    export interface Avatar {
-        /** The type of object */
-        type?: "avatar";
-        /** An image URL containing the avatar of a contact. */
-        image_url?: string;
-    }
 }
