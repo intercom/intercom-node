@@ -117,8 +117,8 @@ export class Conversations {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.1.0",
-                    "User-Agent": "intercom-client/6.1.0",
+                    "X-Fern-SDK-Version": "v6.1.1",
+                    "User-Agent": "intercom-client/v6.1.1",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -182,7 +182,6 @@ export class Conversations {
      *
      * This will return the Message model that has been created.
      *
-     *
      * @param {Intercom.CreateConversationRequest} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -222,8 +221,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -316,8 +315,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -375,7 +374,6 @@ export class Conversations {
      * If you want to reply to a coveration or take an action such as assign, unassign, open, close or snooze, take a look at the reply and manage endpoints.
      * {% /admonition %}
      *
-     *
      * @param {Intercom.UpdateConversationRequest} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -414,8 +412,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -601,8 +599,8 @@ export class Conversations {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.1.0",
-                    "User-Agent": "intercom-client/6.1.0",
+                    "X-Fern-SDK-Version": "v6.1.1",
+                    "User-Agent": "intercom-client/v6.1.1",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -719,8 +717,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -839,8 +837,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -926,8 +924,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -983,7 +981,6 @@ export class Conversations {
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
      *
-     *
      * @param {Intercom.AttachContactToConversationRequest} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1024,8 +1021,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1082,7 +1079,6 @@ export class Conversations {
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
      *
-     *
      * @param {Intercom.DetachContactFromConversationRequest} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1113,8 +1109,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1173,7 +1169,6 @@ export class Conversations {
      * If you are redacting a conversation part, it must have a `body`. If you are redacting a source message, it must have been created by a contact. We will return a `conversation_part_not_redactable` error if these criteria are not met.
      * {% /admonition %}
      *
-     *
      * @param {Intercom.RedactConversationRequest} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1208,8 +1203,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1290,8 +1285,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.1.0",
-                "User-Agent": "intercom-client/6.1.0",
+                "X-Fern-SDK-Version": "v6.1.1",
+                "User-Agent": "intercom-client/v6.1.1",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

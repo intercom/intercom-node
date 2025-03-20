@@ -14,5 +14,5 @@ export interface NoteList {
     data: Intercom.Note[];
     /** A count of the total number of notes. */
     total_count: number;
-    pages?: Intercom.CursorPages;
+    pages?: Intercom.OffsetPages;
 }

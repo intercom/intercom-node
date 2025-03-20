@@ -10,7 +10,7 @@ import * as Intercom from "../index";
 export interface ArticleList {
     /** The type of the object - `list`. */
     type: "list";
-    pages?: Intercom.CursorPages;
+    pages?: unknown;
     /** A count of the total number of articles. */
     total_count: number;
     /** An array of Article objects */
