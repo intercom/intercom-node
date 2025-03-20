@@ -9,8 +9,10 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Articles {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Intercom-Version header */
         version?:
@@ -35,7 +37,7 @@ export declare namespace Articles {
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -90,11 +92,11 @@ export class Articles {
      */
     public async list(
         request: Intercom.ListArticlesRequest = {},
-        requestOptions?: Articles.RequestOptions
+        requestOptions?: Articles.RequestOptions,
     ): Promise<core.Page<Intercom.ArticleListItem>> {
         const list = async (request: Intercom.ListArticlesRequest): Promise<Intercom.ArticleList> => {
             const { page, per_page: perPage } = request;
-            const _queryParams: Record<string, string | string[] | object | object[]> = {};
+            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
             if (page != null) {
                 _queryParams["page"] = page.toString();
             }
@@ -103,17 +105,18 @@ export class Articles {
             }
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ??
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
                         environments.IntercomEnvironment.UsProduction,
-                    "articles"
+                    "articles",
                 ),
                 method: "GET",
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "v6.1.1",
-                    "User-Agent": "intercom-client/v6.1.1",
+                    "X-Fern-SDK-Version": "6.2.0",
+                    "User-Agent": "intercom-client/6.2.0",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -207,20 +210,22 @@ export class Articles {
      */
     public async create(
         request: Intercom.CreateArticleRequest,
-        requestOptions?: Articles.RequestOptions
+        requestOptions?: Articles.RequestOptions,
     ): Promise<Intercom.Article> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "articles"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "articles",
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -282,21 +287,23 @@ export class Articles {
      */
     public async find(
         request: Intercom.FindArticleRequest,
-        requestOptions?: Articles.RequestOptions
+        requestOptions?: Articles.RequestOptions,
     ): Promise<Intercom.Article> {
         const { article_id: articleId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `articles/${encodeURIComponent(articleId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `articles/${encodeURIComponent(articleId)}`,
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -359,21 +366,23 @@ export class Articles {
      */
     public async update(
         request: Intercom.UpdateArticleRequest,
-        requestOptions?: Articles.RequestOptions
+        requestOptions?: Articles.RequestOptions,
     ): Promise<Intercom.Article> {
         const { article_id: articleId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `articles/${encodeURIComponent(articleId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `articles/${encodeURIComponent(articleId)}`,
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -435,21 +444,23 @@ export class Articles {
      */
     public async delete(
         request: Intercom.DeleteArticleRequest,
-        requestOptions?: Articles.RequestOptions
+        requestOptions?: Articles.RequestOptions,
     ): Promise<Intercom.DeletedArticleObject> {
         const { article_id: articleId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `articles/${encodeURIComponent(articleId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `articles/${encodeURIComponent(articleId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -510,10 +521,10 @@ export class Articles {
      */
     public async search(
         request: Intercom.SearchArticlesRequest = {},
-        requestOptions?: Articles.RequestOptions
+        requestOptions?: Articles.RequestOptions,
     ): Promise<Intercom.SearchArticlesResponse> {
         const { phrase, state, help_center_id: helpCenterId, highlight } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (phrase != null) {
             _queryParams["phrase"] = phrase;
         }
@@ -532,16 +543,18 @@ export class Articles {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "articles/search"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "articles/search",
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -589,7 +602,8 @@ export class Articles {
         const bearer = (await core.Supplier.get(this._options.token)) ?? process?.env["INTERCOM_API_KEY"];
         if (bearer == null) {
             throw new errors.IntercomError({
-                message: "Please specify INTERCOM_API_KEY when instantiating the client.",
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a INTERCOM_API_KEY environment variable",
             });
         }
 

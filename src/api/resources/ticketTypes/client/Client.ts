@@ -10,8 +10,10 @@ import * as errors from "../../../../errors/index";
 import { Attributes } from "../resources/attributes/client/Client";
 
 export declare namespace TicketTypes {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Intercom-Version header */
         version?:
@@ -36,7 +38,7 @@ export declare namespace TicketTypes {
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -93,16 +95,18 @@ export class TicketTypes {
     public async list(requestOptions?: TicketTypes.RequestOptions): Promise<Intercom.TicketTypeList> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "ticket_types"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "ticket_types",
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -167,20 +171,22 @@ export class TicketTypes {
      */
     public async create(
         request: Intercom.CreateTicketTypeRequest,
-        requestOptions?: TicketTypes.RequestOptions
+        requestOptions?: TicketTypes.RequestOptions,
     ): Promise<Intercom.TicketType> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "ticket_types"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "ticket_types",
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -239,21 +245,23 @@ export class TicketTypes {
      */
     public async get(
         request: Intercom.FindTicketTypeRequest,
-        requestOptions?: TicketTypes.RequestOptions
+        requestOptions?: TicketTypes.RequestOptions,
     ): Promise<Intercom.TicketType> {
         const { ticket_type_id: ticketTypeId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `ticket_types/${encodeURIComponent(ticketTypeId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `ticket_types/${encodeURIComponent(ticketTypeId)}`,
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -289,7 +297,7 @@ export class TicketTypes {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling GET /ticket_types/{ticket_type_id}."
+                    "Timeout exceeded when calling GET /ticket_types/{ticket_type_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -319,21 +327,23 @@ export class TicketTypes {
      */
     public async update(
         request: Intercom.UpdateTicketTypeRequest,
-        requestOptions?: TicketTypes.RequestOptions
+        requestOptions?: TicketTypes.RequestOptions,
     ): Promise<Intercom.TicketType> {
         const { ticket_type_id: ticketTypeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `ticket_types/${encodeURIComponent(ticketTypeId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `ticket_types/${encodeURIComponent(ticketTypeId)}`,
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -370,7 +380,7 @@ export class TicketTypes {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling PUT /ticket_types/{ticket_type_id}."
+                    "Timeout exceeded when calling PUT /ticket_types/{ticket_type_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -383,7 +393,8 @@ export class TicketTypes {
         const bearer = (await core.Supplier.get(this._options.token)) ?? process?.env["INTERCOM_API_KEY"];
         if (bearer == null) {
             throw new errors.IntercomError({
-                message: "Please specify INTERCOM_API_KEY when instantiating the client.",
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a INTERCOM_API_KEY environment variable",
             });
         }
 

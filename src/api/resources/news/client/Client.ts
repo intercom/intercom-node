@@ -8,8 +8,10 @@ import { Items } from "../resources/items/client/Client";
 import { Feeds } from "../resources/feeds/client/Client";
 
 export declare namespace News {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Intercom-Version header */
         version?:
@@ -32,37 +34,6 @@ export declare namespace News {
             | "2.11"
             | "Unstable";
         fetcher?: core.FetchFunction;
-    }
-
-    interface RequestOptions {
-        /** The maximum time to wait for a response in seconds. */
-        timeoutInSeconds?: number;
-        /** The number of times to retry the request. Defaults to 2. */
-        maxRetries?: number;
-        /** A hook to abort the request. */
-        abortSignal?: AbortSignal;
-        /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
-        /** Override the Intercom-Version header */
-        version?:
-            | "1.0"
-            | "1.1"
-            | "1.2"
-            | "1.3"
-            | "1.4"
-            | "2.0"
-            | "2.1"
-            | "2.2"
-            | "2.3"
-            | "2.4"
-            | "2.5"
-            | "2.6"
-            | "2.7"
-            | "2.8"
-            | "2.9"
-            | "2.10"
-            | "2.11"
-            | "Unstable";
     }
 }
 

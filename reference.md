@@ -1457,9 +1457,9 @@ while (page.hasNextPage()) {
 
       The `list all companies` functionality does not work well for huge datasets, and can result in errors and performance problems when paging deeply. The Scroll API provides an efficient mechanism for iterating over all companies in a dataset.
 
--   Each app can only have 1 scroll open at a time. You'll get an error message if you try to have more than one open per app.
--   If the scroll isn't used for 1 minute, it expires and calls with that scroll param will fail
--   If the end of the scroll is reached, "companies" will be empty and the scroll parameter will expire
+- Each app can only have 1 scroll open at a time. You'll get an error message if you try to have more than one open per app.
+- If the scroll isn't used for 1 minute, it expires and calls with that scroll param will fail
+- If the end of the scroll is reached, "companies" will be empty and the scroll parameter will expire
 
 {% admonition type="info" name="Scroll Parameter" %}
 You can get the first page of companies by simply sending a GET request to the scroll endpoint.
@@ -2376,8 +2376,8 @@ If a contact has recently been created, there is a possibility that it will not 
 You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
 There are some limitations to the amount of multiple's there can be:
 
--   There's a limit of max 2 nested filters
--   There's a limit of max 15 filters for each AND or OR group
+- There's a limit of max 2 nested filters
+- There's a limit of max 15 filters for each AND or OR group
 
 ### Searching for Timestamp Fields
 
@@ -4023,8 +4023,8 @@ See the [pagination section](https://developers.intercom.com/docs/build-an-integ
 You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
 There are some limitations to the amount of multiple's there can be:
 
--   There's a limit of max 2 nested filters
--   There's a limit of max 15 filters for each AND or OR group
+- There's a limit of max 2 nested filters
+- There's a limit of max 15 filters for each AND or OR group
 
 ### Accepted Fields
 
@@ -4278,14 +4278,14 @@ await client.conversations.reply({
 
 For managing conversations you can:
 
--   Close a conversation
--   Snooze a conversation to reopen on a future date
--   Open a conversation which is `snoozed` or `closed`
--   Assign a conversation to an admin and/or team.
-</dd>
-</dl>
-</dd>
-</dl>
+- Close a conversation
+- Snooze a conversation to reopen on a future date
+- Open a conversation which is `snoozed` or `closed`
+- Assign a conversation to an admin and/or team.
+  </dd>
+  </dl>
+  </dd>
+  </dl>
 
 #### 🔌 Usage
 
@@ -4921,9 +4921,9 @@ await client.dataAttributes.update({
 
 The events belonging to a customer can be listed by sending a GET request to `https://api.intercom.io/events` with a user or lead identifier along with a `type` parameter. The identifier parameter can be one of `user_id`, `email` or `intercom_user_id`. The `type` parameter value must be `user`.
 
--   `https://api.intercom.io/events?type=user&user_id={user_id}`
--   `https://api.intercom.io/events?type=user&email={email}`
--   `https://api.intercom.io/events?type=user&intercom_user_id={id}` (this call can be used to list leads)
+- `https://api.intercom.io/events?type=user&user_id={user_id}`
+- `https://api.intercom.io/events?type=user&email={email}`
+- `https://api.intercom.io/events?type=user&intercom_user_id={id}` (this call can be used to list leads)
 
 The `email` parameter value should be [url encoded](http://en.wikipedia.org/wiki/Percent-encoding) when sending.
 
@@ -5015,9 +5015,9 @@ When submitting events for Leads, you will need to specify the Lead's `id`.
 
 **Metadata behaviour**
 
--   We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
--   It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
--   There might be up to 24 hrs delay when you send a new metadata for an existing event.
+- We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+- It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
+- There might be up to 24 hrs delay when you send a new metadata for an existing event.
 
 **Event de-duplication**
 
@@ -5027,15 +5027,15 @@ Duplicated events are responded to using the normal `202 Accepted` code - an err
 
 ### HTTP API Responses
 
--   Successful responses to submitted events return `202 Accepted` with an empty body.
--   Unauthorised access will be rejected with a `401 Unauthorized` or `403 Forbidden` response code.
--   Events sent about users that cannot be found will return a `404 Not Found`.
--   Event lists containing duplicate events will have those duplicates ignored.
--   Server errors will return a `500` response code and may contain an error message in the body.
-</dd>
-</dl>
-</dd>
-</dl>
+- Successful responses to submitted events return `202 Accepted` with an empty body.
+- Unauthorised access will be rejected with a `401 Unauthorized` or `403 Forbidden` response code.
+- Events sent about users that cannot be found will return a `404 Not Found`.
+- Event lists containing duplicate events will have those duplicates ignored.
+- Server errors will return a `500` response code and may contain an error message in the body.
+  </dd>
+  </dl>
+  </dd>
+  </dl>
 
 #### 🔌 Usage
 
@@ -6488,8 +6488,8 @@ See the [pagination section](https://developers.intercom.com/docs/build-an-integ
 You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
 There are some limitations to the amount of multiples there can be:
 
--   There's a limit of max 2 nested filters
--   There's a limit of max 15 filters for each AND or OR group
+- There's a limit of max 2 nested filters
+- There's a limit of max 15 filters for each AND or OR group
 
 ### Accepted Fields
 

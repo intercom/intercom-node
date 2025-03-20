@@ -9,8 +9,10 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Conversations {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Intercom-Version header */
         version?:
@@ -35,7 +37,7 @@ export declare namespace Conversations {
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -93,13 +95,13 @@ export class Conversations {
      */
     public async list(
         request: Intercom.ListConversationsRequest = {},
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<core.Page<Intercom.Conversation>> {
         const list = async (
-            request: Intercom.ListConversationsRequest
+            request: Intercom.ListConversationsRequest,
         ): Promise<Intercom.PaginatedConversationResponse> => {
             const { per_page: perPage, starting_after: startingAfter } = request;
-            const _queryParams: Record<string, string | string[] | object | object[]> = {};
+            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
             if (perPage != null) {
                 _queryParams["per_page"] = perPage.toString();
             }
@@ -108,17 +110,18 @@ export class Conversations {
             }
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ??
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
                         environments.IntercomEnvironment.UsProduction,
-                    "conversations"
+                    "conversations",
                 ),
                 method: "GET",
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "v6.1.1",
-                    "User-Agent": "intercom-client/v6.1.1",
+                    "X-Fern-SDK-Version": "6.2.0",
+                    "User-Agent": "intercom-client/6.2.0",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -209,20 +212,22 @@ export class Conversations {
      */
     public async create(
         request: Intercom.CreateConversationRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Message> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "conversations"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "conversations",
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -297,26 +302,28 @@ export class Conversations {
      */
     public async find(
         request: Intercom.FindConversationRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Conversation> {
         const { conversation_id: conversationId, display_as: displayAs } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (displayAs != null) {
             _queryParams["display_as"] = displayAs;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}`,
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -357,7 +364,7 @@ export class Conversations {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling GET /conversations/{conversation_id}."
+                    "Timeout exceeded when calling GET /conversations/{conversation_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -394,26 +401,28 @@ export class Conversations {
      */
     public async update(
         request: Intercom.UpdateConversationRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Conversation> {
         const { conversation_id: conversationId, display_as: displayAs, ..._body } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (displayAs != null) {
             _queryParams["display_as"] = displayAs;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}`,
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -455,7 +464,7 @@ export class Conversations {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling PUT /conversations/{conversation_id}."
+                    "Timeout exceeded when calling PUT /conversations/{conversation_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -585,22 +594,23 @@ export class Conversations {
      */
     public async search(
         request: Intercom.SearchRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<core.Page<Intercom.Conversation>> {
         const list = async (request: Intercom.SearchRequest): Promise<Intercom.PaginatedConversationResponse> => {
             const _response = await (this._options.fetcher ?? core.fetcher)({
                 url: urlJoin(
-                    (await core.Supplier.get(this._options.environment)) ??
+                    (await core.Supplier.get(this._options.baseUrl)) ??
+                        (await core.Supplier.get(this._options.environment)) ??
                         environments.IntercomEnvironment.UsProduction,
-                    "conversations/search"
+                    "conversations/search",
                 ),
                 method: "POST",
                 headers: {
                     Authorization: await this._getAuthorizationHeader(),
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "v6.1.1",
-                    "User-Agent": "intercom-client/v6.1.1",
+                    "X-Fern-SDK-Version": "6.2.0",
+                    "User-Agent": "intercom-client/6.2.0",
                     "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -642,7 +652,7 @@ export class Conversations {
             getItems: (response) => response?.conversations ?? [],
             loadPage: (response) => {
                 return list(
-                    core.setObjectProperty(request, "pagination.starting_after", response?.pages?.next?.starting_after)
+                    core.setObjectProperty(request, "pagination.starting_after", response?.pages?.next?.starting_after),
                 );
             },
         });
@@ -704,21 +714,23 @@ export class Conversations {
      */
     public async reply(
         request: Intercom.ReplyToConversationRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Conversation> {
         const { conversation_id: conversationId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/reply`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/reply`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -759,7 +771,7 @@ export class Conversations {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /conversations/{conversation_id}/reply."
+                    "Timeout exceeded when calling POST /conversations/{conversation_id}/reply.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -824,21 +836,23 @@ export class Conversations {
      */
     public async manage(
         request: Intercom.ManageConversationPartsRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Conversation> {
         const { conversation_id: conversationId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/parts`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/parts`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -879,7 +893,7 @@ export class Conversations {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /conversations/{conversation_id}/parts."
+                    "Timeout exceeded when calling POST /conversations/{conversation_id}/parts.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -911,21 +925,23 @@ export class Conversations {
      */
     public async runAssignmentRules(
         request: Intercom.AutoAssignConversationRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Conversation> {
         const { conversation_id: conversationId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/run_assignment_rules`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/run_assignment_rules`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -965,7 +981,7 @@ export class Conversations {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /conversations/{conversation_id}/run_assignment_rules."
+                    "Timeout exceeded when calling POST /conversations/{conversation_id}/run_assignment_rules.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -1008,21 +1024,23 @@ export class Conversations {
      */
     public async attachContactAsAdmin(
         request: Intercom.AttachContactToConversationRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Conversation> {
         const { conversation_id: conversationId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/customers`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/customers`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1063,7 +1081,7 @@ export class Conversations {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /conversations/{conversation_id}/customers."
+                    "Timeout exceeded when calling POST /conversations/{conversation_id}/customers.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -1096,21 +1114,23 @@ export class Conversations {
      */
     public async detachContactAsAdmin(
         request: Intercom.DetachContactFromConversationRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Conversation> {
         const { conversation_id: conversationId, contact_id: contactId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/customers/${encodeURIComponent(contactId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/customers/${encodeURIComponent(contactId)}`,
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1153,7 +1173,7 @@ export class Conversations {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling DELETE /conversations/{conversation_id}/customers/{contact_id}."
+                    "Timeout exceeded when calling DELETE /conversations/{conversation_id}/customers/{contact_id}.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -1191,20 +1211,22 @@ export class Conversations {
      */
     public async redactConversationPart(
         request: Intercom.RedactConversationRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Conversation> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                "conversations/redact"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "conversations/redact",
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1272,21 +1294,23 @@ export class Conversations {
      */
     public async convertToTicket(
         request: Intercom.ConvertConversationToTicketRequest,
-        requestOptions?: Conversations.RequestOptions
+        requestOptions?: Conversations.RequestOptions,
     ): Promise<Intercom.Ticket> {
         const { conversation_id: conversationId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/convert`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/convert`,
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "v6.1.1",
-                "User-Agent": "intercom-client/v6.1.1",
+                "X-Fern-SDK-Version": "6.2.0",
+                "User-Agent": "intercom-client/6.2.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1323,7 +1347,7 @@ export class Conversations {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /conversations/{conversation_id}/convert."
+                    "Timeout exceeded when calling POST /conversations/{conversation_id}/convert.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -1336,7 +1360,8 @@ export class Conversations {
         const bearer = (await core.Supplier.get(this._options.token)) ?? process?.env["INTERCOM_API_KEY"];
         if (bearer == null) {
             throw new errors.IntercomError({
-                message: "Please specify INTERCOM_API_KEY when instantiating the client.",
+                message:
+                    "Please specify a bearer by either passing it in to the constructor or initializing a INTERCOM_API_KEY environment variable",
             });
         }
 
