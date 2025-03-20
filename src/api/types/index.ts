@@ -155,5 +155,6 @@ export * from "./UpdateVisitorRequest";
 export * from "./UrlActionComponent";
 export * from "./Visitor";
 export * from "./VisitorDeletedObject";
+export * from "./canvas-kit";
 export * from "./CustomAttributes";
 export * from "./OffsetPages";
