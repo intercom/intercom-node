@@ -4,12 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Intercom from "../../../index";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
-import { Attributes } from "../resources/attributes/client/Client";
 
-export declare namespace TicketTypes {
+export declare namespace CustomChannelEvents {
     export interface Options {
         environment?: core.Supplier<environments.IntercomEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -70,115 +68,22 @@ export declare namespace TicketTypes {
     }
 }
 
-/**
- * Everything about your ticket types
- */
-export class TicketTypes {
-    protected _attributes: Attributes | undefined;
-
-    constructor(protected readonly _options: TicketTypes.Options = {}) {}
-
-    public get attributes(): Attributes {
-        return (this._attributes ??= new Attributes(this._options));
-    }
+export class CustomChannelEvents {
+    constructor(protected readonly _options: CustomChannelEvents.Options = {}) {}
 
     /**
-     * You can get a list of all ticket types for a workspace.
-     *
-     * @param {TicketTypes.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Intercom.UnauthorizedError}
+     * @param {CustomChannelEvents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.ticketTypes.list()
+     *     await client.customChannelEvents.notifyAttributeCollected()
      */
-    public async list(requestOptions?: TicketTypes.RequestOptions): Promise<Intercom.TicketTypeList> {
+    public async notifyAttributeCollected(requestOptions?: CustomChannelEvents.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                "ticket_types",
-            ),
-            method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return _response.body as Intercom.TicketTypeList;
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
-                default:
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.IntercomError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /ticket_types.");
-            case "unknown":
-                throw new errors.IntercomError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * You can create a new ticket type.
-     * > 📘 Creating ticket types.
-     * >
-     * > Every ticket type will be created with two default attributes: _default_title_ and _default_description_.
-     * > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
-     *
-     * @param {Intercom.CreateTicketTypeRequest} request
-     * @param {TicketTypes.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Intercom.UnauthorizedError}
-     *
-     * @example
-     *     await client.ticketTypes.create({
-     *         name: "Customer Issue",
-     *         description: "Customer Report Template",
-     *         category: "Customer",
-     *         icon: "\uD83C\uDF9F\uFE0F"
-     *     })
-     */
-    public async create(
-        request: Intercom.CreateTicketTypeRequest,
-        requestOptions?: TicketTypes.RequestOptions,
-    ): Promise<Intercom.TicketType> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.IntercomEnvironment.UsProduction,
-                "ticket_types",
+                "custom_channel_events/notify_attribute_collected",
             ),
             method: "POST",
             headers: {
@@ -194,99 +99,19 @@ export class TicketTypes {
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketType;
+            return;
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
-                default:
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.IntercomError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /ticket_types.");
-            case "unknown":
-                throw new errors.IntercomError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * You can fetch the details of a single ticket type.
-     *
-     * @param {Intercom.FindTicketTypeRequest} request
-     * @param {TicketTypes.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Intercom.UnauthorizedError}
-     *
-     * @example
-     *     await client.ticketTypes.get({
-     *         ticket_type_id: "ticket_type_id"
-     *     })
-     */
-    public async get(
-        request: Intercom.FindTicketTypeRequest,
-        requestOptions?: TicketTypes.RequestOptions,
-    ): Promise<Intercom.TicketType> {
-        const { ticket_type_id: ticketTypeId } = request;
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.IntercomEnvironment.UsProduction,
-                `ticket_types/${encodeURIComponent(ticketTypeId)}`,
-            ),
-            method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return _response.body as Intercom.TicketType;
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
-                default:
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
+            throw new errors.IntercomError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
         }
 
         switch (_response.error.reason) {
@@ -297,7 +122,7 @@ export class TicketTypes {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling GET /ticket_types/{ticket_type_id}.",
+                    "Timeout exceeded when calling POST /custom_channel_events/notify_attribute_collected.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
@@ -307,37 +132,20 @@ export class TicketTypes {
     }
 
     /**
-     *
-     * You can update a ticket type.
-     *
-     * > 📘 Updating a ticket type.
-     * >
-     * > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
-     *
-     * @param {Intercom.UpdateTicketTypeRequest} request
-     * @param {TicketTypes.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Intercom.UnauthorizedError}
+     * @param {CustomChannelEvents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.ticketTypes.update({
-     *         ticket_type_id: "ticket_type_id",
-     *         name: "Bug Report 2"
-     *     })
+     *     await client.customChannelEvents.notifyNewMessage()
      */
-    public async update(
-        request: Intercom.UpdateTicketTypeRequest,
-        requestOptions?: TicketTypes.RequestOptions,
-    ): Promise<Intercom.TicketType> {
-        const { ticket_type_id: ticketTypeId, ..._body } = request;
+    public async notifyNewMessage(requestOptions?: CustomChannelEvents.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `ticket_types/${encodeURIComponent(ticketTypeId)}`,
+                "custom_channel_events/notify_new_message",
             ),
-            method: "PUT",
+            method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
@@ -351,25 +159,19 @@ export class TicketTypes {
             },
             contentType: "application/json",
             requestType: "json",
-            body: _body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketType;
+            return;
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
-                default:
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
+            throw new errors.IntercomError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
         }
 
         switch (_response.error.reason) {
@@ -380,7 +182,127 @@ export class TicketTypes {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling PUT /ticket_types/{ticket_type_id}.",
+                    "Timeout exceeded when calling POST /custom_channel_events/notify_new_message.",
+                );
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {CustomChannelEvents.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.customChannelEvents.notifyNewConversation()
+     */
+    public async notifyNewConversation(requestOptions?: CustomChannelEvents.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "custom_channel_events/notify_new_conversation",
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "6.3.0",
+                "User-Agent": "intercom-client/6.3.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.IntercomError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError(
+                    "Timeout exceeded when calling POST /custom_channel_events/notify_new_conversation.",
+                );
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {CustomChannelEvents.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.customChannelEvents.notifyQuickReplySelected()
+     */
+    public async notifyQuickReplySelected(requestOptions?: CustomChannelEvents.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "custom_channel_events/notify_quick_reply_selected",
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "6.3.0",
+                "User-Agent": "intercom-client/6.3.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.IntercomError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError(
+                    "Timeout exceeded when calling POST /custom_channel_events/notify_quick_reply_selected.",
                 );
             case "unknown":
                 throw new errors.IntercomError({

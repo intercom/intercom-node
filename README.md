@@ -180,24 +180,12 @@ an issue first to discuss with us!
 
 On the other hand, contributions to the README are always very welcome!
 
-## Request Options
+## Contributing
 
-This client library also supports passing in [`request` options](https://github.com/axios/axios#request-config):
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
 
-```typescript
-client.useRequestOpts({
-    baseURL: "http://local.test-server.com",
-});
-```
-
-Note that certain request options (such as `json`, and certain `headers` names cannot be overriden).
-
-### Setting the API base url
-
-If you are using the european instance of intercom and would like to call it directly and not be redirected through our US instance, you can set the `baseUrl` as follows:
-
-```typescript
-client.useRequestOpts({
-    baseURL: "https://api.eu.intercom.io",
-});
-```
+On the other hand, contributions to the README are always very welcome!

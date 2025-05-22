@@ -8,8 +8,6 @@ import * as Intercom from "../../../index";
  * Companies allow you to represent organizations using your product. Each company will have its own description and be associated with contacts. You can fetch, create, update and list companies.
  */
 export interface Company {
-    /** Value is `company` */
-    type?: "company";
     /** The Intercom defined id representing the company. */
     id: string;
     /** The name of the company. */

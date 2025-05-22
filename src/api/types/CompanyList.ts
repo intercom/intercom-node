@@ -8,8 +8,6 @@ import * as Intercom from "../index";
  * This will return a list of companies for the App.
  */
 export interface CompanyList {
-    /** The type of object - `list`. */
-    type: "list";
     pages?: Intercom.OffsetPages;
     /** The total number of companies. */
     total_count: number;
