@@ -877,7 +877,7 @@ while (page.hasNextPage()) {
 
 ## Companies
 
-<details><summary><code>client.companies.<a href="/src/api/resources/companies/client/Client.ts">retrieve</a>({ ...params }) -> Intercom.CompanyList</code></summary>
+<details><summary><code>client.companies.<a href="/src/api/resources/companies/client/Client.ts">retrieve</a>({ ...params }) -> Intercom.CompaniesRetrieveResponse</code></summary>
 <dl>
 <dd>
 
@@ -6823,6 +6823,168 @@ await client.visitors.mergeToContact({
 <dd>
 
 **requestOptions:** `Visitors.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## CustomChannelEvents
+
+<details><summary><code>client.customChannelEvents.<a href="/src/api/resources/customChannelEvents/client/Client.ts">notifyAttributeCollected</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customChannelEvents.notifyAttributeCollected();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomChannelEvents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customChannelEvents.<a href="/src/api/resources/customChannelEvents/client/Client.ts">notifyNewMessage</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customChannelEvents.notifyNewMessage();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomChannelEvents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customChannelEvents.<a href="/src/api/resources/customChannelEvents/client/Client.ts">notifyNewConversation</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customChannelEvents.notifyNewConversation();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomChannelEvents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customChannelEvents.<a href="/src/api/resources/customChannelEvents/client/Client.ts">notifyQuickReplySelected</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customChannelEvents.notifyQuickReplySelected();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomChannelEvents.RequestOptions`
 
 </dd>
 </dl>

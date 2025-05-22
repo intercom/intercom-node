@@ -41,6 +41,7 @@ export * as events from "./events";
 export * as phoneCallRedirects from "./phoneCallRedirects";
 export * as ticketTypes from "./ticketTypes";
 export * as visitors from "./visitors";
+export * as customChannelEvents from "./customChannelEvents";
 export * from "./admins/client/requests";
 export * from "./articles/client/requests";
 export * from "./helpCenters/client/requests";
