@@ -82,7 +82,13 @@ export class Items {
      * @example
      *     await client.news.items.list()
      */
-    public async list(requestOptions?: Items.RequestOptions): Promise<Intercom.PaginatedNewsItemResponse> {
+    public list(requestOptions?: Items.RequestOptions): core.HttpResponsePromise<Intercom.PaginatedNewsItemResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
+    }
+
+    private async __list(
+        requestOptions?: Items.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.PaginatedNewsItemResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -95,8 +101,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -109,17 +115,21 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.PaginatedNewsItemResponse;
+            return { data: _response.body as Intercom.PaginatedNewsItemResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -129,12 +139,14 @@ export class Items {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /news/news_items.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -162,10 +174,17 @@ export class Items {
      *             }]
      *     })
      */
-    public async create(
+    public create(
         request: Intercom.NewsItemRequest,
         requestOptions?: Items.RequestOptions,
-    ): Promise<Intercom.NewsItem> {
+    ): core.HttpResponsePromise<Intercom.NewsItem> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Intercom.NewsItemRequest,
+        requestOptions?: Items.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.NewsItem>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -178,8 +197,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -193,17 +212,21 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.NewsItem;
+            return { data: _response.body as Intercom.NewsItem, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -213,12 +236,14 @@ export class Items {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /news/news_items.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -237,10 +262,17 @@ export class Items {
      *         news_item_id: "123"
      *     })
      */
-    public async find(
+    public find(
         request: Intercom.news.FindNewsItemRequest,
         requestOptions?: Items.RequestOptions,
-    ): Promise<Intercom.NewsItem> {
+    ): core.HttpResponsePromise<Intercom.NewsItem> {
+        return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
+    }
+
+    private async __find(
+        request: Intercom.news.FindNewsItemRequest,
+        requestOptions?: Items.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.NewsItem>> {
         const { news_item_id: newsItemId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -254,8 +286,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -268,19 +300,23 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.NewsItem;
+            return { data: _response.body as Intercom.NewsItem, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -290,6 +326,7 @@ export class Items {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -298,6 +335,7 @@ export class Items {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -331,10 +369,17 @@ export class Items {
      *         }
      *     })
      */
-    public async update(
+    public update(
         request: Intercom.news.UpdateNewsItemRequest,
         requestOptions?: Items.RequestOptions,
-    ): Promise<Intercom.NewsItem> {
+    ): core.HttpResponsePromise<Intercom.NewsItem> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+    }
+
+    private async __update(
+        request: Intercom.news.UpdateNewsItemRequest,
+        requestOptions?: Items.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.NewsItem>> {
         const { news_item_id: newsItemId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -348,8 +393,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -363,19 +408,23 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.NewsItem;
+            return { data: _response.body as Intercom.NewsItem, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -385,6 +434,7 @@ export class Items {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -393,6 +443,7 @@ export class Items {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -411,10 +462,17 @@ export class Items {
      *         news_item_id: "123"
      *     })
      */
-    public async delete(
+    public delete(
         request: Intercom.news.DeleteNewsItemRequest,
         requestOptions?: Items.RequestOptions,
-    ): Promise<Intercom.DeletedObject> {
+    ): core.HttpResponsePromise<Intercom.DeletedObject> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
+    }
+
+    private async __delete(
+        request: Intercom.news.DeleteNewsItemRequest,
+        requestOptions?: Items.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.DeletedObject>> {
         const { news_item_id: newsItemId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -428,8 +486,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -442,19 +500,23 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.DeletedObject;
+            return { data: _response.body as Intercom.DeletedObject, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -464,6 +526,7 @@ export class Items {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -472,6 +535,7 @@ export class Items {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

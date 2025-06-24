@@ -97,75 +97,92 @@ export class Conversations {
         request: Intercom.ListConversationsRequest = {},
         requestOptions?: Conversations.RequestOptions,
     ): Promise<core.Page<Intercom.Conversation>> {
-        const list = async (
-            request: Intercom.ListConversationsRequest,
-        ): Promise<Intercom.PaginatedConversationResponse> => {
-            const { per_page: perPage, starting_after: startingAfter } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (perPage != null) {
-                _queryParams["per_page"] = perPage.toString();
-            }
-            if (startingAfter != null) {
-                _queryParams["starting_after"] = startingAfter;
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.IntercomEnvironment.UsProduction,
-                    "conversations",
-                ),
-                method: "GET",
-                headers: {
-                    Authorization: await this._getAuthorizationHeader(),
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.3.0",
-                    "User-Agent": "intercom-client/6.3.0",
-                    "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return _response.body as Intercom.PaginatedConversationResponse;
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 401:
-                        throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
-                    case 403:
-                        throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
-                    default:
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Intercom.ListConversationsRequest,
+            ): Promise<core.WithRawResponse<Intercom.PaginatedConversationResponse>> => {
+                const { per_page: perPage, starting_after: startingAfter } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (perPage != null) {
+                    _queryParams["per_page"] = perPage.toString();
+                }
+                if (startingAfter != null) {
+                    _queryParams["starting_after"] = startingAfter;
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.IntercomEnvironment.UsProduction,
+                        "conversations",
+                    ),
+                    method: "GET",
+                    headers: {
+                        Authorization: await this._getAuthorizationHeader(),
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "intercom-client",
+                        "X-Fern-SDK-Version": "v6.4.0",
+                        "User-Agent": "intercom-client/v6.4.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                });
+                if (_response.ok) {
+                    return {
+                        data: _response.body as Intercom.PaginatedConversationResponse,
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 401:
+                            throw new Intercom.UnauthorizedError(
+                                _response.error.body as Intercom.Error_,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new Intercom.ForbiddenError(
+                                _response.error.body as Intercom.Error_,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.IntercomError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.IntercomError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /conversations.");
+                    case "unknown":
+                        throw new errors.IntercomError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /conversations.");
-                case "unknown":
-                    throw new errors.IntercomError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Intercom.PaginatedConversationResponse, Intercom.Conversation>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => response?.pages?.next?.starting_after != null,
             getItems: (response) => response?.conversations ?? [],
             loadPage: (response) => {
@@ -210,10 +227,17 @@ export class Conversations {
      *         body: "Hello there"
      *     })
      */
-    public async create(
+    public create(
         request: Intercom.CreateConversationRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Message> {
+    ): core.HttpResponsePromise<Intercom.Message> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Intercom.CreateConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Message>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -226,8 +250,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -241,21 +265,25 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Message;
+            return { data: _response.body as Intercom.Message, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -265,12 +293,14 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /conversations.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -300,10 +330,17 @@ export class Conversations {
      *         display_as: "plaintext"
      *     })
      */
-    public async find(
+    public find(
         request: Intercom.FindConversationRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.Conversation> {
+        return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
+    }
+
+    private async __find(
+        request: Intercom.FindConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
         const { conversation_id: conversationId, display_as: displayAs } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (displayAs != null) {
@@ -322,8 +359,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -337,21 +374,25 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Conversation;
+            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -361,6 +402,7 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -369,6 +411,7 @@ export class Conversations {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -399,10 +442,17 @@ export class Conversations {
      *         }
      *     })
      */
-    public async update(
+    public update(
         request: Intercom.UpdateConversationRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.Conversation> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+    }
+
+    private async __update(
+        request: Intercom.UpdateConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
         const { conversation_id: conversationId, display_as: displayAs, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (displayAs != null) {
@@ -421,8 +471,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -437,21 +487,25 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Conversation;
+            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -461,6 +515,7 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -469,6 +524,7 @@ export class Conversations {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -596,58 +652,73 @@ export class Conversations {
         request: Intercom.SearchRequest,
         requestOptions?: Conversations.RequestOptions,
     ): Promise<core.Page<Intercom.Conversation>> {
-        const list = async (request: Intercom.SearchRequest): Promise<Intercom.PaginatedConversationResponse> => {
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.IntercomEnvironment.UsProduction,
-                    "conversations/search",
-                ),
-                method: "POST",
-                headers: {
-                    Authorization: await this._getAuthorizationHeader(),
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.3.0",
-                    "User-Agent": "intercom-client/6.3.0",
-                    "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                requestType: "json",
-                body: request,
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return _response.body as Intercom.PaginatedConversationResponse;
-            }
-            if (_response.error.reason === "status-code") {
-                throw new errors.IntercomError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.body,
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Intercom.SearchRequest,
+            ): Promise<core.WithRawResponse<Intercom.PaginatedConversationResponse>> => {
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.IntercomEnvironment.UsProduction,
+                        "conversations/search",
+                    ),
+                    method: "POST",
+                    headers: {
+                        Authorization: await this._getAuthorizationHeader(),
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "intercom-client",
+                        "X-Fern-SDK-Version": "v6.4.0",
+                        "User-Agent": "intercom-client/v6.4.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    requestType: "json",
+                    body: request,
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            switch (_response.error.reason) {
-                case "non-json":
+                if (_response.ok) {
+                    return {
+                        data: _response.body as Intercom.PaginatedConversationResponse,
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
-                case "timeout":
-                    throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /conversations/search.");
-                case "unknown":
-                    throw new errors.IntercomError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
+                        throw new errors.IntercomError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.IntercomTimeoutError(
+                            "Timeout exceeded when calling POST /conversations/search.",
+                        );
+                    case "unknown":
+                        throw new errors.IntercomError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
+                        });
+                }
+            },
+        );
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Intercom.PaginatedConversationResponse, Intercom.Conversation>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => response?.pages?.next?.starting_after != null,
             getItems: (response) => response?.conversations ?? [],
             loadPage: (response) => {
@@ -712,10 +783,17 @@ export class Conversations {
      *         }
      *     })
      */
-    public async reply(
+    public reply(
         request: Intercom.ReplyToConversationRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.Conversation> {
+        return core.HttpResponsePromise.fromPromise(this.__reply(request, requestOptions));
+    }
+
+    private async __reply(
+        request: Intercom.ReplyToConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
         const { conversation_id: conversationId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -729,8 +807,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -744,21 +822,25 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Conversation;
+            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -768,6 +850,7 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -776,6 +859,7 @@ export class Conversations {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -834,10 +918,17 @@ export class Conversations {
      *         }
      *     })
      */
-    public async manage(
+    public manage(
         request: Intercom.ManageConversationPartsRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.Conversation> {
+        return core.HttpResponsePromise.fromPromise(this.__manage(request, requestOptions));
+    }
+
+    private async __manage(
+        request: Intercom.ManageConversationPartsRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
         const { conversation_id: conversationId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -851,8 +942,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -866,21 +957,25 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Conversation;
+            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -890,6 +985,7 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -898,6 +994,7 @@ export class Conversations {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -923,10 +1020,17 @@ export class Conversations {
      *         conversation_id: "123"
      *     })
      */
-    public async runAssignmentRules(
+    public runAssignmentRules(
         request: Intercom.AutoAssignConversationRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.Conversation> {
+        return core.HttpResponsePromise.fromPromise(this.__runAssignmentRules(request, requestOptions));
+    }
+
+    private async __runAssignmentRules(
+        request: Intercom.AutoAssignConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
         const { conversation_id: conversationId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -940,8 +1044,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -954,21 +1058,25 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Conversation;
+            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -978,6 +1086,7 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -986,6 +1095,7 @@ export class Conversations {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -1022,10 +1132,17 @@ export class Conversations {
      *         }
      *     })
      */
-    public async attachContactAsAdmin(
+    public attachContactAsAdmin(
         request: Intercom.AttachContactToConversationRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.Conversation> {
+        return core.HttpResponsePromise.fromPromise(this.__attachContactAsAdmin(request, requestOptions));
+    }
+
+    private async __attachContactAsAdmin(
+        request: Intercom.AttachContactToConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
         const { conversation_id: conversationId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -1039,8 +1156,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1054,21 +1171,25 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Conversation;
+            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -1078,6 +1199,7 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -1086,6 +1208,7 @@ export class Conversations {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -1112,10 +1235,17 @@ export class Conversations {
      *         admin_id: "5017690"
      *     })
      */
-    public async detachContactAsAdmin(
+    public detachContactAsAdmin(
         request: Intercom.DetachContactFromConversationRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.Conversation> {
+        return core.HttpResponsePromise.fromPromise(this.__detachContactAsAdmin(request, requestOptions));
+    }
+
+    private async __detachContactAsAdmin(
+        request: Intercom.DetachContactFromConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
         const { conversation_id: conversationId, contact_id: contactId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -1129,8 +1259,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1144,23 +1274,27 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Conversation;
+            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 422:
-                    throw new Intercom.UnprocessableEntityError(_response.error.body as unknown);
+                    throw new Intercom.UnprocessableEntityError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -1170,6 +1304,7 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -1178,6 +1313,7 @@ export class Conversations {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -1209,10 +1345,17 @@ export class Conversations {
      *         conversation_part_id: "really_123_doesnt_exist"
      *     })
      */
-    public async redactConversationPart(
+    public redactConversationPart(
         request: Intercom.RedactConversationRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.Conversation> {
+        return core.HttpResponsePromise.fromPromise(this.__redactConversationPart(request, requestOptions));
+    }
+
+    private async __redactConversationPart(
+        request: Intercom.RedactConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -1225,8 +1368,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1240,19 +1383,23 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Conversation;
+            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -1262,12 +1409,14 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /conversations/redact.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -1292,10 +1441,17 @@ export class Conversations {
      *         ticket_type_id: "80"
      *     })
      */
-    public async convertToTicket(
+    public convertToTicket(
         request: Intercom.ConvertConversationToTicketRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<Intercom.Ticket> {
+    ): core.HttpResponsePromise<Intercom.Ticket> {
+        return core.HttpResponsePromise.fromPromise(this.__convertToTicket(request, requestOptions));
+    }
+
+    private async __convertToTicket(
+        request: Intercom.ConvertConversationToTicketRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Ticket>> {
         const { conversation_id: conversationId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -1309,8 +1465,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1324,17 +1480,18 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Ticket;
+            return { data: _response.body as Intercom.Ticket, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Intercom.BadRequestError(_response.error.body as unknown);
+                    throw new Intercom.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -1344,6 +1501,7 @@ export class Conversations {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -1352,6 +1510,7 @@ export class Conversations {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

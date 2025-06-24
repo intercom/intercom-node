@@ -135,10 +135,17 @@ export class Tickets {
      *         }
      *     })
      */
-    public async reply(
+    public reply(
         request: Intercom.ReplyToTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): Promise<Intercom.TicketReply> {
+    ): core.HttpResponsePromise<Intercom.TicketReply> {
+        return core.HttpResponsePromise.fromPromise(this.__reply(request, requestOptions));
+    }
+
+    private async __reply(
+        request: Intercom.ReplyToTicketRequest,
+        requestOptions?: Tickets.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.TicketReply>> {
         const { ticket_id: ticketId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -152,8 +159,8 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -167,21 +174,25 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketReply;
+            return { data: _response.body as Intercom.TicketReply, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Intercom.BadRequestError(_response.error.body as unknown);
+                    throw new Intercom.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -191,12 +202,14 @@ export class Tickets {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /tickets/{ticket_id}/reply.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -221,10 +234,17 @@ export class Tickets {
      *         }
      *     })
      */
-    public async create(
+    public create(
         request: Intercom.CreateTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): Promise<Intercom.Ticket> {
+    ): core.HttpResponsePromise<Intercom.Ticket> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Intercom.CreateTicketRequest,
+        requestOptions?: Tickets.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Ticket>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -237,8 +257,8 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -252,17 +272,21 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Ticket;
+            return { data: _response.body as Intercom.Ticket, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -272,12 +296,14 @@ export class Tickets {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /tickets.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -295,10 +321,17 @@ export class Tickets {
      *         ticket_id: "ticket_id"
      *     })
      */
-    public async get(
+    public get(
         request: Intercom.FindTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): Promise<Intercom.Ticket> {
+    ): core.HttpResponsePromise<Intercom.Ticket> {
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
+    }
+
+    private async __get(
+        request: Intercom.FindTicketRequest,
+        requestOptions?: Tickets.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Ticket>> {
         const { ticket_id: ticketId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -312,8 +345,8 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -326,17 +359,21 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Ticket;
+            return { data: _response.body as Intercom.Ticket, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -346,12 +383,14 @@ export class Tickets {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /tickets/{ticket_id}.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -409,10 +448,17 @@ export class Tickets {
      *         }
      *     })
      */
-    public async update(
+    public update(
         request: Intercom.UpdateTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): Promise<Intercom.Ticket> {
+    ): core.HttpResponsePromise<Intercom.Ticket> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+    }
+
+    private async __update(
+        request: Intercom.UpdateTicketRequest,
+        requestOptions?: Tickets.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Ticket>> {
         const { ticket_id: ticketId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -426,8 +472,8 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -441,19 +487,23 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Ticket;
+            return { data: _response.body as Intercom.Ticket, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -463,12 +513,14 @@ export class Tickets {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling PUT /tickets/{ticket_id}.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -558,58 +610,66 @@ export class Tickets {
         request: Intercom.SearchRequest,
         requestOptions?: Tickets.RequestOptions,
     ): Promise<core.Page<Intercom.Ticket>> {
-        const list = async (request: Intercom.SearchRequest): Promise<Intercom.TicketList> => {
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.IntercomEnvironment.UsProduction,
-                    "tickets/search",
-                ),
-                method: "POST",
-                headers: {
-                    Authorization: await this._getAuthorizationHeader(),
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.3.0",
-                    "User-Agent": "intercom-client/6.3.0",
-                    "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                requestType: "json",
-                body: request,
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return _response.body as Intercom.TicketList;
-            }
-            if (_response.error.reason === "status-code") {
-                throw new errors.IntercomError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.body,
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (request: Intercom.SearchRequest): Promise<core.WithRawResponse<Intercom.TicketList>> => {
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.IntercomEnvironment.UsProduction,
+                        "tickets/search",
+                    ),
+                    method: "POST",
+                    headers: {
+                        Authorization: await this._getAuthorizationHeader(),
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "intercom-client",
+                        "X-Fern-SDK-Version": "v6.4.0",
+                        "User-Agent": "intercom-client/v6.4.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    requestType: "json",
+                    body: request,
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
                 });
-            }
-            switch (_response.error.reason) {
-                case "non-json":
+                if (_response.ok) {
+                    return { data: _response.body as Intercom.TicketList, rawResponse: _response.rawResponse };
+                }
+                if (_response.error.reason === "status-code") {
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
-                case "timeout":
-                    throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /tickets/search.");
-                case "unknown":
-                    throw new errors.IntercomError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
+                        throw new errors.IntercomError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /tickets/search.");
+                    case "unknown":
+                        throw new errors.IntercomError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
+                        });
+                }
+            },
+        );
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Intercom.TicketList, Intercom.Ticket>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => response?.pages?.next?.starting_after != null,
             getItems: (response) => response?.tickets ?? [],
             loadPage: (response) => {

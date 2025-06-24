@@ -92,74 +92,82 @@ export class Notes {
         request: Intercom.ListContactNotesRequest,
         requestOptions?: Notes.RequestOptions,
     ): Promise<core.Page<Intercom.Note>> {
-        const list = async (request: Intercom.ListContactNotesRequest): Promise<Intercom.NoteList> => {
-            const { contact_id: contactId, page, per_page: perPage } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (page != null) {
-                _queryParams["page"] = page.toString();
-            }
-            if (perPage != null) {
-                _queryParams["per_page"] = perPage.toString();
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.IntercomEnvironment.UsProduction,
-                    `contacts/${encodeURIComponent(contactId)}/notes`,
-                ),
-                method: "GET",
-                headers: {
-                    Authorization: await this._getAuthorizationHeader(),
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.3.0",
-                    "User-Agent": "intercom-client/6.3.0",
-                    "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return _response.body as Intercom.NoteList;
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 404:
-                        throw new Intercom.NotFoundError(_response.error.body as unknown);
-                    default:
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (request: Intercom.ListContactNotesRequest): Promise<core.WithRawResponse<Intercom.NoteList>> => {
+                const { contact_id: contactId, page, per_page: perPage } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (page != null) {
+                    _queryParams["page"] = page.toString();
+                }
+                if (perPage != null) {
+                    _queryParams["per_page"] = perPage.toString();
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.IntercomEnvironment.UsProduction,
+                        `contacts/${encodeURIComponent(contactId)}/notes`,
+                    ),
+                    method: "GET",
+                    headers: {
+                        Authorization: await this._getAuthorizationHeader(),
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "intercom-client",
+                        "X-Fern-SDK-Version": "v6.4.0",
+                        "User-Agent": "intercom-client/v6.4.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                });
+                if (_response.ok) {
+                    return { data: _response.body as Intercom.NoteList, rawResponse: _response.rawResponse };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 404:
+                            throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                        default:
+                            throw new errors.IntercomError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.IntercomError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.IntercomTimeoutError(
+                            "Timeout exceeded when calling GET /contacts/{contact_id}/notes.",
+                        );
+                    case "unknown":
+                        throw new errors.IntercomError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.IntercomTimeoutError(
-                        "Timeout exceeded when calling GET /contacts/{contact_id}/notes.",
-                    );
-                case "unknown":
-                    throw new errors.IntercomError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.page != null ? request?.page : 1;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Intercom.NoteList, Intercom.Note>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.data ?? []).length > 0,
             getItems: (response) => response?.data ?? [],
             loadPage: (_response) => {
@@ -184,10 +192,17 @@ export class Notes {
      *         admin_id: "123"
      *     })
      */
-    public async create(
+    public create(
         request: Intercom.CreateContactNoteRequest,
         requestOptions?: Notes.RequestOptions,
-    ): Promise<Intercom.Note> {
+    ): core.HttpResponsePromise<Intercom.Note> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Intercom.CreateContactNoteRequest,
+        requestOptions?: Notes.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Note>> {
         const { contact_id: contactId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -201,8 +216,8 @@ export class Notes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -216,17 +231,18 @@ export class Notes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Note;
+            return { data: _response.body as Intercom.Note, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -236,6 +252,7 @@ export class Notes {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -244,6 +261,7 @@ export class Notes {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -262,10 +280,17 @@ export class Notes {
      *         note_id: "1"
      *     })
      */
-    public async find(
+    public find(
         request: Intercom.FindNoteRequest,
         requestOptions?: Notes.RequestOptions,
-    ): Promise<Intercom.Note> {
+    ): core.HttpResponsePromise<Intercom.Note> {
+        return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
+    }
+
+    private async __find(
+        request: Intercom.FindNoteRequest,
+        requestOptions?: Notes.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Note>> {
         const { note_id: noteId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -279,8 +304,8 @@ export class Notes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -293,19 +318,23 @@ export class Notes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Note;
+            return { data: _response.body as Intercom.Note, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -315,12 +344,14 @@ export class Notes {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /notes/{note_id}.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

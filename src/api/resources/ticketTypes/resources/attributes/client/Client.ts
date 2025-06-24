@@ -89,10 +89,17 @@ export class Attributes {
      *         required_to_create: false
      *     })
      */
-    public async create(
+    public create(
         request: Intercom.ticketTypes.CreateTicketTypeAttributeRequest,
         requestOptions?: Attributes.RequestOptions,
-    ): Promise<Intercom.TicketTypeAttribute> {
+    ): core.HttpResponsePromise<Intercom.TicketTypeAttribute> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Intercom.ticketTypes.CreateTicketTypeAttributeRequest,
+        requestOptions?: Attributes.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.TicketTypeAttribute>> {
         const { ticket_type_id: ticketTypeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -106,8 +113,8 @@ export class Attributes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -121,17 +128,21 @@ export class Attributes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketTypeAttribute;
+            return { data: _response.body as Intercom.TicketTypeAttribute, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -141,6 +152,7 @@ export class Attributes {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -149,6 +161,7 @@ export class Attributes {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -168,10 +181,17 @@ export class Attributes {
      *         description: "New Attribute Description"
      *     })
      */
-    public async update(
+    public update(
         request: Intercom.ticketTypes.UpdateTicketTypeAttributeRequest,
         requestOptions?: Attributes.RequestOptions,
-    ): Promise<Intercom.TicketTypeAttribute> {
+    ): core.HttpResponsePromise<Intercom.TicketTypeAttribute> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+    }
+
+    private async __update(
+        request: Intercom.ticketTypes.UpdateTicketTypeAttributeRequest,
+        requestOptions?: Attributes.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.TicketTypeAttribute>> {
         const { ticket_type_id: ticketTypeId, attribute_id: attributeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -185,8 +205,8 @@ export class Attributes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "v6.4.0",
+                "User-Agent": "intercom-client/v6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -200,17 +220,21 @@ export class Attributes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.TicketTypeAttribute;
+            return { data: _response.body as Intercom.TicketTypeAttribute, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -220,6 +244,7 @@ export class Attributes {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -228,6 +253,7 @@ export class Attributes {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
