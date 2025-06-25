@@ -1,0 +1,12 @@
+export { type ListCompaniesForAContactRequest } from "./ListCompaniesForAContactRequest";
+export { type ListSegmentsForAContactRequest } from "./ListSegmentsForAContactRequest";
+export { type ListSubscriptionsForAContactRequest } from "./ListSubscriptionsForAContactRequest";
+export { type ListTagsForAContactRequest } from "./ListTagsForAContactRequest";
+export { type ShowContactRequest } from "./ShowContactRequest";
+export { type UpdateContactRequest } from "./UpdateContactRequest";
+export { type DeleteContactRequest } from "./DeleteContactRequest";
+export { type MergeContactsRequest } from "./MergeContactsRequest";
+export { type ShowContactByExternalIdRequest } from "./ShowContactByExternalIdRequest";
+export { type ArchiveContactRequest } from "./ArchiveContactRequest";
+export { type UnarchiveContactRequest } from "./UnarchiveContactRequest";
+export { type BlockContactRequest } from "./BlockContactRequest";

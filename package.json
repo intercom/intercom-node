@@ -1,6 +1,6 @@
 {
     "name": "intercom-client",
-    "version": "6.3.0",
+    "version": "6.4.0",
     "private": false,
     "repository": "https://github.com/intercom/intercom-node",
     "main": "./index.js",
@@ -40,6 +40,7 @@
         "os": false,
         "path": false
     },
+    "packageManager": "yarn@1.22.22",
     "license": "Apache-2.0",
     "description": "Official Node bindings to the Intercom API",
     "homepage": "https://github.com/intercom/intercom-node",

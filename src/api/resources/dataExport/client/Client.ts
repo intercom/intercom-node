@@ -101,10 +101,17 @@ export class DataExport {
      *         created_at_before: 1719492967
      *     })
      */
-    public async create(
+    public create(
         request: Intercom.CreateDataExportRequest,
         requestOptions?: DataExport.RequestOptions,
-    ): Promise<Intercom.DataExport> {
+    ): core.HttpResponsePromise<Intercom.DataExport> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Intercom.CreateDataExportRequest,
+        requestOptions?: DataExport.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.DataExport>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -117,8 +124,8 @@ export class DataExport {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -132,13 +139,14 @@ export class DataExport {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.DataExport;
+            return { data: _response.body as Intercom.DataExport, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.IntercomError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -147,12 +155,14 @@ export class DataExport {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /export/content/data.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -172,10 +182,17 @@ export class DataExport {
      *         job_identifier: "job_identifier"
      *     })
      */
-    public async find(
+    public find(
         request: Intercom.FindDataExportRequest,
         requestOptions?: DataExport.RequestOptions,
-    ): Promise<Intercom.DataExport> {
+    ): core.HttpResponsePromise<Intercom.DataExport> {
+        return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
+    }
+
+    private async __find(
+        request: Intercom.FindDataExportRequest,
+        requestOptions?: DataExport.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.DataExport>> {
         const { job_identifier: jobIdentifier } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -189,8 +206,8 @@ export class DataExport {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -203,13 +220,14 @@ export class DataExport {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.DataExport;
+            return { data: _response.body as Intercom.DataExport, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.IntercomError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -218,6 +236,7 @@ export class DataExport {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -226,6 +245,7 @@ export class DataExport {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -241,10 +261,17 @@ export class DataExport {
      *         job_identifier: "job_identifier"
      *     })
      */
-    public async cancel(
+    public cancel(
         request: Intercom.CancelDataExportRequest,
         requestOptions?: DataExport.RequestOptions,
-    ): Promise<Intercom.DataExport> {
+    ): core.HttpResponsePromise<Intercom.DataExport> {
+        return core.HttpResponsePromise.fromPromise(this.__cancel(request, requestOptions));
+    }
+
+    private async __cancel(
+        request: Intercom.CancelDataExportRequest,
+        requestOptions?: DataExport.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.DataExport>> {
         const { job_identifier: jobIdentifier } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -258,8 +285,8 @@ export class DataExport {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -272,13 +299,14 @@ export class DataExport {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.DataExport;
+            return { data: _response.body as Intercom.DataExport, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.IntercomError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -287,6 +315,7 @@ export class DataExport {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -295,6 +324,7 @@ export class DataExport {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -316,10 +346,17 @@ export class DataExport {
      *         job_identifier: "job_identifier"
      *     })
      */
-    public async download(
+    public download(
         request: Intercom.DownloadDataExportRequest,
         requestOptions?: DataExport.RequestOptions,
-    ): Promise<void> {
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__download(request, requestOptions));
+    }
+
+    private async __download(
+        request: Intercom.DownloadDataExportRequest,
+        requestOptions?: DataExport.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const { job_identifier: jobIdentifier } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -333,8 +370,8 @@ export class DataExport {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -347,13 +384,14 @@ export class DataExport {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             throw new errors.IntercomError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
+                rawResponse: _response.rawResponse,
             });
         }
 
@@ -362,6 +400,7 @@ export class DataExport {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -370,6 +409,7 @@ export class DataExport {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
