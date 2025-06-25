@@ -1,0 +1,10 @@
+export { type ListConversationsRequest } from "./ListConversationsRequest";
+export { type CreateConversationRequest } from "./CreateConversationRequest";
+export { type RetrieveConversationRequest } from "./RetrieveConversationRequest";
+export { type UpdateConversationRequest } from "./UpdateConversationRequest";
+export { type DeleteConversationRequest } from "./DeleteConversationRequest";
+export { type ReplyConversationRequest } from "./ReplyConversationRequest";
+export { type ManageConversationRequest } from "./ManageConversationRequest";
+export { type AttachContactToConversationRequest } from "./AttachContactToConversationRequest";
+export { type DetachContactFromConversationRequest } from "./DetachContactFromConversationRequest";
+export { type ConvertConversationToTicketRequest } from "./ConvertConversationToTicketRequest";

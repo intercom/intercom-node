@@ -4,13 +4,15 @@
 
 import * as errors from "../../errors/index";
 import * as Intercom from "../index";
+import * as core from "../../core";
 
 export class ForbiddenError extends errors.IntercomError {
-    constructor(body: Intercom.Error_) {
+    constructor(body: Intercom.Error_, rawResponse?: core.RawResponse) {
         super({
             message: "ForbiddenError",
             statusCode: 403,
             body: body,
+            rawResponse: rawResponse,
         });
         Object.setPrototypeOf(this, ForbiddenError.prototype);
     }

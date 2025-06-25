@@ -85,7 +85,15 @@ export class SubscriptionTypes {
      * @example
      *     await client.subscriptionTypes.list()
      */
-    public async list(requestOptions?: SubscriptionTypes.RequestOptions): Promise<Intercom.SubscriptionTypeList> {
+    public list(
+        requestOptions?: SubscriptionTypes.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.SubscriptionTypeList> {
+        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
+    }
+
+    private async __list(
+        requestOptions?: SubscriptionTypes.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.SubscriptionTypeList>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -98,8 +106,8 @@ export class SubscriptionTypes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -112,17 +120,21 @@ export class SubscriptionTypes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.SubscriptionTypeList;
+            return { data: _response.body as Intercom.SubscriptionTypeList, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -132,12 +144,14 @@ export class SubscriptionTypes {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /subscription_types.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

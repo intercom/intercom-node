@@ -89,10 +89,17 @@ export class Visitors {
      *         user_id: "user_id"
      *     })
      */
-    public async find(
+    public find(
         request: Intercom.FindVisitorRequest,
         requestOptions?: Visitors.RequestOptions,
-    ): Promise<Intercom.Visitor> {
+    ): core.HttpResponsePromise<Intercom.Visitor> {
+        return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
+    }
+
+    private async __find(
+        request: Intercom.FindVisitorRequest,
+        requestOptions?: Visitors.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Visitor>> {
         const { user_id: userId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["user_id"] = userId;
@@ -108,8 +115,8 @@ export class Visitors {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -123,19 +130,23 @@ export class Visitors {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Visitor;
+            return { data: _response.body as Intercom.Visitor, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -145,12 +156,14 @@ export class Visitors {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /visitors.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -180,10 +193,17 @@ export class Visitors {
      *         name: "Christian Fail"
      *     })
      */
-    public async update(
+    public update(
         request: Intercom.UpdateVisitorRequest,
         requestOptions?: Visitors.RequestOptions,
-    ): Promise<Intercom.Visitor> {
+    ): core.HttpResponsePromise<Intercom.Visitor> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+    }
+
+    private async __update(
+        request: Intercom.UpdateVisitorRequest,
+        requestOptions?: Visitors.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Visitor>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -196,8 +216,8 @@ export class Visitors {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -211,19 +231,23 @@ export class Visitors {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Visitor;
+            return { data: _response.body as Intercom.Visitor, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -233,12 +257,14 @@ export class Visitors {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling PUT /visitors.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -267,10 +293,17 @@ export class Visitors {
      *         }
      *     })
      */
-    public async mergeToContact(
+    public mergeToContact(
         request: Intercom.MergeVisitorToContactRequest,
         requestOptions?: Visitors.RequestOptions,
-    ): Promise<Intercom.Contact> {
+    ): core.HttpResponsePromise<Intercom.Contact> {
+        return core.HttpResponsePromise.fromPromise(this.__mergeToContact(request, requestOptions));
+    }
+
+    private async __mergeToContact(
+        request: Intercom.MergeVisitorToContactRequest,
+        requestOptions?: Visitors.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Contact>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -283,8 +316,8 @@ export class Visitors {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -298,17 +331,21 @@ export class Visitors {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Contact;
+            return { data: _response.body as Intercom.Contact, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -318,12 +355,14 @@ export class Visitors {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /visitors/convert.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

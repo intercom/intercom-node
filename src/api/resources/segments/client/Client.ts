@@ -86,10 +86,17 @@ export class Segments {
      * @example
      *     await client.segments.list()
      */
-    public async list(
+    public list(
         request: Intercom.ListSegmentsRequest = {},
         requestOptions?: Segments.RequestOptions,
-    ): Promise<Intercom.SegmentList> {
+    ): core.HttpResponsePromise<Intercom.SegmentList> {
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
+    }
+
+    private async __list(
+        request: Intercom.ListSegmentsRequest = {},
+        requestOptions?: Segments.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.SegmentList>> {
         const { include_count: includeCount } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (includeCount != null) {
@@ -108,8 +115,8 @@ export class Segments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -123,17 +130,21 @@ export class Segments {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.SegmentList;
+            return { data: _response.body as Intercom.SegmentList, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -143,12 +154,14 @@ export class Segments {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /segments.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -167,10 +180,17 @@ export class Segments {
      *         segment_id: "123"
      *     })
      */
-    public async find(
+    public find(
         request: Intercom.FindSegmentRequest,
         requestOptions?: Segments.RequestOptions,
-    ): Promise<Intercom.Segment> {
+    ): core.HttpResponsePromise<Intercom.Segment> {
+        return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
+    }
+
+    private async __find(
+        request: Intercom.FindSegmentRequest,
+        requestOptions?: Segments.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Segment>> {
         const { segment_id: segmentId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -184,8 +204,8 @@ export class Segments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -198,19 +218,23 @@ export class Segments {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Segment;
+            return { data: _response.body as Intercom.Segment, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -220,12 +244,14 @@ export class Segments {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /segments/{segment_id}.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

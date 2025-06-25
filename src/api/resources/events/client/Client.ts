@@ -98,10 +98,17 @@ export class Events {
      *         type: "type"
      *     })
      */
-    public async list(
+    public list(
         request: Intercom.ListEventsRequest,
         requestOptions?: Events.RequestOptions,
-    ): Promise<Intercom.DataEventSummary> {
+    ): core.HttpResponsePromise<Intercom.DataEventSummary> {
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
+    }
+
+    private async __list(
+        request: Intercom.ListEventsRequest,
+        requestOptions?: Events.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.DataEventSummary>> {
         const {
             user_id: userId,
             intercom_user_id: intercomUserId,
@@ -144,8 +151,8 @@ export class Events {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -159,17 +166,21 @@ export class Events {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.DataEventSummary;
+            return { data: _response.body as Intercom.DataEventSummary, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -179,12 +190,14 @@ export class Events {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /events.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -244,10 +257,17 @@ export class Events {
      *         created_at: 1671028894
      *     })
      */
-    public async create(
+    public create(
         request: Intercom.CreateDataEventRequest,
         requestOptions?: Events.RequestOptions,
-    ): Promise<void> {
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Intercom.CreateDataEventRequest,
+        requestOptions?: Events.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -260,8 +280,8 @@ export class Events {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -275,17 +295,21 @@ export class Events {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -295,12 +319,14 @@ export class Events {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /events.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -316,10 +342,17 @@ export class Events {
      * @example
      *     await client.events.summaries()
      */
-    public async summaries(
+    public summaries(
         request: Intercom.ListEventSummariesRequest = {},
         requestOptions?: Events.RequestOptions,
-    ): Promise<void> {
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__summaries(request, requestOptions));
+    }
+
+    private async __summaries(
+        request: Intercom.ListEventSummariesRequest = {},
+        requestOptions?: Events.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -332,8 +365,8 @@ export class Events {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -347,17 +380,21 @@ export class Events {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -367,12 +404,14 @@ export class Events {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /events/summaries.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

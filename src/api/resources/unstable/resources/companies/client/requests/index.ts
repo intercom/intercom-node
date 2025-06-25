@@ -1,0 +1,10 @@
+export { type RetrieveCompanyRequest } from "./RetrieveCompanyRequest";
+export { type RetrieveACompanyByIdRequest } from "./RetrieveACompanyByIdRequest";
+export { type UpdateCompanyRequest } from "./UpdateCompanyRequest";
+export { type DeleteCompanyRequest } from "./DeleteCompanyRequest";
+export { type ListAttachedContactsRequest } from "./ListAttachedContactsRequest";
+export { type ListAttachedSegmentsForCompaniesRequest } from "./ListAttachedSegmentsForCompaniesRequest";
+export { type ListAllCompaniesRequest } from "./ListAllCompaniesRequest";
+export { type ScrollOverAllCompaniesRequest } from "./ScrollOverAllCompaniesRequest";
+export { type AttachContactToACompanyRequest } from "./AttachContactToACompanyRequest";
+export { type DetachContactFromACompanyRequest } from "./DetachContactFromACompanyRequest";

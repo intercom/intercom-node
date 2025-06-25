@@ -103,10 +103,17 @@ export class PhoneCallRedirects {
      *         }
      *     })
      */
-    public async create(
+    public create(
         request: Intercom.CreatePhoneCallRedirectRequest,
         requestOptions?: PhoneCallRedirects.RequestOptions,
-    ): Promise<Intercom.PhoneSwitch> {
+    ): core.HttpResponsePromise<Intercom.PhoneSwitch> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    }
+
+    private async __create(
+        request: Intercom.CreatePhoneCallRedirectRequest,
+        requestOptions?: PhoneCallRedirects.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.PhoneSwitch>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -119,8 +126,8 @@ export class PhoneCallRedirects {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -134,21 +141,25 @@ export class PhoneCallRedirects {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.PhoneSwitch;
+            return { data: _response.body as Intercom.PhoneSwitch, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Intercom.BadRequestError(_response.error.body as unknown);
+                    throw new Intercom.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 422:
-                    throw new Intercom.UnprocessableEntityError(_response.error.body as unknown);
+                    throw new Intercom.UnprocessableEntityError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -158,12 +169,14 @@ export class PhoneCallRedirects {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /phone_call_redirects.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

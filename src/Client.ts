@@ -23,8 +23,8 @@ import { Teams } from "./api/resources/teams/client/Client";
 import { TicketTypes } from "./api/resources/ticketTypes/client/Client";
 import { Tickets } from "./api/resources/tickets/client/Client";
 import { Visitors } from "./api/resources/visitors/client/Client";
-import { CustomChannelEvents } from "./api/resources/customChannelEvents/client/Client";
 import { News } from "./api/resources/news/client/Client";
+import { Unstable } from "./api/resources/unstable/client/Client";
 
 export declare namespace IntercomClient {
     export interface Options {
@@ -107,8 +107,8 @@ export class IntercomClient {
     protected _ticketTypes: TicketTypes | undefined;
     protected _tickets: Tickets | undefined;
     protected _visitors: Visitors | undefined;
-    protected _customChannelEvents: CustomChannelEvents | undefined;
     protected _news: News | undefined;
+    protected _unstable: Unstable | undefined;
 
     constructor(protected readonly _options: IntercomClient.Options = {}) {}
 
@@ -188,11 +188,11 @@ export class IntercomClient {
         return (this._visitors ??= new Visitors(this._options));
     }
 
-    public get customChannelEvents(): CustomChannelEvents {
-        return (this._customChannelEvents ??= new CustomChannelEvents(this._options));
-    }
-
     public get news(): News {
         return (this._news ??= new News(this._options));
+    }
+
+    public get unstable(): Unstable {
+        return (this._unstable ??= new Unstable(this._options));
     }
 }

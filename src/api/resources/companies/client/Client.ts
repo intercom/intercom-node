@@ -102,10 +102,17 @@ export class Companies {
      *         segment_id: "98765"
      *     })
      */
-    public async retrieve(
+    public retrieve(
         request: Intercom.RetrieveCompanyRequest = {},
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.CompaniesRetrieveResponse> {
+    ): core.HttpResponsePromise<Intercom.CompaniesRetrieveResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__retrieve(request, requestOptions));
+    }
+
+    private async __retrieve(
+        request: Intercom.RetrieveCompanyRequest = {},
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.CompaniesRetrieveResponse>> {
         const { name, company_id: companyId, tag_id: tagId, segment_id: segmentId, page, per_page: perPage } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (name != null) {
@@ -144,8 +151,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -159,19 +166,23 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.CompaniesRetrieveResponse;
+            return { data: _response.body as Intercom.CompaniesRetrieveResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -181,12 +192,14 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /companies.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -218,10 +231,17 @@ export class Companies {
      * @example
      *     await client.companies.createOrUpdate()
      */
-    public async createOrUpdate(
+    public createOrUpdate(
         request: Intercom.CreateOrUpdateCompanyRequest = {},
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.Company> {
+    ): core.HttpResponsePromise<Intercom.Company> {
+        return core.HttpResponsePromise.fromPromise(this.__createOrUpdate(request, requestOptions));
+    }
+
+    private async __createOrUpdate(
+        request: Intercom.CreateOrUpdateCompanyRequest = {},
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Company>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -234,8 +254,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -249,19 +269,23 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Company;
+            return { data: _response.body as Intercom.Company, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Intercom.BadRequestError(_response.error.body as unknown);
+                    throw new Intercom.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -271,12 +295,14 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /companies.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -295,10 +321,17 @@ export class Companies {
      *         company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632"
      *     })
      */
-    public async find(
+    public find(
         request: Intercom.FindCompanyRequest,
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.Company> {
+    ): core.HttpResponsePromise<Intercom.Company> {
+        return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
+    }
+
+    private async __find(
+        request: Intercom.FindCompanyRequest,
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Company>> {
         const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -312,8 +345,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -326,19 +359,23 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Company;
+            return { data: _response.body as Intercom.Company, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -348,12 +385,14 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /companies/{company_id}.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -376,10 +415,17 @@ export class Companies {
      *         company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632"
      *     })
      */
-    public async update(
+    public update(
         request: Intercom.UpdateCompanyRequest,
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.Company> {
+    ): core.HttpResponsePromise<Intercom.Company> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+    }
+
+    private async __update(
+        request: Intercom.UpdateCompanyRequest,
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Company>> {
         const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -393,8 +439,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -407,19 +453,23 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Company;
+            return { data: _response.body as Intercom.Company, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -429,12 +479,14 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling PUT /companies/{company_id}.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -453,10 +505,17 @@ export class Companies {
      *         company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632"
      *     })
      */
-    public async delete(
+    public delete(
         request: Intercom.DeleteCompanyRequest,
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.DeletedCompanyObject> {
+    ): core.HttpResponsePromise<Intercom.DeletedCompanyObject> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
+    }
+
+    private async __delete(
+        request: Intercom.DeleteCompanyRequest,
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.DeletedCompanyObject>> {
         const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -470,8 +529,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -484,19 +543,23 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.DeletedCompanyObject;
+            return { data: _response.body as Intercom.DeletedCompanyObject, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -506,12 +569,14 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling DELETE /companies/{company_id}.");
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -530,10 +595,17 @@ export class Companies {
      *         company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632"
      *     })
      */
-    public async listAttachedContacts(
+    public listAttachedContacts(
         request: Intercom.ListAttachedContactsRequest,
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.CompanyAttachedContacts> {
+    ): core.HttpResponsePromise<Intercom.CompanyAttachedContacts> {
+        return core.HttpResponsePromise.fromPromise(this.__listAttachedContacts(request, requestOptions));
+    }
+
+    private async __listAttachedContacts(
+        request: Intercom.ListAttachedContactsRequest,
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.CompanyAttachedContacts>> {
         const { company_id: companyId, page, per_page: perPage } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
@@ -556,8 +628,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -571,19 +643,23 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.CompanyAttachedContacts;
+            return { data: _response.body as Intercom.CompanyAttachedContacts, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -593,6 +669,7 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -601,6 +678,7 @@ export class Companies {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -619,10 +697,17 @@ export class Companies {
      *         company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632"
      *     })
      */
-    public async listAttachedSegments(
+    public listAttachedSegments(
         request: Intercom.ListSegmentsAttachedToCompanyRequest,
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.CompanyAttachedSegments> {
+    ): core.HttpResponsePromise<Intercom.CompanyAttachedSegments> {
+        return core.HttpResponsePromise.fromPromise(this.__listAttachedSegments(request, requestOptions));
+    }
+
+    private async __listAttachedSegments(
+        request: Intercom.ListSegmentsAttachedToCompanyRequest,
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.CompanyAttachedSegments>> {
         const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -636,8 +721,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -650,19 +735,23 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.CompanyAttachedSegments;
+            return { data: _response.body as Intercom.CompanyAttachedSegments, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -672,6 +761,7 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -680,6 +770,7 @@ export class Companies {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -709,75 +800,86 @@ export class Companies {
         request: Intercom.ListCompaniesRequest = {},
         requestOptions?: Companies.RequestOptions,
     ): Promise<core.Page<Intercom.Company>> {
-        const list = async (request: Intercom.ListCompaniesRequest): Promise<Intercom.CompanyList> => {
-            const { page, per_page: perPage, order } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (page != null) {
-                _queryParams["page"] = page.toString();
-            }
-            if (perPage != null) {
-                _queryParams["per_page"] = perPage.toString();
-            }
-            if (order != null) {
-                _queryParams["order"] = order;
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.IntercomEnvironment.UsProduction,
-                    "companies/list",
-                ),
-                method: "POST",
-                headers: {
-                    Authorization: await this._getAuthorizationHeader(),
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.3.0",
-                    "User-Agent": "intercom-client/6.3.0",
-                    "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return _response.body as Intercom.CompanyList;
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 401:
-                        throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
-                    default:
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (request: Intercom.ListCompaniesRequest): Promise<core.WithRawResponse<Intercom.CompanyList>> => {
+                const { page, per_page: perPage, order } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (page != null) {
+                    _queryParams["page"] = page.toString();
+                }
+                if (perPage != null) {
+                    _queryParams["per_page"] = perPage.toString();
+                }
+                if (order != null) {
+                    _queryParams["order"] = order;
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.IntercomEnvironment.UsProduction,
+                        "companies/list",
+                    ),
+                    method: "POST",
+                    headers: {
+                        Authorization: await this._getAuthorizationHeader(),
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "intercom-client",
+                        "X-Fern-SDK-Version": "6.4.0",
+                        "User-Agent": "intercom-client/6.4.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                });
+                if (_response.ok) {
+                    return { data: _response.body as Intercom.CompanyList, rawResponse: _response.rawResponse };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 401:
+                            throw new Intercom.UnauthorizedError(
+                                _response.error.body as Intercom.Error_,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.IntercomError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.IntercomError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /companies/list.");
+                    case "unknown":
+                        throw new errors.IntercomError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /companies/list.");
-                case "unknown":
-                    throw new errors.IntercomError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
         let _offset = request?.page != null ? request?.page : 1;
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Intercom.CompanyList, Intercom.Company>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.data ?? []).length > 0,
             getItems: (response) => response?.data ?? [],
             loadPage: (_response) => {
@@ -816,68 +918,79 @@ export class Companies {
         request: Intercom.ScrollCompaniesRequest = {},
         requestOptions?: Companies.RequestOptions,
     ): Promise<core.Page<Intercom.Company>> {
-        const list = async (request: Intercom.ScrollCompaniesRequest): Promise<Intercom.CompanyScroll> => {
-            const { scroll_param: scrollParam } = request;
-            const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-            if (scrollParam != null) {
-                _queryParams["scroll_param"] = scrollParam;
-            }
-            const _response = await (this._options.fetcher ?? core.fetcher)({
-                url: urlJoin(
-                    (await core.Supplier.get(this._options.baseUrl)) ??
-                        (await core.Supplier.get(this._options.environment)) ??
-                        environments.IntercomEnvironment.UsProduction,
-                    "companies/scroll",
-                ),
-                method: "GET",
-                headers: {
-                    Authorization: await this._getAuthorizationHeader(),
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "intercom-client",
-                    "X-Fern-SDK-Version": "6.3.0",
-                    "User-Agent": "intercom-client/6.3.0",
-                    "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    ...requestOptions?.headers,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-                maxRetries: requestOptions?.maxRetries,
-                abortSignal: requestOptions?.abortSignal,
-            });
-            if (_response.ok) {
-                return _response.body as Intercom.CompanyScroll;
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 401:
-                        throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
-                    default:
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (request: Intercom.ScrollCompaniesRequest): Promise<core.WithRawResponse<Intercom.CompanyScroll>> => {
+                const { scroll_param: scrollParam } = request;
+                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+                if (scrollParam != null) {
+                    _queryParams["scroll_param"] = scrollParam;
+                }
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: urlJoin(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.IntercomEnvironment.UsProduction,
+                        "companies/scroll",
+                    ),
+                    method: "GET",
+                    headers: {
+                        Authorization: await this._getAuthorizationHeader(),
+                        "X-Fern-Language": "JavaScript",
+                        "X-Fern-SDK-Name": "intercom-client",
+                        "X-Fern-SDK-Version": "6.4.0",
+                        "User-Agent": "intercom-client/6.4.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-Runtime": core.RUNTIME.type,
+                        "X-Fern-Runtime-Version": core.RUNTIME.version,
+                        ...requestOptions?.headers,
+                    },
+                    contentType: "application/json",
+                    queryParameters: _queryParams,
+                    requestType: "json",
+                    timeoutMs:
+                        requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+                    maxRetries: requestOptions?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                });
+                if (_response.ok) {
+                    return { data: _response.body as Intercom.CompanyScroll, rawResponse: _response.rawResponse };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 401:
+                            throw new Intercom.UnauthorizedError(
+                                _response.error.body as Intercom.Error_,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.IntercomError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                switch (_response.error.reason) {
+                    case "non-json":
                         throw new errors.IntercomError({
                             statusCode: _response.error.statusCode,
-                            body: _response.error.body,
+                            body: _response.error.rawBody,
+                            rawResponse: _response.rawResponse,
+                        });
+                    case "timeout":
+                        throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /companies/scroll.");
+                    case "unknown":
+                        throw new errors.IntercomError({
+                            message: _response.error.errorMessage,
+                            rawResponse: _response.rawResponse,
                         });
                 }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /companies/scroll.");
-                case "unknown":
-                    throw new errors.IntercomError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        };
+            },
+        );
+        const dataWithRawResponse = await list(request).withRawResponse();
         return new core.Pageable<Intercom.CompanyScroll, Intercom.Company>({
-            response: await list(request),
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => response?.scroll_param != null,
             getItems: (response) => response?.data ?? [],
             loadPage: (response) => {
@@ -914,10 +1027,17 @@ export class Companies {
      *         id: "123"
      *     })
      */
-    public async attachContact(
+    public attachContact(
         request: Intercom.AttachContactToCompanyRequest,
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.Company> {
+    ): core.HttpResponsePromise<Intercom.Company> {
+        return core.HttpResponsePromise.fromPromise(this.__attachContact(request, requestOptions));
+    }
+
+    private async __attachContact(
+        request: Intercom.AttachContactToCompanyRequest,
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Company>> {
         const { contact_id: contactId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -931,8 +1051,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -946,21 +1066,25 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Company;
+            return { data: _response.body as Intercom.Company, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Intercom.BadRequestError(_response.error.body as unknown);
+                    throw new Intercom.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -970,6 +1094,7 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -978,6 +1103,7 @@ export class Companies {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -997,10 +1123,17 @@ export class Companies {
      *         company_id: "58a430d35458202d41b1e65b"
      *     })
      */
-    public async detachContact(
+    public detachContact(
         request: Intercom.DetachContactFromCompanyRequest,
         requestOptions?: Companies.RequestOptions,
-    ): Promise<Intercom.Company> {
+    ): core.HttpResponsePromise<Intercom.Company> {
+        return core.HttpResponsePromise.fromPromise(this.__detachContact(request, requestOptions));
+    }
+
+    private async __detachContact(
+        request: Intercom.DetachContactFromCompanyRequest,
+        requestOptions?: Companies.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Company>> {
         const { contact_id: contactId, company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -1014,8 +1147,8 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.3.0",
-                "User-Agent": "intercom-client/6.3.0",
+                "X-Fern-SDK-Version": "6.4.0",
+                "User-Agent": "intercom-client/6.4.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1028,19 +1161,23 @@ export class Companies {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Intercom.Company;
+            return { data: _response.body as Intercom.Company, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Intercom.UnauthorizedError(_response.error.body as Intercom.Error_);
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown);
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.IntercomError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -1050,6 +1187,7 @@ export class Companies {
                 throw new errors.IntercomError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError(
@@ -1058,6 +1196,7 @@ export class Companies {
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
