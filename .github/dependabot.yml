@@ -1,0 +1,28 @@
+# The file is used to configure the behavior of Dependabot.
+#
+# Dependabot is a tool that automatically updates dependencies in a project.
+# It is used to keep the project up to date with the latest versions of the dependencies (in our case, all minor and patch versions).
+#
+# The file is written in YAML format.
+#
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+    groups:
+      npm-minor-and-patch: # Group all minor and patch updates together
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"] # Ignore major updates
+      - dependency-name: "*"
+        versions: ["0.x"] # Ignore non stable minors and patch versions (0.x.x)
