@@ -3,7 +3,7 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fintercom%2Fintercom-node)
 [![npm shield](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
 
-The Intercom TypeScript library provides convenient access to the Intercom API from TypeScript.
+The Intercom TypeScript library provides convenient access to the Intercom APIs from TypeScript.
 
 ## Project Updates
 
@@ -27,12 +27,8 @@ Instantiate and use the client with the following:
 import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({ token: "YOUR_TOKEN" });
-await client.articles.create({
-    title: "Thanks for everything",
-    description: "Description of the Article",
-    body: "Body of the Article",
-    author_id: 1295,
-    state: "published",
+await client.aiContent.createContentImportSource({
+    url: "https://www.example.com",
 });
 ```
 
@@ -58,7 +54,7 @@ will be thrown.
 import { IntercomError } from "intercom-client";
 
 try {
-    await client.articles.create(...);
+    await client.aiContent.createContentImportSource(...);
 } catch (err) {
     if (err instanceof IntercomError) {
         console.log(err.statusCode);
@@ -96,7 +92,7 @@ while (page.hasNextPage()) {
 If you would like to send additional headers as part of the request, use the `headers` request option.
 
 ```typescript
-const response = await client.articles.create(..., {
+const response = await client.aiContent.createContentImportSource(..., {
     headers: {
         'X-Custom-Header': 'custom value'
     }
@@ -118,7 +114,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.articles.create(..., {
+const response = await client.aiContent.createContentImportSource(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -128,7 +124,7 @@ const response = await client.articles.create(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.articles.create(..., {
+const response = await client.aiContent.createContentImportSource(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -139,7 +135,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.articles.create(..., {
+const response = await client.aiContent.createContentImportSource(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request
@@ -151,7 +147,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property.
 
 ```typescript
-const { data, rawResponse } = await client.articles.create(...).withRawResponse();
+const { data, rawResponse } = await client.aiContent.createContentImportSource(...).withRawResponse();
 
 console.log(data);
 console.log(rawResponse.headers['X-My-Header']);
@@ -182,16 +178,6 @@ const client = new IntercomClient({
     fetcher: // provide your implementation here
 });
 ```
-
-## Contributing
-
-While we value open-source contributions to this SDK, this library is generated programmatically.
-Additions made directly to this library would have to be moved over to our generation code,
-otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
-a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
-an issue first to discuss with us!
-
-On the other hand, contributions to the README are always very welcome!
 
 ## Contributing
 

@@ -74,7 +74,7 @@ export class CustomChannelEvents {
 
     /**
      * Notifies Intercom that a new conversation was created in your custom channel/platform. This triggers conversation creation and workflow automations within Intercom for your custom channel integration.
-     * > **Note:** This endpoint is restricted to customers with access to the closed beta for "Fin over API".
+     * > **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
      *
      * @param {Intercom.unstable.CustomChannelBaseEvent} request
      * @param {CustomChannelEvents.RequestOptions} requestOptions - Request-specific configuration.
@@ -119,8 +119,8 @@ export class CustomChannelEvents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -186,7 +186,7 @@ export class CustomChannelEvents {
 
     /**
      * Notifies Intercom that a new message was sent in a conversation on your custom channel/platform. This allows Intercom to process the message and trigger any relevant workflow automations.
-     * > **Note:** This endpoint is restricted to customers with access to the closed beta for "Fin over API".
+     * > **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
      *
      * @param {Intercom.unstable.NotifyNewMessageRequest} request
      * @param {CustomChannelEvents.RequestOptions} requestOptions - Request-specific configuration.
@@ -232,8 +232,8 @@ export class CustomChannelEvents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -299,7 +299,7 @@ export class CustomChannelEvents {
 
     /**
      * Notifies Intercom that a user selected a quick reply option in your custom channel/platform. This allows Intercom to process the response and trigger any relevant workflow automations.
-     * > **Note:** This endpoint is restricted to customers with access to the closed beta for "Fin over API".
+     * > **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
      *
      * @param {Intercom.unstable.NotifyQuickReplySelectedRequest} request
      * @param {CustomChannelEvents.RequestOptions} requestOptions - Request-specific configuration.
@@ -345,8 +345,8 @@ export class CustomChannelEvents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -412,7 +412,7 @@ export class CustomChannelEvents {
 
     /**
      * Notifies Intercom that a user provided a response to an attribute collector in your custom channel/platform. This allows Intercom to process the attribute and trigger any relevant workflow automations.
-     * > **Note:** This endpoint is restricted to customers with access to the closed beta for "Fin over API".
+     * > **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
      *
      * @param {Intercom.unstable.NotifyAttributeCollectedRequest} request
      * @param {CustomChannelEvents.RequestOptions} requestOptions - Request-specific configuration.
@@ -461,8 +461,8 @@ export class CustomChannelEvents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

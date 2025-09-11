@@ -76,7 +76,7 @@ export class Messages {
     constructor(protected readonly _options: Messages.Options = {}) {}
 
     /**
-     * You can create a message that has been initiated by an admin. The conversation can be either an in-app message, an email or sms.
+     * You can create a message that has been initiated by an admin. The conversation can be either an in-app message, an email, sms or whatsapp.
      *
      * > 🚧 Sending for visitors
      * >
@@ -88,7 +88,7 @@ export class Messages {
      * >
      * > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
      *
-     * @param {Intercom.CreateMessageRequestTwo} request
+     * @param {Intercom.CreateMessageRequestThree} request
      * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.BadRequestError}
@@ -174,6 +174,32 @@ export class Messages {
      *     await client.unstable.messages.createMessage({
      *         "from": {
      *             "type": "admin",
+     *             "id": "991267817"
+     *         },
+     *         "to": {
+     *             "phone": 5547999998888,
+     *             "name": "John Doe"
+     *         },
+     *         "message_type": "whatsapp",
+     *         "components": [
+     *             {
+     *                 "type": "BODY",
+     *                 "parameters": [
+     *                     {
+     *                         "type": "text",
+     *                         "text": "Username 123"
+     *                     }
+     *                 ]
+     *             }
+     *         ],
+     *         "template": "keep_live",
+     *         "locale": "en"
+     *     })
+     *
+     * @example
+     *     await client.unstable.messages.createMessage({
+     *         "from": {
+     *             "type": "admin",
      *             "id": "991267818"
      *         },
      *         "to": {
@@ -227,14 +253,14 @@ export class Messages {
      *     })
      */
     public createMessage(
-        request?: Intercom.CreateMessageRequestTwo,
+        request?: Intercom.CreateMessageRequestThree,
         requestOptions?: Messages.RequestOptions,
     ): core.HttpResponsePromise<Intercom.unstable.Message> {
         return core.HttpResponsePromise.fromPromise(this.__createMessage(request, requestOptions));
     }
 
     private async __createMessage(
-        request?: Intercom.CreateMessageRequestTwo,
+        request?: Intercom.CreateMessageRequestThree,
         requestOptions?: Messages.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.Message>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -249,8 +275,8 @@ export class Messages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -366,8 +392,8 @@ export class Messages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

@@ -9,9 +9,9 @@ import * as Intercom from "../index";
  */
 export interface TicketParts {
     /** */
-    type: "ticket_part.list";
+    type?: "ticket_part.list";
     /** A list of Ticket Part objects for each ticket. There is a limit of 500 parts. */
-    ticket_parts: Intercom.TicketPart[];
+    ticket_parts?: Intercom.TicketPart[];
     /** */
-    total_count: number;
+    total_count?: number;
 }

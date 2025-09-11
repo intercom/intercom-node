@@ -7,13 +7,13 @@ import * as Intercom from "../../../../../../index";
 /**
  * @example
  *     {
- *         collection_id: "123",
+ *         collection_id: 1,
  *         name: "Update collection name"
  *     }
  *
  * @example
  *     {
- *         collection_id: "123",
+ *         collection_id: 1,
  *         name: "Update collection name"
  *     }
  */
@@ -21,7 +21,7 @@ export interface UpdateCollectionRequest {
     /**
      * The unique identifier for the collection which is given by Intercom.
      */
-    collection_id: string;
+    collection_id: number;
     /** The name of the collection. For multilingual collections, this will be the name of the default language's content. */
     name?: string;
     /** The description of the collection. For multilingual collections, this will be the description of the default language's content. */

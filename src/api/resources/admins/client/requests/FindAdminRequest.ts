@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         admin_id: "123"
+ *         admin_id: 1
  *     }
  */
 export interface FindAdminRequest {
     /**
      * The unique identifier of a given admin
      */
-    admin_id: string;
+    admin_id: number;
 }

@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         note_id: "1"
+ *         note_id: 1
  *     }
  */
 export interface FindNoteRequest {
     /**
      * The unique identifier of a given note
      */
-    note_id: string;
+    note_id: number;
 }

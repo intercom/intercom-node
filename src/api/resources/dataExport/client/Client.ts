@@ -76,6 +76,187 @@ export class DataExport {
     constructor(protected readonly _options: DataExport.Options = {}) {}
 
     /**
+     * @param {Intercom.ExportReportingDataRequest} request
+     * @param {DataExport.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Intercom.NotFoundError}
+     *
+     * @example
+     *     await client.dataExport.exportReportingData({
+     *         job_identifier: "job_identifier",
+     *         app_id: "app_id",
+     *         client_id: "client_id"
+     *     })
+     */
+    public exportReportingData(
+        request: Intercom.ExportReportingDataRequest,
+        requestOptions?: DataExport.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.DataExportExportReportingDataResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__exportReportingData(request, requestOptions));
+    }
+
+    private async __exportReportingData(
+        request: Intercom.ExportReportingDataRequest,
+        requestOptions?: DataExport.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.DataExportExportReportingDataResponse>> {
+        const { job_identifier: jobIdentifier, app_id: appId, client_id: clientId } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["app_id"] = appId;
+        _queryParams["client_id"] = clientId;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `export/reporting_data/${encodeURIComponent(jobIdentifier)}`,
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Intercom.DataExportExportReportingDataResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.IntercomError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError(
+                    "Timeout exceeded when calling GET /export/reporting_data/{job_identifier}.",
+                );
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * @param {Intercom.DownloadReportingDataExportRequest} request
+     * @param {DataExport.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Intercom.NotFoundError}
+     *
+     * @example
+     *     await client.dataExport.downloadReportingDataExport({
+     *         job_identifier: "job_identifier",
+     *         app_id: "app_id"
+     *     })
+     */
+    public downloadReportingDataExport(
+        request: Intercom.DownloadReportingDataExportRequest,
+        requestOptions?: DataExport.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__downloadReportingDataExport(request, requestOptions));
+    }
+
+    private async __downloadReportingDataExport(
+        request: Intercom.DownloadReportingDataExportRequest,
+        requestOptions?: DataExport.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
+        const { job_identifier: jobIdentifier, app_id: appId } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["app_id"] = appId;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `download/reporting_data/${encodeURIComponent(jobIdentifier)}`,
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.IntercomError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError(
+                    "Timeout exceeded when calling GET /download/reporting_data/{job_identifier}.",
+                );
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * To create your export job, you need to send a `POST` request to the export endpoint `https://api.intercom.io/export/content/data`.
      *
      * The only parameters you need to provide are the range of dates that you want exported.
@@ -97,8 +278,8 @@ export class DataExport {
      *
      * @example
      *     await client.dataExport.create({
-     *         created_at_after: 1719474967,
-     *         created_at_before: 1719492967
+     *         created_at_after: 1734519776,
+     *         created_at_before: 1734537776
      *     })
      */
     public create(
@@ -124,8 +305,8 @@ export class DataExport {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -206,8 +387,8 @@ export class DataExport {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -285,8 +466,8 @@ export class DataExport {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -370,8 +551,8 @@ export class DataExport {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

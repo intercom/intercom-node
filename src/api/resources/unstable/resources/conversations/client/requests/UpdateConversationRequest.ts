@@ -52,4 +52,6 @@ export interface UpdateConversationRequest {
     /** The title given to the conversation */
     title?: string;
     custom_attributes?: Intercom.unstable.CustomAttributes;
+    /** The ID of the company that the conversation is associated with. The unique identifier for the company which is given by Intercom. Set to nil to remove company. */
+    company_id?: string;
 }

@@ -7,13 +7,13 @@
  */
 export interface DataExport {
     /** The identifier for your job. */
-    job_identifier: string;
+    job_identfier?: string;
     /** The current state of your job. */
-    status: DataExport.Status;
+    status?: DataExport.Status;
     /** The time after which you will not be able to access the data. */
-    download_expires_at: string;
+    download_expires_at?: string;
     /** The location where you can download your data. */
-    download_url: string;
+    download_url?: string;
 }
 
 export namespace DataExport {

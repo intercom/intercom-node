@@ -10,7 +10,7 @@
  */
 export interface ArchiveContactRequest {
     /**
-     * id
+     * contact_id
      */
     contact_id: string;
 }

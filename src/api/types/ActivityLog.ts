@@ -9,13 +9,13 @@ import * as Intercom from "../index";
  */
 export interface ActivityLog {
     /** The id representing the activity. */
-    id: string;
+    id?: string;
     /** Details about the Admin involved in the activity. */
-    performed_by: ActivityLog.PerformedBy;
+    performed_by?: ActivityLog.PerformedBy;
     metadata?: Intercom.ActivityLogMetadata;
     /** The time the activity was created. */
     created_at?: number;
-    activity_type: ActivityLog.ActivityType;
+    activity_type?: ActivityLog.ActivityType;
     /** A sentence or two describing the activity. */
     activity_description?: string;
 }
@@ -26,7 +26,7 @@ export namespace ActivityLog {
      */
     export interface PerformedBy {
         /** String representing the object's type. Always has the value `admin`. */
-        type?: "admin";
+        type?: string;
         /** The id representing the admin. */
         id?: string;
         /** The email of the admin. */
@@ -36,7 +36,8 @@ export namespace ActivityLog {
     }
 
     export type ActivityType =
-        | "admin_assignment_limit_change"
+        | "admin_conversation_assignment_limit_change"
+        | "admin_ticket_assignment_limit_change"
         | "admin_away_mode_change"
         | "admin_deletion"
         | "admin_deprovisioned"
@@ -104,7 +105,8 @@ export namespace ActivityLog {
         | "upfront_email_collection_change"
         | "welcome_message_change";
     export const ActivityType = {
-        AdminAssignmentLimitChange: "admin_assignment_limit_change",
+        AdminConversationAssignmentLimitChange: "admin_conversation_assignment_limit_change",
+        AdminTicketAssignmentLimitChange: "admin_ticket_assignment_limit_change",
         AdminAwayModeChange: "admin_away_mode_change",
         AdminDeletion: "admin_deletion",
         AdminDeprovisioned: "admin_deprovisioned",

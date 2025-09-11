@@ -7,11 +7,11 @@
  */
 export interface ContentSource {
     /** The type of the content source. */
-    content_type: "custom_answer";
+    content_type?: "custom_answer";
     /** The internal URL linking to the content source for teammates. */
-    url: string;
+    url?: string;
     /** The title of the content source. */
-    title: string;
+    title?: string;
     /** The ISO 639 language code of the content source. */
-    locale: string;
+    locale?: string;
 }

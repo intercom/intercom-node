@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         article_id: "123"
+ *         article_id: 1
  *     }
  */
 export interface FindArticleRequest {
     /**
      * The unique identifier for the article which is given by Intercom.
      */
-    article_id: string;
+    article_id: number;
 }

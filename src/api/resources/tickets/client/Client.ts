@@ -92,7 +92,7 @@ export class Tickets {
      *             message_type: "comment",
      *             type: "user",
      *             body: "Thanks again :)",
-     *             intercom_user_id: "667d619d8a68186f43bafe82"
+     *             intercom_user_id: "6762f2971bb69f9f2193bc49"
      *         }
      *     })
      *
@@ -116,10 +116,10 @@ export class Tickets {
      *             admin_id: "3156780",
      *             reply_options: [{
      *                     text: "Yes",
-     *                     uuid: "22d6d1f4-1a19-41d0-94c2-e54031f78aca"
+     *                     uuid: "0df48b85-9a93-4c66-a167-753eff0baaec"
      *                 }, {
      *                     text: "No",
-     *                     uuid: "fbc3dbe0-ec0c-4fb6-826d-e19127191906"
+     *                     uuid: "4f0b5145-4193-4b4f-8cad-ce19478a3938"
      *                 }]
      *         }
      *     })
@@ -131,7 +131,7 @@ export class Tickets {
      *             message_type: "comment",
      *             type: "user",
      *             body: "Thanks again :)",
-     *             intercom_user_id: "667d61a68a68186f43bafe85"
+     *             intercom_user_id: "6762f2a41bb69f9f2193bc4c"
      *         }
      *     })
      */
@@ -159,8 +159,8 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -226,25 +226,21 @@ export class Tickets {
      *     await client.tickets.create({
      *         ticket_type_id: "1234",
      *         contacts: [{
-     *                 id: "667d61b78a68186f43bafe8d"
-     *             }],
-     *         ticket_attributes: {
-     *             "_default_title_": "example",
-     *             "_default_description_": "there is a problem"
-     *         }
+     *                 id: "6762f2d81bb69f9f2193bc54"
+     *             }]
      *     })
      */
     public create(
         request: Intercom.CreateTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Ticket> {
+    ): core.HttpResponsePromise<Intercom.Ticket | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Intercom.CreateTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Ticket>> {
+    ): Promise<core.WithRawResponse<Intercom.Ticket | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -257,8 +253,8 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -272,7 +268,7 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Ticket, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.Ticket | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -309,6 +305,99 @@ export class Tickets {
     }
 
     /**
+     * Enqueues ticket creation for asynchronous processing, returning if the job was enqueued successfully to be processed. We attempt to perform a best-effort validation on inputs before tasks are enqueued. If the given parameters are incorrect, we won't enqueue the job.
+     *
+     * @param {Intercom.EnqueueCreateTicketRequest} request
+     * @param {Tickets.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Intercom.BadRequestError}
+     * @throws {@link Intercom.UnauthorizedError}
+     *
+     * @example
+     *     await client.tickets.enqueueCreateTicket({
+     *         ticket_type_id: "1234",
+     *         contacts: [{
+     *                 id: "6762f2d81bb69f9f2193bc54"
+     *             }]
+     *     })
+     */
+    public enqueueCreateTicket(
+        request: Intercom.EnqueueCreateTicketRequest,
+        requestOptions?: Tickets.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.Jobs> {
+        return core.HttpResponsePromise.fromPromise(this.__enqueueCreateTicket(request, requestOptions));
+    }
+
+    private async __enqueueCreateTicket(
+        request: Intercom.EnqueueCreateTicketRequest,
+        requestOptions?: Tickets.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.Jobs>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                "tickets/enqueue",
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Intercom.Jobs, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Intercom.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.IntercomError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /tickets/enqueue.");
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * You can fetch the details of a single ticket.
      *
      * @param {Intercom.FindTicketRequest} request
@@ -324,14 +413,14 @@ export class Tickets {
     public get(
         request: Intercom.FindTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Ticket> {
+    ): core.HttpResponsePromise<Intercom.Ticket | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
         request: Intercom.FindTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Ticket>> {
+    ): Promise<core.WithRawResponse<Intercom.Ticket | undefined>> {
         const { ticket_id: ticketId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -345,8 +434,8 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -359,7 +448,7 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Ticket, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.Ticket | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -401,6 +490,7 @@ export class Tickets {
      * @param {Intercom.UpdateTicketRequest} request
      * @param {Tickets.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Intercom.BadRequestError}
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
      *
@@ -411,13 +501,11 @@ export class Tickets {
      *             "_default_title_": "example",
      *             "_default_description_": "there is a problem"
      *         },
-     *         state: "in_progress",
+     *         ticket_state_id: "123",
      *         open: true,
      *         snoozed_until: 1673609604,
-     *         assignment: {
-     *             admin_id: "991267883",
-     *             assignee_id: "991267885"
-     *         }
+     *         admin_id: 991268011,
+     *         assignee_id: "123"
      *     })
      *
      * @example
@@ -427,38 +515,28 @@ export class Tickets {
      *             "_default_title_": "example",
      *             "_default_description_": "there is a problem"
      *         },
-     *         state: "in_progress",
-     *         assignment: {
-     *             admin_id: "123",
-     *             assignee_id: "991267893"
-     *         }
+     *         ticket_state_id: "123",
+     *         admin_id: 991268011,
+     *         assignee_id: "123"
      *     })
      *
      * @example
      *     await client.tickets.update({
      *         ticket_id: "ticket_id",
-     *         ticket_attributes: {
-     *             "_default_title_": "example",
-     *             "_default_description_": "there is a problem"
-     *         },
-     *         state: "in_progress",
-     *         assignment: {
-     *             admin_id: "991267899",
-     *             assignee_id: "456"
-     *         }
+     *         ticket_state_id: "123"
      *     })
      */
     public update(
         request: Intercom.UpdateTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Ticket> {
+    ): core.HttpResponsePromise<Intercom.Ticket | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
         request: Intercom.UpdateTicketRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Ticket>> {
+    ): Promise<core.WithRawResponse<Intercom.Ticket | undefined>> {
         const { ticket_id: ticketId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -472,8 +550,8 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -487,11 +565,13 @@ export class Tickets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Ticket, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.Ticket | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Intercom.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new Intercom.UnauthorizedError(
                         _response.error.body as Intercom.Error_,
@@ -526,6 +606,96 @@ export class Tickets {
     }
 
     /**
+     * You can delete a ticket using the Intercom provided ID.
+     *
+     * @param {Intercom.DeleteTicketRequest} request
+     * @param {Tickets.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link Intercom.NotFoundError}
+     *
+     * @example
+     *     await client.tickets.deleteTicket({
+     *         ticket_id: "ticket_id"
+     *     })
+     */
+    public deleteTicket(
+        request: Intercom.DeleteTicketRequest,
+        requestOptions?: Tickets.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.DeleteTicketResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteTicket(request, requestOptions));
+    }
+
+    private async __deleteTicket(
+        request: Intercom.DeleteTicketRequest,
+        requestOptions?: Tickets.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.DeleteTicketResponse>> {
+        const { ticket_id: ticketId } = request;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `tickets/${encodeURIComponent(ticketId)}`,
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Intercom.DeleteTicketResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.IntercomError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError("Timeout exceeded when calling DELETE /tickets/{ticket_id}.");
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * You can search for multiple tickets by the value of their attributes in order to fetch exactly which ones you want.
      *
      * To search for tickets, you send a `POST` request to `https://api.intercom.io/tickets/search`.
@@ -548,6 +718,7 @@ export class Tickets {
      * ### Accepted Fields
      *
      * Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
+     * The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
      *
      * | Field                                     | Type                                                                                     |
      * | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
@@ -566,6 +737,13 @@ export class Tickets {
      * | state                                     | String                                                                                   |
      * | snoozed_until                             | Date (UNIX timestamp)                                                                    |
      * | ticket_attribute.{id}                     | String or Boolean or Date (UNIX timestamp) or Float or Integer                           |
+     *
+     * {% admonition type="info" name="Searching by Category" %}
+     * When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
+     * * For **Customer** category tickets, use the term `request`.
+     * * For **Back-office** category tickets, use the term `task`.
+     * * For **Tracker** category tickets, use the term `tracker`.
+     * {% /admonition %}
      *
      * ### Accepted Operators
      *
@@ -609,7 +787,7 @@ export class Tickets {
     public async search(
         request: Intercom.SearchRequest,
         requestOptions?: Tickets.RequestOptions,
-    ): Promise<core.Page<Intercom.Ticket>> {
+    ): Promise<core.Page<Intercom.Ticket | undefined>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Intercom.SearchRequest): Promise<core.WithRawResponse<Intercom.TicketList>> => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -624,8 +802,8 @@ export class Tickets {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
+                        "X-Fern-SDK-Version": "7.0.0",
+                        "User-Agent": "intercom-client/7.0.0",
                         "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -667,7 +845,7 @@ export class Tickets {
             },
         );
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Intercom.TicketList, Intercom.Ticket>({
+        return new core.Pageable<Intercom.TicketList, Intercom.Ticket | undefined>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => response?.pages?.next?.starting_after != null,

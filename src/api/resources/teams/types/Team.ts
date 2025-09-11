@@ -9,12 +9,12 @@ import * as Intercom from "../../../index";
  */
 export interface Team {
     /** Value is always "team" */
-    type: "team";
+    type?: string;
     /** The id of the team */
-    id: string;
+    id?: string;
     /** The name of the team */
-    name: string;
+    name?: string;
     /** The list of admin IDs that are a part of the team. */
-    admin_ids: number[];
+    admin_ids?: number[];
     admin_priority_level?: Intercom.AdminPriorityLevel;
 }

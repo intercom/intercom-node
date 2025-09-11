@@ -119,8 +119,8 @@ export class DataAttributes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -173,7 +173,7 @@ export class DataAttributes {
     /**
      * You can create a data attributes for a `contact` or a `company`.
      *
-     * @param {Intercom.unstable.CreateDataAttributeRequest} request
+     * @param {unknown} request
      * @param {DataAttributes.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.BadRequestError}
@@ -181,57 +181,18 @@ export class DataAttributes {
      *
      * @example
      *     await client.unstable.dataAttributes.createDataAttribute({
-     *         name: "Mithril Shirt",
-     *         model: "company",
-     *         data_type: "string"
-     *     })
-     *
-     * @example
-     *     await client.unstable.dataAttributes.createDataAttribute({
-     *         name: "The One Ring",
-     *         model: "contact",
-     *         data_type: "integer"
-     *     })
-     *
-     * @example
-     *     await client.unstable.dataAttributes.createDataAttribute({
-     *         name: "!nv@l!d n@me",
-     *         model: "company",
-     *         data_type: "string"
-     *     })
-     *
-     * @example
-     *     await client.unstable.dataAttributes.createDataAttribute({
-     *         name: "The One Ring",
-     *         model: "company",
-     *         data_type: "string"
-     *     })
-     *
-     * @example
-     *     await client.unstable.dataAttributes.createDataAttribute({
-     *         name: "The Second Ring",
-     *         model: "company",
-     *         data_type: "string"
-     *     })
-     *
-     * @example
-     *     await client.unstable.dataAttributes.createDataAttribute({
-     *         name: "My Data Attribute",
-     *         model: "contact",
-     *         data_type: "string",
-     *         description: "Just a plain old ring",
-     *         options: ["options"]
+     *         "key": "value"
      *     })
      */
     public createDataAttribute(
-        request: Intercom.unstable.CreateDataAttributeRequest,
+        request?: unknown,
         requestOptions?: DataAttributes.RequestOptions,
     ): core.HttpResponsePromise<Intercom.unstable.DataAttribute> {
         return core.HttpResponsePromise.fromPromise(this.__createDataAttribute(request, requestOptions));
     }
 
     private async __createDataAttribute(
-        request: Intercom.unstable.CreateDataAttributeRequest,
+        request?: unknown,
         requestOptions?: DataAttributes.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.DataAttribute>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -246,8 +207,8 @@ export class DataAttributes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -318,24 +279,9 @@ export class DataAttributes {
      * @example
      *     await client.unstable.dataAttributes.updateDataAttribute({
      *         id: 1,
-     *         archived: false,
-     *         description: "Just a plain old ring",
-     *         options: ["options", "options"]
-     *     })
-     *
-     * @example
-     *     await client.unstable.dataAttributes.updateDataAttribute({
-     *         id: 1,
-     *         archived: false,
-     *         description: "Too few options",
-     *         options: ["option1", "option2"]
-     *     })
-     *
-     * @example
-     *     await client.unstable.dataAttributes.updateDataAttribute({
-     *         id: 1,
-     *         archived: true,
-     *         description: "Trying to archieve"
+     *         body: {
+     *             "key": "value"
+     *         }
      *     })
      */
     public updateDataAttribute(
@@ -349,7 +295,7 @@ export class DataAttributes {
         request: Intercom.unstable.UpdateDataAttributeRequest,
         requestOptions?: DataAttributes.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.DataAttribute>> {
-        const { id, ..._body } = request;
+        const { id, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -362,8 +308,8 @@ export class DataAttributes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

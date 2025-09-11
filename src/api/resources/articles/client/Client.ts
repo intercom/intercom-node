@@ -116,8 +116,8 @@ export class Articles {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
+                        "X-Fern-SDK-Version": "7.0.0",
+                        "User-Agent": "intercom-client/7.0.0",
                         "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -194,17 +194,16 @@ export class Articles {
      *         title: "Thanks for everything",
      *         description: "Description of the Article",
      *         body: "Body of the Article",
-     *         author_id: 991267407,
+     *         author_id: 991267497,
      *         state: "published",
      *         parent_id: 145,
      *         parent_type: "collection",
      *         translated_content: {
      *             fr: {
-     *                 type: "article_content",
      *                 title: "Merci pour tout",
      *                 description: "Description de l'article",
      *                 body: "Corps de l'article",
-     *                 author_id: 991267407,
+     *                 author_id: 991267497,
      *                 state: "published"
      *             }
      *         }
@@ -220,14 +219,14 @@ export class Articles {
      *     })
      */
     public create(
-        request: Intercom.CreateArticleRequest,
+        request?: Intercom.CreateArticleRequest,
         requestOptions?: Articles.RequestOptions,
     ): core.HttpResponsePromise<Intercom.Article> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Intercom.CreateArticleRequest,
+        request?: Intercom.CreateArticleRequest,
         requestOptions?: Articles.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.Article>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -242,8 +241,8 @@ export class Articles {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -251,7 +250,7 @@ export class Articles {
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
+            body: request != null ? request : undefined,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -306,7 +305,7 @@ export class Articles {
      *
      * @example
      *     await client.articles.find({
-     *         article_id: "123"
+     *         article_id: 1
      *     })
      */
     public find(
@@ -333,8 +332,8 @@ export class Articles {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -396,7 +395,7 @@ export class Articles {
      *
      * @example
      *     await client.articles.update({
-     *         article_id: "123",
+     *         article_id: 1,
      *         title: "Christmas is here!",
      *         body: "<p>New gifts in store for the jolly season</p>"
      *     })
@@ -425,8 +424,8 @@ export class Articles {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -489,7 +488,7 @@ export class Articles {
      *
      * @example
      *     await client.articles.delete({
-     *         article_id: "123"
+     *         article_id: 1
      *     })
      */
     public delete(
@@ -516,8 +515,8 @@ export class Articles {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -585,14 +584,14 @@ export class Articles {
     public search(
         request: Intercom.SearchArticlesRequest = {},
         requestOptions?: Articles.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.SearchArticlesResponse> {
+    ): core.HttpResponsePromise<Intercom.ArticleSearchResponse> {
         return core.HttpResponsePromise.fromPromise(this.__search(request, requestOptions));
     }
 
     private async __search(
         request: Intercom.SearchArticlesRequest = {},
         requestOptions?: Articles.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.SearchArticlesResponse>> {
+    ): Promise<core.WithRawResponse<Intercom.ArticleSearchResponse>> {
         const { phrase, state, help_center_id: helpCenterId, highlight } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (phrase != null) {
@@ -623,8 +622,8 @@ export class Articles {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -638,7 +637,7 @@ export class Articles {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.SearchArticlesResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.ArticleSearchResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

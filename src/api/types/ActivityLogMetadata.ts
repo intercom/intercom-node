@@ -24,4 +24,8 @@ export interface ActivityLogMetadata {
     update_by?: number;
     /** The name of the Admin who initiated the activity. */
     update_by_name?: string;
+    /** The conversation assignment limit value for an admin. */
+    conversation_assignment_limit?: number;
+    /** The ticket assignment limit value for an admin. */
+    ticket_assignment_limit?: number;
 }

@@ -9,18 +9,18 @@ import * as Intercom from "../../../index";
  */
 export interface SubscriptionType {
     /** The type of the object - subscription */
-    type: "subscription";
+    type?: "subscription";
     /** The unique identifier representing the subscription type. */
-    id: string;
+    id?: string;
     /** The state of the subscription type. */
-    state: SubscriptionType.State;
-    default_translation: Intercom.Translation;
+    state?: SubscriptionType.State;
+    default_translation?: Intercom.Translation;
     /** An array of translations objects with the localised version of the subscription type in each available locale within your translation settings. */
-    translations: Intercom.Translation[];
+    translations?: Intercom.Translation[];
     /** Describes the type of consent. */
-    consent_type: SubscriptionType.ConsentType;
+    consent_type?: SubscriptionType.ConsentType;
     /** The message types that this subscription supports - can contain `email` or `sms_message`. */
-    content_types: SubscriptionType.ContentTypes.Item[];
+    content_types?: SubscriptionType.ContentTypes.Item[];
 }
 
 export namespace SubscriptionType {

@@ -34,5 +34,5 @@ export namespace SingleFilterSearchRequest {
     /**
      * The value that you want to search on.
      */
-    export type Value = string | number | string[] | number[];
+    export type Value = string | number | (string | number)[];
 }

@@ -5,21 +5,22 @@
 /**
  * @example
  *     {
- *         admin_id: "admin_id",
+ *         admin_id: 1,
+ *         away_mode_enabled: true,
+ *         away_mode_reassign: true,
+ *         away_status_reason_id: 12345
+ *     }
+ *
+ * @example
+ *     {
+ *         admin_id: 1,
  *         away_mode_enabled: true,
  *         away_mode_reassign: true
  *     }
  *
  * @example
  *     {
- *         admin_id: "admin_id",
- *         away_mode_enabled: true,
- *         away_mode_reassign: true
- *     }
- *
- * @example
- *     {
- *         admin_id: "admin_id",
+ *         admin_id: 1,
  *         away_mode_enabled: true,
  *         away_mode_reassign: true
  *     }
@@ -28,9 +29,11 @@ export interface ConfigureAwayAdminRequest {
     /**
      * The unique identifier of a given admin
      */
-    admin_id: string;
+    admin_id: number;
     /** Set to "true" to change the status of the admin to away. */
     away_mode_enabled: boolean;
     /** Set to "true" to assign any new conversation replies to your default inbox. */
     away_mode_reassign: boolean;
+    /** The unique identifier of the away status reason */
+    away_status_reason_id?: number;
 }

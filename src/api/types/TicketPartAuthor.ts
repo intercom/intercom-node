@@ -7,13 +7,13 @@
  */
 export interface TicketPartAuthor {
     /** The type of the author */
-    type: TicketPartAuthor.Type;
+    type?: TicketPartAuthor.Type;
     /** The id of the author */
-    id: string;
+    id?: string;
     /** The name of the author */
     name?: string;
     /** The email of the author */
-    email: string;
+    email?: string;
 }
 
 export namespace TicketPartAuthor {

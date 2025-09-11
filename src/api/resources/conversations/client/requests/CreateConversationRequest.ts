@@ -7,7 +7,7 @@
  *     {
  *         from: {
  *             type: "user",
- *             id: "667d60d18a68186f43bafddd"
+ *             id: "6762f11b1bb69f9f2193bba3"
  *         },
  *         body: "Hello there"
  *     }

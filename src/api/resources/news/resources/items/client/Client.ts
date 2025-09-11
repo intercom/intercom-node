@@ -82,13 +82,13 @@ export class Items {
      * @example
      *     await client.news.items.list()
      */
-    public list(requestOptions?: Items.RequestOptions): core.HttpResponsePromise<Intercom.PaginatedNewsItemResponse> {
+    public list(requestOptions?: Items.RequestOptions): core.HttpResponsePromise<Intercom.PaginatedResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: Items.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.PaginatedNewsItemResponse>> {
+    ): Promise<core.WithRawResponse<Intercom.PaginatedResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -101,8 +101,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -115,7 +115,7 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.PaginatedNewsItemResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.PaginatedResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -163,7 +163,7 @@ export class Items {
      *     await client.news.items.create({
      *         title: "Halloween is here!",
      *         body: "<p>New costumes in store for this spooky season</p>",
-     *         sender_id: 991267734,
+     *         sender_id: 991267834,
      *         state: "live",
      *         deliver_silently: true,
      *         labels: ["Product", "Update", "New"],
@@ -197,8 +197,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -259,7 +259,7 @@ export class Items {
      *
      * @example
      *     await client.news.items.find({
-     *         news_item_id: "123"
+     *         news_item_id: 1
      *     })
      */
     public find(
@@ -286,8 +286,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -349,22 +349,22 @@ export class Items {
      *
      * @example
      *     await client.news.items.update({
-     *         news_item_id: "123",
+     *         news_item_id: 1,
      *         body: {
      *             title: "Christmas is here!",
      *             body: "<p>New gifts in store for the jolly season</p>",
-     *             sender_id: 991267745,
+     *             sender_id: 991267845,
      *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
      *         }
      *     })
      *
      * @example
      *     await client.news.items.update({
-     *         news_item_id: "123",
+     *         news_item_id: 1,
      *         body: {
      *             title: "Christmas is here!",
      *             body: "<p>New gifts in store for the jolly season</p>",
-     *             sender_id: 991267748,
+     *             sender_id: 991267848,
      *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
      *         }
      *     })
@@ -393,8 +393,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -459,7 +459,7 @@ export class Items {
      *
      * @example
      *     await client.news.items.delete({
-     *         news_item_id: "123"
+     *         news_item_id: 1
      *     })
      */
     public delete(
@@ -486,8 +486,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

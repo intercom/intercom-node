@@ -14,6 +14,8 @@ export interface ConversationRating {
     remark?: string;
     /** The time the rating was requested in the conversation being rated. */
     created_at?: number;
+    /** The time the rating was last updated. */
+    updated_at?: number;
     contact?: Intercom.unstable.ContactReference;
     teammate?: Intercom.unstable.Reference;
 }

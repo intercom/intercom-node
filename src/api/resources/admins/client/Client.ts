@@ -88,13 +88,15 @@ export class Admins {
      * @example
      *     await client.admins.identify()
      */
-    public identify(requestOptions?: Admins.RequestOptions): core.HttpResponsePromise<Intercom.AdminWithApp> {
+    public identify(
+        requestOptions?: Admins.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.AdminWithApp | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__identify(requestOptions));
     }
 
     private async __identify(
         requestOptions?: Admins.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.AdminWithApp>> {
+    ): Promise<core.WithRawResponse<Intercom.AdminWithApp | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -107,8 +109,8 @@ export class Admins {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -121,7 +123,7 @@ export class Admins {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.AdminWithApp, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.AdminWithApp | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -155,12 +157,21 @@ export class Admins {
      * @param {Intercom.ConfigureAwayAdminRequest} request
      * @param {Admins.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Intercom.BadRequestError}
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
      *
      * @example
      *     await client.admins.away({
-     *         admin_id: "admin_id",
+     *         admin_id: 1,
+     *         away_mode_enabled: true,
+     *         away_mode_reassign: true,
+     *         away_status_reason_id: 12345
+     *     })
+     *
+     * @example
+     *     await client.admins.away({
+     *         admin_id: 1,
      *         away_mode_enabled: true,
      *         away_mode_reassign: true
      *     })
@@ -168,14 +179,14 @@ export class Admins {
     public away(
         request: Intercom.ConfigureAwayAdminRequest,
         requestOptions?: Admins.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Admin> {
+    ): core.HttpResponsePromise<Intercom.Admin | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__away(request, requestOptions));
     }
 
     private async __away(
         request: Intercom.ConfigureAwayAdminRequest,
         requestOptions?: Admins.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Admin>> {
+    ): Promise<core.WithRawResponse<Intercom.Admin | undefined>> {
         const { admin_id: adminId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -189,8 +200,8 @@ export class Admins {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -204,11 +215,13 @@ export class Admins {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Admin, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.Admin | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Intercom.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new Intercom.UnauthorizedError(
                         _response.error.body as Intercom.Error_,
@@ -286,8 +299,8 @@ export class Admins {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -364,8 +377,8 @@ export class Admins {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -425,20 +438,20 @@ export class Admins {
      *
      * @example
      *     await client.admins.find({
-     *         admin_id: "123"
+     *         admin_id: 1
      *     })
      */
     public find(
         request: Intercom.FindAdminRequest,
         requestOptions?: Admins.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Admin> {
+    ): core.HttpResponsePromise<Intercom.Admin | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
     }
 
     private async __find(
         request: Intercom.FindAdminRequest,
         requestOptions?: Admins.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Admin>> {
+    ): Promise<core.WithRawResponse<Intercom.Admin | undefined>> {
         const { admin_id: adminId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -452,8 +465,8 @@ export class Admins {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -466,7 +479,7 @@ export class Admins {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Admin, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.Admin | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

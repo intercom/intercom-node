@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface TeamList {
     /** The type of the object */
-    type: "team.list";
+    type?: "team.list";
     /** A list of team objects */
-    teams: Intercom.Team[];
+    teams?: Intercom.Team[];
 }

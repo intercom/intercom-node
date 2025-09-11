@@ -92,14 +92,14 @@ export class Visitors {
     public find(
         request: Intercom.FindVisitorRequest,
         requestOptions?: Visitors.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Visitor> {
+    ): core.HttpResponsePromise<Intercom.Visitor | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
     }
 
     private async __find(
         request: Intercom.FindVisitorRequest,
         requestOptions?: Visitors.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Visitor>> {
+    ): Promise<core.WithRawResponse<Intercom.Visitor | undefined>> {
         const { user_id: userId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["user_id"] = userId;
@@ -115,8 +115,8 @@ export class Visitors {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -130,7 +130,7 @@ export class Visitors {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Visitor, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.Visitor | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -183,7 +183,7 @@ export class Visitors {
      *
      * @example
      *     await client.visitors.update({
-     *         id: "667d61cc8a68186f43bafe95",
+     *         id: "6762f30c1bb69f9f2193bc5e",
      *         name: "Gareth Bale"
      *     })
      *
@@ -196,14 +196,14 @@ export class Visitors {
     public update(
         request: Intercom.UpdateVisitorRequest,
         requestOptions?: Visitors.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Visitor> {
+    ): core.HttpResponsePromise<Intercom.Visitor | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
         request: Intercom.UpdateVisitorRequest,
         requestOptions?: Visitors.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Visitor>> {
+    ): Promise<core.WithRawResponse<Intercom.Visitor | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -216,8 +216,8 @@ export class Visitors {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -231,7 +231,7 @@ export class Visitors {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Visitor, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.Visitor | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -316,8 +316,8 @@ export class Visitors {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,

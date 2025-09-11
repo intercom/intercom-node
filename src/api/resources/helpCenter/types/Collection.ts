@@ -27,7 +27,7 @@ export interface Collection {
     /** The order of the section in relation to others sections within a collection. Values go from `0` upwards. `0` is the default if there's no order. */
     order: number;
     /** The default locale of the help center. This field is only returned for multilingual help centers. */
-    default_locale: string;
+    default_locale?: string;
     translated_content?: Intercom.GroupTranslatedContent;
     /** The id of the parent collection. If `null` then it is the first level collection. */
     parent_id?: string;

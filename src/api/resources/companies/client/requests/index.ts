@@ -1,5 +1,4 @@
 export { type RetrieveCompanyRequest } from "./RetrieveCompanyRequest";
-export { type CreateOrUpdateCompanyRequest } from "./CreateOrUpdateCompanyRequest";
 export { type FindCompanyRequest } from "./FindCompanyRequest";
 export { type UpdateCompanyRequest } from "./UpdateCompanyRequest";
 export { type DeleteCompanyRequest } from "./DeleteCompanyRequest";

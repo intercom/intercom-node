@@ -16,6 +16,8 @@ export interface AdminReplyConversationRequest {
     admin_id: string;
     /** The time the reply was created. If not provided, the current time will be used. */
     created_at?: number;
+    /** The quick reply options to display to the end user. Must be present for quick_reply message types. */
+    reply_options?: Intercom.QuickReplyOption[];
     /** A list of image URLs that will be added as attachments. You can include up to 10 URLs. */
     attachment_urls?: string[];
     /** A list of files that will be added as attachments. You can include up to 10 files */
@@ -23,9 +25,10 @@ export interface AdminReplyConversationRequest {
 }
 
 export namespace AdminReplyConversationRequest {
-    export type MessageType = "comment" | "note";
+    export type MessageType = "comment" | "note" | "quick_reply";
     export const MessageType = {
         Comment: "comment",
         Note: "note",
+        QuickReply: "quick_reply",
     } as const;
 }

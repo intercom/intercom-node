@@ -10,6 +10,7 @@ import { Articles } from "../resources/articles/client/Client";
 import { AwayStatusReasons } from "../resources/awayStatusReasons/client/Client";
 import { Export } from "../resources/export/client/Client";
 import { HelpCenter } from "../resources/helpCenter/client/Client";
+import { InternalArticles } from "../resources/internalArticles/client/Client";
 import { Companies } from "../resources/companies/client/Client";
 import { Contacts } from "../resources/contacts/client/Client";
 import { Notes } from "../resources/notes/client/Client";
@@ -22,16 +23,20 @@ import { DataAttributes } from "../resources/dataAttributes/client/Client";
 import { DataEvents } from "../resources/dataEvents/client/Client";
 import { DataExport } from "../resources/dataExport/client/Client";
 import { Jobs } from "../resources/jobs/client/Client";
+import { Macros } from "../resources/macros/client/Client";
 import { Messages } from "../resources/messages/client/Client";
 import { News } from "../resources/news/client/Client";
 import { Segments } from "../resources/segments/client/Client";
 import { Switch } from "../resources/switch/client/Client";
+import { Calls } from "../resources/calls/client/Client";
 import { Teams } from "../resources/teams/client/Client";
 import { TicketStates } from "../resources/ticketStates/client/Client";
 import { TicketTypeAttributes } from "../resources/ticketTypeAttributes/client/Client";
 import { TicketTypes } from "../resources/ticketTypes/client/Client";
 import { Tickets } from "../resources/tickets/client/Client";
 import { Visitors } from "../resources/visitors/client/Client";
+import { Brands } from "../resources/brands/client/Client";
+import { Emails } from "../resources/emails/client/Client";
 
 export declare namespace Unstable {
     export interface Options {
@@ -70,6 +75,7 @@ export class Unstable {
     protected _awayStatusReasons: AwayStatusReasons | undefined;
     protected _export: Export | undefined;
     protected _helpCenter: HelpCenter | undefined;
+    protected _internalArticles: InternalArticles | undefined;
     protected _companies: Companies | undefined;
     protected _contacts: Contacts | undefined;
     protected _notes: Notes | undefined;
@@ -82,16 +88,20 @@ export class Unstable {
     protected _dataEvents: DataEvents | undefined;
     protected _dataExport: DataExport | undefined;
     protected _jobs: Jobs | undefined;
+    protected _macros: Macros | undefined;
     protected _messages: Messages | undefined;
     protected _news: News | undefined;
     protected _segments: Segments | undefined;
     protected _switch: Switch | undefined;
+    protected _calls: Calls | undefined;
     protected _teams: Teams | undefined;
     protected _ticketStates: TicketStates | undefined;
     protected _ticketTypeAttributes: TicketTypeAttributes | undefined;
     protected _ticketTypes: TicketTypes | undefined;
     protected _tickets: Tickets | undefined;
     protected _visitors: Visitors | undefined;
+    protected _brands: Brands | undefined;
+    protected _emails: Emails | undefined;
 
     constructor(protected readonly _options: Unstable.Options = {}) {}
 
@@ -117,6 +127,10 @@ export class Unstable {
 
     public get helpCenter(): HelpCenter {
         return (this._helpCenter ??= new HelpCenter(this._options));
+    }
+
+    public get internalArticles(): InternalArticles {
+        return (this._internalArticles ??= new InternalArticles(this._options));
     }
 
     public get companies(): Companies {
@@ -167,6 +181,10 @@ export class Unstable {
         return (this._jobs ??= new Jobs(this._options));
     }
 
+    public get macros(): Macros {
+        return (this._macros ??= new Macros(this._options));
+    }
+
     public get messages(): Messages {
         return (this._messages ??= new Messages(this._options));
     }
@@ -181,6 +199,10 @@ export class Unstable {
 
     public get switch(): Switch {
         return (this._switch ??= new Switch(this._options));
+    }
+
+    public get calls(): Calls {
+        return (this._calls ??= new Calls(this._options));
     }
 
     public get teams(): Teams {
@@ -205,5 +227,13 @@ export class Unstable {
 
     public get visitors(): Visitors {
         return (this._visitors ??= new Visitors(this._options));
+    }
+
+    public get brands(): Brands {
+        return (this._brands ??= new Brands(this._options));
+    }
+
+    public get emails(): Emails {
+        return (this._emails ??= new Emails(this._options));
     }
 }

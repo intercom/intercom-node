@@ -23,6 +23,9 @@ export type IntercomVersion =
     | "2.9"
     | "2.10"
     | "2.11"
+    | "2.12"
+    | "2.13"
+    | "2.14"
     | "Unstable";
 export const IntercomVersion = {
     One0: "1.0",
@@ -42,5 +45,8 @@ export const IntercomVersion = {
     Two9: "2.9",
     Two10: "2.10",
     Two11: "2.11",
+    Two12: "2.12",
+    Two13: "2.13",
+    Two14: "2.14",
     Unstable: "Unstable",
 } as const;

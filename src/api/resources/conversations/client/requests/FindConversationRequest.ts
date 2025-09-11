@@ -5,7 +5,7 @@
 /**
  * @example
  *     {
- *         conversation_id: "123",
+ *         conversation_id: 1,
  *         display_as: "plaintext"
  *     }
  */
@@ -13,9 +13,13 @@ export interface FindConversationRequest {
     /**
      * The id of the conversation to target
      */
-    conversation_id: string;
+    conversation_id: number;
     /**
      * Set to plaintext to retrieve conversation messages in plain text.
      */
     display_as?: string;
+    /**
+     * If set to true, conversation parts will be translated to the detected language of the conversation.
+     */
+    include_translations?: boolean;
 }

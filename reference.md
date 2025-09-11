@@ -2,7 +2,7 @@
 
 ## Admins
 
-<details><summary><code>client.admins.<a href="/src/api/resources/admins/client/Client.ts">identify</a>() -> Intercom.AdminWithApp</code></summary>
+<details><summary><code>client.admins.<a href="/src/api/resources/admins/client/Client.ts">identify</a>() -> Intercom.AdminWithApp | undefined</code></summary>
 <dl>
 <dd>
 
@@ -61,7 +61,7 @@ await client.admins.identify();
 </dl>
 </details>
 
-<details><summary><code>client.admins.<a href="/src/api/resources/admins/client/Client.ts">away</a>({ ...params }) -> Intercom.Admin</code></summary>
+<details><summary><code>client.admins.<a href="/src/api/resources/admins/client/Client.ts">away</a>({ ...params }) -> Intercom.Admin | undefined</code></summary>
 <dl>
 <dd>
 
@@ -90,9 +90,10 @@ You can set an Admin as away for the Inbox.
 
 ```typescript
 await client.admins.away({
-    admin_id: "admin_id",
+    admin_id: 1,
     away_mode_enabled: true,
     away_mode_reassign: true,
+    away_status_reason_id: 12345,
 });
 ```
 
@@ -249,7 +250,7 @@ await client.admins.list();
 </dl>
 </details>
 
-<details><summary><code>client.admins.<a href="/src/api/resources/admins/client/Client.ts">find</a>({ ...params }) -> Intercom.Admin</code></summary>
+<details><summary><code>client.admins.<a href="/src/api/resources/admins/client/Client.ts">find</a>({ ...params }) -> Intercom.Admin | undefined</code></summary>
 <dl>
 <dd>
 
@@ -278,7 +279,7 @@ You can retrieve the details of a single admin.
 
 ```typescript
 await client.admins.find({
-    admin_id: "123",
+    admin_id: 1,
 });
 ```
 
@@ -304,6 +305,634 @@ await client.admins.find({
 <dd>
 
 **requestOptions:** `Admins.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## AI Content
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">listContentImportSources</a>() -> Intercom.ContentImportSourcesList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can retrieve a list of all content import sources for a workspace.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.listContentImportSources();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">createContentImportSource</a>({ ...params }) -> Intercom.ContentImportSource</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can create a new content import source by sending a POST request to this endpoint.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.createContentImportSource({
+    url: "https://www.example.com",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.CreateContentImportSourceRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">getContentImportSource</a>({ ...params }) -> Intercom.ContentImportSource</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.getContentImportSource({
+    source_id: "source_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.GetContentImportSourceRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">updateContentImportSource</a>({ ...params }) -> Intercom.ContentImportSource</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can update an existing content import source.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.updateContentImportSource({
+    source_id: "source_id",
+    sync_behavior: "api",
+    url: "https://www.example.com",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.UpdateContentImportSourceRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">deleteContentImportSource</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can delete a content import source by making a DELETE request this endpoint. This will also delete all external pages that were imported from this source.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.deleteContentImportSource({
+    source_id: "source_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DeleteContentImportSourceRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">listExternalPages</a>() -> Intercom.ExternalPagesList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can retrieve a list of all external pages for a workspace.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.listExternalPages();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">createExternalPage</a>({ ...params }) -> Intercom.ExternalPage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can create a new external page by sending a POST request to this endpoint. If an external page already exists with the specified source_id and external_id, it will be updated instead.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.createExternalPage({
+    title: "Test",
+    html: "<html><body><h1>Test</h1></body></html>",
+    url: "https://www.example.com",
+    source_id: 44,
+    external_id: "abc1234",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.CreateExternalPageRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">getExternalPage</a>({ ...params }) -> Intercom.ExternalPage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can retrieve an external page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.getExternalPage({
+    page_id: "page_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.GetExternalPageRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">updateExternalPage</a>({ ...params }) -> Intercom.ExternalPage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can update an existing external page (if it was created via the API).
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.updateExternalPage({
+    page_id: "page_id",
+    title: "Test",
+    html: "<html><body><h1>Test</h1></body></html>",
+    url: "https://www.example.com",
+    source_id: 47,
+    external_id: "5678",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.UpdateExternalPageRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aiContent.<a href="/src/api/resources/aiContent/client/Client.ts">deleteExternalPage</a>({ ...params }) -> Intercom.ExternalPage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Sending a DELETE request for an external page will remove it from the content library UI and from being used for AI answers.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.aiContent.deleteExternalPage({
+    page_id: "page_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DeleteExternalPageRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AiContent.RequestOptions`
 
 </dd>
 </dl>
@@ -424,17 +1053,16 @@ await client.articles.create({
     title: "Thanks for everything",
     description: "Description of the Article",
     body: "Body of the Article",
-    author_id: 991267407,
+    author_id: 991267497,
     state: "published",
     parent_id: 145,
     parent_type: "collection",
     translated_content: {
         fr: {
-            type: "article_content",
             title: "Merci pour tout",
             description: "Description de l'article",
             body: "Corps de l'article",
-            author_id: 991267407,
+            author_id: 991267497,
             state: "published",
         },
     },
@@ -502,7 +1130,7 @@ You can fetch the details of a single article by making a GET request to `https:
 
 ```typescript
 await client.articles.find({
-    article_id: "123",
+    article_id: 1,
 });
 ```
 
@@ -567,7 +1195,7 @@ You can update the details of a single article by making a PUT request to `https
 
 ```typescript
 await client.articles.update({
-    article_id: "123",
+    article_id: 1,
     title: "Christmas is here!",
     body: "<p>New gifts in store for the jolly season</p>",
 });
@@ -634,7 +1262,7 @@ You can delete a single article by making a DELETE request to `https://api.inter
 
 ```typescript
 await client.articles.delete({
-    article_id: "123",
+    article_id: 1,
 });
 ```
 
@@ -670,7 +1298,7 @@ await client.articles.delete({
 </dl>
 </details>
 
-<details><summary><code>client.articles.<a href="/src/api/resources/articles/client/Client.ts">search</a>({ ...params }) -> Intercom.SearchArticlesResponse</code></summary>
+<details><summary><code>client.articles.<a href="/src/api/resources/articles/client/Client.ts">search</a>({ ...params }) -> Intercom.ArticleSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -736,6 +1364,548 @@ await client.articles.search({
 </dl>
 </details>
 
+## Away Status Reasons
+
+<details><summary><code>client.awayStatusReasons.<a href="/src/api/resources/awayStatusReasons/client/Client.ts">listAwayStatusReasons</a>() -> Intercom.AwayStatusReason[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of all away status reasons configured for the workspace, including deleted ones.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.awayStatusReasons.listAwayStatusReasons();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `AwayStatusReasons.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Export
+
+<details><summary><code>client.export.<a href="/src/api/resources/export/client/Client.ts">enqueueANewReportingDataExportJob</a>({ ...params }) -> Intercom.PostExportReportingDataEnqueueResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.export.enqueueANewReportingDataExportJob({
+    dataset_id: "conversation",
+    attribute_ids: ["conversation_id", "conversation_started_at"],
+    start_time: 1717490000,
+    end_time: 1717510000,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.PostExportReportingDataEnqueueRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Export.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.export.<a href="/src/api/resources/export/client/Client.ts">listAvailableDatasetsAndAttributes</a>() -> Intercom.GetExportReportingDataGetDatasetsResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.export.listAvailableDatasetsAndAttributes();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Export.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Data Export
+
+<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">exportReportingData</a>({ ...params }) -> Intercom.DataExportExportReportingDataResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.dataExport.exportReportingData({
+    job_identifier: "job_identifier",
+    app_id: "app_id",
+    client_id: "client_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.ExportReportingDataRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DataExport.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">downloadReportingDataExport</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.dataExport.downloadReportingDataExport({
+    job_identifier: "job_identifier",
+    app_id: "app_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DownloadReportingDataExportRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DataExport.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">create</a>({ ...params }) -> Intercom.DataExport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+To create your export job, you need to send a `POST` request to the export endpoint `https://api.intercom.io/export/content/data`.
+
+The only parameters you need to provide are the range of dates that you want exported.
+
+> 🚧 Limit of one active job
+>
+> You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+
+> ❗️ Updated_at not included
+>
+> It should be noted that the timeframe only includes messages sent during the time period and not messages that were only updated during this period. For example, if a message was updated yesterday but sent two days ago, you would need to set the created_at_after date before the message was sent to include that in your retrieval job.
+
+> 📘 Date ranges are inclusive
+>
+> Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.dataExport.create({
+    created_at_after: 1734519776,
+    created_at_before: 1734537776,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.CreateDataExportRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DataExport.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">find</a>({ ...params }) -> Intercom.DataExport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can view the status of your job by sending a `GET` request to the URL
+`https://api.intercom.io/export/content/data/{job_identifier}` - the `{job_identifier}` is the value returned in the response when you first created the export job. More on it can be seen in the Export Job Model.
+
+> 🚧 Jobs expire after two days
+> All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of two days from when the export ob completed. After this, the data will no longer be available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.dataExport.find({
+    job_identifier: "job_identifier",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.FindDataExportRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DataExport.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">cancel</a>({ ...params }) -> Intercom.DataExport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can cancel your job
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.dataExport.cancel({
+    job_identifier: "job_identifier",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.CancelDataExportRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DataExport.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">download</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+When a job has a status of complete, and thus a filled download_url, you can download your data by hitting that provided URL, formatted like so: https://api.intercom.io/download/content/data/xyz1234.
+
+Your exported message data will be streamed continuously back down to you in a gzipped CSV format.
+
+> 📘 Octet header required
+>
+> You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.dataExport.download({
+    job_identifier: "job_identifier",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DownloadDataExportRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DataExport.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## HelpCenters
 
 <details><summary><code>client.helpCenters.<a href="/src/api/resources/helpCenters/client/Client.ts">find</a>({ ...params }) -> Intercom.HelpCenter</code></summary>
@@ -767,7 +1937,7 @@ You can fetch the details of a single Help Center by making a GET request to `ht
 
 ```typescript
 await client.helpCenters.find({
-    help_center_id: "123",
+    help_center_id: 1,
 });
 ```
 
@@ -865,6 +2035,391 @@ while (page.hasNextPage()) {
 <dd>
 
 **requestOptions:** `HelpCenters.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Internal Articles
+
+<details><summary><code>client.internalArticles.<a href="/src/api/resources/internalArticles/client/Client.ts">listInternalArticles</a>() -> Intercom.InternalArticleList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can fetch a list of all internal articles by making a GET request to `https://api.intercom.io/internal_articles`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.internalArticles.listInternalArticles();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.internalArticles.<a href="/src/api/resources/internalArticles/client/Client.ts">createInternalArticle</a>({ ...params }) -> Intercom.InternalArticle</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.internalArticles.createInternalArticle({
+    title: "Thanks for everything",
+    body: "Body of the Article",
+    author_id: 991266252,
+    owner_id: 991266252,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.CreateInternalArticleRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.internalArticles.<a href="/src/api/resources/internalArticles/client/Client.ts">retrieveInternalArticle</a>({ ...params }) -> Intercom.InternalArticle</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can fetch the details of a single internal article by making a GET request to `https://api.intercom.io/internal_articles/<id>`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.internalArticles.retrieveInternalArticle({
+    internal_article_id: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.RetrieveInternalArticleRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.internalArticles.<a href="/src/api/resources/internalArticles/client/Client.ts">updateInternalArticle</a>({ ...params }) -> Intercom.InternalArticle</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.internalArticles.updateInternalArticle({
+    internal_article_id: 1,
+    title: "Christmas is here!",
+    body: "<p>New gifts in store for the jolly season</p>",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.UpdateInternalArticleRequestBody`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.internalArticles.<a href="/src/api/resources/internalArticles/client/Client.ts">deleteInternalArticle</a>({ ...params }) -> Intercom.DeletedInternalArticleObject</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can delete a single internal article by making a DELETE request to `https://api.intercom.io/internal_articles/<id>`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.internalArticles.deleteInternalArticle({
+    internal_article_id: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DeleteInternalArticleRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.internalArticles.<a href="/src/api/resources/internalArticles/client/Client.ts">searchInternalArticles</a>({ ...params }) -> Intercom.InternalArticleSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can search for internal articles by making a GET request to `https://api.intercom.io/internal_articles/search`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.internalArticles.searchInternalArticles();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.SearchInternalArticlesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
 
 </dd>
 </dl>
@@ -1558,8 +3113,8 @@ You can attach a company to a single contact.
 
 ```typescript
 await client.companies.attachContact({
-    contact_id: "contact_id",
-    id: "667d608d8a68186f43bafd70",
+    contact_id: 1,
+    id: "6762f09a1bb69f9f2193bb34",
 });
 ```
 
@@ -2079,7 +3634,7 @@ await client.contacts.listAttachedTags({
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">find</a>({ ...params }) -> Intercom.Contact</code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">find</a>({ ...params }) -> Intercom.ContactsFindResponse</code></summary>
 <dl>
 <dd>
 
@@ -2144,7 +3699,7 @@ await client.contacts.find({
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">update</a>({ ...params }) -> Intercom.Contact</code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">update</a>({ ...params }) -> Intercom.ContactsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -2157,6 +3712,12 @@ await client.contacts.find({
 <dd>
 
 You can update an existing contact (ie. user or lead).
+
+{% admonition type="info" %}
+This endpoint handles both **contact updates** and **custom object associations**.
+
+See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
+{% /admonition %}
 
 </dd>
 </dl>
@@ -2276,7 +3837,7 @@ await client.contacts.delete({
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">mergeLeadInUser</a>({ ...params }) -> Intercom.Contact</code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">mergeLeadInUser</a>({ ...params }) -> Intercom.ContactsMergeLeadInUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -2305,8 +3866,8 @@ You can merge a contact with a `role` of `lead` into a contact with a `role` of 
 
 ```typescript
 await client.contacts.mergeLeadInUser({
-    from: "667d60ac8a68186f43bafdbb",
-    into: "667d60ac8a68186f43bafdbc",
+    from: "6762f0d51bb69f9f2193bb7f",
+    into: "6762f0d51bb69f9f2193bb80",
 });
 ```
 
@@ -2618,7 +4179,7 @@ while (page.hasNextPage()) {
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">create</a>({ ...params }) -> Intercom.Contact</code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">create</a>({ ...params }) -> Intercom.ContactsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -2665,6 +4226,71 @@ await client.contacts.create({
 <dd>
 
 **request:** `Intercom.CreateContactRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Contacts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">showContactByExternalId</a>({ ...params }) -> Intercom.ShowContactByExternalIdResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can fetch the details of a single contact by external ID. Note that this endpoint only supports users and not leads.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.contacts.showContactByExternalId({
+    external_id: "cdd29344-5e0c-4ef0-ac56-f9ba2979bc27",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.ShowContactByExternalIdRequest`
 
 </dd>
 </dl>
@@ -2795,6 +4421,71 @@ await client.contacts.unarchive({
 <dd>
 
 **request:** `Intercom.UnarchiveContactRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Contacts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">blockContact</a>({ ...params }) -> Intercom.ContactBlocked</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Block a single contact.<br>**Note:** conversations of the contact will also be archived during the process.<br>More details in [FAQ How do I block Inbox spam?](https://www.intercom.com/help/en/articles/8838656-inbox-faqs)
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.contacts.blockContact({
+    contact_id: "63a07ddf05a32042dffac965",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.BlockContactRequest`
 
 </dd>
 </dl>
@@ -2987,7 +4678,7 @@ You can fetch the details of a single note.
 
 ```typescript
 await client.notes.find({
-    note_id: "1",
+    note_id: 1,
 });
 ```
 
@@ -3807,7 +5498,7 @@ This will return the Message model that has been created.
 await client.conversations.create({
     from: {
         type: "user",
-        id: "667d60d18a68186f43bafddd",
+        id: "6762f11b1bb69f9f2193bba3",
     },
     body: "Hello there",
 });
@@ -3882,7 +5573,7 @@ For AI agent conversation metadata, please note that you need to have the agent 
 
 ```typescript
 await client.conversations.find({
-    conversation_id: "123",
+    conversation_id: 1,
     display_as: "plaintext",
 });
 ```
@@ -3937,6 +5628,12 @@ You can update an existing conversation.
 If you want to reply to a coveration or take an action such as assign, unassign, open, close or snooze, take a look at the reply and manage endpoints.
 {% /admonition %}
 
+{% admonition type="info" %}
+This endpoint handles both **conversation updates** and **custom object associations**.
+
+See _`update a conversation with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
+{% /admonition %}
+
 </dd>
 </dl>
 </dd>
@@ -3952,9 +5649,10 @@ If you want to reply to a coveration or take an action such as assign, unassign,
 
 ```typescript
 await client.conversations.update({
-    conversation_id: "123",
+    conversation_id: 1,
     display_as: "plaintext",
     read: true,
+    title: "new conversation title",
     custom_attributes: {
         issue_type: "Billing",
         priority: "High",
@@ -3976,6 +5674,71 @@ await client.conversations.update({
 <dd>
 
 **request:** `Intercom.UpdateConversationRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Conversations.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">deleteConversation</a>({ ...params }) -> Intercom.ConversationDeleted</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can delete a single conversation.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conversations.deleteConversation({
+    conversation_id: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DeleteConversationRequest`
 
 </dd>
 </dl>
@@ -4028,7 +5791,7 @@ There are some limitations to the amount of multiple's there can be:
 
 ### Accepted Fields
 
-Most keys listed as part of the The conversation model is searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
+Most keys listed in the conversation model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
 The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
 
 | Field                                     | Type                                                                                                                                                   |
@@ -4227,7 +5990,7 @@ await client.conversations.reply({
         message_type: "comment",
         type: "user",
         body: "Thanks again :)",
-        intercom_user_id: "667d60f18a68186f43bafdf4",
+        intercom_user_id: "6762f1571bb69f9f2193bbbb",
     },
 });
 ```
@@ -4338,77 +6101,6 @@ await client.conversations.manage({
 </dl>
 </details>
 
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">runAssignmentRules</a>({ ...params }) -> Intercom.Conversation</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-{% admonition type="danger" name="Deprecation of Run Assignment Rules" %}
-Run assignment rules is now deprecated in version 2.12 and future versions and will be permanently removed on December 31, 2026. After this date, any requests made to this endpoint will fail.
-{% /admonition %}
-You can let a conversation be automatically assigned following assignment rules.
-{% admonition type="warning" name="When using workflows" %}
-It is not possible to use this endpoint with Workflows.
-{% /admonition %}
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.conversations.runAssignmentRules({
-    conversation_id: "123",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Intercom.AutoAssignConversationRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Conversations.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">attachContactAsAdmin</a>({ ...params }) -> Intercom.Conversation</code></summary>
 <dl>
 <dd>
@@ -4445,7 +6137,7 @@ await client.conversations.attachContactAsAdmin({
     conversation_id: "123",
     admin_id: "12345",
     customer: {
-        intercom_user_id: "667d61168a68186f43bafe0d",
+        intercom_user_id: "6762f19b1bb69f9f2193bbd4",
     },
 });
 ```
@@ -4624,7 +6316,7 @@ await client.conversations.redactConversationPart({
 </dl>
 </details>
 
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">convertToTicket</a>({ ...params }) -> Intercom.Ticket</code></summary>
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">convertToTicket</a>({ ...params }) -> Intercom.Ticket | undefined</code></summary>
 <dl>
 <dd>
 
@@ -4653,8 +6345,8 @@ You can convert a conversation to a ticket.
 
 ```typescript
 await client.conversations.convertToTicket({
-    conversation_id: "123",
-    ticket_type_id: "79",
+    conversation_id: 1,
+    ticket_type_id: "53",
 });
 ```
 
@@ -4680,6 +6372,698 @@ await client.conversations.convertToTicket({
 <dd>
 
 **requestOptions:** `Conversations.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">runAssignmentRules</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conversations.runAssignmentRules({
+    conversation_id: "conversation_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.AutoAssignConversationRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Conversations.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Custom Channel Events
+
+<details><summary><code>client.customChannelEvents.<a href="/src/api/resources/customChannelEvents/client/Client.ts">notifyNewConversation</a>({ ...params }) -> Intercom.CustomChannelNotificationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Notifies Intercom that a new conversation was created in your custom channel/platform. This triggers conversation creation and workflow automations within Intercom for your custom channel integration.
+
+> **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customChannelEvents.notifyNewConversation({
+    event_id: "event_id",
+    external_conversation_id: "external_conversation_id",
+    contact: {
+        type: "user",
+        external_id: "external_id",
+        name: undefined,
+        email: undefined,
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.CustomChannelBaseEvent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomChannelEvents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customChannelEvents.<a href="/src/api/resources/customChannelEvents/client/Client.ts">notifyNewMessage</a>({ ...params }) -> Intercom.CustomChannelNotificationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Notifies Intercom that a new message was sent in a conversation on your custom channel/platform. This allows Intercom to process the message and trigger any relevant workflow automations.
+
+> **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customChannelEvents.notifyNewMessage({
+    body: "body",
+    event_id: "event_id",
+    external_conversation_id: "external_conversation_id",
+    contact: {
+        type: "user",
+        external_id: "external_id",
+        name: undefined,
+        email: undefined,
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.NotifyNewMessageRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomChannelEvents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customChannelEvents.<a href="/src/api/resources/customChannelEvents/client/Client.ts">notifyQuickReplySelected</a>({ ...params }) -> Intercom.CustomChannelNotificationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Notifies Intercom that a user selected a quick reply option in your custom channel/platform. This allows Intercom to process the response and trigger any relevant workflow automations.
+
+> **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customChannelEvents.notifyQuickReplySelected({
+    event_id: "evt_67890",
+    external_conversation_id: "conv_13579",
+    contact: {
+        type: "user",
+        external_id: "user_003",
+        name: "Alice Example",
+        email: "alice@example.com",
+    },
+    quick_reply_option_id: "1234",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.NotifyQuickReplySelectedRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomChannelEvents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customChannelEvents.<a href="/src/api/resources/customChannelEvents/client/Client.ts">notifyAttributeCollected</a>({ ...params }) -> Intercom.CustomChannelNotificationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Notifies Intercom that a user provided a response to an attribute collector in your custom channel/platform. This allows Intercom to process the attribute and trigger any relevant workflow automations.
+
+> **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customChannelEvents.notifyAttributeCollected({
+    attribute: {
+        id: "id",
+        value: "value",
+    },
+    event_id: "event_id",
+    external_conversation_id: "external_conversation_id",
+    contact: {
+        type: "user",
+        external_id: "external_id",
+        name: undefined,
+        email: undefined,
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.NotifyAttributeCollectedRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomChannelEvents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Custom Object Instances
+
+<details><summary><code>client.customObjectInstances.<a href="/src/api/resources/customObjectInstances/client/Client.ts">getCustomObjectInstancesByExternalId</a>({ ...params }) -> Intercom.CustomObjectInstance | undefined</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch a Custom Object Instance by external_id.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customObjectInstances.getCustomObjectInstancesByExternalId({
+    custom_object_type_identifier: "Order",
+    external_id: "external_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.GetCustomObjectInstancesByExternalIdRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomObjectInstances.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customObjectInstances.<a href="/src/api/resources/customObjectInstances/client/Client.ts">createCustomObjectInstances</a>({ ...params }) -> Intercom.CustomObjectInstance | undefined</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create or update a custom object instance
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customObjectInstances.createCustomObjectInstances({
+    custom_object_type_identifier: "Order",
+    external_id: "123",
+    external_created_at: 1392036272,
+    external_updated_at: 1392036272,
+    custom_attributes: {
+        order_number: "ORDER-12345",
+        total_amount: "custom_attributes",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.CreateOrUpdateCustomObjectInstanceRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomObjectInstances.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customObjectInstances.<a href="/src/api/resources/customObjectInstances/client/Client.ts">deleteCustomObjectInstancesById</a>({ ...params }) -> Intercom.CustomObjectInstanceDeleted</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a single Custom Object instance by external_id.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customObjectInstances.deleteCustomObjectInstancesById({
+    custom_object_type_identifier: "Order",
+    external_id: "external_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DeleteCustomObjectInstancesByIdRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomObjectInstances.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customObjectInstances.<a href="/src/api/resources/customObjectInstances/client/Client.ts">getCustomObjectInstancesById</a>({ ...params }) -> Intercom.CustomObjectInstance | undefined</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch a Custom Object Instance by id.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customObjectInstances.getCustomObjectInstancesById({
+    custom_object_type_identifier: "Order",
+    custom_object_instance_id: "custom_object_instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.GetCustomObjectInstancesByIdRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomObjectInstances.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customObjectInstances.<a href="/src/api/resources/customObjectInstances/client/Client.ts">deleteCustomObjectInstancesByExternalId</a>({ ...params }) -> Intercom.CustomObjectInstanceDeleted</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a single Custom Object instance using the Intercom defined id.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customObjectInstances.deleteCustomObjectInstancesByExternalId({
+    custom_object_type_identifier: "Order",
+    custom_object_instance_id: "custom_object_instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DeleteCustomObjectInstancesByExternalIdRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomObjectInstances.RequestOptions`
 
 </dd>
 </dl>
@@ -4784,8 +7168,6 @@ You can create a data attributes for a `contact` or a `company`.
 
 ```typescript
 await client.dataAttributes.create({
-    name: "Mithril Shirt",
-    model: "company",
     data_type: "string",
 });
 ```
@@ -4855,17 +7237,17 @@ You can update a data attribute.
 
 ```typescript
 await client.dataAttributes.update({
-    data_attribute_id: "1",
-    archived: false,
-    description: "Just a plain old ring",
-    options: [
-        {
-            value: "1-10",
-        },
-        {
-            value: "11-20",
-        },
-    ],
+    data_attribute_id: 1,
+    body: {
+        options: [
+            {
+                value: "1-10",
+            },
+            {
+                value: "11-20",
+            },
+        ],
+    },
 });
 ```
 
@@ -5148,9 +7530,9 @@ await client.events.summaries();
 </dl>
 </details>
 
-## Data Export
+## Jobs
 
-<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">create</a>({ ...params }) -> Intercom.DataExport</code></summary>
+<details><summary><code>client.jobs.<a href="/src/api/resources/jobs/client/Client.ts">status</a>({ ...params }) -> Intercom.Jobs</code></summary>
 <dl>
 <dd>
 
@@ -5162,21 +7544,7 @@ await client.events.summaries();
 <dl>
 <dd>
 
-To create your export job, you need to send a `POST` request to the export endpoint `https://api.intercom.io/export/content/data`.
-
-The only parameters you need to provide are the range of dates that you want exported.
-
-> 🚧 Limit of one active job
->
-> You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
-
-> ❗️ Updated_at not included
->
-> It should be noted that the timeframe only includes messages sent during the time period and not messages that were only updated during this period. For example, if a message was updated yesterday but sent two days ago, you would need to set the created_at_after date before the message was sent to include that in your retrieval job.
-
-> 📘 Date ranges are inclusive
->
-> Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+Retrieve the status of job execution.
 
 </dd>
 </dl>
@@ -5192,9 +7560,8 @@ The only parameters you need to provide are the range of dates that you want exp
 <dd>
 
 ```typescript
-await client.dataExport.create({
-    created_at_after: 1719474967,
-    created_at_before: 1719492967,
+await client.jobs.status({
+    job_id: "job_id",
 });
 ```
 
@@ -5211,7 +7578,7 @@ await client.dataExport.create({
 <dl>
 <dd>
 
-**request:** `Intercom.CreateDataExportRequest`
+**request:** `Intercom.JobsStatusRequest`
 
 </dd>
 </dl>
@@ -5219,212 +7586,7 @@ await client.dataExport.create({
 <dl>
 <dd>
 
-**requestOptions:** `DataExport.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">find</a>({ ...params }) -> Intercom.DataExport</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-You can view the status of your job by sending a `GET` request to the URL
-`https://api.intercom.io/export/content/data/{job_identifier}` - the `{job_identifier}` is the value returned in the response when you first created the export job. More on it can be seen in the Export Job Model.
-
-> 🚧 Jobs expire after two days
-> All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of two days from when the export ob completed. After this, the data will no longer be available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.dataExport.find({
-    job_identifier: "job_identifier",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Intercom.FindDataExportRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `DataExport.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">cancel</a>({ ...params }) -> Intercom.DataExport</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-You can cancel your job
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.dataExport.cancel({
-    job_identifier: "job_identifier",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Intercom.CancelDataExportRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `DataExport.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.dataExport.<a href="/src/api/resources/dataExport/client/Client.ts">download</a>({ ...params }) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-When a job has a status of complete, and thus a filled download_url, you can download your data by hitting that provided URL, formatted like so: https://api.intercom.io/download/content/data/xyz1234.
-
-Your exported message data will be streamed continuously back down to you in a gzipped CSV format.
-
-> 📘 Octet header required
->
-> You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.dataExport.download({
-    job_identifier: "job_identifier",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Intercom.DownloadDataExportRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `DataExport.RequestOptions`
+**requestOptions:** `Jobs.RequestOptions`
 
 </dd>
 </dl>
@@ -5712,7 +7874,7 @@ await client.subscriptionTypes.list();
 
 ## PhoneCallRedirects
 
-<details><summary><code>client.phoneCallRedirects.<a href="/src/api/resources/phoneCallRedirects/client/Client.ts">create</a>({ ...params }) -> Intercom.PhoneSwitch</code></summary>
+<details><summary><code>client.phoneCallRedirects.<a href="/src/api/resources/phoneCallRedirects/client/Client.ts">create</a>({ ...params }) -> Intercom.PhoneSwitch | undefined</code></summary>
 <dl>
 <dd>
 
@@ -5765,7 +7927,7 @@ await client.phoneCallRedirects.create({
 <dl>
 <dd>
 
-**request:** `Intercom.CreatePhoneCallRedirectRequest`
+**request:** `Intercom.CreatePhoneSwitchRequest`
 
 </dd>
 </dl>
@@ -5774,6 +7936,332 @@ await client.phoneCallRedirects.create({
 <dd>
 
 **requestOptions:** `PhoneCallRedirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Calls
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">listCalls</a>({ ...params }) -> Intercom.CallList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of calls.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.listCalls();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.ListCallsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">showCall</a>({ ...params }) -> Intercom.Call</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single call by id.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.showCall({
+    call_id: "call_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.ShowCallRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">showCallRecording</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Redirects to a signed URL for the call's recording if it exists.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.showCallRecording({
+    call_id: "call_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.ShowCallRecordingRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">showCallTranscript</a>({ ...params }) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the transcript for the specified call as a downloadable text file.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.showCallTranscript({
+    call_id: "call_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.ShowCallTranscriptRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">listCallsWithTranscripts</a>({ ...params }) -> Intercom.ListCallsWithTranscriptsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve calls by a list of conversation ids and include transcripts when available.
+A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.listCallsWithTranscripts({
+    conversation_ids: ["64619700005694", "64619700005695"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.ListCallsWithTranscriptsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
 
 </dd>
 </dl>
@@ -5906,6 +8394,63 @@ await client.teams.find({
 </dl>
 </details>
 
+## Ticket States
+
+<details><summary><code>client.ticketStates.<a href="/src/api/resources/ticketStates/client/Client.ts">listTicketStates</a>() -> Intercom.TicketStateList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can get a list of all ticket states for a workspace.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.ticketStates.listTicketStates();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `TicketStates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Ticket Types
 
 <details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">list</a>() -> Intercom.TicketTypeList</code></summary>
@@ -5963,7 +8508,7 @@ await client.ticketTypes.list();
 </dl>
 </details>
 
-<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">create</a>({ ...params }) -> Intercom.TicketType</code></summary>
+<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">create</a>({ ...params }) -> Intercom.TicketType | undefined</code></summary>
 <dl>
 <dd>
 
@@ -6036,7 +8581,7 @@ await client.ticketTypes.create({
 </dl>
 </details>
 
-<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">get</a>({ ...params }) -> Intercom.TicketType</code></summary>
+<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">get</a>({ ...params }) -> Intercom.TicketType | undefined</code></summary>
 <dl>
 <dd>
 
@@ -6101,7 +8646,7 @@ await client.ticketTypes.get({
 </dl>
 </details>
 
-<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">update</a>({ ...params }) -> Intercom.TicketType</code></summary>
+<details><summary><code>client.ticketTypes.<a href="/src/api/resources/ticketTypes/client/Client.ts">update</a>({ ...params }) -> Intercom.TicketType | undefined</code></summary>
 <dl>
 <dd>
 
@@ -6207,7 +8752,7 @@ await client.tickets.reply({
         message_type: "comment",
         type: "user",
         body: "Thanks again :)",
-        intercom_user_id: "667d619d8a68186f43bafe82",
+        intercom_user_id: "6762f2971bb69f9f2193bc49",
     },
 });
 ```
@@ -6244,7 +8789,7 @@ await client.tickets.reply({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">create</a>({ ...params }) -> Intercom.Ticket</code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">create</a>({ ...params }) -> Intercom.Ticket | undefined</code></summary>
 <dl>
 <dd>
 
@@ -6276,13 +8821,9 @@ await client.tickets.create({
     ticket_type_id: "1234",
     contacts: [
         {
-            id: "667d61b78a68186f43bafe8d",
+            id: "6762f2d81bb69f9f2193bc54",
         },
     ],
-    ticket_attributes: {
-        _default_title_: "example",
-        _default_description_: "there is a problem",
-    },
 });
 ```
 
@@ -6318,7 +8859,77 @@ await client.tickets.create({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">get</a>({ ...params }) -> Intercom.Ticket</code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">enqueueCreateTicket</a>({ ...params }) -> Intercom.Jobs</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Enqueues ticket creation for asynchronous processing, returning if the job was enqueued successfully to be processed. We attempt to perform a best-effort validation on inputs before tasks are enqueued. If the given parameters are incorrect, we won't enqueue the job.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tickets.enqueueCreateTicket({
+    ticket_type_id: "1234",
+    contacts: [
+        {
+            id: "6762f2d81bb69f9f2193bc54",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.EnqueueCreateTicketRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tickets.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">get</a>({ ...params }) -> Intercom.Ticket | undefined</code></summary>
 <dl>
 <dd>
 
@@ -6383,7 +8994,7 @@ await client.tickets.get({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">update</a>({ ...params }) -> Intercom.Ticket</code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">update</a>({ ...params }) -> Intercom.Ticket | undefined</code></summary>
 <dl>
 <dd>
 
@@ -6417,13 +9028,11 @@ await client.tickets.update({
         _default_title_: "example",
         _default_description_: "there is a problem",
     },
-    state: "in_progress",
+    ticket_state_id: "123",
     open: true,
     snoozed_until: 1673609604,
-    assignment: {
-        admin_id: "991267883",
-        assignee_id: "991267885",
-    },
+    admin_id: 991268011,
+    assignee_id: "123",
 });
 ```
 
@@ -6459,7 +9068,72 @@ await client.tickets.update({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">search</a>({ ...params }) -> core.Page<Intercom.Ticket></code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">deleteTicket</a>({ ...params }) -> Intercom.DeleteTicketResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can delete a ticket using the Intercom provided ID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tickets.deleteTicket({
+    ticket_id: "ticket_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.DeleteTicketRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tickets.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">search</a>({ ...params }) -> core.Page<Intercom.Ticket | undefined></code></summary>
 <dl>
 <dd>
 
@@ -6494,6 +9168,7 @@ There are some limitations to the amount of multiples there can be:
 ### Accepted Fields
 
 Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
+The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
 
 | Field                 | Type                                                           |
 | :-------------------- | :------------------------------------------------------------- |
@@ -6512,6 +9187,14 @@ Most keys listed as part of the Ticket model are searchable, whether writeable o
 | state                 | String                                                         |
 | snoozed_until         | Date (UNIX timestamp)                                          |
 | ticket_attribute.{id} | String or Boolean or Date (UNIX timestamp) or Float or Integer |
+
+{% admonition type="info" name="Searching by Category" %}
+When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
+
+- For **Customer** category tickets, use the term `request`.
+- For **Back-office** category tickets, use the term `task`.
+- For **Tracker** category tickets, use the term `tracker`.
+  {% /admonition %}
 
 ### Accepted Operators
 
@@ -6622,7 +9305,7 @@ while (page.hasNextPage()) {
 
 ## Visitors
 
-<details><summary><code>client.visitors.<a href="/src/api/resources/visitors/client/Client.ts">find</a>({ ...params }) -> Intercom.Visitor</code></summary>
+<details><summary><code>client.visitors.<a href="/src/api/resources/visitors/client/Client.ts">find</a>({ ...params }) -> Intercom.Visitor | undefined</code></summary>
 <dl>
 <dd>
 
@@ -6687,7 +9370,7 @@ await client.visitors.find({
 </dl>
 </details>
 
-<details><summary><code>client.visitors.<a href="/src/api/resources/visitors/client/Client.ts">update</a>({ ...params }) -> Intercom.Visitor</code></summary>
+<details><summary><code>client.visitors.<a href="/src/api/resources/visitors/client/Client.ts">update</a>({ ...params }) -> Intercom.Visitor | undefined</code></summary>
 <dl>
 <dd>
 
@@ -6720,7 +9403,7 @@ Sending a PUT request to `/visitors` will result in an update of an existing Vis
 
 ```typescript
 await client.visitors.update({
-    id: "667d61cc8a68186f43bafe95",
+    id: "6762f30c1bb69f9f2193bc5e",
     name: "Gareth Bale",
 });
 ```
@@ -7003,7 +9686,7 @@ You can fetch the details of a single collection by making a GET request to `htt
 
 ```typescript
 await client.helpCenters.collections.find({
-    collection_id: "123",
+    collection_id: 1,
 });
 ```
 
@@ -7068,7 +9751,7 @@ You can update the details of a single collection by making a PUT request to `ht
 
 ```typescript
 await client.helpCenters.collections.update({
-    collection_id: "123",
+    collection_id: 1,
     name: "Update collection name",
 });
 ```
@@ -7134,7 +9817,7 @@ You can delete a single collection by making a DELETE request to `https://api.in
 
 ```typescript
 await client.helpCenters.collections.delete({
-    collection_id: "123",
+    collection_id: 1,
 });
 ```
 
@@ -7172,7 +9855,7 @@ await client.helpCenters.collections.delete({
 
 ## News Items
 
-<details><summary><code>client.news.items.<a href="/src/api/resources/news/resources/items/client/Client.ts">list</a>() -> Intercom.PaginatedNewsItemResponse</code></summary>
+<details><summary><code>client.news.items.<a href="/src/api/resources/news/resources/items/client/Client.ts">list</a>() -> Intercom.PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -7258,7 +9941,7 @@ You can create a news item
 await client.news.items.create({
     title: "Halloween is here!",
     body: "<p>New costumes in store for this spooky season</p>",
-    sender_id: 991267734,
+    sender_id: 991267834,
     state: "live",
     deliver_silently: true,
     labels: ["Product", "Update", "New"],
@@ -7333,7 +10016,7 @@ You can fetch the details of a single news item.
 
 ```typescript
 await client.news.items.find({
-    news_item_id: "123",
+    news_item_id: 1,
 });
 ```
 
@@ -7383,11 +10066,11 @@ await client.news.items.find({
 
 ```typescript
 await client.news.items.update({
-    news_item_id: "123",
+    news_item_id: 1,
     body: {
         title: "Christmas is here!",
         body: "<p>New gifts in store for the jolly season</p>",
-        sender_id: 991267745,
+        sender_id: 991267845,
         reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"],
     },
 });
@@ -7454,7 +10137,7 @@ You can delete a single news item.
 
 ```typescript
 await client.news.items.delete({
-    news_item_id: "123",
+    news_item_id: 1,
 });
 ```
 
@@ -7492,7 +10175,7 @@ await client.news.items.delete({
 
 ## News Feeds
 
-<details><summary><code>client.news.feeds.<a href="/src/api/resources/news/resources/feeds/client/Client.ts">listItems</a>({ ...params }) -> Intercom.PaginatedNewsItemResponse</code></summary>
+<details><summary><code>client.news.feeds.<a href="/src/api/resources/news/resources/feeds/client/Client.ts">listItems</a>({ ...params }) -> Intercom.PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -7557,7 +10240,7 @@ await client.news.feeds.listItems({
 </dl>
 </details>
 
-<details><summary><code>client.news.feeds.<a href="/src/api/resources/news/resources/feeds/client/Client.ts">list</a>() -> Intercom.PaginatedNewsfeedResponse</code></summary>
+<details><summary><code>client.news.feeds.<a href="/src/api/resources/news/resources/feeds/client/Client.ts">list</a>() -> Intercom.PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -7679,7 +10362,7 @@ await client.news.feeds.find({
 
 ## TicketTypes Attributes
 
-<details><summary><code>client.ticketTypes.attributes.<a href="/src/api/resources/ticketTypes/resources/attributes/client/Client.ts">create</a>({ ...params }) -> Intercom.TicketTypeAttribute</code></summary>
+<details><summary><code>client.ticketTypes.attributes.<a href="/src/api/resources/ticketTypes/resources/attributes/client/Client.ts">create</a>({ ...params }) -> Intercom.TicketTypeAttribute | undefined</code></summary>
 <dl>
 <dd>
 
@@ -7748,7 +10431,7 @@ await client.ticketTypes.attributes.create({
 </dl>
 </details>
 
-<details><summary><code>client.ticketTypes.attributes.<a href="/src/api/resources/ticketTypes/resources/attributes/client/Client.ts">update</a>({ ...params }) -> Intercom.TicketTypeAttribute</code></summary>
+<details><summary><code>client.ticketTypes.attributes.<a href="/src/api/resources/ticketTypes/resources/attributes/client/Client.ts">update</a>({ ...params }) -> Intercom.TicketTypeAttribute | undefined</code></summary>
 <dl>
 <dd>
 
@@ -9154,7 +11837,7 @@ await client.unstable.awayStatusReasons.listAwayStatusReasons();
 ```typescript
 await client.unstable.export.enqueueANewReportingDataExportJob({
     dataset_id: "conversation",
-    attribute_ids: ["conversation.id", "conversation.first_user_conversation_part_created_at"],
+    attribute_ids: ["conversation_id", "conversation_started_at"],
     start_time: 1717490000,
     end_time: 1717510000,
 });
@@ -9662,6 +12345,391 @@ await client.unstable.helpCenter.listHelpCenters();
 <dd>
 
 **requestOptions:** `HelpCenter.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Internal Articles
+
+<details><summary><code>client.unstable.internalArticles.<a href="/src/api/resources/unstable/resources/internalArticles/client/Client.ts">listInternalArticles</a>() -> Intercom.InternalArticleList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can fetch a list of all internal articles by making a GET request to `https://api.intercom.io/internal_articles`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.internalArticles.listInternalArticles();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.internalArticles.<a href="/src/api/resources/unstable/resources/internalArticles/client/Client.ts">createInternalArticle</a>({ ...params }) -> Intercom.InternalArticle</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.internalArticles.createInternalArticle({
+    title: "Thanks for everything",
+    body: "Body of the Article",
+    author_id: 991266252,
+    owner_id: 991266252,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.CreateInternalArticleRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.internalArticles.<a href="/src/api/resources/unstable/resources/internalArticles/client/Client.ts">retrieveInternalArticle</a>({ ...params }) -> Intercom.InternalArticle</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can fetch the details of a single internal article by making a GET request to `https://api.intercom.io/internal_articles/<id>`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.internalArticles.retrieveInternalArticle({
+    id: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.RetrieveInternalArticleRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.internalArticles.<a href="/src/api/resources/unstable/resources/internalArticles/client/Client.ts">updateInternalArticle</a>({ ...params }) -> Intercom.InternalArticle</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.internalArticles.updateInternalArticle({
+    id: 1,
+    title: "Christmas is here!",
+    body: "<p>New gifts in store for the jolly season</p>",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.UpdateInternalArticleRequestBody`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.internalArticles.<a href="/src/api/resources/unstable/resources/internalArticles/client/Client.ts">deleteInternalArticle</a>({ ...params }) -> Intercom.DeletedInternalArticleObject</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can delete a single internal article by making a DELETE request to `https://api.intercom.io/internal_articles/<id>`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.internalArticles.deleteInternalArticle({
+    id: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.DeleteInternalArticleRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.internalArticles.<a href="/src/api/resources/unstable/resources/internalArticles/client/Client.ts">searchInternalArticles</a>({ ...params }) -> Intercom.InternalArticleSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can search for internal articles by making a GET request to `https://api.intercom.io/internal_articles/search`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.internalArticles.searchInternalArticles();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.SearchInternalArticlesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InternalArticles.RequestOptions`
 
 </dd>
 </dl>
@@ -13583,7 +16651,7 @@ await client.unstable.conversations.convertConversationToTicket({
 
 Notifies Intercom that a new conversation was created in your custom channel/platform. This triggers conversation creation and workflow automations within Intercom for your custom channel integration.
 
-> **Note:** This endpoint is restricted to customers with access to the closed beta for "Fin over API".
+> **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
 
 </dd>
 </dl>
@@ -13657,7 +16725,7 @@ await client.unstable.customChannelEvents.notifyNewConversation({
 
 Notifies Intercom that a new message was sent in a conversation on your custom channel/platform. This allows Intercom to process the message and trigger any relevant workflow automations.
 
-> **Note:** This endpoint is restricted to customers with access to the closed beta for "Fin over API".
+> **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
 
 </dd>
 </dl>
@@ -13732,7 +16800,7 @@ await client.unstable.customChannelEvents.notifyNewMessage({
 
 Notifies Intercom that a user selected a quick reply option in your custom channel/platform. This allows Intercom to process the response and trigger any relevant workflow automations.
 
-> **Note:** This endpoint is restricted to customers with access to the closed beta for "Fin over API".
+> **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
 
 </dd>
 </dl>
@@ -13807,7 +16875,7 @@ await client.unstable.customChannelEvents.notifyQuickReplySelected({
 
 Notifies Intercom that a user provided a response to an attribute collector in your custom channel/platform. This allows Intercom to process the attribute and trigger any relevant workflow automations.
 
-> **Note:** This endpoint is restricted to customers with access to the closed beta for "Fin over API".
+> **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
 
 </dd>
 </dl>
@@ -14303,9 +17371,7 @@ You can create a data attributes for a `contact` or a `company`.
 
 ```typescript
 await client.unstable.dataAttributes.createDataAttribute({
-    name: "Mithril Shirt",
-    model: "company",
-    data_type: "string",
+    key: "value",
 });
 ```
 
@@ -14322,7 +17388,7 @@ await client.unstable.dataAttributes.createDataAttribute({
 <dl>
 <dd>
 
-**request:** `Intercom.unstable.CreateDataAttributeRequest`
+**request:** `unknown`
 
 </dd>
 </dl>
@@ -14375,9 +17441,9 @@ You can update a data attribute.
 ```typescript
 await client.unstable.dataAttributes.updateDataAttribute({
     id: 1,
-    archived: false,
-    description: "Just a plain old ring",
-    options: ["options", "options"],
+    body: {
+        key: "value",
+    },
 });
 ```
 
@@ -15015,6 +18081,168 @@ await client.unstable.jobs.status({
 </dl>
 </details>
 
+## Macros
+
+<details><summary><code>client.unstable.macros.<a href="/src/api/resources/unstable/resources/macros/client/Client.ts">listMacros</a>({ ...params }) -> Intercom.MacroList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can fetch a list of all macros (saved replies) in your workspace for use in automating responses.
+
+The macros are returned in descending order by updated_at.
+
+**Pagination**
+
+This endpoint uses cursor-based pagination via the `starting_after` parameter. The cursor is a Base64-encoded JSON array containing `[updated_at, id]` of the last item from the previous page.
+
+**Placeholder Transformation**
+
+The API transforms Intercom placeholders to a more standard XML-like format:
+
+- From: `{{user.name | fallback: 'there'}}`
+- To: `<attribute key="user.name" default="there"/>`
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.macros.listMacros({
+    starting_after: "WzE3MTk0OTM3NTcuMCwgIjEyMyJd",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.ListMacrosRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Macros.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.macros.<a href="/src/api/resources/unstable/resources/macros/client/Client.ts">getMacro</a>({ ...params }) -> Intercom.Macro | undefined</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+You can fetch a single macro (saved reply) by its ID. The macro will only be returned if it is visible to the authenticated user based on its visibility settings.
+
+**Visibility Rules**
+
+A macro is returned based on its `visible_to` setting:
+
+- `everyone`: Always visible to all team members
+- `specific_teams`: Only visible if the authenticated user belongs to one of the teams specified in `visible_to_team_ids`
+
+If a macro exists but is not visible to the authenticated user, a 404 error is returned.
+
+**Placeholder Transformation**
+
+The API transforms Intercom placeholders to a more standard XML-like format in the `body` field:
+
+- From: `{{user.name | fallback: 'there'}}`
+- To: `<attribute key="user.name" default="there"/>`
+
+Default values in placeholders are HTML-escaped for security.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.macros.getMacro({
+    id: "123",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.GetMacroRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Macros.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Messages
 
 <details><summary><code>client.unstable.messages.<a href="/src/api/resources/unstable/resources/messages/client/Client.ts">createMessage</a>({ ...params }) -> Intercom.Message</code></summary>
@@ -15029,7 +18257,7 @@ await client.unstable.jobs.status({
 <dl>
 <dd>
 
-You can create a message that has been initiated by an admin. The conversation can be either an in-app message, an email or sms.
+You can create a message that has been initiated by an admin. The conversation can be either an in-app message, an email, sms or whatsapp.
 
 > 🚧 Sending for visitors
 >
@@ -15078,7 +18306,7 @@ await client.unstable.messages.createMessage({
 <dl>
 <dd>
 
-**request:** `Intercom.CreateMessageRequestTwo`
+**request:** `Intercom.CreateMessageRequestThree`
 
 </dd>
 </dl>
@@ -15860,6 +19088,332 @@ await client.unstable.switch.createPhoneSwitch({
 <dd>
 
 **requestOptions:** `Switch.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Unstable Calls
+
+<details><summary><code>client.unstable.calls.<a href="/src/api/resources/unstable/resources/calls/client/Client.ts">listCalls</a>({ ...params }) -> Intercom.CallList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of calls.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.calls.listCalls();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.ListCallsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.calls.<a href="/src/api/resources/unstable/resources/calls/client/Client.ts">showCall</a>({ ...params }) -> Intercom.Call</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single call by id.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.calls.showCall({
+    id: "id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.ShowCallRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.calls.<a href="/src/api/resources/unstable/resources/calls/client/Client.ts">showCallRecording</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Redirects to a signed URL for the call's recording if it exists.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.calls.showCallRecording({
+    id: "id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.ShowCallRecordingRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.calls.<a href="/src/api/resources/unstable/resources/calls/client/Client.ts">showCallTranscript</a>({ ...params }) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the transcript for the specified call as a downloadable text file.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.calls.showCallTranscript({
+    id: "id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.ShowCallTranscriptRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.calls.<a href="/src/api/resources/unstable/resources/calls/client/Client.ts">listCallsWithTranscripts</a>({ ...params }) -> Intercom.ListCallsWithTranscriptsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve calls by a list of conversation ids and include transcripts when available.
+A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.calls.listCallsWithTranscripts({
+    conversation_ids: ["64619700005694", "64619700005695"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.ListCallsWithTranscriptsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions`
 
 </dd>
 </dl>
@@ -16781,6 +20335,14 @@ The `source.body` field is unique as the search will not be performed against th
 | snoozed_until         | Date (UNIX timestamp)                                          |
 | ticket_attribute.{id} | String or Boolean or Date (UNIX timestamp) or Float or Integer |
 
+{% admonition type="info" name="Searching by Category" %}
+When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
+
+- For **Customer** category tickets, use the term `request`.
+- For **Back-office** category tickets, use the term `task`.
+- For **Tracker** category tickets, use the term `tracker`.
+  {% /admonition %}
+
 ### Accepted Operators
 
 {% admonition type="info" name="Searching based on `created_at`" %}
@@ -17067,6 +20629,251 @@ await client.unstable.visitors.convertVisitor({
 <dd>
 
 **requestOptions:** `Visitors.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Brands
+
+<details><summary><code>client.unstable.brands.<a href="/src/api/resources/unstable/resources/brands/client/Client.ts">listBrands</a>() -> Intercom.BrandList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all brands for the workspace, including the default brand.
+The default brand id always matches the workspace
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.brands.listBrands();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Brands.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.brands.<a href="/src/api/resources/unstable/resources/brands/client/Client.ts">retrieveBrand</a>({ ...params }) -> Intercom.Brand</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches a specific brand by its unique identifier
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.brands.retrieveBrand({
+    id: "id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.RetrieveBrandRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Brands.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Emails
+
+<details><summary><code>client.unstable.emails.<a href="/src/api/resources/unstable/resources/emails/client/Client.ts">listEmails</a>() -> Intercom.EmailList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all sender email address settings for the workspace
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.emails.listEmails();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Emails.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.unstable.emails.<a href="/src/api/resources/unstable/resources/emails/client/Client.ts">retrieveEmail</a>({ ...params }) -> Intercom.EmailSetting</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches a specific email setting by its unique identifier
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.emails.retrieveEmail({
+    id: "id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.RetrieveEmailRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Emails.RequestOptions`
 
 </dd>
 </dl>

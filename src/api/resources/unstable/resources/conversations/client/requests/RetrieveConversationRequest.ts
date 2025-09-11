@@ -18,4 +18,8 @@ export interface RetrieveConversationRequest {
      * Set to plaintext to retrieve conversation messages in plain text.
      */
     display_as?: string;
+    /**
+     * If set to true, conversation parts will be translated to the detected language of the conversation.
+     */
+    include_translations?: boolean;
 }

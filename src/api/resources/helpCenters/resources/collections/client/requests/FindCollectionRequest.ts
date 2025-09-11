@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         collection_id: "123"
+ *         collection_id: 1
  *     }
  */
 export interface FindCollectionRequest {
     /**
      * The unique identifier for the collection which is given by Intercom.
      */
-    collection_id: string;
+    collection_id: number;
 }

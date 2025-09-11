@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         news_item_id: "123"
+ *         news_item_id: 1
  *     }
  */
 export interface FindNewsItemRequest {
     /**
      * The unique identifier for the news item which is given by Intercom.
      */
-    news_item_id: string;
+    news_item_id: number;
 }

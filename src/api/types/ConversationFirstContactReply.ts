@@ -7,9 +7,9 @@
  */
 export interface ConversationFirstContactReply {
     /** */
-    created_at: number;
+    created_at?: number;
     /** */
-    type: string;
+    type?: string;
     /** */
     url?: string;
 }

@@ -8,7 +8,8 @@ import * as Intercom from "../index";
  * The list of contacts (users or leads) involved in this conversation. This will only contain one customer unless more were added via the group conversation feature.
  */
 export interface ConversationContacts {
-    type: "contact.list";
+    /** */
+    type?: "contact.list";
     /** The list of contacts (users or leads) involved in this conversation. This will only contain one customer unless more were added via the group conversation feature. */
-    contacts: Intercom.ContactReference[];
+    contacts?: Intercom.ContactReference[];
 }

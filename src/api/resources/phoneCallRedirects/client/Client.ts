@@ -78,7 +78,7 @@ export class PhoneCallRedirects {
      *
      * If custom attributes are specified, they will be added to the user or lead's custom data attributes.
      *
-     * @param {Intercom.CreatePhoneCallRedirectRequest} request
+     * @param {Intercom.CreatePhoneSwitchRequest} request
      * @param {PhoneCallRedirects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.BadRequestError}
@@ -104,16 +104,16 @@ export class PhoneCallRedirects {
      *     })
      */
     public create(
-        request: Intercom.CreatePhoneCallRedirectRequest,
+        request?: Intercom.CreatePhoneSwitchRequest,
         requestOptions?: PhoneCallRedirects.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.PhoneSwitch> {
+    ): core.HttpResponsePromise<Intercom.PhoneSwitch | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Intercom.CreatePhoneCallRedirectRequest,
+        request?: Intercom.CreatePhoneSwitchRequest,
         requestOptions?: PhoneCallRedirects.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.PhoneSwitch>> {
+    ): Promise<core.WithRawResponse<Intercom.PhoneSwitch | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -126,8 +126,8 @@ export class PhoneCallRedirects {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -135,13 +135,13 @@ export class PhoneCallRedirects {
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
+            body: request != null ? request : undefined,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.PhoneSwitch, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.PhoneSwitch | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

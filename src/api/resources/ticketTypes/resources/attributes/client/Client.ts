@@ -92,14 +92,14 @@ export class Attributes {
     public create(
         request: Intercom.ticketTypes.CreateTicketTypeAttributeRequest,
         requestOptions?: Attributes.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.TicketTypeAttribute> {
+    ): core.HttpResponsePromise<Intercom.TicketTypeAttribute | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Intercom.ticketTypes.CreateTicketTypeAttributeRequest,
         requestOptions?: Attributes.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.TicketTypeAttribute>> {
+    ): Promise<core.WithRawResponse<Intercom.TicketTypeAttribute | undefined>> {
         const { ticket_type_id: ticketTypeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -113,8 +113,8 @@ export class Attributes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -128,7 +128,10 @@ export class Attributes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.TicketTypeAttribute, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Intercom.TicketTypeAttribute | undefined,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -184,14 +187,14 @@ export class Attributes {
     public update(
         request: Intercom.ticketTypes.UpdateTicketTypeAttributeRequest,
         requestOptions?: Attributes.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.TicketTypeAttribute> {
+    ): core.HttpResponsePromise<Intercom.TicketTypeAttribute | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
         request: Intercom.ticketTypes.UpdateTicketTypeAttributeRequest,
         requestOptions?: Attributes.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.TicketTypeAttribute>> {
+    ): Promise<core.WithRawResponse<Intercom.TicketTypeAttribute | undefined>> {
         const { ticket_type_id: ticketTypeId, attribute_id: attributeId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -205,8 +208,8 @@ export class Attributes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -220,7 +223,10 @@ export class Attributes {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.TicketTypeAttribute, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Intercom.TicketTypeAttribute | undefined,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {

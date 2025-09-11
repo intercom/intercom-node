@@ -100,7 +100,7 @@ export class Conversations {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
                 request: Intercom.ListConversationsRequest,
-            ): Promise<core.WithRawResponse<Intercom.PaginatedConversationResponse>> => {
+            ): Promise<core.WithRawResponse<Intercom.ConversationList>> => {
                 const { per_page: perPage, starting_after: startingAfter } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (perPage != null) {
@@ -121,8 +121,8 @@ export class Conversations {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
+                        "X-Fern-SDK-Version": "7.0.0",
+                        "User-Agent": "intercom-client/7.0.0",
                         "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -137,10 +137,7 @@ export class Conversations {
                     abortSignal: requestOptions?.abortSignal,
                 });
                 if (_response.ok) {
-                    return {
-                        data: _response.body as Intercom.PaginatedConversationResponse,
-                        rawResponse: _response.rawResponse,
-                    };
+                    return { data: _response.body as Intercom.ConversationList, rawResponse: _response.rawResponse };
                 }
                 if (_response.error.reason === "status-code") {
                     switch (_response.error.statusCode) {
@@ -180,7 +177,7 @@ export class Conversations {
             },
         );
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Intercom.PaginatedConversationResponse, Intercom.Conversation>({
+        return new core.Pageable<Intercom.ConversationList, Intercom.Conversation>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => response?.pages?.next?.starting_after != null,
@@ -213,7 +210,7 @@ export class Conversations {
      *     await client.conversations.create({
      *         from: {
      *             type: "user",
-     *             id: "667d60d18a68186f43bafddd"
+     *             id: "6762f11b1bb69f9f2193bba3"
      *         },
      *         body: "Hello there"
      *     })
@@ -250,8 +247,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -326,7 +323,7 @@ export class Conversations {
      *
      * @example
      *     await client.conversations.find({
-     *         conversation_id: "123",
+     *         conversation_id: 1,
      *         display_as: "plaintext"
      *     })
      */
@@ -341,10 +338,18 @@ export class Conversations {
         request: Intercom.FindConversationRequest,
         requestOptions?: Conversations.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.Conversation>> {
-        const { conversation_id: conversationId, display_as: displayAs } = request;
+        const {
+            conversation_id: conversationId,
+            display_as: displayAs,
+            include_translations: includeTranslations,
+        } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (displayAs != null) {
             _queryParams["display_as"] = displayAs;
+        }
+
+        if (includeTranslations != null) {
+            _queryParams["include_translations"] = includeTranslations.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -359,8 +364,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -424,6 +429,12 @@ export class Conversations {
      * If you want to reply to a coveration or take an action such as assign, unassign, open, close or snooze, take a look at the reply and manage endpoints.
      * {% /admonition %}
      *
+     * {% admonition type="info" %}
+     *   This endpoint handles both **conversation updates** and **custom object associations**.
+     *
+     *   See _`update a conversation with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
+     * {% /admonition %}
+     *
      * @param {Intercom.UpdateConversationRequest} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -433,12 +444,22 @@ export class Conversations {
      *
      * @example
      *     await client.conversations.update({
-     *         conversation_id: "123",
+     *         conversation_id: 1,
      *         display_as: "plaintext",
      *         read: true,
+     *         title: "new conversation title",
      *         custom_attributes: {
      *             "issue_type": "Billing",
      *             "priority": "High"
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.conversations.update({
+     *         conversation_id: 1,
+     *         display_as: "plaintext",
+     *         custom_attributes: {
+     *             "order": {}
      *         }
      *     })
      */
@@ -471,8 +492,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -530,6 +551,98 @@ export class Conversations {
     }
 
     /**
+     * You can delete a single conversation.
+     *
+     * @param {Intercom.DeleteConversationRequest} request
+     * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link Intercom.ForbiddenError}
+     *
+     * @example
+     *     await client.conversations.deleteConversation({
+     *         conversation_id: 1
+     *     })
+     */
+    public deleteConversation(
+        request: Intercom.DeleteConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.ConversationDeleted> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteConversation(request, requestOptions));
+    }
+
+    private async __deleteConversation(
+        request: Intercom.DeleteConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.ConversationDeleted>> {
+        const { conversation_id: conversationId } = request;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}`,
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Intercom.ConversationDeleted, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
+                default:
+                    throw new errors.IntercomError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError(
+                    "Timeout exceeded when calling DELETE /conversations/{conversation_id}.",
+                );
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * You can search for multiple conversations by the value of their attributes in order to fetch exactly which ones you want.
      *
      * To search for conversations, you need to send a `POST` request to `https://api.intercom.io/conversations/search`.
@@ -551,7 +664,7 @@ export class Conversations {
      *
      * ### Accepted Fields
      *
-     * Most keys listed as part of the The conversation model is searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
+     * Most keys listed in the conversation model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
      * The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
      *
      * | Field                                     | Type                                                                                                                                                   |
@@ -653,9 +766,7 @@ export class Conversations {
         requestOptions?: Conversations.RequestOptions,
     ): Promise<core.Page<Intercom.Conversation>> {
         const list = core.HttpResponsePromise.interceptFunction(
-            async (
-                request: Intercom.SearchRequest,
-            ): Promise<core.WithRawResponse<Intercom.PaginatedConversationResponse>> => {
+            async (request: Intercom.SearchRequest): Promise<core.WithRawResponse<Intercom.ConversationList>> => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
                         (await core.Supplier.get(this._options.baseUrl)) ??
@@ -668,8 +779,8 @@ export class Conversations {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
+                        "X-Fern-SDK-Version": "7.0.0",
+                        "User-Agent": "intercom-client/7.0.0",
                         "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -684,10 +795,7 @@ export class Conversations {
                     abortSignal: requestOptions?.abortSignal,
                 });
                 if (_response.ok) {
-                    return {
-                        data: _response.body as Intercom.PaginatedConversationResponse,
-                        rawResponse: _response.rawResponse,
-                    };
+                    return { data: _response.body as Intercom.ConversationList, rawResponse: _response.rawResponse };
                 }
                 if (_response.error.reason === "status-code") {
                     throw new errors.IntercomError({
@@ -716,7 +824,7 @@ export class Conversations {
             },
         );
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Intercom.PaginatedConversationResponse, Intercom.Conversation>({
+        return new core.Pageable<Intercom.ConversationList, Intercom.Conversation>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => response?.pages?.next?.starting_after != null,
@@ -746,7 +854,7 @@ export class Conversations {
      *             message_type: "comment",
      *             type: "user",
      *             body: "Thanks again :)",
-     *             intercom_user_id: "667d60f18a68186f43bafdf4"
+     *             intercom_user_id: "6762f1571bb69f9f2193bbbb"
      *         }
      *     })
      *
@@ -765,10 +873,31 @@ export class Conversations {
      *     await client.conversations.reply({
      *         conversation_id: "123 or \"last\"",
      *         body: {
+     *             message_type: "quick_reply",
+     *             type: "admin",
+     *             admin_id: "3156780",
+     *             reply_options: [{
+     *                     text: "Yes",
+     *                     uuid: "a5e1c524-5ddd-4c3e-9328-6bca5d6e3edb"
+     *                 }, {
+     *                     text: "No",
+     *                     uuid: "f4a98af1-be56-4948-a57e-e1a83f8484c6"
+     *                 }]
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.conversations.reply({
+     *         conversation_id: "123 or \"last\"",
+     *         body: {
      *             message_type: "comment",
      *             type: "user",
-     *             body: "Thanks again :)",
-     *             intercom_user_id: "667d60f78a68186f43bafdf7"
+     *             body: "body",
+     *             reply_options: [{
+     *                     text: "Yes",
+     *                     uuid: "a5e1c524-5ddd-4c3e-9328-6bca5d6e3edb"
+     *                 }],
+     *             intercom_user_id: "6762f1621bb69f9f2193bbbe"
      *         }
      *     })
      *
@@ -779,7 +908,7 @@ export class Conversations {
      *             message_type: "comment",
      *             type: "user",
      *             body: "Thanks again :)",
-     *             intercom_user_id: "667d60f98a68186f43bafdf8"
+     *             intercom_user_id: "6762f1661bb69f9f2193bbbf"
      *         }
      *     })
      */
@@ -807,8 +936,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -942,8 +1071,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1000,107 +1129,6 @@ export class Conversations {
     }
 
     /**
-     * {% admonition type="danger" name="Deprecation of Run Assignment Rules" %}
-     * Run assignment rules is now deprecated in version 2.12 and future versions and will be permanently removed on December 31, 2026. After this date, any requests made to this endpoint will fail.
-     * {% /admonition %}
-     * You can let a conversation be automatically assigned following assignment rules.
-     * {% admonition type="warning" name="When using workflows" %}
-     * It is not possible to use this endpoint with Workflows.
-     * {% /admonition %}
-     *
-     * @param {Intercom.AutoAssignConversationRequest} request
-     * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Intercom.UnauthorizedError}
-     * @throws {@link Intercom.ForbiddenError}
-     * @throws {@link Intercom.NotFoundError}
-     *
-     * @example
-     *     await client.conversations.runAssignmentRules({
-     *         conversation_id: "123"
-     *     })
-     */
-    public runAssignmentRules(
-        request: Intercom.AutoAssignConversationRequest,
-        requestOptions?: Conversations.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Conversation> {
-        return core.HttpResponsePromise.fromPromise(this.__runAssignmentRules(request, requestOptions));
-    }
-
-    private async __runAssignmentRules(
-        request: Intercom.AutoAssignConversationRequest,
-        requestOptions?: Conversations.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
-        const { conversation_id: conversationId } = request;
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.IntercomEnvironment.UsProduction,
-                `conversations/${encodeURIComponent(conversationId)}/run_assignment_rules`,
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Intercom.UnauthorizedError(
-                        _response.error.body as Intercom.Error_,
-                        _response.rawResponse,
-                    );
-                case 403:
-                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
-                case 404:
-                    throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.IntercomError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.IntercomError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.IntercomTimeoutError(
-                    "Timeout exceeded when calling POST /conversations/{conversation_id}/run_assignment_rules.",
-                );
-            case "unknown":
-                throw new errors.IntercomError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
      * You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
      *
      * {% admonition type="warning" name="Contacts without an email" %}
@@ -1119,7 +1147,7 @@ export class Conversations {
      *         conversation_id: "123",
      *         admin_id: "12345",
      *         customer: {
-     *             intercom_user_id: "667d61168a68186f43bafe0d"
+     *             intercom_user_id: "6762f19b1bb69f9f2193bbd4"
      *         }
      *     })
      *
@@ -1128,7 +1156,7 @@ export class Conversations {
      *         conversation_id: "123",
      *         admin_id: "12345",
      *         customer: {
-     *             intercom_user_id: "667d61188a68186f43bafe0e"
+     *             intercom_user_id: "6762f19e1bb69f9f2193bbd5"
      *         }
      *     })
      */
@@ -1156,8 +1184,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1259,8 +1287,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1368,8 +1396,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1431,27 +1459,27 @@ export class Conversations {
      *
      * @example
      *     await client.conversations.convertToTicket({
-     *         conversation_id: "123",
-     *         ticket_type_id: "79"
+     *         conversation_id: 1,
+     *         ticket_type_id: "53"
      *     })
      *
      * @example
      *     await client.conversations.convertToTicket({
-     *         conversation_id: "123",
-     *         ticket_type_id: "80"
+     *         conversation_id: 1,
+     *         ticket_type_id: "54"
      *     })
      */
     public convertToTicket(
         request: Intercom.ConvertConversationToTicketRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Ticket> {
+    ): core.HttpResponsePromise<Intercom.Ticket | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__convertToTicket(request, requestOptions));
     }
 
     private async __convertToTicket(
         request: Intercom.ConvertConversationToTicketRequest,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Ticket>> {
+    ): Promise<core.WithRawResponse<Intercom.Ticket | undefined>> {
         const { conversation_id: conversationId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -1465,8 +1493,8 @@ export class Conversations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
                 "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
@@ -1480,7 +1508,7 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Ticket, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.Ticket | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -1506,6 +1534,83 @@ export class Conversations {
             case "timeout":
                 throw new errors.IntercomTimeoutError(
                     "Timeout exceeded when calling POST /conversations/{conversation_id}/convert.",
+                );
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * @param {Intercom.AutoAssignConversationRequest} request
+     * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.conversations.runAssignmentRules({
+     *         conversation_id: "conversation_id"
+     *     })
+     */
+    public runAssignmentRules(
+        request: Intercom.AutoAssignConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__runAssignmentRules(request, requestOptions));
+    }
+
+    private async __runAssignmentRules(
+        request: Intercom.AutoAssignConversationRequest,
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
+        const { conversation_id: conversationId } = request;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${encodeURIComponent(conversationId)}/run_assignment_rules`,
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "7.0.0",
+                "User-Agent": "intercom-client/7.0.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.IntercomError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError(
+                    "Timeout exceeded when calling POST /conversations/{conversation_id}/run_assignment_rules.",
                 );
             case "unknown":
                 throw new errors.IntercomError({
