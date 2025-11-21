@@ -9,24 +9,26 @@ import * as Intercom from "../../../index";
  */
 export interface TicketType {
     /** String representing the object's type. Always has the value `ticket_type`. */
-    type: "ticket_type";
+    type?: string;
     /** The id representing the ticket type. */
-    id: string;
+    id?: string;
     /** Category of the Ticket Type. */
-    category: TicketType.Category;
+    category?: TicketType.Category;
     /** The name of the ticket type */
-    name: string;
+    name?: string;
     /** The description of the ticket type */
-    description: string;
+    description?: string;
     /** The icon of the ticket type */
-    icon: string;
+    icon?: string;
     /** The id of the workspace that the ticket type belongs to. */
-    workspace_id: string;
-    ticket_type_attributes: Intercom.TicketTypeAttributeList;
+    workspace_id?: string;
+    ticket_type_attributes?: Intercom.TicketTypeAttributeList;
+    /** A list of ticket states associated with a given ticket type. */
+    ticket_states?: TicketType.TicketStates;
     /** Whether the ticket type is archived or not. */
-    archived: boolean;
+    archived?: boolean;
     /** The date and time the ticket type was created. */
-    created_at: number;
+    created_at?: number;
     /** The date and time the ticket type was last updated. */
     updated_at?: number;
 }
@@ -41,4 +43,14 @@ export namespace TicketType {
         BackOffice: "Back-office",
         Tracker: "Tracker",
     } as const;
+
+    /**
+     * A list of ticket states associated with a given ticket type.
+     */
+    export interface TicketStates {
+        /** String representing the object's type. Always has the value `list`. */
+        type?: string;
+        /** A list of ticket states associated with a given ticket type. */
+        data?: (Intercom.TicketState | undefined)[];
+    }
 }

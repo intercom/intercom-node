@@ -33,6 +33,9 @@ export declare namespace Collections {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
         fetcher?: core.FetchFunction;
     }
@@ -65,6 +68,9 @@ export declare namespace Collections {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
     }
 }
@@ -113,9 +119,9 @@ export class Collections {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
-                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-SDK-Version": "6.5.0",
+                        "User-Agent": "intercom-client/6.5.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
                         ...requestOptions?.headers,
@@ -222,9 +228,9 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -286,7 +292,7 @@ export class Collections {
      *
      * @example
      *     await client.helpCenters.collections.find({
-     *         collection_id: "123"
+     *         collection_id: 1
      *     })
      */
     public find(
@@ -313,9 +319,9 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -378,7 +384,7 @@ export class Collections {
      *
      * @example
      *     await client.helpCenters.collections.update({
-     *         collection_id: "123",
+     *         collection_id: 1,
      *         name: "Update collection name"
      *     })
      */
@@ -406,9 +412,9 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -472,7 +478,7 @@ export class Collections {
      *
      * @example
      *     await client.helpCenters.collections.delete({
-     *         collection_id: "123"
+     *         collection_id: 1
      *     })
      */
     public delete(
@@ -499,9 +505,9 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

@@ -7,9 +7,10 @@ import * as Intercom from "../../../../index";
 /**
  * @example
  *     {
- *         conversation_id: "123",
+ *         conversation_id: 1,
  *         display_as: "plaintext",
  *         read: true,
+ *         title: "new conversation title",
  *         custom_attributes: {
  *             "issue_type": "Billing",
  *             "priority": "High"
@@ -18,9 +19,19 @@ import * as Intercom from "../../../../index";
  *
  * @example
  *     {
- *         conversation_id: "123",
+ *         conversation_id: 1,
+ *         display_as: "plaintext",
+ *         custom_attributes: {
+ *             "order": {}
+ *         }
+ *     }
+ *
+ * @example
+ *     {
+ *         conversation_id: 1,
  *         display_as: "plaintext",
  *         read: true,
+ *         title: "new conversation title",
  *         custom_attributes: {
  *             "issue_type": "Billing",
  *             "priority": "High"
@@ -31,12 +42,16 @@ export interface UpdateConversationRequest {
     /**
      * The id of the conversation to target
      */
-    conversation_id: string;
+    conversation_id: number;
     /**
      * Set to plaintext to retrieve conversation messages in plain text.
      */
     display_as?: string;
     /** Mark a conversation as read within Intercom. */
     read?: boolean;
+    /** The title given to the conversation */
+    title?: string;
     custom_attributes?: Intercom.CustomAttributes;
+    /** The ID of the company that the conversation is associated with. The unique identifier for the company which is given by Intercom. Set to nil to remove company. */
+    company_id?: string;
 }

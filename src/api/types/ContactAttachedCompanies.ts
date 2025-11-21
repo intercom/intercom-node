@@ -9,10 +9,10 @@ import * as Intercom from "../index";
  */
 export interface ContactAttachedCompanies {
     /** The type of object */
-    type: "list";
+    type?: "list";
     /** An array containing Company Objects */
-    companies: Intercom.Company[];
+    companies?: Intercom.Company[];
     /** The total number of companies associated to this contact */
-    total_count: number;
+    total_count?: number;
     pages?: Intercom.PagesLink;
 }

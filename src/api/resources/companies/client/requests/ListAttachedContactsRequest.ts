@@ -13,12 +13,4 @@ export interface ListAttachedContactsRequest {
      * The unique identifier for the company which is given by Intercom
      */
     company_id: string;
-    /**
-     * The page of results to fetch. Defaults to first page
-     */
-    page?: number;
-    /**
-     * How many results to return per page. Defaults to 15
-     */
-    per_page?: number;
 }

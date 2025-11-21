@@ -15,7 +15,11 @@ export interface RetrieveConversationRequest {
      */
     id: number;
     /**
-     * Set to plaintext to retrieve conversation messages in plain text.
+     * Set to plaintext to retrieve conversation messages in plain text. This affects both the body and subject fields.
      */
     display_as?: string;
+    /**
+     * If set to true, conversation parts will be translated to the detected language of the conversation.
+     */
+    include_translations?: boolean;
 }

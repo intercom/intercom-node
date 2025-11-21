@@ -30,7 +30,7 @@ export interface UntagConversationRequest {
      */
     conversation_id: string;
     /**
-     * id
+     * tag_id
      */
     tag_id: string;
     /** The unique identifier for the admin which is given by Intercom. */

@@ -9,7 +9,7 @@ import * as Intercom from "../../../index";
  */
 export interface AiAgent {
     /** The type of the source that triggered AI Agent involvement in the conversation. */
-    source_type: AiAgent.SourceType;
+    source_type?: AiAgent.SourceType;
     /** The title of the source that triggered AI Agent involvement in the conversation. If this is `essentials_plan_setup` then it will return `null`. */
     source_title?: string;
     /** The type of the last answer delivered by AI Agent. If no answer was delivered then this will return `null` */
@@ -20,6 +20,10 @@ export interface AiAgent {
     rating?: number;
     /** The customer satisfaction rating remark given to AI Agent. */
     rating_remark?: string;
+    /** The time when the AI agent rating was created. */
+    created_at?: number;
+    /** The time when the AI agent rating was last updated. */
+    updated_at?: number;
     content_sources?: Intercom.ContentSourcesList;
 }
 

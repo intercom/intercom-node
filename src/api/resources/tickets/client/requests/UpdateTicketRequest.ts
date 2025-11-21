@@ -10,13 +10,11 @@
  *             "_default_title_": "example",
  *             "_default_description_": "there is a problem"
  *         },
- *         state: "in_progress",
+ *         ticket_state_id: "123",
  *         open: true,
  *         snoozed_until: 1673609604,
- *         assignment: {
- *             admin_id: "991267883",
- *             assignee_id: "991267885"
- *         }
+ *         admin_id: 991268011,
+ *         assignee_id: "123"
  *     }
  *
  * @example
@@ -26,11 +24,9 @@
  *             "_default_title_": "example",
  *             "_default_description_": "there is a problem"
  *         },
- *         state: "in_progress",
- *         assignment: {
- *             admin_id: "123",
- *             assignee_id: "991267893"
- *         }
+ *         ticket_state_id: "123",
+ *         admin_id: 991268011,
+ *         assignee_id: "123"
  *     }
  *
  * @example
@@ -40,11 +36,15 @@
  *             "_default_title_": "example",
  *             "_default_description_": "there is a problem"
  *         },
- *         state: "in_progress",
- *         assignment: {
- *             admin_id: "991267899",
- *             assignee_id: "456"
- *         }
+ *         ticket_state_id: "123",
+ *         admin_id: 991268011,
+ *         assignee_id: "123"
+ *     }
+ *
+ * @example
+ *     {
+ *         ticket_id: "ticket_id",
+ *         ticket_state_id: "123"
  *     }
  */
 export interface UpdateTicketRequest {
@@ -54,32 +54,18 @@ export interface UpdateTicketRequest {
     ticket_id: string;
     /** The attributes set on the ticket. */
     ticket_attributes?: Record<string, unknown>;
-    /** The state of the ticket. */
-    state?: UpdateTicketRequest.State;
+    /** The ID of the ticket state associated with the ticket type. */
+    ticket_state_id?: string;
+    /** The ID of the company that the ticket is associated with. The unique identifier for the company which is given by Intercom. Set to nil to remove company. */
+    company_id?: string;
     /** Specify if a ticket is open. Set to false to close a ticket. Closing a ticket will also unsnooze it. */
     open?: boolean;
     /** Specify whether the ticket is visible to users. */
     is_shared?: boolean;
     /** The time you want the ticket to reopen. */
     snoozed_until?: number;
-    assignment?: UpdateTicketRequest.Assignment;
-}
-
-export namespace UpdateTicketRequest {
-    /**
-     * The state of the ticket.
-     */
-    export type State = "in_progress" | "waiting_on_customer" | "resolved";
-    export const State = {
-        InProgress: "in_progress",
-        WaitingOnCustomer: "waiting_on_customer",
-        Resolved: "resolved",
-    } as const;
-
-    export interface Assignment {
-        /** The ID of the admin performing the action. */
-        admin_id?: string;
-        /** The ID of the admin or team to which the ticket is assigned. Set this 0 to unassign it. */
-        assignee_id?: string;
-    }
+    /** The ID of the admin performing ticket update. Needed for workflows execution and attributing actions to specific admins. */
+    admin_id?: number;
+    /** The ID of the admin or team to which the ticket is assigned. Set this 0 to unassign it. */
+    assignee_id?: string;
 }

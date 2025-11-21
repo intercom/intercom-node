@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface DataAttributeList {
     /** The type of the object */
-    type: "list";
+    type?: "list";
     /** A list of data attributes */
-    data: Intercom.DataAttribute[];
+    data?: Intercom.DataAttribute[];
 }

@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface SubscriptionTypeList {
     /** The type of the object */
-    type: "list";
+    type?: "list";
     /** A list of subscription type objects associated with the workspace . */
-    data: Intercom.SubscriptionType[];
+    data?: Intercom.SubscriptionType[];
 }

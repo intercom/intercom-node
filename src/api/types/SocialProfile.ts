@@ -7,9 +7,9 @@
  */
 export interface SocialProfile {
     /** value is "social_profile" */
-    type: "social_profile";
+    type?: "social_profile";
     /** The name of the Social media profile */
-    name: string;
+    name?: string;
     /** The name of the Social media profile */
-    url: string;
+    url?: string;
 }

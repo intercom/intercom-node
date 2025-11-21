@@ -5,17 +5,15 @@
 import * as Intercom from "../index";
 
 /**
- * An object containing companies meta data about the companies that a contact has. Up to 10 will be displayed here. Use the url to get more.
+ * An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
  */
 export interface ContactCompanies {
-    /** The type of object */
-    type?: "list";
-    /** An array containing Company Objects */
-    data?: Intercom.ContactCompany[];
+    /** An array of company data objects attached to the contact. */
+    data?: Intercom.CompanyData[];
     /** Url to get more company resources for this contact */
-    url: string;
-    /** Int representing the total number of companyies attached to this contact */
-    total_count: number;
+    url?: string;
+    /** Integer representing the total number of companies attached to this contact */
+    total_count?: number;
     /** Whether there's more Addressable Objects to be viewed. If true, use the url to view all */
-    has_more: boolean;
+    has_more?: boolean;
 }

@@ -10,7 +10,7 @@
  */
 export interface FindContactRequest {
     /**
-     * id
+     * contact_id
      */
     contact_id: string;
 }

@@ -7,17 +7,17 @@
  */
 export interface ArticleContent {
     /** The type of object - `article_content` . */
-    type: "article_content";
+    type?: string;
     /** The title of the article. */
-    title: string;
+    title?: string;
     /** The description of the article. */
-    description: string;
+    description?: string;
     /** The body of the article. */
-    body: string;
+    body?: string;
     /** The ID of the author of the article. */
-    author_id: number;
+    author_id?: number;
     /** Whether the article is `published` or is a `draft` . */
-    state: ArticleContent.State;
+    state?: ArticleContent.State;
     /** The time when the article was created (seconds). */
     created_at?: number;
     /** The time when the article was last updated (seconds). */

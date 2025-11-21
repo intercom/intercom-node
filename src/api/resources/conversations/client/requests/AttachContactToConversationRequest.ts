@@ -10,7 +10,7 @@ import * as Intercom from "../../../../index";
  *         conversation_id: "123",
  *         admin_id: "12345",
  *         customer: {
- *             intercom_user_id: "667d61168a68186f43bafe0d"
+ *             intercom_user_id: "6762f19b1bb69f9f2193bbd4"
  *         }
  *     }
  *
@@ -19,7 +19,7 @@ import * as Intercom from "../../../../index";
  *         conversation_id: "123",
  *         admin_id: "12345",
  *         customer: {
- *             intercom_user_id: "667d61188a68186f43bafe0e"
+ *             intercom_user_id: "6762f19e1bb69f9f2193bbd5"
  *         }
  *     }
  */

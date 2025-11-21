@@ -7,9 +7,9 @@
  */
 export interface DeletedArticleObject {
     /** The unique identifier for the article which you provided in the URL. */
-    id: string;
+    id?: string;
     /** The type of object which was deleted. - article */
-    object: "article";
+    object?: "article";
     /** Whether the article was deleted successfully or not. */
-    deleted: boolean;
+    deleted?: boolean;
 }

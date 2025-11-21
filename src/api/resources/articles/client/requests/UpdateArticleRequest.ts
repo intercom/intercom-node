@@ -7,14 +7,14 @@ import * as Intercom from "../../../../index";
 /**
  * @example
  *     {
- *         article_id: "123",
+ *         article_id: 1,
  *         title: "Christmas is here!",
  *         body: "<p>New gifts in store for the jolly season</p>"
  *     }
  *
  * @example
  *     {
- *         article_id: "123",
+ *         article_id: 1,
  *         title: "Christmas is here!",
  *         body: "<p>New gifts in store for the jolly season</p>"
  *     }
@@ -23,7 +23,7 @@ export interface UpdateArticleRequest {
     /**
      * The unique identifier for the article which is given by Intercom.
      */
-    article_id: string;
+    article_id: number;
     /** The title of the article.For multilingual articles, this will be the title of the default language's content. */
     title?: string;
     /** The description of the article. For multilingual articles, this will be the description of the default language's content. */
@@ -37,7 +37,7 @@ export interface UpdateArticleRequest {
     /** The id of the article's parent collection or section. An article without this field stands alone. */
     parent_id?: string;
     /** The type of parent, which can either be a `collection` or `section`. */
-    parent_type?: UpdateArticleRequest.ParentType;
+    parent_type?: string;
     translated_content?: Intercom.ArticleTranslatedContent;
 }
 
@@ -49,13 +49,5 @@ export namespace UpdateArticleRequest {
     export const State = {
         Published: "published",
         Draft: "draft",
-    } as const;
-    /**
-     * The type of parent, which can either be a `collection` or `section`.
-     */
-    export type ParentType = "collection" | "section";
-    export const ParentType = {
-        Collection: "collection",
-        Section: "section",
     } as const;
 }

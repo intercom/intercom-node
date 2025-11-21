@@ -20,4 +20,8 @@ export interface HelpCenter {
     website_turned_on?: boolean;
     /** The display name of the Help Center only seen by teammates. */
     display_name?: string;
+    /** The URL for the help center, if you have a custom domain then this will show the URL using the custom domain. */
+    url?: string;
+    /** Custom domain configured for the help center */
+    custom_domain?: string;
 }

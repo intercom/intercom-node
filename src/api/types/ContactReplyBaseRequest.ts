@@ -11,4 +11,19 @@ export interface ContactReplyBaseRequest {
     created_at?: number;
     /** A list of image URLs that will be added as attachments. You can include up to 10 URLs. */
     attachment_urls?: string[];
+    /** The quick reply selection the contact wishes to respond with. These map to buttons displayed in the Messenger UI if sent by a bot, or the reply options sent by an Admin via the API. */
+    reply_options?: ContactReplyBaseRequest.ReplyOptions.Item[];
+}
+
+export namespace ContactReplyBaseRequest {
+    export type ReplyOptions = ReplyOptions.Item[];
+
+    export namespace ReplyOptions {
+        export interface Item {
+            /** The text of the chosen reply option. */
+            text: string;
+            /** The unique identifier for the quick reply option selected. */
+            uuid: string;
+        }
+    }
 }

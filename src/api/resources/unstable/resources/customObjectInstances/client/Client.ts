@@ -33,6 +33,9 @@ export declare namespace CustomObjectInstances {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
         fetcher?: core.FetchFunction;
     }
@@ -65,6 +68,9 @@ export declare namespace CustomObjectInstances {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
     }
 }
@@ -121,9 +127,9 @@ export class CustomObjectInstances {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -224,9 +230,9 @@ export class CustomObjectInstances {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -323,9 +329,9 @@ export class CustomObjectInstances {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -420,9 +426,9 @@ export class CustomObjectInstances {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -518,9 +524,9 @@ export class CustomObjectInstances {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

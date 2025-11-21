@@ -9,9 +9,9 @@ import * as Intercom from "../index";
  */
 export interface DataEventList {
     /** The type of the object */
-    type: "event.list";
+    type?: "event.list";
     /** A list of data events */
-    events: Intercom.DataEvent[];
+    events?: Intercom.DataEvent[];
     /** Pagination */
     pages?: DataEventList.Pages;
 }

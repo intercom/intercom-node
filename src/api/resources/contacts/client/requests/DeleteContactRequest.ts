@@ -10,7 +10,7 @@
  */
 export interface DeleteContactRequest {
     /**
-     * id
+     * contact_id
      */
     contact_id: string;
 }

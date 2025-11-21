@@ -7,13 +7,13 @@
  */
 export interface DataEventSummaryItem {
     /** The name of the event */
-    name: string;
+    name?: string;
     /** The first time the event was sent */
-    first: string;
+    first?: string;
     /** The last time the event was sent */
-    last: string;
+    last?: string;
     /** The number of times the event was sent */
-    count: number;
+    count?: number;
     /** The description of the event */
     description?: string;
 }

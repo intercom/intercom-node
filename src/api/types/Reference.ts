@@ -7,7 +7,7 @@
  */
 export interface Reference {
     /** */
-    type: string;
+    type?: string;
     /** */
     id?: string;
 }

@@ -5,12 +5,9 @@
 /**
  * @example
  *     {
- *         conversation_id: "123"
+ *         conversation_id: "conversation_id"
  *     }
  */
 export interface AutoAssignConversationRequest {
-    /**
-     * The identifier for the conversation as given by Intercom.
-     */
     conversation_id: string;
 }

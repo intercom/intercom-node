@@ -9,6 +9,16 @@
  *         email: "joebloggs@intercom.io",
  *         name: "joe bloggs"
  *     }
+ *
+ * @example
+ *     {
+ *         contact_id: "63a07ddf05a32042dffac965",
+ *         custom_attributes: {
+ *             "order": [
+ *                 "21"
+ *             ]
+ *         }
+ *     }
  */
 export interface UpdateContactRequest {
     /**

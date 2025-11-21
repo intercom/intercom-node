@@ -37,8 +37,8 @@ export interface ArticleListItem {
     /** The type of parent, which can either be a `collection` or `section`. */
     parent_type?: string;
     /** The default locale of the help center. This field is only returned for multilingual help centers. */
-    default_locale: string;
-    translated_content: Intercom.ArticleTranslatedContent;
+    default_locale?: string;
+    translated_content?: Intercom.ArticleTranslatedContent;
 }
 
 export namespace ArticleListItem {

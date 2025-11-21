@@ -7,17 +7,17 @@
  */
 export interface PartAttachment {
     /** The type of attachment */
-    type: string;
+    type?: string;
     /** The name of the attachment */
-    name: string;
+    name?: string;
     /** The URL of the attachment */
-    url: string;
+    url?: string;
     /** The content type of the attachment */
-    content_type: string;
+    content_type?: string;
     /** The size of the attachment */
-    filesize: number;
+    filesize?: number;
     /** The width of the attachment */
-    width: number;
+    width?: number;
     /** The height of the attachment */
-    height: number;
+    height?: number;
 }

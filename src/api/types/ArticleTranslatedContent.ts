@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface ArticleTranslatedContent {
     /** The type of object - article_translated_content. */
-    type?: "article_translated_content";
+    type?: string;
     /** The content of the article in Arabic */
     ar?: Intercom.ArticleContent;
     /** The content of the article in Bulgarian */

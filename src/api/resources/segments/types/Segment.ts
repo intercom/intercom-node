@@ -7,17 +7,17 @@
  */
 export interface Segment {
     /** The type of object. */
-    type: "segment";
+    type?: "segment";
     /** The unique identifier representing the segment. */
-    id: string;
+    id?: string;
     /** The name of the segment. */
-    name: string;
+    name?: string;
     /** The time the segment was created. */
-    created_at: number;
+    created_at?: number;
     /** The time the segment was updated. */
     updated_at?: number;
     /** Type of the contact: contact (lead) or user. */
-    person_type: Segment.PersonType;
+    person_type?: Segment.PersonType;
     /** The number of items in the user segment. It's returned when `include_count=true` is included in the request. */
     count?: number;
 }

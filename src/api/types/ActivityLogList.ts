@@ -9,8 +9,8 @@ import * as Intercom from "../index";
  */
 export interface ActivityLogList {
     /** String representing the object's type. Always has the value `activity_log.list`. */
-    type: "activity_log.list";
+    type?: string;
     pages?: Intercom.CursorPages;
     /** An array of activity logs */
-    activity_logs: Intercom.ActivityLog[];
+    activity_logs?: (Intercom.ActivityLog | undefined)[];
 }

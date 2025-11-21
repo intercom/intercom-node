@@ -9,11 +9,11 @@ import * as Intercom from "../index";
  */
 export interface ContactSubscriptionTypes {
     /** This object represents the subscriptions attached to a contact. */
-    data: Intercom.AddressableList[];
+    data?: Intercom.AddressableList[];
     /** Url to get more subscription type resources for this contact */
-    url: string;
+    url?: string;
     /** Int representing the total number of subscription types attached to this contact */
-    total_count: number;
+    total_count?: number;
     /** Whether there's more Addressable Objects to be viewed. If true, use the url to view all */
-    has_more: boolean;
+    has_more?: boolean;
 }

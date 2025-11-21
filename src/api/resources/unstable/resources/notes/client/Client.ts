@@ -33,6 +33,9 @@ export declare namespace Notes {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
         fetcher?: core.FetchFunction;
     }
@@ -65,6 +68,9 @@ export declare namespace Notes {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
     }
 }
@@ -74,6 +80,90 @@ export declare namespace Notes {
  */
 export class Notes {
     constructor(protected readonly _options: Notes.Options = {}) {}
+
+    /**
+     * You can fetch a list of notes that are associated to a company.
+     *
+     * @param {Intercom.unstable.ListCompanyNotesRequest} request
+     * @param {Notes.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Intercom.unstable.NotFoundError}
+     *
+     * @example
+     *     await client.unstable.notes.listCompanyNotes({
+     *         id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632"
+     *     })
+     */
+    public listCompanyNotes(
+        request: Intercom.unstable.ListCompanyNotesRequest,
+        requestOptions?: Notes.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.unstable.NoteList> {
+        return core.HttpResponsePromise.fromPromise(this.__listCompanyNotes(request, requestOptions));
+    }
+
+    private async __listCompanyNotes(
+        request: Intercom.unstable.ListCompanyNotesRequest,
+        requestOptions?: Notes.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.unstable.NoteList>> {
+        const { id } = request;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `companies/${encodeURIComponent(id)}/notes`,
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Intercom.unstable.NoteList, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Intercom.unstable.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.IntercomError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError("Timeout exceeded when calling GET /companies/{id}/notes.");
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
 
     /**
      * You can fetch a list of notes that are associated to a contact.
@@ -112,9 +202,9 @@ export class Notes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -215,9 +305,9 @@ export class Notes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -301,9 +391,9 @@ export class Notes {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

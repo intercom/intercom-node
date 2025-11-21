@@ -9,7 +9,7 @@ import * as Intercom from "../../../index";
  */
 export interface TicketContacts {
     /** always contact.list */
-    type: "contact.list";
+    type?: "contact.list";
     /** The list of contacts affected by this ticket. */
-    contacts: Intercom.ContactReference[];
+    contacts?: Intercom.ContactReference[];
 }

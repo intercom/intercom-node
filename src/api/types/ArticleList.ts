@@ -9,10 +9,10 @@ import * as Intercom from "../index";
  */
 export interface ArticleList {
     /** The type of the object - `list`. */
-    type: "list";
+    type?: "list";
     pages?: unknown;
     /** A count of the total number of articles. */
-    total_count: number;
+    total_count?: number;
     /** An array of Article objects */
-    data: Intercom.ArticleListItem[];
+    data?: Intercom.ArticleListItem[];
 }

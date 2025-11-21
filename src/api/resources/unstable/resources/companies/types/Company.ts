@@ -45,6 +45,8 @@ export interface Company {
     tags?: Company.Tags;
     /** The list of segments associated with the company */
     segments?: Company.Segments;
+    /** The list of notes associated with the company */
+    notes?: Company.Notes;
 }
 
 export namespace Company {
@@ -73,5 +75,14 @@ export namespace Company {
         /** The type of the object */
         type?: "segment.list";
         segments?: Intercom.unstable.Segment[];
+    }
+
+    /**
+     * The list of notes associated with the company
+     */
+    export interface Notes {
+        /** The type of the object */
+        type?: "note.list";
+        notes?: Intercom.unstable.CompanyNote[];
     }
 }

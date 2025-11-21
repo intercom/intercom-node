@@ -5,13 +5,13 @@
 /**
  * @example
  *     {
- *         from: "667d60ac8a68186f43bafdbb",
- *         into: "667d60ac8a68186f43bafdbc"
+ *         from: "6762f0d51bb69f9f2193bb7f",
+ *         into: "6762f0d51bb69f9f2193bb80"
  *     }
  */
 export interface MergeContactsRequest {
     /** The unique identifier for the contact to merge away from. Must be a lead. */
-    from: string;
+    from?: string;
     /** The unique identifier for the contact to merge into. Must be a user. */
-    into: string;
+    into?: string;
 }

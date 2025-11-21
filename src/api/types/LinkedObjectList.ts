@@ -9,11 +9,11 @@ import * as Intercom from "../index";
  */
 export interface LinkedObjectList {
     /** Always list. */
-    type: "list";
+    type?: "list";
     /** The total number of linked objects. */
-    total_count: number;
+    total_count?: number;
     /** Whether or not there are more linked objects than returned. */
-    has_more: boolean;
+    has_more?: boolean;
     /** An array containing the linked conversations and linked tickets. */
-    data: Intercom.LinkedObject[];
+    data?: Intercom.LinkedObject[];
 }

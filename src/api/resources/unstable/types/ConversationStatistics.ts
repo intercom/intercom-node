@@ -52,4 +52,6 @@ export interface ConversationStatistics {
     assigned_team_first_response_time_in_office_hours?: Intercom.unstable.ConversationResponseTime[];
     /** Time from conversation assignment to conversation close in seconds. */
     handling_time?: number;
+    /** Adjusted handling time for conversation in seconds. This is the active handling time excluding idle periods when teammates are not actively working on the conversation. */
+    adjusted_handling_time?: number;
 }

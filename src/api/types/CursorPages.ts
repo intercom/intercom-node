@@ -10,7 +10,7 @@ import * as Intercom from "../index";
  */
 export interface CursorPages {
     /** the type of object `pages`. */
-    type: "pages";
+    type?: "pages";
     /** The current page */
     page?: number;
     next?: Intercom.StartingAfterPaging;

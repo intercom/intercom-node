@@ -20,6 +20,10 @@ export interface AiAgent {
     rating?: number;
     /** The customer satisfaction rating remark given to AI Agent. */
     rating_remark?: string;
+    /** The time when the AI agent rating was created. */
+    created_at?: number;
+    /** The time when the AI agent rating was last updated. */
+    updated_at?: number;
     content_sources?: Intercom.unstable.ContentSourcesList;
 }
 
