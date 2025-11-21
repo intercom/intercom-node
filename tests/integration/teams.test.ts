@@ -8,7 +8,7 @@ describe("Teams", () => {
     beforeAll(async () => {
         // arrange
         const response = await client.teams.list();
-        teamId = response.teams[0].id;
+        teamId = response.teams?.[0]?.id ?? "0";
     });
 
     it("list", async () => {

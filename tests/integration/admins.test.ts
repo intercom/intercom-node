@@ -7,7 +7,7 @@ describe("Admins", () => {
     beforeAll(async () => {
         // arrange
         const adminList = await client.admins.list();
-        adminId = adminList.admins[0].id;
+        adminId = adminList.admins?.[0]?.id ?? "0";
     });
 
     it("list", async () => {
@@ -19,7 +19,7 @@ describe("Admins", () => {
     });
     it("find", async () => {
         // act
-        const response = await client.admins.find({ admin_id: adminId });
+        const response = await client.admins.find({ admin_id: parseInt(adminId, 10) });
 
         // assert
         expect(response).toBeDefined();
@@ -39,7 +39,7 @@ describe("Admins", () => {
     it("away - ON", async () => {
         // act
         const response = await client.admins.away({
-            admin_id: adminId,
+            admin_id: parseInt(adminId, 10),
             away_mode_enabled: true,
             away_mode_reassign: true,
         });
@@ -50,7 +50,7 @@ describe("Admins", () => {
     it("away - OFF", async () => {
         // act
         const response = await client.admins.away({
-            admin_id: adminId,
+            admin_id: parseInt(adminId, 10),
             away_mode_enabled: false,
             away_mode_reassign: false,
         });

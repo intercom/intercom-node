@@ -26,7 +26,7 @@ async function createArticle(client: Client, parentId: number, adminId: number) 
 
 async function tryDeleteArticle(client: Client, articleId: string) {
     try {
-        await client.articles.delete({ article_id: articleId });
+        await client.articles.delete({ article_id: parseInt(articleId, 10) });
     } catch (error) {
         console.error("Failed to delete article:", error);
     }
@@ -46,7 +46,7 @@ describe("Articles", () => {
         const randomAdmins = await client.admins.list();
 
         parentId = parseInt(randomCollections.data[0].id, 10);
-        adminId = parseInt(randomAdmins.admins[0].id, 10);
+        adminId = parseInt(randomAdmins.admins?.[0]?.id ?? "0", 10);
 
         const article = await createArticle(client, parentId, adminId);
         articleId = article.id;
@@ -70,7 +70,7 @@ describe("Articles", () => {
 
     it("find", async () => {
         // act
-        const response = await client.articles.find({ article_id: articleId });
+        const response = await client.articles.find({ article_id: parseInt(articleId, 10) });
 
         // assert
         expect(response).toBeDefined();
@@ -82,7 +82,7 @@ describe("Articles", () => {
 
         // act
         const response = await client.articles.update({
-            article_id: article.id,
+            article_id: parseInt(article.id, 10),
             title: "Biba & Boba",
         });
 
@@ -106,7 +106,7 @@ describe("Articles", () => {
         const article = await createArticle(client, parentId, adminId);
 
         // act
-        const response = await client.articles.delete({ article_id: article.id });
+        const response = await client.articles.delete({ article_id: parseInt(article.id, 10) });
 
         // assert
         expect(response).toBeDefined();

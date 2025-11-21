@@ -19,7 +19,7 @@ async function createCollection(client: Client): Promise<Collection> {
 
 async function tryDeleteCollection(client: Client, collectionId: string) {
     try {
-        await client.helpCenters.collections.delete({ collection_id: collectionId });
+        await client.helpCenters.collections.delete({ collection_id: parseInt(collectionId, 10) });
     } catch (error) {
         console.log(error);
     }
@@ -55,7 +55,7 @@ describe("Collections", () => {
     it("find", async () => {
         // act
         const response = await client.helpCenters.collections.find({
-            collection_id: collectionId,
+            collection_id: parseInt(collectionId, 10),
         });
 
         // assert
@@ -68,7 +68,7 @@ describe("Collections", () => {
 
         // act
         const response = await client.helpCenters.collections.update({
-            collection_id: collection.id,
+            collection_id: parseInt(collection.id, 10),
             name: "People of future, tell us if NFTs make sense in 2026",
         });
 
@@ -96,7 +96,7 @@ describe("Collections", () => {
 
         // act
         const response = await client.helpCenters.collections.delete({
-            collection_id: collection.id,
+            collection_id: parseInt(collection.id, 10),
         });
 
         // assert

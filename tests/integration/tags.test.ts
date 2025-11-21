@@ -23,7 +23,7 @@ describe("Tags", () => {
     beforeAll(async () => {
         // arrange
         const randomAdmins = await client.admins.list();
-        adminId = randomAdmins.admins[0].id;
+        adminId = randomAdmins.admins?.[0]?.id ?? "0";
         tag = await client.tags.create({
             name: randomString(),
         });
@@ -98,7 +98,7 @@ describe("Tags", () => {
 
         // act
         const response = await client.tags.tagContact({
-            contact_id: contact.id,
+            contact_id: contact.id!,
             id: tag.id,
         });
 
@@ -106,18 +106,18 @@ describe("Tags", () => {
         expect(response).toBeDefined();
 
         // cleanup
-        await tryUntagContact(client, contact.id, tag.id);
-        await tryDeleteContact(client, contact.id);
+        await tryUntagContact(client, contact.id!, tag.id);
+        await tryDeleteContact(client, contact.id!);
     });
 
     it("tagConversation", async () => {
         // arrange
         const contact = await createContact(client);
-        const message = await createConversation(client, contact.id);
+        const message = await createConversation(client, contact.id!);
 
         // act
         const response = await client.tags.tagConversation({
-            conversation_id: message.conversation_id,
+            conversation_id: message.conversation_id!,
             id: tag.id,
             admin_id: adminId,
         });
@@ -126,8 +126,8 @@ describe("Tags", () => {
         expect(response).toBeDefined();
 
         // cleanup
-        await tryUntagConversation(client, message.conversation_id, tag.id, adminId);
-        await tryDeleteContact(client, contact.id);
+        await tryUntagConversation(client, message.conversation_id!, tag.id, adminId);
+        await tryDeleteContact(client, contact.id!);
     }, 10_000);
 
     it("tagCompany", async () => {
@@ -152,13 +152,13 @@ describe("Tags", () => {
         // arrange
         const contact = await createContact(client);
         await client.tags.tagContact({
-            contact_id: contact.id,
+            contact_id: contact.id!,
             id: tag.id,
         });
 
         // act
         const response = await client.tags.untagContact({
-            contact_id: contact.id,
+            contact_id: contact.id!,
             tag_id: tag.id,
         });
 
@@ -166,23 +166,23 @@ describe("Tags", () => {
         expect(response).toBeDefined();
 
         // cleanup
-        await tryDeleteContact(client, contact.id);
+        await tryDeleteContact(client, contact.id!);
     });
 
     it("untagConversation", async () => {
         // arrange
         const contact = await createContact(client);
-        const message = await createConversation(client, contact.id);
+        const message = await createConversation(client, contact.id!);
 
         await client.tags.tagConversation({
-            conversation_id: message.conversation_id,
+            conversation_id: message.conversation_id!,
             id: tag.id,
             admin_id: adminId,
         });
 
         // act
         const response = await client.tags.untagConversation({
-            conversation_id: message.conversation_id,
+            conversation_id: message.conversation_id!,
             tag_id: tag.id,
             admin_id: adminId,
         });
@@ -191,7 +191,7 @@ describe("Tags", () => {
         expect(response).toBeDefined();
 
         // cleanup
-        await tryDeleteContact(client, contact.id);
+        await tryDeleteContact(client, contact.id!);
     }, 10_000);
 
     it("untagCompany", async () => {

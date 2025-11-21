@@ -10,7 +10,7 @@ describe("Data Attributes", () => {
     beforeAll(async () => {
         // arrange
         const attributes = await client.dataAttributes.list();
-        randomDataAttribute = attributes.data.find((attribute) => attribute.id !== undefined);
+        randomDataAttribute = attributes.data?.find((attribute) => attribute.id !== undefined);
     });
 
     xit("create", async () => {
@@ -19,7 +19,6 @@ describe("Data Attributes", () => {
         // The workspace we test on has hit the CDA limit, so we can't create any more
         // for now. We should reenable this test once we have a new workspace.
         const response = await client.dataAttributes.create({
-            name: `Bebech${randomString()}`,
             model: "contact",
             data_type: "string",
             description: "Dummy description",
@@ -38,7 +37,7 @@ describe("Data Attributes", () => {
 
         // act
         const response = await client.dataAttributes.update({
-            data_attribute_id: randomDataAttribute.id.toString(),
+            data_attribute_id: parseInt(randomDataAttribute.id.toString(), 10),
             archived: false,
             description: "Woo-aaa",
             options: [

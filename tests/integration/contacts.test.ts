@@ -30,13 +30,13 @@ describe("Contacts", () => {
 
         await client.companies.attachContact({
             id: company.id,
-            contact_id: contact.id,
+            contact_id: parseInt(contact.id!, 10),
         });
 
         const subscriptionTypes = await client.subscriptionTypes.list();
-        subscriptionId = subscriptionTypes.data[0].id;
+        subscriptionId = subscriptionTypes.data?.[0]?.id ?? "0";
         await client.contacts.attachSubscription({
-            contact_id: contact.id,
+            contact_id: contact.id!,
             id: subscriptionId,
             consent_type: "opt_in",
         });
@@ -45,7 +45,7 @@ describe("Contacts", () => {
             name: randomString(),
         });
         await client.tags.tagContact({
-            contact_id: contact.id,
+            contact_id: contact.id!,
             id: tag.id,
         });
     });
@@ -54,15 +54,15 @@ describe("Contacts", () => {
         // cleanup
         try {
             await client.contacts.detachSubscription({
-                contact_id: contact.id,
+                contact_id: contact.id!,
                 subscription_id: subscriptionId,
             });
         } catch (error) {
             console.error("Failed to detach subscription:", error);
         }
-        await tryUntagContact(client, contact.id, tag.id);
-        await tryDeleteCompany(client, company.id);
-        await tryDeleteContact(client, contact.id);
+        await tryUntagContact(client, contact.id!, tag.id!);
+        await tryDeleteCompany(client, company.id!);
+        await tryDeleteContact(client, contact.id!);
     });
 
     it("list", async () => {
@@ -86,7 +86,7 @@ describe("Contacts", () => {
         expect(response).toBeDefined();
 
         // cleanup
-        await tryDeleteContact(client, response.id);
+        await tryDeleteContact(client, response.id!);
     });
 
     it("createLead", async () => {
@@ -100,13 +100,13 @@ describe("Contacts", () => {
         expect(response).toBeDefined();
 
         // cleanup
-        await tryDeleteContact(client, response.id);
+        await tryDeleteContact(client, response.id!);
     });
 
     it("find - by id", async () => {
         // act
         const response = await client.contacts.find({
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert
@@ -119,7 +119,7 @@ describe("Contacts", () => {
 
         // act
         const response = await client.contacts.update({
-            contact_id: contact.id,
+            contact_id: contact.id!,
             name: "Nico Bellic",
         });
 
@@ -127,7 +127,7 @@ describe("Contacts", () => {
         expect(response).toBeDefined();
 
         // cleanup
-        await tryDeleteContact(client, contact.id);
+        await tryDeleteContact(client, contact.id!);
     });
 
     it("archive", async () => {
@@ -136,14 +136,14 @@ describe("Contacts", () => {
 
         // act
         const response = await client.contacts.archive({
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert
         expect(response).toBeDefined();
 
         // cleanup
-        await tryDeleteContact(client, contact.id);
+        await tryDeleteContact(client, contact.id!);
     });
 
     it("unarchive", async () => {
@@ -152,14 +152,14 @@ describe("Contacts", () => {
 
         // act
         const response = await client.contacts.unarchive({
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert
         expect(response).toBeDefined();
 
         // cleanup
-        await tryDeleteContact(client, contact.id);
+        await tryDeleteContact(client, contact.id!);
     });
 
     it("delete", async () => {
@@ -171,7 +171,7 @@ describe("Contacts", () => {
 
         // act
         const response = await client.contacts.delete({
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert
@@ -189,22 +189,22 @@ describe("Contacts", () => {
             role: "lead",
         });
         const response = await client.contacts.mergeLeadInUser({
-            from: createdLead.id,
-            into: createdUser.id,
+            from: createdLead.id!,
+            into: createdUser.id!,
         });
 
         // assert
         expect(response).toBeDefined();
 
         // cleanup
-        await tryDeleteContact(client, createdUser.id);
-        await tryDeleteContact(client, createdLead.id);
+        await tryDeleteContact(client, createdUser.id!);
+        await tryDeleteContact(client, createdLead.id!);
     });
 
     it("listAttachedCompanies", async () => {
         // act
         const response = await client.contacts.listAttachedCompanies({
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert
@@ -214,7 +214,7 @@ describe("Contacts", () => {
     it("listAttachedEmailSubscriptions", async () => {
         // act
         const response = await client.contacts.listAttachedSubscriptions({
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert
@@ -224,7 +224,7 @@ describe("Contacts", () => {
     it("listAttachedSegments", async () => {
         // act
         const response = await client.contacts.listAttachedSegments({
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert
@@ -234,7 +234,7 @@ describe("Contacts", () => {
     it("listAttachedTags", async () => {
         // act
         const response = await client.contacts.listAttachedTags({
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert

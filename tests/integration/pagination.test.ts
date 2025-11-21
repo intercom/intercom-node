@@ -62,12 +62,12 @@ describe("Pagination", () => {
                 });
 
                 await client.notes.create({
-                    contact_id: contact.id,
+                    contact_id: contact.id!,
                     body: "one",
                 });
 
                 await client.notes.create({
-                    contact_id: contact.id,
+                    contact_id: contact.id!,
                     body: "two",
                 });
 
