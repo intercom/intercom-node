@@ -8,8 +8,8 @@ import * as Intercom from "../index";
  * A list of ticket types associated with a given workspace.
  */
 export interface TicketTypeList {
-    /** String representing the object's type. Always has the value `ticket_type.list`. */
-    type: "ticket_type_attributes.list";
+    /** String representing the object's type. Always has the value `list`. */
+    type?: string;
     /** A list of ticket_types associated with a given workspace. */
-    ticket_types: Intercom.TicketType[];
+    data?: (Intercom.TicketType | undefined)[];
 }

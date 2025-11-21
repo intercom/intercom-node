@@ -18,19 +18,19 @@ export interface Company {
     /** The company id you have defined for the company. */
     company_id: string;
     /** The time the company was created by you. */
-    remote_created_at: number;
+    remote_created_at?: number;
     /** The time the company was added in Intercom. */
     created_at: number;
     /** The last time the company was updated. */
     updated_at: number;
     /** The time the company last recorded making a request. */
-    last_request_at: number;
+    last_request_at?: number;
     /** The number of employees in the company. */
-    size: number;
+    size?: number;
     /** The URL for the company website. */
-    website: string;
+    website?: string;
     /** The industry that the company operates in. */
-    industry: string;
+    industry?: string;
     /** How much revenue the company generates for your business. */
     monthly_spend: number;
     /** How many sessions the company has recorded. */
@@ -48,7 +48,7 @@ export interface Company {
 export namespace Company {
     export interface Plan {
         /** Value is always "plan" */
-        type?: "plan";
+        type?: string;
         /** The id of the plan */
         id?: string;
         /** The name of the plan */

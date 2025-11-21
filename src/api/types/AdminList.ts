@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface AdminList {
     /** String representing the object's type. Always has the value `admin.list`. */
-    type: "admin.list";
+    type?: string;
     /** A list of admins associated with a given workspace. */
-    admins: Intercom.Admin[];
+    admins?: (Intercom.Admin | undefined)[];
 }

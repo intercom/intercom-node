@@ -7,9 +7,9 @@
  */
 export interface LinkedObject {
     /** ticket or conversation */
-    type: LinkedObject.Type;
+    type?: LinkedObject.Type;
     /** The ID of the linked object */
-    id: string;
+    id?: string;
     /** Category of the Linked Ticket Object. */
     category?: string;
 }

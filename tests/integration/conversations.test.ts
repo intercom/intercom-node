@@ -20,10 +20,10 @@ describe("Conversations", () => {
         // arrange
         const admins = await client.admins.list();
 
-        const adminList = admins.admins.filter((admin) => admin.has_inbox_seat);
+        const adminList = admins.admins?.filter((admin) => admin?.has_inbox_seat) ?? [];
         // Only admins with inbox seat can interact with conversations.
-        adminId = adminList[0].id;
-        secondAdminId = adminList[1].id;
+        adminId = adminList[0]?.id ?? "0";
+        secondAdminId = adminList[1]?.id ?? "0";
         user = await client.contacts.create({
             external_id: randomString(),
             name: "Baba Booey",
@@ -41,30 +41,30 @@ describe("Conversations", () => {
         });
 
         const conversationMessage = await client.conversations.create({
-            from: { id: user.id, type: "user" },
+            from: { id: user.id!, type: "user" },
             body: "Raz-dwa-try kalyna, czorniawaja diwczyna",
         });
-        conversationId = conversationMessage.conversation_id;
+        conversationId = conversationMessage.conversation_id!;
 
         // Give Intercom a few seconds to index conversation
         await wait(5000);
 
         conversation = await client.conversations.find({
-            conversation_id: conversationId,
+            conversation_id: parseInt(conversationId, 10),
         });
     }, 20_000);
 
     afterAll(async () => {
         // cleanup
-        await tryDeleteContact(client, user.id);
-        await tryDeleteContact(client, secondUser.id);
-        await tryDeleteContact(client, lead.id);
+        await tryDeleteContact(client, user.id!);
+        await tryDeleteContact(client, secondUser.id!);
+        await tryDeleteContact(client, lead.id!);
     });
 
     it("create conversation with user as default", async () => {
         // act
         const response = await client.conversations.create({
-            from: { id: user.id, type: "user" },
+            from: { id: user.id!, type: "user" },
             body: "Raz-dwa-try kalyna, czorniawaja diwczyna",
         });
 
@@ -75,7 +75,7 @@ describe("Conversations", () => {
     it("create conversation with user", async () => {
         // act
         const response = await client.conversations.create({
-            from: { id: user.id, type: "user" },
+            from: { id: user.id!, type: "user" },
             body: "Raz-dwa-try kalyna, czorniawaja diwczyna",
         });
 
@@ -86,7 +86,7 @@ describe("Conversations", () => {
     it("create conversation with lead", async () => {
         // act
         const response = await client.conversations.create({
-            from: { id: lead.id, type: "lead" },
+            from: { id: lead.id!, type: "lead" },
             body: "Raz-dwa-try kalyna, czorniawaja diwczyna",
         });
 
@@ -97,7 +97,7 @@ describe("Conversations", () => {
     it("find - by id", async () => {
         // act
         const response = await client.conversations.find({
-            conversation_id: conversationId,
+            conversation_id: parseInt(conversationId, 10),
         });
 
         // assert
@@ -107,7 +107,7 @@ describe("Conversations", () => {
     it("update", async () => {
         // act
         const response = await client.conversations.update({
-            conversation_id: conversationId,
+            conversation_id: parseInt(conversationId, 10),
             read: false,
         });
 
@@ -139,7 +139,7 @@ describe("Conversations", () => {
                 message_type: "comment",
                 type: "user",
                 body: "*click* Nice!",
-                intercom_user_id: user.id,
+                intercom_user_id: user.id!,
             }
         });
 
@@ -149,11 +149,11 @@ describe("Conversations", () => {
 
     it("assign", async () => {
         // arrange
-        const message = await createConversation(client, user.id);
+        const message = await createConversation(client, user.id!);
 
         // act
         const response = await client.conversations.manage({
-            conversation_id: message.conversation_id,
+            conversation_id: message.conversation_id!,
             body: {
                 message_type: "assignment",
                 type: "admin",
@@ -169,11 +169,11 @@ describe("Conversations", () => {
 
     it("run assignment rules", async () => {
         // arrange
-        const message = await createConversation(client, user.id);
+        const message = await createConversation(client, user.id!);
 
         // act
         const response = await client.conversations.runAssignmentRules({
-            conversation_id: message.conversation_id,
+            conversation_id: message.conversation_id!,
         });
 
         // assert
@@ -213,7 +213,7 @@ describe("Conversations", () => {
         // act
         const response = await client.conversations.attachContactAsAdmin({
             conversation_id: conversationId,
-            customer: { intercom_user_id: secondUser.id },
+            customer: { intercom_user_id: secondUser.id! },
             admin_id: adminId,
         });
 
@@ -225,7 +225,7 @@ describe("Conversations", () => {
         // act
         const response = await client.conversations.detachContactAsAdmin({
             admin_id: adminId,
-            contact_id: secondUser.id,
+            contact_id: secondUser.id!,
             conversation_id: conversationId,
         });
 
@@ -236,14 +236,14 @@ describe("Conversations", () => {
     it("redactConversationPart", async () => {
         // arrange
         const conversation = await client.conversations.find({
-            conversation_id: conversationId,
+            conversation_id: parseInt(conversationId, 10),
         });
 
         // act
         const response = await client.conversations.redactConversationPart({
             type: "conversation_part",
             conversation_id: conversationId,
-            conversation_part_id: conversation.conversation_parts?.conversation_parts[2].id ?? "",
+            conversation_part_id: conversation.conversation_parts?.conversation_parts?.[2]?.id ?? "",
         });
 
         // assert

@@ -11,7 +11,7 @@ export interface ArticleStatistics {
     /** The number of total views the article has received. */
     views: number;
     /** The number of conversations started from the article. */
-    conversions: number;
+    conversions?: number;
     /** The number of total reactions the article has received. */
     reactions: number;
     /** The percentage of happy reactions the article has received against other types of reaction. */

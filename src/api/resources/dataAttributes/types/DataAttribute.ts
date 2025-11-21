@@ -19,7 +19,7 @@ export interface DataAttribute {
     /** Readable name of the attribute (i.e. name you see in the UI) */
     label: string;
     /** Readable description of the attribute. */
-    description: string;
+    description?: string;
     /** The data type of the attribute. */
     data_type: DataAttribute.DataType;
     /** List of predefined options for attribute value. */

@@ -1,4 +1,5 @@
 export * from "./Article";
+export * from "./InternalArticle";
 export * from "./ArticleListItem";
 export * from "./ArticleSearchHighlights";
-export * from "./SearchArticlesResponse";
+export * from "./ArticleSearchResponse";

@@ -7,11 +7,11 @@
  */
 export interface ArticleSearchHighlights {
     /** The ID of the corresponding article. */
-    article_id: string;
+    article_id?: string;
     /** An Article title highlighted. */
-    highlighted_title: ArticleSearchHighlights.HighlightedTitle.Item[];
+    highlighted_title?: ArticleSearchHighlights.HighlightedTitle.Item[];
     /** An Article description and body text highlighted. */
-    highlighted_summary: ArticleSearchHighlights.HighlightedSummary.Item[][];
+    highlighted_summary?: ArticleSearchHighlights.HighlightedSummary.Item[][];
 }
 
 export namespace ArticleSearchHighlights {

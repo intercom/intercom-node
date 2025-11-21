@@ -7,22 +7,22 @@ import * as Intercom from "../../../../../../index";
 /**
  * @example
  *     {
- *         news_item_id: "123",
+ *         news_item_id: 1,
  *         body: {
  *             title: "Christmas is here!",
  *             body: "<p>New gifts in store for the jolly season</p>",
- *             sender_id: 991267745,
+ *             sender_id: 991267845,
  *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
  *         }
  *     }
  *
  * @example
  *     {
- *         news_item_id: "123",
+ *         news_item_id: 1,
  *         body: {
  *             title: "Christmas is here!",
  *             body: "<p>New gifts in store for the jolly season</p>",
- *             sender_id: 991267748,
+ *             sender_id: 991267848,
  *             reactions: ["\uD83D\uDE1D", "\uD83D\uDE02"]
  *         }
  *     }
@@ -31,6 +31,6 @@ export interface UpdateNewsItemRequest {
     /**
      * The unique identifier for the news item which is given by Intercom.
      */
-    news_item_id: string;
+    news_item_id: number;
     body: Intercom.NewsItemRequest;
 }

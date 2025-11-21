@@ -9,26 +9,47 @@ import * as Intercom from "../index";
  */
 export interface ConversationPart {
     /** Always conversation_part */
-    type: "conversation_part";
+    type?: string;
     /** The id representing the conversation part. */
-    id: string;
+    id?: string;
     /** The type of conversation part. */
-    part_type: string;
+    part_type?: string;
     /** The message body, which may contain HTML. For Twitter, this will show a generic message regarding why the body is obscured. */
     body?: string;
     /** The time the conversation part was created. */
-    created_at: number;
+    created_at?: number;
     /** The last time the conversation part was updated. */
     updated_at?: number;
     /** The time the user was notified with the conversation part. */
-    notified_at: number;
+    notified_at?: number;
     /** The id of the admin that was assigned the conversation by this conversation_part (null if there has been no change in assignment.) */
     assigned_to?: Intercom.Reference;
-    author: Intercom.ConversationPartAuthor;
+    author?: Intercom.ConversationPartAuthor;
     /** A list of attachments for the part. */
     attachments?: Intercom.PartAttachment[];
     /** The external id of the conversation part */
     external_id?: string;
     /** Whether or not the conversation part has been redacted. */
-    redacted: boolean;
+    redacted?: boolean;
+    email_message_metadata?: Intercom.EmailMessageMetadata;
+    metadata?: Intercom.ConversationPartMetadata;
+    /** Indicates the current state of conversation when the conversation part was created. */
+    state?: ConversationPart.State;
+    /** A list of tags objects associated with the conversation part. */
+    tags?: Intercom.TagBasic[];
+    event_details?: Intercom.EventDetails;
+    /** The app package code if this part was created via API. null if the part was not created via API. */
+    app_package_code?: string;
+}
+
+export namespace ConversationPart {
+    /**
+     * Indicates the current state of conversation when the conversation part was created.
+     */
+    export type State = "open" | "closed" | "snoozed";
+    export const State = {
+        Open: "open",
+        Closed: "closed",
+        Snoozed: "snoozed",
+    } as const;
 }

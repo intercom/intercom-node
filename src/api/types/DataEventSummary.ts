@@ -9,13 +9,13 @@ import * as Intercom from "../index";
  */
 export interface DataEventSummary {
     /** The type of the object */
-    type: "event.summary";
+    type?: "event.summary";
     /** The email address of the user */
-    email: string;
+    email?: string;
     /** The Intercom user ID of the user */
-    intercom_user_id: string;
+    intercom_user_id?: string;
     /** The user ID of the user */
-    user_id: string;
+    user_id?: string;
     /** A summary of data events */
-    events: Intercom.DataEventSummaryItem[];
+    events: (Intercom.DataEventSummaryItem | undefined)[];
 }

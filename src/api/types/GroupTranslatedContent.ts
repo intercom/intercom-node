@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface GroupTranslatedContent {
     /** The type of object - group_translated_content. */
-    type: "group_translated_content";
+    type?: string;
     /** The content of the group in Arabic */
     ar?: Intercom.GroupContent;
     /** The content of the group in Bulgarian */

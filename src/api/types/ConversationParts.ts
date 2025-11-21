@@ -9,9 +9,9 @@ import * as Intercom from "../index";
  */
 export interface ConversationParts {
     /** */
-    type: "conversation_part.list";
+    type?: "conversation_part.list";
     /** A list of Conversation Part objects for each part message in the conversation. This is only returned when Retrieving a Conversation, and ignored when Listing all Conversations. There is a limit of 500 parts. */
-    conversation_parts: Intercom.ConversationPart[];
+    conversation_parts?: Intercom.ConversationPart[];
     /** */
-    total_count: number;
+    total_count?: number;
 }

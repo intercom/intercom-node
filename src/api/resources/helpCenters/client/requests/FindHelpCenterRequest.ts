@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         help_center_id: "123"
+ *         help_center_id: 1
  *     }
  */
 export interface FindHelpCenterRequest {
     /**
-     * The unique identifier for the Help Center which is given by Intercom.
+     * The unique identifier for the collection which is given by Intercom.
      */
-    help_center_id: string;
+    help_center_id: number;
 }

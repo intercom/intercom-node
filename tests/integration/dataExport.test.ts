@@ -27,7 +27,7 @@ describe("dataExport", () => {
         expect(response).toBeDefined();
 
         // cleanup
-        await tryCancelDataExport(client, response.job_identifier);
+        await tryCancelDataExport(client, response.job_identfier!);
     });
 
     it("find", async () => {
@@ -35,13 +35,13 @@ describe("dataExport", () => {
         const dataExport = await createDataExport(client);
 
         // act
-        const response = await client.dataExport.find({ job_identifier: dataExport.job_identifier });
+        const response = await client.dataExport.find({ job_identifier: dataExport.job_identfier! });
 
         // assert
         expect(response).toBeDefined();
 
         // cleanup
-        await tryCancelDataExport(client, dataExport.job_identifier);
+        await tryCancelDataExport(client, dataExport.job_identfier!);
     });
 
     it("cancel", async () => {
@@ -49,7 +49,7 @@ describe("dataExport", () => {
         const dataExport = await createDataExport(client);
 
         // act
-        const response = await client.dataExport.cancel({ job_identifier: dataExport.job_identifier });
+        const response = await client.dataExport.cancel({ job_identifier: dataExport.job_identfier! });
 
         // assert
         expect(response).toBeDefined();

@@ -9,15 +9,15 @@ import * as Intercom from "../index";
  */
 export interface TicketReply {
     /** Always ticket_part */
-    type: "ticket_part";
+    type?: "ticket_part";
     /** The id representing the part. */
-    id: string;
+    id?: string;
     /** Type of the part */
-    part_type: TicketReply.PartType;
+    part_type?: TicketReply.PartType;
     /** The message body, which may contain HTML. */
     body?: string;
     /** The time the note was created. */
-    created_at: number;
+    created_at?: number;
     /** The last time the note was updated. */
     updated_at?: number;
     author?: Intercom.TicketPartAuthor;

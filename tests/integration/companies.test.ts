@@ -15,7 +15,7 @@ describe("Companies", () => {
             per_page: 1,
         });
 
-        contactId = randomContacts.data[0].id;
+        contactId = randomContacts.data?.[0]?.id ?? "0";
         company = await createCompany(client);
     });
 
@@ -105,7 +105,7 @@ describe("Companies", () => {
     it("attachContact", async () => {
         // act
         const response = await client.companies.attachContact({
-            contact_id: contactId,
+            contact_id: parseInt(contactId, 10),
             id: company.id,
         });
 
@@ -128,7 +128,6 @@ describe("Companies", () => {
         // act
         const response = await client.companies.listAttachedContacts({
             company_id: company.id,
-            page: 1,
             per_page: 25,
         });
 

@@ -16,7 +16,7 @@ export interface Message {
     subject?: string;
     /** The message body, which may contain HTML. */
     body: string;
-    /** The type of message that was sent. Can be email, inapp, facebook ,twitter or sms. */
+    /** The type of message that was sent. Can be email, inapp, facebook, twitter, sms or whatsapp. */
     message_type: Message.MessageType;
     /** The associated conversation_id */
     conversation_id?: string;
@@ -24,14 +24,15 @@ export interface Message {
 
 export namespace Message {
     /**
-     * The type of message that was sent. Can be email, inapp, facebook ,twitter or sms.
+     * The type of message that was sent. Can be email, inapp, facebook, twitter, sms or whatsapp.
      */
-    export type MessageType = "email" | "inapp" | "facebook" | "twitter" | "sms";
+    export type MessageType = "email" | "inapp" | "facebook" | "twitter" | "sms" | "whatsapp";
     export const MessageType = {
         Email: "email",
         Inapp: "inapp",
         Facebook: "facebook",
         Twitter: "twitter",
         Sms: "sms",
+        Whatsapp: "whatsapp",
     } as const;
 }

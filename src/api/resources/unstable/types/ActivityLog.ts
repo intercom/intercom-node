@@ -36,7 +36,8 @@ export namespace ActivityLog {
     }
 
     export type ActivityType =
-        | "admin_assignment_limit_change"
+        | "admin_conversation_assignment_limit_change"
+        | "admin_ticket_assignment_limit_change"
         | "admin_away_mode_change"
         | "admin_deletion"
         | "admin_deprovisioned"
@@ -104,7 +105,8 @@ export namespace ActivityLog {
         | "upfront_email_collection_change"
         | "welcome_message_change";
     export const ActivityType = {
-        AdminAssignmentLimitChange: "admin_assignment_limit_change",
+        AdminConversationAssignmentLimitChange: "admin_conversation_assignment_limit_change",
+        AdminTicketAssignmentLimitChange: "admin_ticket_assignment_limit_change",
         AdminAwayModeChange: "admin_away_mode_change",
         AdminDeletion: "admin_deletion",
         AdminDeprovisioned: "admin_deprovisioned",

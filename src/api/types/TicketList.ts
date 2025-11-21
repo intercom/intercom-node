@@ -9,10 +9,10 @@ import * as Intercom from "../index";
  */
 export interface TicketList {
     /** Always ticket.list */
-    type: "ticket.list";
+    type?: "ticket.list";
     /** The list of ticket objects */
-    tickets: Intercom.Ticket[];
+    tickets?: (Intercom.Ticket | undefined)[];
     /** A count of the total number of objects. */
-    total_count: number;
+    total_count?: number;
     pages?: Intercom.CursorPages;
 }

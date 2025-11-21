@@ -12,7 +12,7 @@ import * as Intercom from "../../../../index";
  *             message_type: "comment",
  *             type: "user",
  *             body: "Thanks again :)",
- *             intercom_user_id: "667d619d8a68186f43bafe82"
+ *             intercom_user_id: "6762f2971bb69f9f2193bc49"
  *         }
  *     }
  *
@@ -36,10 +36,10 @@ import * as Intercom from "../../../../index";
  *             admin_id: "3156780",
  *             reply_options: [{
  *                     text: "Yes",
- *                     uuid: "22d6d1f4-1a19-41d0-94c2-e54031f78aca"
+ *                     uuid: "0df48b85-9a93-4c66-a167-753eff0baaec"
  *                 }, {
  *                     text: "No",
- *                     uuid: "fbc3dbe0-ec0c-4fb6-826d-e19127191906"
+ *                     uuid: "4f0b5145-4193-4b4f-8cad-ce19478a3938"
  *                 }]
  *         }
  *     }
@@ -51,7 +51,7 @@ import * as Intercom from "../../../../index";
  *             message_type: "comment",
  *             type: "user",
  *             body: "Thanks again :)",
- *             intercom_user_id: "667d61a68a68186f43bafe85"
+ *             intercom_user_id: "6762f2a41bb69f9f2193bc4c"
  *         }
  *     }
  *
@@ -62,7 +62,7 @@ import * as Intercom from "../../../../index";
  *             message_type: "comment",
  *             type: "user",
  *             body: "Thanks again :)",
- *             intercom_user_id: "667d619d8a68186f43bafe82"
+ *             intercom_user_id: "6762f2971bb69f9f2193bc49"
  *         }
  *     }
  *
@@ -73,7 +73,7 @@ import * as Intercom from "../../../../index";
  *             message_type: "comment",
  *             type: "user",
  *             body: "Thanks again :)",
- *             intercom_user_id: "667d619d8a68186f43bafe82"
+ *             intercom_user_id: "6762f2971bb69f9f2193bc49"
  *         }
  *     }
  */

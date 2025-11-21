@@ -7,9 +7,9 @@
  */
 export interface ContactReference {
     /** always contact */
-    type: "contact";
+    type?: "contact";
     /** The unique identifier for the contact which is given by Intercom. */
-    id: string;
+    id?: string;
     /** The unique identifier for the contact which is provided by the Client. */
     external_id?: string;
 }

@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface Tags {
     /** The type of the object */
-    type: "tag.list";
+    type?: "tag.list";
     /** A list of tags objects associated with the conversation. */
-    tags: Intercom.Tag[];
+    tags?: Intercom.Tag[];
 }

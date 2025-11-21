@@ -9,8 +9,8 @@ import * as Intercom from "../index";
  */
 export interface CompanyScroll {
     /** The type of object - `list` */
-    type: "list";
-    data: Intercom.Company[];
+    type?: "list";
+    data?: Intercom.Company[];
     pages?: Intercom.CursorPages;
     /** The total number of companies */
     total_count?: number;

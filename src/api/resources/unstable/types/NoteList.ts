@@ -5,7 +5,7 @@
 import * as Intercom from "../../../index";
 
 /**
- * A paginated list of notes associated with a contact.
+ * A paginated list of notes associated with a contact or a company.
  */
 export interface NoteList {
     /** String representing the object's type. Always has the value `list`. */

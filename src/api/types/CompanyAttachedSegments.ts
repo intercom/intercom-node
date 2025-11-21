@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface CompanyAttachedSegments {
     /** The type of object - `list` */
-    type: "list";
+    type?: "list";
     /** An array containing Segment Objects */
-    data: Intercom.Segment[];
+    data?: Intercom.Segment[];
 }

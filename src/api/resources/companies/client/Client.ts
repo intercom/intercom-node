@@ -33,6 +33,9 @@ export declare namespace Companies {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
         fetcher?: core.FetchFunction;
     }
@@ -65,6 +68,9 @@ export declare namespace Companies {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
     }
 }
@@ -151,9 +157,9 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -227,19 +233,16 @@ export class Companies {
      *         company_id: "company_remote_id",
      *         remote_created_at: 1374138000
      *     })
-     *
-     * @example
-     *     await client.companies.createOrUpdate()
      */
     public createOrUpdate(
-        request: Intercom.CreateOrUpdateCompanyRequest = {},
+        request?: Intercom.CreateOrUpdateCompanyRequest,
         requestOptions?: Companies.RequestOptions,
     ): core.HttpResponsePromise<Intercom.Company> {
         return core.HttpResponsePromise.fromPromise(this.__createOrUpdate(request, requestOptions));
     }
 
     private async __createOrUpdate(
-        request: Intercom.CreateOrUpdateCompanyRequest = {},
+        request?: Intercom.CreateOrUpdateCompanyRequest,
         requestOptions?: Companies.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.Company>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -254,16 +257,16 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
+            body: request != null ? request : undefined,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -345,9 +348,9 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -412,7 +415,11 @@ export class Companies {
      *
      * @example
      *     await client.companies.update({
-     *         company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632"
+     *         company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+     *         body: {
+     *             name: "my company",
+     *             website: "http://www.mycompany.com/"
+     *         }
      *     })
      */
     public update(
@@ -426,7 +433,7 @@ export class Companies {
         request: Intercom.UpdateCompanyRequest,
         requestOptions?: Companies.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.Company>> {
-        const { company_id: companyId } = request;
+        const { company_id: companyId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -439,15 +446,16 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
+            body: _body != null ? _body : undefined,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -529,9 +537,9 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -606,16 +614,7 @@ export class Companies {
         request: Intercom.ListAttachedContactsRequest,
         requestOptions?: Companies.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.CompanyAttachedContacts>> {
-        const { company_id: companyId, page, per_page: perPage } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams["page"] = page.toString();
-        }
-
-        if (perPage != null) {
-            _queryParams["per_page"] = perPage.toString();
-        }
-
+        const { company_id: companyId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -628,15 +627,14 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
-            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
@@ -721,9 +719,9 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -825,9 +823,9 @@ export class Companies {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
-                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-SDK-Version": "6.5.0",
+                        "User-Agent": "intercom-client/6.5.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
                         ...requestOptions?.headers,
@@ -919,7 +917,9 @@ export class Companies {
         requestOptions?: Companies.RequestOptions,
     ): Promise<core.Page<Intercom.Company>> {
         const list = core.HttpResponsePromise.interceptFunction(
-            async (request: Intercom.ScrollCompaniesRequest): Promise<core.WithRawResponse<Intercom.CompanyScroll>> => {
+            async (
+                request: Intercom.ScrollCompaniesRequest,
+            ): Promise<core.WithRawResponse<Intercom.CompanyScroll | undefined>> => {
                 const { scroll_param: scrollParam } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (scrollParam != null) {
@@ -937,9 +937,9 @@ export class Companies {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
-                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-SDK-Version": "6.5.0",
+                        "User-Agent": "intercom-client/6.5.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
                         ...requestOptions?.headers,
@@ -953,7 +953,10 @@ export class Companies {
                     abortSignal: requestOptions?.abortSignal,
                 });
                 if (_response.ok) {
-                    return { data: _response.body as Intercom.CompanyScroll, rawResponse: _response.rawResponse };
+                    return {
+                        data: _response.body as Intercom.CompanyScroll | undefined,
+                        rawResponse: _response.rawResponse,
+                    };
                 }
                 if (_response.error.reason === "status-code") {
                     switch (_response.error.statusCode) {
@@ -988,7 +991,7 @@ export class Companies {
             },
         );
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Intercom.CompanyScroll, Intercom.Company>({
+        return new core.Pageable<Intercom.CompanyScroll | undefined, Intercom.Company>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => response?.scroll_param != null,
@@ -1011,19 +1014,19 @@ export class Companies {
      *
      * @example
      *     await client.companies.attachContact({
-     *         contact_id: "contact_id",
-     *         id: "667d608d8a68186f43bafd70"
+     *         contact_id: 1,
+     *         id: "6762f09a1bb69f9f2193bb34"
      *     })
      *
      * @example
      *     await client.companies.attachContact({
-     *         contact_id: "contact_id",
+     *         contact_id: 1,
      *         id: "58a430d35458202d41b1e65b"
      *     })
      *
      * @example
      *     await client.companies.attachContact({
-     *         contact_id: "contact_id",
+     *         contact_id: 1,
      *         id: "123"
      *     })
      */
@@ -1051,9 +1054,9 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1147,9 +1150,9 @@ export class Companies {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

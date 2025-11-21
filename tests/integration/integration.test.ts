@@ -15,7 +15,7 @@ describe("Integration between Contact, Conversation, Company and Tag APIs", () =
     beforeAll(async () => {
         // arrange
         const admins = await client.admins.list();
-        adminId = admins.admins[0].id;
+        adminId = admins.admins?.[0]?.id ?? "0";
 
         company = await createCompany(client);
         user = await client.contacts.create({
@@ -32,8 +32,8 @@ describe("Integration between Contact, Conversation, Company and Tag APIs", () =
 
     afterAll(async () => {
         // cleanup
-        await tryDeleteContact(client, lead.id);
-        await tryDeleteContact(client, user.id);
+        await tryDeleteContact(client, lead.id!);
+        await tryDeleteContact(client, user.id!);
         await tryDeleteCompany(client, company.id);
         await tryDeleteTag(client, tag.id);
     });
@@ -41,7 +41,7 @@ describe("Integration between Contact, Conversation, Company and Tag APIs", () =
     it("Add Contact to Company", async () => {
         // act
         const response = await client.companies.attachContact({
-            contact_id: user.id,
+            contact_id: parseInt(user.id!, 10),
             id: company.id,
         });
 
@@ -54,7 +54,7 @@ describe("Integration between Contact, Conversation, Company and Tag APIs", () =
         const response = await client.conversations.create({
             from: {
                 type: "user",
-                id: user.id,
+                id: user.id!,
             },
             body: "Welcome to the club, buddy!",
         });
@@ -68,14 +68,14 @@ describe("Integration between Contact, Conversation, Company and Tag APIs", () =
         const conversation = await client.conversations.create({
             from: {
                 type: "user",
-                id: user.id,
+                id: user.id!,
             },
             body: "Welcome to the club, buddy!",
         });
 
         // act
         const response = await client.tags.tagConversation({
-            conversation_id: conversation.conversation_id,
+            conversation_id: conversation.conversation_id!,
             id: tag.id,
             admin_id: adminId,
         });

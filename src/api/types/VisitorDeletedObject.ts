@@ -7,9 +7,9 @@
  */
 export interface VisitorDeletedObject {
     /** The unique identifier for the visitor which is given by Intercom. */
-    id: string;
+    id?: string;
     /** The type of object which was deleted */
-    type: "visitor";
+    type?: "visitor";
     /** Automatically generated identifier for the Visitor. */
-    user_id: string;
+    user_id?: string;
 }

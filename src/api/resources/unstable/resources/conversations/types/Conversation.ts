@@ -34,6 +34,8 @@ export interface Conversation {
     admin_assignee_id?: number;
     /** The id of the team assigned to the conversation. If it's not assigned to a team it will return null. */
     team_assignee_id?: string;
+    /** The ID of the company that the conversation is associated with. The unique identifier for the company which is given by Intercom. */
+    company_id?: string;
     tags?: Intercom.unstable.Tags;
     conversation_rating?: Intercom.unstable.ConversationRating;
     source?: Intercom.unstable.ConversationSource;

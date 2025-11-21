@@ -8,7 +8,7 @@ describe("Segments", () => {
     beforeAll(async () => {
         // arrange
         const response = await client.segments.list();
-        segmentId = response.segments[0].id;
+        segmentId = response.segments?.[0]?.id ?? "0";
     });
 
     it("list", async () => {

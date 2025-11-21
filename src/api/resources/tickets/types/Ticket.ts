@@ -9,18 +9,17 @@ import * as Intercom from "../../../index";
  */
 export interface Ticket {
     /** Always ticket */
-    type: "ticket";
+    type?: "ticket";
     /** The unique identifier for the ticket which is given by Intercom. */
-    id: string;
+    id?: string;
     /** The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries. */
-    ticket_id: string;
+    ticket_id?: string;
     /** Category of the Ticket. */
-    category: Ticket.Category;
-    ticket_attributes: Intercom.TicketCustomAttributes;
-    /** The state the ticket is currently in */
-    ticket_state: Ticket.TicketState;
-    ticket_type: Intercom.TicketType;
-    contacts: Intercom.TicketContacts;
+    category?: Ticket.Category;
+    ticket_attributes?: Intercom.TicketCustomAttributes;
+    ticket_state?: Intercom.TicketState;
+    ticket_type?: Intercom.TicketType;
+    contacts?: Intercom.TicketContacts;
     /** The id representing the admin assigned to the ticket. */
     admin_assignee_id?: string;
     /** The id representing the team assigned to the ticket. */
@@ -37,10 +36,6 @@ export interface Ticket {
     ticket_parts?: Intercom.TicketParts;
     /** Whether or not the ticket is shared with the customer. */
     is_shared?: boolean;
-    /** The state the ticket is currently in, in a human readable form - visible in Intercom */
-    ticket_state_internal_label?: string;
-    /** The state the ticket is currently in, in a human readable form - visible to customers, in the messenger, email and tickets portal. */
-    ticket_state_external_label?: string;
 }
 
 export namespace Ticket {
@@ -52,15 +47,5 @@ export namespace Ticket {
         Customer: "Customer",
         BackOffice: "Back-office",
         Tracker: "Tracker",
-    } as const;
-    /**
-     * The state the ticket is currently in
-     */
-    export type TicketState = "submitted" | "in_progress" | "waiting_on_customer" | "resolved";
-    export const TicketState = {
-        Submitted: "submitted",
-        InProgress: "in_progress",
-        WaitingOnCustomer: "waiting_on_customer",
-        Resolved: "resolved",
     } as const;
 }

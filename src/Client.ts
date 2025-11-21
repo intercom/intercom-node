@@ -5,21 +5,30 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import { Admins } from "./api/resources/admins/client/Client";
+import { AiContent } from "./api/resources/aiContent/client/Client";
 import { Articles } from "./api/resources/articles/client/Client";
+import { AwayStatusReasons } from "./api/resources/awayStatusReasons/client/Client";
+import { Export } from "./api/resources/export/client/Client";
+import { DataExport } from "./api/resources/dataExport/client/Client";
 import { HelpCenters } from "./api/resources/helpCenters/client/Client";
+import { InternalArticles } from "./api/resources/internalArticles/client/Client";
 import { Companies } from "./api/resources/companies/client/Client";
 import { Contacts } from "./api/resources/contacts/client/Client";
 import { Notes } from "./api/resources/notes/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
 import { Conversations } from "./api/resources/conversations/client/Client";
+import { CustomChannelEvents } from "./api/resources/customChannelEvents/client/Client";
+import { CustomObjectInstances } from "./api/resources/customObjectInstances/client/Client";
 import { DataAttributes } from "./api/resources/dataAttributes/client/Client";
 import { Events } from "./api/resources/events/client/Client";
-import { DataExport } from "./api/resources/dataExport/client/Client";
+import { Jobs } from "./api/resources/jobs/client/Client";
 import { Messages } from "./api/resources/messages/client/Client";
 import { Segments } from "./api/resources/segments/client/Client";
 import { SubscriptionTypes } from "./api/resources/subscriptionTypes/client/Client";
 import { PhoneCallRedirects } from "./api/resources/phoneCallRedirects/client/Client";
+import { Calls } from "./api/resources/calls/client/Client";
 import { Teams } from "./api/resources/teams/client/Client";
+import { TicketStates } from "./api/resources/ticketStates/client/Client";
 import { TicketTypes } from "./api/resources/ticketTypes/client/Client";
 import { Tickets } from "./api/resources/tickets/client/Client";
 import { Visitors } from "./api/resources/visitors/client/Client";
@@ -51,6 +60,9 @@ export declare namespace IntercomClient {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
         fetcher?: core.FetchFunction;
     }
@@ -83,27 +95,39 @@ export declare namespace IntercomClient {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
     }
 }
 
 export class IntercomClient {
     protected _admins: Admins | undefined;
+    protected _aiContent: AiContent | undefined;
     protected _articles: Articles | undefined;
+    protected _awayStatusReasons: AwayStatusReasons | undefined;
+    protected _export: Export | undefined;
+    protected _dataExport: DataExport | undefined;
     protected _helpCenters: HelpCenters | undefined;
+    protected _internalArticles: InternalArticles | undefined;
     protected _companies: Companies | undefined;
     protected _contacts: Contacts | undefined;
     protected _notes: Notes | undefined;
     protected _tags: Tags | undefined;
     protected _conversations: Conversations | undefined;
+    protected _customChannelEvents: CustomChannelEvents | undefined;
+    protected _customObjectInstances: CustomObjectInstances | undefined;
     protected _dataAttributes: DataAttributes | undefined;
     protected _events: Events | undefined;
-    protected _dataExport: DataExport | undefined;
+    protected _jobs: Jobs | undefined;
     protected _messages: Messages | undefined;
     protected _segments: Segments | undefined;
     protected _subscriptionTypes: SubscriptionTypes | undefined;
     protected _phoneCallRedirects: PhoneCallRedirects | undefined;
+    protected _calls: Calls | undefined;
     protected _teams: Teams | undefined;
+    protected _ticketStates: TicketStates | undefined;
     protected _ticketTypes: TicketTypes | undefined;
     protected _tickets: Tickets | undefined;
     protected _visitors: Visitors | undefined;
@@ -116,12 +140,32 @@ export class IntercomClient {
         return (this._admins ??= new Admins(this._options));
     }
 
+    public get aiContent(): AiContent {
+        return (this._aiContent ??= new AiContent(this._options));
+    }
+
     public get articles(): Articles {
         return (this._articles ??= new Articles(this._options));
     }
 
+    public get awayStatusReasons(): AwayStatusReasons {
+        return (this._awayStatusReasons ??= new AwayStatusReasons(this._options));
+    }
+
+    public get export(): Export {
+        return (this._export ??= new Export(this._options));
+    }
+
+    public get dataExport(): DataExport {
+        return (this._dataExport ??= new DataExport(this._options));
+    }
+
     public get helpCenters(): HelpCenters {
         return (this._helpCenters ??= new HelpCenters(this._options));
+    }
+
+    public get internalArticles(): InternalArticles {
+        return (this._internalArticles ??= new InternalArticles(this._options));
     }
 
     public get companies(): Companies {
@@ -144,6 +188,14 @@ export class IntercomClient {
         return (this._conversations ??= new Conversations(this._options));
     }
 
+    public get customChannelEvents(): CustomChannelEvents {
+        return (this._customChannelEvents ??= new CustomChannelEvents(this._options));
+    }
+
+    public get customObjectInstances(): CustomObjectInstances {
+        return (this._customObjectInstances ??= new CustomObjectInstances(this._options));
+    }
+
     public get dataAttributes(): DataAttributes {
         return (this._dataAttributes ??= new DataAttributes(this._options));
     }
@@ -152,8 +204,8 @@ export class IntercomClient {
         return (this._events ??= new Events(this._options));
     }
 
-    public get dataExport(): DataExport {
-        return (this._dataExport ??= new DataExport(this._options));
+    public get jobs(): Jobs {
+        return (this._jobs ??= new Jobs(this._options));
     }
 
     public get messages(): Messages {
@@ -172,8 +224,16 @@ export class IntercomClient {
         return (this._phoneCallRedirects ??= new PhoneCallRedirects(this._options));
     }
 
+    public get calls(): Calls {
+        return (this._calls ??= new Calls(this._options));
+    }
+
     public get teams(): Teams {
         return (this._teams ??= new Teams(this._options));
+    }
+
+    public get ticketStates(): TicketStates {
+        return (this._ticketStates ??= new TicketStates(this._options));
     }
 
     public get ticketTypes(): TicketTypes {

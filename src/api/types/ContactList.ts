@@ -9,10 +9,10 @@ import * as Intercom from "../index";
  */
 export interface ContactList {
     /** Always list */
-    type: "list";
+    type?: "list";
     /** The list of contact objects */
-    data: Intercom.Contact[];
+    data?: Intercom.Contact[];
     /** A count of the total number of objects. */
-    total_count: number;
+    total_count?: number;
     pages?: Intercom.CursorPages;
 }

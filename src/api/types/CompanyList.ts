@@ -10,7 +10,7 @@ import * as Intercom from "../index";
 export interface CompanyList {
     pages?: Intercom.OffsetPages;
     /** The total number of companies. */
-    total_count: number;
+    total_count?: number;
     /** An array containing Company Objects. */
-    data: Intercom.Company[];
+    data?: Intercom.Company[];
 }

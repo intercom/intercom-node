@@ -13,7 +13,7 @@ describe("Notes", () => {
     beforeAll(async () => {
         // arrange
         const admins = await client.admins.list();
-        adminId = admins.admins[0].id;
+        adminId = admins.admins?.[0]?.id ?? "0";
 
         contact = await client.contacts.create({
             external_id: randomString(),
@@ -22,13 +22,13 @@ describe("Notes", () => {
         note = await client.notes.create({
             admin_id: adminId,
             body: randomString(),
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
     });
 
     afterAll(async () => {
         // cleanup
-        await tryDeleteContact(client, contact.id);
+        await tryDeleteContact(client, contact.id!);
     });
 
     it("create", async () => {
@@ -36,7 +36,7 @@ describe("Notes", () => {
         const response = await client.notes.create({
             admin_id: adminId,
             body: randomString(),
-            contact_id: contact.id,
+            contact_id: contact.id!,
         });
 
         // assert
@@ -45,7 +45,7 @@ describe("Notes", () => {
 
     it("find", async () => {
         // act
-        const response = await client.notes.find({ note_id: note.id });
+        const response = await client.notes.find({ note_id: parseInt(note.id!, 10) });
 
         // assert
         expect(response).toBeDefined();
@@ -54,7 +54,7 @@ describe("Notes", () => {
     it("list", async () => {
         // act
         const response = await client.notes.list({
-            contact_id: contact.id,
+            contact_id: contact.id!,
             per_page: 25,
             page: 1,
         });

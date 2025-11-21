@@ -15,6 +15,6 @@ export interface Tag {
     /** The name of the tag */
     name: string;
     /** The time when the tag was applied to the object */
-    applied_at: number;
-    applied_by: Intercom.Reference;
+    applied_at?: number;
+    applied_by?: Intercom.Reference;
 }

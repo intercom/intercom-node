@@ -33,6 +33,9 @@ export declare namespace Tickets {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
         fetcher?: core.FetchFunction;
     }
@@ -65,6 +68,9 @@ export declare namespace Tickets {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
     }
 }
@@ -159,9 +165,9 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -254,9 +260,9 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -344,9 +350,9 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -460,9 +466,9 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -553,9 +559,9 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -638,8 +644,8 @@ export class Tickets {
      * | id                                        | String                                                                                   |
      * | created_at                                | Date (UNIX timestamp)                                                                    |
      * | updated_at                                | Date (UNIX timestamp)                                                                    |
-     * | _default_title_                           | String                                                                                   |
-     * | _default_description_                     | String                                                                                   |
+     * | title                           | String                                                                                   |
+     * | description                     | String                                                                                   |
      * | category                                  | String                                                                                   |
      * | ticket_type_id                            | String                                                                                   |
      * | contact_ids                               | String                                                                                   |
@@ -650,6 +656,13 @@ export class Tickets {
      * | state                                     | String                                                                                   |
      * | snoozed_until                             | Date (UNIX timestamp)                                                                    |
      * | ticket_attribute.{id}                     | String or Boolean or Date (UNIX timestamp) or Float or Integer                           |
+     *
+     * {% admonition type="info" name="Searching by Category" %}
+     * When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
+     * * For **Customer** category tickets, use the term `request`.
+     * * For **Back-office** category tickets, use the term `task`.
+     * * For **Tracker** category tickets, use the term `tracker`.
+     * {% /admonition %}
      *
      * ### Accepted Operators
      *
@@ -713,9 +726,9 @@ export class Tickets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

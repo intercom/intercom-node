@@ -9,11 +9,11 @@ import * as Intercom from "../index";
  */
 export interface ContactTags {
     /** This object represents the tags attached to a contact. */
-    data: Intercom.AddressableList[];
+    data?: Intercom.AddressableList[];
     /** url to get more tag resources for this contact */
-    url: string;
+    url?: string;
     /** Int representing the total number of tags attached to this contact */
-    total_count: number;
+    total_count?: number;
     /** Whether there's more Addressable Objects to be viewed. If true, use the url to view all */
-    has_more: boolean;
+    has_more?: boolean;
 }

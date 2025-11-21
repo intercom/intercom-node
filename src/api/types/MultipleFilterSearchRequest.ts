@@ -10,7 +10,7 @@ import * as Intercom from "../index";
 export interface MultipleFilterSearchRequest {
     /** An operator to allow boolean inspection between multiple fields. */
     operator?: MultipleFilterSearchRequest.Operator;
-    value?: Intercom.MultipleOrSingleFilterSearchRequest[];
+    value?: MultipleFilterSearchRequest.Value;
 }
 
 export namespace MultipleFilterSearchRequest {
@@ -22,4 +22,11 @@ export namespace MultipleFilterSearchRequest {
         And: "AND",
         Or: "OR",
     } as const;
+    export type Value =
+        /**
+         * Add mutiple filters. */
+        | Intercom.MultipleFilterSearchRequest[]
+        /**
+         * Add a single filter field. */
+        | Intercom.SingleFilterSearchRequest[];
 }

@@ -9,7 +9,7 @@ import * as Intercom from "../../../index";
  */
 export interface HelpCenterList {
     /** The type of the object - `list`. */
-    type: "list";
+    type?: "list";
     /** An array of Help Center objects */
-    data: Intercom.HelpCenter[];
+    data?: Intercom.HelpCenter[];
 }

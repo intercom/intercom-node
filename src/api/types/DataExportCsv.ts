@@ -7,23 +7,23 @@
  */
 export interface DataExportCsv {
     /** The user_id of the user who was sent the message. */
-    user_id: string;
+    user_id?: string;
     /** The external_user_id of the user who was sent the message */
     user_external_id?: string;
     /** The company ID of the user in relation to the message that was sent. Will return -1 if no company is present. */
-    company_id: string;
+    company_id?: string;
     /** The users email who was sent the message. */
-    email: string;
+    email?: string;
     /** The full name of the user receiving the message */
-    name: string;
+    name?: string;
     /** The id of the message. */
-    ruleset_id: string;
+    ruleset_id?: string;
     /** The specific content that was received. In an A/B test each version has its own Content ID. */
-    content_id: string;
+    content_id?: string;
     /** Email, Chat, Post etc. */
-    content_type: string;
+    content_type?: string;
     /** The title of the content you see in your Intercom workspace. */
-    content_title: string;
+    content_title?: string;
     /** As you edit content we record new versions. This ID can help you determine which version of a piece of content that was received. */
     ruleset_version_id?: string;
     /** ID for this receipt. Will be included with any related stats in other files to identify this specific delivery of a message. */

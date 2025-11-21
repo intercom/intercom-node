@@ -5,9 +5,9 @@
 import * as Intercom from "../index";
 
 export interface ContentSourcesList {
-    type: "content_source.list";
+    type?: "content_source.list";
     /** The total number of content sources used by AI Agent in the conversation. */
-    total_count: number;
+    total_count?: number;
     /** The content sources used by AI Agent in the conversation. */
-    content_sources: Intercom.ContentSource[];
+    content_sources?: Intercom.ContentSource[];
 }

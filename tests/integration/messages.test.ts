@@ -13,9 +13,9 @@ describe("Messages", () => {
     beforeAll(async () => {
         // arrange
         const admins = await client.admins.list();
-        const adminList = admins.admins.filter((admin) => admin.has_inbox_seat);
+        const adminList = admins.admins?.filter((admin) => admin?.has_inbox_seat) ?? [];
 
-        adminId = adminList[0].id;
+        adminId = adminList[0]?.id ?? "0";
         user = await client.contacts.create({
             external_id: randomString(),
             name: "Message Test User",
@@ -24,7 +24,7 @@ describe("Messages", () => {
 
     afterAll(async () => {
         // cleanup
-        await tryDeleteContact(client, user.id);
+        await tryDeleteContact(client, user.id!);
     });
 
     it("Message that creates a converation", async () => {
@@ -38,7 +38,7 @@ describe("Messages", () => {
             },
             to: {
                 type: "user",
-                id: user.id,
+                id: user.id!,
             },
             create_conversation_without_contact_reply: true,
         });
@@ -71,7 +71,7 @@ describe("Messages", () => {
             },
             to: {
                 type: "user",
-                id: user.id,
+                id: user.id!,
             },
         });
 

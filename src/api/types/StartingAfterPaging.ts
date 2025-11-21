@@ -4,7 +4,7 @@
 
 export interface StartingAfterPaging {
     /** The number of results to fetch per page. */
-    per_page: number;
+    per_page?: number;
     /** The cursor to use in the next request to get the next page of results. */
     starting_after?: string;
 }

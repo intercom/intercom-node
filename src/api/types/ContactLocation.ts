@@ -7,7 +7,7 @@
  */
 export interface ContactLocation {
     /** Always location */
-    type: "location";
+    type?: string;
     /** The country that the contact is located in */
     country?: string;
     /** The overal region that the contact is located in */

@@ -9,5 +9,5 @@ import * as Intercom from "../index";
  */
 export interface ContactSocialProfiles {
     /** A list of social profiles objects associated with the contact. */
-    data: Intercom.SocialProfile[];
+    data?: Intercom.SocialProfile[];
 }

@@ -5,19 +5,19 @@
 /**
  * @example
  *     {
- *         contact_id: "contact_id",
- *         id: "667d608d8a68186f43bafd70"
+ *         contact_id: 1,
+ *         id: "6762f09a1bb69f9f2193bb34"
  *     }
  *
  * @example
  *     {
- *         contact_id: "contact_id",
+ *         contact_id: 1,
  *         id: "58a430d35458202d41b1e65b"
  *     }
  *
  * @example
  *     {
- *         contact_id: "contact_id",
+ *         contact_id: 1,
  *         id: "123"
  *     }
  */
@@ -25,7 +25,7 @@ export interface AttachContactToCompanyRequest {
     /**
      * The unique identifier for the contact which is given by Intercom
      */
-    contact_id: string;
+    contact_id: number;
     /** The unique identifier for the company which is given by Intercom */
     id: string;
 }

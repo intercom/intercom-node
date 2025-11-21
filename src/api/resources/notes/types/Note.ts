@@ -9,17 +9,17 @@ import * as Intercom from "../../../index";
  */
 export interface Note {
     /** String representing the object's type. Always has the value `note`. */
-    type: "note";
+    type?: string;
     /** The id of the note. */
-    id: string;
+    id?: string;
     /** The time the note was created. */
-    created_at: number;
+    created_at?: number;
     /** Represents the contact that the note was created about. */
     contact?: Note.Contact;
     /** Optional. Represents the Admin that created the note. */
-    author: Intercom.Admin;
+    author?: Intercom.Admin;
     /** The body text of the note. */
-    body: string;
+    body?: string;
 }
 
 export namespace Note {
@@ -28,7 +28,7 @@ export namespace Note {
      */
     export interface Contact {
         /** String representing the object's type. Always has the value `contact`. */
-        type?: "contact";
+        type?: string;
         /** The id of the contact. */
         id?: string;
     }

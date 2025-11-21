@@ -9,9 +9,9 @@ import * as Intercom from "../index";
  */
 export interface SegmentList {
     /** The type of the object */
-    type: "segment.list";
+    type?: "segment.list";
     /** A list of Segment objects */
-    segments: Intercom.Segment[];
+    segments?: Intercom.Segment[];
     /** A pagination object, which may be empty, indicating no further pages to fetch. */
     pages?: Record<string, unknown>;
 }

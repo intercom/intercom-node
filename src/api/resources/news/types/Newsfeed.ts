@@ -9,13 +9,11 @@
  */
 export interface Newsfeed {
     /** The unique identifier for the newsfeed which is given by Intercom. */
-    id: string;
-    /** The type of object. */
-    type: "newsfeed";
+    id?: string;
     /** The name of the newsfeed. This name will never be visible to your users. */
-    name: string;
+    name?: string;
     /** Timestamp for when the newsfeed was created. */
-    created_at: number;
+    created_at?: number;
     /** Timestamp for when the newsfeed was last updated. */
     updated_at?: number;
 }

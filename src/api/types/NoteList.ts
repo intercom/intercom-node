@@ -9,10 +9,9 @@ import * as Intercom from "../index";
  */
 export interface NoteList {
     /** String representing the object's type. Always has the value `list`. */
-    type: "list";
+    type?: string;
     /** An array of notes. */
-    data: Intercom.Note[];
+    data?: Intercom.Note[];
     /** A count of the total number of notes. */
-    total_count: number;
-    pages?: Intercom.OffsetPages;
+    total_count?: number;
 }

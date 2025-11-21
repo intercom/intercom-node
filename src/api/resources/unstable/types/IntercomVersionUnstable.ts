@@ -3,6 +3,6 @@
  */
 
 /**
- * Unstable Intercom API version. Used for closed beta endpoints.
+ * Unstable Intercom API version. Used for closed beta endpoints or other features under managed availability.
  */
 export type IntercomVersionUnstable = "unstable";

@@ -33,6 +33,9 @@ export declare namespace Contacts {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
         fetcher?: core.FetchFunction;
     }
@@ -65,6 +68,9 @@ export declare namespace Contacts {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
     }
 }
@@ -117,9 +123,9 @@ export class Contacts {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
-                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-SDK-Version": "6.5.0",
+                        "User-Agent": "intercom-client/6.5.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
                         ...requestOptions?.headers,
@@ -226,9 +232,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -324,9 +330,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -431,9 +437,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -525,9 +531,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -617,9 +623,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -685,14 +691,14 @@ export class Contacts {
     public find(
         request: Intercom.FindContactRequest,
         requestOptions?: Contacts.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Contact> {
+    ): core.HttpResponsePromise<Intercom.ContactsFindResponse> {
         return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
     }
 
     private async __find(
         request: Intercom.FindContactRequest,
         requestOptions?: Contacts.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Contact>> {
+    ): Promise<core.WithRawResponse<Intercom.ContactsFindResponse>> {
         const { contact_id: contactId } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -706,9 +712,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -720,7 +726,7 @@ export class Contacts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Contact, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.ContactsFindResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -759,6 +765,12 @@ export class Contacts {
     /**
      * You can update an existing contact (ie. user or lead).
      *
+     * {% admonition type="info" %}
+     *   This endpoint handles both **contact updates** and **custom object associations**.
+     *
+     *   See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
+     * {% /admonition %}
+     *
      * @param {Intercom.UpdateContactRequest} request
      * @param {Contacts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -770,18 +782,28 @@ export class Contacts {
      *         email: "joebloggs@intercom.io",
      *         name: "joe bloggs"
      *     })
+     *
+     * @example
+     *     await client.contacts.update({
+     *         contact_id: "63a07ddf05a32042dffac965",
+     *         custom_attributes: {
+     *             "order": [
+     *                 "21"
+     *             ]
+     *         }
+     *     })
      */
     public update(
         request: Intercom.UpdateContactRequest,
         requestOptions?: Contacts.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Contact> {
+    ): core.HttpResponsePromise<Intercom.ContactsUpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
         request: Intercom.UpdateContactRequest,
         requestOptions?: Contacts.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Contact>> {
+    ): Promise<core.WithRawResponse<Intercom.ContactsUpdateResponse>> {
         const { contact_id: contactId, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -795,9 +817,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -810,7 +832,7 @@ export class Contacts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Contact, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.ContactsUpdateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -883,9 +905,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -943,21 +965,21 @@ export class Contacts {
      *
      * @example
      *     await client.contacts.mergeLeadInUser({
-     *         from: "667d60ac8a68186f43bafdbb",
-     *         into: "667d60ac8a68186f43bafdbc"
+     *         from: "6762f0d51bb69f9f2193bb7f",
+     *         into: "6762f0d51bb69f9f2193bb80"
      *     })
      */
     public mergeLeadInUser(
-        request: Intercom.MergeContactsRequest,
+        request: Intercom.MergeContactsRequest = {},
         requestOptions?: Contacts.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Contact> {
+    ): core.HttpResponsePromise<Intercom.ContactsMergeLeadInUserResponse> {
         return core.HttpResponsePromise.fromPromise(this.__mergeLeadInUser(request, requestOptions));
     }
 
     private async __mergeLeadInUser(
-        request: Intercom.MergeContactsRequest,
+        request: Intercom.MergeContactsRequest = {},
         requestOptions?: Contacts.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Contact>> {
+    ): Promise<core.WithRawResponse<Intercom.ContactsMergeLeadInUserResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -970,9 +992,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -985,7 +1007,10 @@ export class Contacts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Contact, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Intercom.ContactsMergeLeadInUserResponse,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -1160,9 +1185,9 @@ export class Contacts {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
-                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-SDK-Version": "6.5.0",
+                        "User-Agent": "intercom-client/6.5.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
                         ...requestOptions?.headers,
@@ -1268,9 +1293,9 @@ export class Contacts {
                         Authorization: await this._getAuthorizationHeader(),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "intercom-client",
-                        "X-Fern-SDK-Version": "6.4.0",
-                        "User-Agent": "intercom-client/6.4.0",
-                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                        "X-Fern-SDK-Version": "6.5.0",
+                        "User-Agent": "intercom-client/6.5.0",
+                        "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
                         ...requestOptions?.headers,
@@ -1346,14 +1371,14 @@ export class Contacts {
     public create(
         request: Intercom.CreateContactRequest,
         requestOptions?: Contacts.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Contact> {
+    ): core.HttpResponsePromise<Intercom.ContactsCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Intercom.CreateContactRequest,
         requestOptions?: Contacts.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Contact>> {
+    ): Promise<core.WithRawResponse<Intercom.ContactsCreateResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -1366,9 +1391,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1381,7 +1406,7 @@ export class Contacts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Contact, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.ContactsCreateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -1409,6 +1434,98 @@ export class Contacts {
                 });
             case "timeout":
                 throw new errors.IntercomTimeoutError("Timeout exceeded when calling POST /contacts.");
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * You can fetch the details of a single contact by external ID. Note that this endpoint only supports users and not leads.
+     *
+     * @param {Intercom.ShowContactByExternalIdRequest} request
+     * @param {Contacts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Intercom.UnauthorizedError}
+     *
+     * @example
+     *     await client.contacts.showContactByExternalId({
+     *         external_id: "cdd29344-5e0c-4ef0-ac56-f9ba2979bc27"
+     *     })
+     */
+    public showContactByExternalId(
+        request: Intercom.ShowContactByExternalIdRequest,
+        requestOptions?: Contacts.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.ShowContactByExternalIdResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__showContactByExternalId(request, requestOptions));
+    }
+
+    private async __showContactByExternalId(
+        request: Intercom.ShowContactByExternalIdRequest,
+        requestOptions?: Contacts.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.ShowContactByExternalIdResponse>> {
+        const { external_id: externalId } = request;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `contacts/find_by_external_id/${encodeURIComponent(externalId)}`,
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Intercom.ShowContactByExternalIdResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Intercom.UnauthorizedError(
+                        _response.error.body as Intercom.Error_,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.IntercomError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError(
+                    "Timeout exceeded when calling GET /contacts/find_by_external_id/{external_id}.",
+                );
             case "unknown":
                 throw new errors.IntercomError({
                     message: _response.error.errorMessage,
@@ -1452,9 +1569,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1531,9 +1648,9 @@ export class Contacts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1566,6 +1683,85 @@ export class Contacts {
             case "timeout":
                 throw new errors.IntercomTimeoutError(
                     "Timeout exceeded when calling POST /contacts/{contact_id}/unarchive.",
+                );
+            case "unknown":
+                throw new errors.IntercomError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Block a single contact.<br>**Note:** conversations of the contact will also be archived during the process.<br>More details in [FAQ How do I block Inbox spam?](https://www.intercom.com/help/en/articles/8838656-inbox-faqs)
+     *
+     * @param {Intercom.BlockContactRequest} request
+     * @param {Contacts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.contacts.blockContact({
+     *         contact_id: "63a07ddf05a32042dffac965"
+     *     })
+     */
+    public blockContact(
+        request: Intercom.BlockContactRequest,
+        requestOptions?: Contacts.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.ContactBlocked> {
+        return core.HttpResponsePromise.fromPromise(this.__blockContact(request, requestOptions));
+    }
+
+    private async __blockContact(
+        request: Intercom.BlockContactRequest,
+        requestOptions?: Contacts.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.ContactBlocked>> {
+        const { contact_id: contactId } = request;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `contacts/${encodeURIComponent(contactId)}/block`,
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "intercom-client",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Intercom.ContactBlocked, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.IntercomError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.IntercomError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.IntercomTimeoutError(
+                    "Timeout exceeded when calling POST /contacts/{contact_id}/block.",
                 );
             case "unknown":
                 throw new errors.IntercomError({

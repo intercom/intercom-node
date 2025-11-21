@@ -24,4 +24,26 @@ export interface ActivityLogMetadata {
     update_by?: number;
     /** The name of the Admin who initiated the activity. */
     update_by_name?: string;
+    /** The conversation assignment limit value for an admin. */
+    conversation_assignment_limit?: number;
+    /** The ticket assignment limit value for an admin. */
+    ticket_assignment_limit?: number;
+    /** Details about the team whose assignment limit was changed. */
+    team?: ActivityLogMetadata.Team;
+    /** The team assignment limit value (null if limit was removed). */
+    team_assignment_limit?: number;
+    /** Indicates if the setting is enabled or disabled. */
+    enabled?: boolean;
+}
+
+export namespace ActivityLogMetadata {
+    /**
+     * Details about the team whose assignment limit was changed.
+     */
+    export interface Team {
+        /** The ID of the team. */
+        id?: number;
+        /** The name of the team. */
+        name?: string;
+    }
 }

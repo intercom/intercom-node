@@ -33,6 +33,9 @@ export declare namespace Messages {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
         fetcher?: core.FetchFunction;
     }
@@ -65,6 +68,9 @@ export declare namespace Messages {
             | "2.9"
             | "2.10"
             | "2.11"
+            | "2.12"
+            | "2.13"
+            | "2.14"
             | "Unstable";
     }
 }
@@ -124,7 +130,7 @@ export class Messages {
      *         },
      *         to: {
      *             type: "user",
-     *             id: "667d616d8a68186f43bafe53"
+     *             id: "6762f23b1bb69f9f2193bc1a"
      *         },
      *         created_at: 1590000000,
      *         create_conversation_without_contact_reply: true
@@ -160,21 +166,21 @@ export class Messages {
      *         },
      *         to: {
      *             type: "user",
-     *             id: "667d616e8a68186f43bafe55"
+     *             id: "6762f23d1bb69f9f2193bc1c"
      *         },
      *         created_at: 1590000000,
      *         create_conversation_without_contact_reply: true
      *     })
      */
     public create(
-        request: Intercom.CreateMessageRequest,
+        request?: Intercom.CreateMessageRequest,
         requestOptions?: Messages.RequestOptions,
     ): core.HttpResponsePromise<Intercom.Message> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Intercom.CreateMessageRequest,
+        request?: Intercom.CreateMessageRequest,
         requestOptions?: Messages.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.Message>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -189,16 +195,16 @@ export class Messages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "intercom-client",
-                "X-Fern-SDK-Version": "6.4.0",
-                "User-Agent": "intercom-client/6.4.0",
-                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.11",
+                "X-Fern-SDK-Version": "6.5.0",
+                "User-Agent": "intercom-client/6.5.0",
+                "Intercom-Version": requestOptions?.version ?? this._options?.version ?? "2.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
+            body: request != null ? request : undefined,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 20000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

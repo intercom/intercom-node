@@ -10,7 +10,7 @@
  */
 export interface UnarchiveContactRequest {
     /**
-     * id
+     * contact_id
      */
     contact_id: string;
 }

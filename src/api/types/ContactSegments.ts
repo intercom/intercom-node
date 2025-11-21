@@ -9,7 +9,7 @@ import * as Intercom from "../index";
  */
 export interface ContactSegments {
     /** The type of the object */
-    type: "list";
+    type?: "list";
     /** Segment objects associated with the contact. */
-    data: Intercom.Segment[];
+    data?: Intercom.Segment[];
 }

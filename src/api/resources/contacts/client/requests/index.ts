@@ -9,5 +9,7 @@ export { type UpdateContactRequest } from "./UpdateContactRequest";
 export { type DeleteContactRequest } from "./DeleteContactRequest";
 export { type MergeContactsRequest } from "./MergeContactsRequest";
 export { type ListContactsRequest } from "./ListContactsRequest";
+export { type ShowContactByExternalIdRequest } from "./ShowContactByExternalIdRequest";
 export { type ArchiveContactRequest } from "./ArchiveContactRequest";
 export { type UnarchiveContactRequest } from "./UnarchiveContactRequest";
+export { type BlockContactRequest } from "./BlockContactRequest";
