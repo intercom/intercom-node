@@ -168,11 +168,12 @@ describe("Conversations", () => {
     });
 
     it("run assignment rules", async () => {
+        const legacyClient = createClient({ version: "2.11" });
         // arrange
-        const message = await createConversation(client, user.id);
+        const message = await createConversation(legacyClient, user.id);
 
         // act
-        const response = await client.conversations.runAssignmentRules({
+        const response = await legacyClient.conversations.runAssignmentRules({
             conversation_id: message.conversation_id,
         });
 

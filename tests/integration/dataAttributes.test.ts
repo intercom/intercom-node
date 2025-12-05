@@ -13,7 +13,7 @@ describe("Data Attributes", () => {
         randomDataAttribute = attributes.data.find((attribute) => attribute.id !== undefined);
     });
 
-    xit("create", async () => {
+    it.skip("create", async () => {
         //act
 
         // The workspace we test on has hit the CDA limit, so we can't create any more
