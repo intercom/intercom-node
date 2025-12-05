@@ -1,4 +1,4 @@
-export * as items from "./items";
-export * as feeds from "./feeds";
-export * from "./items/client/requests";
-export * from "./feeds/client/requests";
+export * from "./feeds/client/requests/index.js";
+export * as feeds from "./feeds/index.js";
+export * from "./items/client/requests/index.js";
+export * as items from "./items/index.js";

@@ -1,2 +1,2 @@
-export * as attributes from "./attributes";
-export * from "./attributes/client/requests";
+export * from "./attributes/client/requests/index.js";
+export * as attributes from "./attributes/index.js";

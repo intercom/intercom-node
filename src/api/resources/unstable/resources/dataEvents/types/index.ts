@@ -1,2 +1,2 @@
-export * from "./LisDataEventsRequestFilter";
-export * from "./DataEvent";
+export * from "./DataEvent.js";
+export * from "./LisDataEventsRequestFilter.js";

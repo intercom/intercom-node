@@ -1,3 +1,3 @@
-export { type FindNewsItemRequest } from "./FindNewsItemRequest";
-export { type UpdateNewsItemRequest } from "./UpdateNewsItemRequest";
-export { type DeleteNewsItemRequest } from "./DeleteNewsItemRequest";
+export type { DeleteNewsItemRequest } from "./DeleteNewsItemRequest.js";
+export type { FindNewsItemRequest } from "./FindNewsItemRequest.js";
+export type { UpdateNewsItemRequest } from "./UpdateNewsItemRequest.js";

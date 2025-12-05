@@ -1,2 +1,2 @@
-export { type FindVisitorRequest } from "./FindVisitorRequest";
-export { type MergeVisitorToContactRequest } from "./MergeVisitorToContactRequest";
+export type { FindVisitorRequest } from "./FindVisitorRequest.js";
+export type { MergeVisitorToContactRequest } from "./MergeVisitorToContactRequest.js";

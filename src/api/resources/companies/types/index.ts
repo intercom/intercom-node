@@ -1,2 +1,2 @@
-export * from "./CompaniesRetrieveResponse";
-export * from "./Company";
+export * from "./CompaniesRetrieveResponse.js";
+export * from "./Company.js";

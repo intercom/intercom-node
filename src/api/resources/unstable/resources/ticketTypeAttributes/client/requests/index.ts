@@ -1,2 +1,2 @@
-export { type CreateTicketTypeAttributeRequest } from "./CreateTicketTypeAttributeRequest";
-export { type UpdateTicketTypeAttributeRequest } from "./UpdateTicketTypeAttributeRequest";
+export type { CreateTicketTypeAttributeRequest } from "./CreateTicketTypeAttributeRequest.js";
+export type { UpdateTicketTypeAttributeRequest } from "./UpdateTicketTypeAttributeRequest.js";

@@ -1,3 +1,3 @@
-export { type ConfigureAwayAdminRequest } from "./ConfigureAwayAdminRequest";
-export { type ListAllActivityLogsRequest } from "./ListAllActivityLogsRequest";
-export { type FindAdminRequest } from "./FindAdminRequest";
+export type { ConfigureAwayAdminRequest } from "./ConfigureAwayAdminRequest.js";
+export type { FindAdminRequest } from "./FindAdminRequest.js";
+export type { ListAllActivityLogsRequest } from "./ListAllActivityLogsRequest.js";

@@ -1,1 +1,1 @@
-export { type GetTicketTypeRequest } from "./GetTicketTypeRequest";
+export type { GetTicketTypeRequest } from "./GetTicketTypeRequest.js";

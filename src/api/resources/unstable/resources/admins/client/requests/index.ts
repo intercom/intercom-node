@@ -1,3 +1,3 @@
-export { type SetAwayAdminRequest } from "./SetAwayAdminRequest";
-export { type ListActivityLogsRequest } from "./ListActivityLogsRequest";
-export { type RetrieveAdminRequest } from "./RetrieveAdminRequest";
+export type { ListActivityLogsRequest } from "./ListActivityLogsRequest.js";
+export type { RetrieveAdminRequest } from "./RetrieveAdminRequest.js";
+export type { SetAwayAdminRequest } from "./SetAwayAdminRequest.js";

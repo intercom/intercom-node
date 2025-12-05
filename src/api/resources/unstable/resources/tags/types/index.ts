@@ -1,3 +1,3 @@
-export * from "./CreateTagRequestBody";
-export * from "./Tag";
-export * from "./TagBasic";
+export * from "./CreateTagRequestBody.js";
+export * from "./Tag.js";
+export * from "./TagBasic.js";

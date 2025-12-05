@@ -1,8 +1,8 @@
-export { type AttachTagToContactRequest } from "./AttachTagToContactRequest";
-export { type DetachTagFromContactRequest } from "./DetachTagFromContactRequest";
-export { type AttachTagToConversationRequest } from "./AttachTagToConversationRequest";
-export { type DetachTagFromConversationRequest } from "./DetachTagFromConversationRequest";
-export { type FindTagRequest } from "./FindTagRequest";
-export { type DeleteTagRequest } from "./DeleteTagRequest";
-export { type AttachTagToTicketRequest } from "./AttachTagToTicketRequest";
-export { type DetachTagFromTicketRequest } from "./DetachTagFromTicketRequest";
+export type { AttachTagToContactRequest } from "./AttachTagToContactRequest.js";
+export type { AttachTagToConversationRequest } from "./AttachTagToConversationRequest.js";
+export type { AttachTagToTicketRequest } from "./AttachTagToTicketRequest.js";
+export type { DeleteTagRequest } from "./DeleteTagRequest.js";
+export type { DetachTagFromContactRequest } from "./DetachTagFromContactRequest.js";
+export type { DetachTagFromConversationRequest } from "./DetachTagFromConversationRequest.js";
+export type { DetachTagFromTicketRequest } from "./DetachTagFromTicketRequest.js";
+export type { FindTagRequest } from "./FindTagRequest.js";

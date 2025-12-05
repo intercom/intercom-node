@@ -1,3 +1,3 @@
-export { type RetrieveArticleRequest } from "./RetrieveArticleRequest";
-export { type DeleteArticleRequest } from "./DeleteArticleRequest";
-export { type SearchArticlesRequest } from "./SearchArticlesRequest";
+export type { DeleteArticleRequest } from "./DeleteArticleRequest.js";
+export type { RetrieveArticleRequest } from "./RetrieveArticleRequest.js";
+export type { SearchArticlesRequest } from "./SearchArticlesRequest.js";

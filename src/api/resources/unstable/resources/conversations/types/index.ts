@@ -1,2 +1,2 @@
-export * from "./ManageConversationRequestBody";
-export * from "./Conversation";
+export * from "./Conversation.js";
+export * from "./ManageConversationRequestBody.js";

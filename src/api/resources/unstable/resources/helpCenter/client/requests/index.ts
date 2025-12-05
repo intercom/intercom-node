@@ -1,5 +1,5 @@
-export { type CreateCollectionRequest } from "./CreateCollectionRequest";
-export { type RetrieveCollectionRequest } from "./RetrieveCollectionRequest";
-export { type UpdateCollectionRequest } from "./UpdateCollectionRequest";
-export { type DeleteCollectionRequest } from "./DeleteCollectionRequest";
-export { type RetrieveHelpCenterRequest } from "./RetrieveHelpCenterRequest";
+export type { CreateCollectionRequest } from "./CreateCollectionRequest.js";
+export type { DeleteCollectionRequest } from "./DeleteCollectionRequest.js";
+export type { RetrieveCollectionRequest } from "./RetrieveCollectionRequest.js";
+export type { RetrieveHelpCenterRequest } from "./RetrieveHelpCenterRequest.js";
+export type { UpdateCollectionRequest } from "./UpdateCollectionRequest.js";
