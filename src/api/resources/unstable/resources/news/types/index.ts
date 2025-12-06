@@ -1,3 +1,3 @@
-export * from "./NewsItem";
-export * from "./Newsfeed";
-export * from "./NewsfeedAssignment";
+export * from "./Newsfeed.js";
+export * from "./NewsfeedAssignment.js";
+export * from "./NewsItem.js";

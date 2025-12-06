@@ -1,2 +1,2 @@
-export { type AttachSubscriptionTypeToContactRequest } from "./AttachSubscriptionTypeToContactRequest";
-export { type DetachSubscriptionTypeToContactRequest } from "./DetachSubscriptionTypeToContactRequest";
+export type { AttachSubscriptionTypeToContactRequest } from "./AttachSubscriptionTypeToContactRequest.js";
+export type { DetachSubscriptionTypeToContactRequest } from "./DetachSubscriptionTypeToContactRequest.js";

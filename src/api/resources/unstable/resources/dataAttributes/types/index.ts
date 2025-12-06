@@ -1,2 +1,2 @@
-export * from "./LisDataAttributesRequestModel";
-export * from "./DataAttribute";
+export * from "./DataAttribute.js";
+export * from "./LisDataAttributesRequestModel.js";

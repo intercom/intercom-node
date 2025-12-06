@@ -1,2 +1,2 @@
-export { IntercomError } from "./IntercomError";
-export { IntercomTimeoutError } from "./IntercomTimeoutError";
+export { IntercomError } from "./IntercomError.js";
+export { IntercomTimeoutError } from "./IntercomTimeoutError.js";

@@ -1,2 +1,2 @@
-export * as collections from "./collections";
-export * from "./collections/client/requests";
+export * from "./collections/client/requests/index.js";
+export * as collections from "./collections/index.js";

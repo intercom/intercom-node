@@ -1,2 +1,2 @@
-export { type FindHelpCenterRequest } from "./FindHelpCenterRequest";
-export { type ListHelpCentersRequest } from "./ListHelpCentersRequest";
+export type { FindHelpCenterRequest } from "./FindHelpCenterRequest.js";
+export type { ListHelpCentersRequest } from "./ListHelpCentersRequest.js";

@@ -1,2 +1,2 @@
-export { type RetrieveVisitorWithUserIdRequest } from "./RetrieveVisitorWithUserIdRequest";
-export { type ConvertVisitorRequest } from "./ConvertVisitorRequest";
+export type { ConvertVisitorRequest } from "./ConvertVisitorRequest.js";
+export type { RetrieveVisitorWithUserIdRequest } from "./RetrieveVisitorWithUserIdRequest.js";

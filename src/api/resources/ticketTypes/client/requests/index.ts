@@ -1,3 +1,2 @@
-export { type CreateTicketTypeRequest } from "./CreateTicketTypeRequest";
-export { type FindTicketTypeRequest } from "./FindTicketTypeRequest";
-export { type UpdateTicketTypeRequest } from "./UpdateTicketTypeRequest";
+export type { FindTicketTypeRequest } from "./FindTicketTypeRequest.js";
+export type { UpdateTicketTypeRequest } from "./UpdateTicketTypeRequest.js";

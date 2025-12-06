@@ -1,4 +1,4 @@
-export { type CreateDataExportsRequest } from "./CreateDataExportsRequest";
-export { type GetDataExportRequest } from "./GetDataExportRequest";
-export { type CancelDataExportRequest } from "./CancelDataExportRequest";
-export { type DownloadDataExportRequest } from "./DownloadDataExportRequest";
+export type { CancelDataExportRequest } from "./CancelDataExportRequest.js";
+export type { CreateDataExportsRequest } from "./CreateDataExportsRequest.js";
+export type { DownloadDataExportRequest } from "./DownloadDataExportRequest.js";
+export type { GetDataExportRequest } from "./GetDataExportRequest.js";

@@ -1,1 +1,1 @@
-export * from "./ContentSource";
+export * from "./ContentSource.js";

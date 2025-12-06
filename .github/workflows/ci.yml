@@ -8,29 +8,38 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Set up node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Compile
-        run: yarn && yarn build
+        run: pnpm build
 
   test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Set up node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
+                
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
-      - name: Compile
-        run: yarn
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Test
-        run: yarn test
+        run: pnpm test
         env:
           INTERCOM_API_KEY: ${{ secrets.INTERCOM_API_KEY }}
 
@@ -42,13 +51,15 @@ jobs:
       id-token: write
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Set up node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Publish to npm
         run: |

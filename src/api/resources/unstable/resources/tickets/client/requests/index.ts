@@ -1,5 +1,5 @@
-export { type ReplyTicketRequest } from "./ReplyTicketRequest";
-export { type EnqueueCreateTicketRequest } from "./EnqueueCreateTicketRequest";
-export { type GetTicketRequest } from "./GetTicketRequest";
-export { type UpdateTicketRequest } from "./UpdateTicketRequest";
-export { type DeleteTicketRequest } from "./DeleteTicketRequest";
+export type { DeleteTicketRequest } from "./DeleteTicketRequest.js";
+export type { EnqueueCreateTicketRequest } from "./EnqueueCreateTicketRequest.js";
+export type { GetTicketRequest } from "./GetTicketRequest.js";
+export type { ReplyTicketRequest } from "./ReplyTicketRequest.js";
+export type { UpdateTicketRequest } from "./UpdateTicketRequest.js";

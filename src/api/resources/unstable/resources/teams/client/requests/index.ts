@@ -1,1 +1,1 @@
-export { type RetrieveTeamRequest } from "./RetrieveTeamRequest";
+export type { RetrieveTeamRequest } from "./RetrieveTeamRequest.js";

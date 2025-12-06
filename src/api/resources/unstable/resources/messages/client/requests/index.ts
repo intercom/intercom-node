@@ -1,1 +1,1 @@
-export { type GetWhatsAppMessageStatusRequest } from "./GetWhatsAppMessageStatusRequest";
+export type { GetWhatsAppMessageStatusRequest } from "./GetWhatsAppMessageStatusRequest.js";
