@@ -49,6 +49,23 @@ describe("Pagination", () => {
             limit: 2,
             perPage: 1,
             greaterThan: 1,
+            async setup() {
+                const contact = await client.contacts.create({
+                    external_id: randomString(),
+                });
+
+                await client.conversations.create({
+                    from: { id: contact.id, type: "user" },
+                    body: "Test conversation 1",
+                });
+
+                await client.conversations.create({
+                    from: { id: contact.id, type: "user" },
+                    body: "Test conversation 2",
+                });
+
+                return {};
+            },
         },
         {
             name: "notes",
