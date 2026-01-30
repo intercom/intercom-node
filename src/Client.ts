@@ -16,6 +16,7 @@ import { EventsClient } from "./api/resources/events/client/Client.js";
 import { ExportClient } from "./api/resources/export/client/Client.js";
 import { HelpCentersClient } from "./api/resources/helpCenters/client/Client.js";
 import { InternalArticlesClient } from "./api/resources/internalArticles/client/Client.js";
+import { IpAllowlistClient } from "./api/resources/ipAllowlist/client/Client.js";
 import { JobsClient } from "./api/resources/jobs/client/Client.js";
 import { MessagesClient } from "./api/resources/messages/client/Client.js";
 import { NewsClient } from "./api/resources/news/client/Client.js";
@@ -49,6 +50,7 @@ export class IntercomClient {
     protected _dataExport: DataExportClient | undefined;
     protected _helpCenters: HelpCentersClient | undefined;
     protected _internalArticles: InternalArticlesClient | undefined;
+    protected _ipAllowlist: IpAllowlistClient | undefined;
     protected _companies: CompaniesClient | undefined;
     protected _contacts: ContactsClient | undefined;
     protected _notes: NotesClient | undefined;
@@ -106,6 +108,10 @@ export class IntercomClient {
 
     public get internalArticles(): InternalArticlesClient {
         return (this._internalArticles ??= new InternalArticlesClient(this._options));
+    }
+
+    public get ipAllowlist(): IpAllowlistClient {
+        return (this._ipAllowlist ??= new IpAllowlistClient(this._options));
     }
 
     public get companies(): CompaniesClient {

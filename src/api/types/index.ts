@@ -106,6 +106,7 @@ export * from "./FileAttribute.js";
 export * from "./GroupContent.js";
 export * from "./GroupTranslatedContent.js";
 export * from "./InternalArticleList.js";
+export * from "./IpAllowlist.js";
 export * from "./LinkedObject.js";
 export * from "./LinkedObjectList.js";
 export * from "./Metadata.js";

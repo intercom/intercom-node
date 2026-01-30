@@ -42,6 +42,7 @@ jobs:
         run: pnpm test
         env:
           INTERCOM_API_KEY: ${{ secrets.INTERCOM_API_KEY }}
+          API_TOKEN: ${{ secrets.INTERCOM_API_KEY }}
 
   publish:
     needs: [ compile, test ]

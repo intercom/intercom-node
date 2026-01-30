@@ -91,3 +91,5 @@ export * from "./ticketTypes/client/requests/index.js";
 export * as ticketTypes from "./ticketTypes/index.js";
 export * from "./visitors/client/requests/index.js";
 export * as visitors from "./visitors/index.js";
+export * from "./workflows/client/requests/index.js";
+export * as workflows from "./workflows/index.js";

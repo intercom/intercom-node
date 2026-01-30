@@ -50,7 +50,7 @@ export interface Contact {
     last_email_opened_at?: number;
     /** (UNIX timestamp) The time when the contact last clicked a link in an email. */
     last_email_clicked_at?: number;
-    /** A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change. */
+    /** A preferred language setting for the contact, used by Intercom as the language of Fin and the Messenger even if their browser has a different setting. Supports ISO 639-1 two-letter language codes. If an unsupported code is supplied, the field will be set to null. */
     language_override?: string;
     /** The name of the browser which the contact is using. */
     browser?: string;

@@ -5,6 +5,16 @@ import type * as Intercom from "../../../index.js";
 export type EventDetails =
     | Intercom.unstable.ConversationAttributeUpdatedByWorkflow
     | Intercom.unstable.ConversationAttributeUpdatedByAdmin
+    | Intercom.unstable.ConversationAttributeUpdatedByUser
     | Intercom.unstable.CustomActionStarted
     | Intercom.unstable.CustomActionFinished
-    | Intercom.unstable.OperatorWorkflowEvent;
+    | Intercom.unstable.OperatorWorkflowEvent
+    | Intercom.unstable.ConversationTagsUpdated
+    | Intercom.unstable.Snoozed
+    | Intercom.unstable.PriorityChanged
+    | Intercom.unstable.ConversationSlaAppliedByRule
+    | Intercom.unstable.ConversationSlaAppliedByWorkflow
+    | Intercom.unstable.ConversationSlaTargetMissed
+    | Intercom.unstable.ConversationSlaPaused
+    | Intercom.unstable.ConversationSlaUnpaused
+    | Intercom.unstable.ConversationSlaRemoved;

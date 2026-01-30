@@ -32,6 +32,27 @@ describe("ConversationsClient", () => {
                     admin_assignee_id: 0,
                     team_assignee_id: "5017691",
                     company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+                    company: {
+                        id: "531ee472cce572a6ec000006",
+                        name: "Blue Sun",
+                        app_id: "ecahpwf5",
+                        company_id: "6",
+                        remote_created_at: 1663597223,
+                        created_at: 1663597223,
+                        updated_at: 1663597223,
+                        last_request_at: 1663597223,
+                        size: 100,
+                        website: "https://www.intercom.com",
+                        industry: "Software",
+                        monthly_spend: 100,
+                        session_count: 100,
+                        user_count: 100,
+                        custom_attributes: {
+                            paid_subscriber: "custom_attributes",
+                            monthly_spend: "custom_attributes",
+                            team_mates: "custom_attributes",
+                        },
+                    },
                     tags: {
                         type: "tag.list",
                         tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }],
@@ -144,6 +165,27 @@ describe("ConversationsClient", () => {
                     admin_assignee_id: 0,
                     team_assignee_id: "5017691",
                     company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+                    company: {
+                        id: "531ee472cce572a6ec000006",
+                        name: "Blue Sun",
+                        app_id: "ecahpwf5",
+                        company_id: "6",
+                        remote_created_at: 1663597223,
+                        created_at: 1663597223,
+                        updated_at: 1663597223,
+                        last_request_at: 1663597223,
+                        size: 100,
+                        website: "https://www.intercom.com",
+                        industry: "Software",
+                        monthly_spend: 100,
+                        session_count: 100,
+                        user_count: 100,
+                        custom_attributes: {
+                            paid_subscriber: "custom_attributes",
+                            monthly_spend: "custom_attributes",
+                            team_mates: "custom_attributes",
+                        },
+                    },
                     tags: {
                         type: "tag.list",
                         tags: [
@@ -511,6 +553,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -788,6 +872,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -1220,6 +1357,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -1426,6 +1605,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -1683,6 +1915,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -1850,6 +2124,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -2071,6 +2398,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -2277,6 +2646,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -2696,6 +3118,27 @@ describe("ConversationsClient", () => {
                     admin_assignee_id: 0,
                     team_assignee_id: "5017691",
                     company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+                    company: {
+                        id: "531ee472cce572a6ec000006",
+                        name: "Blue Sun",
+                        app_id: "ecahpwf5",
+                        company_id: "6",
+                        remote_created_at: 1663597223,
+                        created_at: 1663597223,
+                        updated_at: 1663597223,
+                        last_request_at: 1663597223,
+                        size: 100,
+                        website: "https://www.intercom.com",
+                        industry: "Software",
+                        monthly_spend: 100,
+                        session_count: 100,
+                        user_count: 100,
+                        custom_attributes: {
+                            paid_subscriber: "custom_attributes",
+                            monthly_spend: "custom_attributes",
+                            team_mates: "custom_attributes",
+                        },
+                    },
                     tags: {
                         type: "tag.list",
                         tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }],
@@ -2826,6 +3269,27 @@ describe("ConversationsClient", () => {
                     admin_assignee_id: 0,
                     team_assignee_id: "5017691",
                     company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+                    company: {
+                        id: "531ee472cce572a6ec000006",
+                        name: "Blue Sun",
+                        app_id: "ecahpwf5",
+                        company_id: "6",
+                        remote_created_at: 1663597223,
+                        created_at: 1663597223,
+                        updated_at: 1663597223,
+                        last_request_at: 1663597223,
+                        size: 100,
+                        website: "https://www.intercom.com",
+                        industry: "Software",
+                        monthly_spend: 100,
+                        session_count: 100,
+                        user_count: 100,
+                        custom_attributes: {
+                            paid_subscriber: "custom_attributes",
+                            monthly_spend: "custom_attributes",
+                            team_mates: "custom_attributes",
+                        },
+                    },
                     tags: {
                         type: "tag.list",
                         tags: [
@@ -2984,6 +3448,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -3157,6 +3663,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -3384,6 +3943,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -3557,6 +4158,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -3787,6 +4441,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -3969,6 +4665,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -4197,6 +4946,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -4376,6 +5167,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -4603,6 +5447,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -4776,6 +5662,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -5109,6 +6048,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -5281,6 +6262,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -5503,6 +6537,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -5675,6 +6751,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -5897,6 +7026,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -6068,6 +7239,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -6290,6 +7514,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 991267715,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -6464,6 +7730,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 991267715,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -6690,6 +8009,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -6862,6 +8223,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -7177,6 +8591,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -7331,6 +8787,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -7537,6 +9046,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -7691,6 +9242,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -7975,6 +9579,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -8127,6 +9773,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -8333,6 +10032,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -8485,6 +10226,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -8691,6 +10485,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -8843,6 +10679,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -9049,6 +10938,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -9201,6 +11132,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -9495,6 +11479,120 @@ describe("ConversationsClient", () => {
         }).rejects.toThrow(Intercom.unstable.UnprocessableEntityError);
     });
 
+    test("listHandlingEvents (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new IntercomClient({
+            maxRetries: 0,
+            token: "test",
+            version: "2.14",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            handling_events: [
+                {
+                    teammate: { type: "admin", id: 123, name: "Jane Example", email: "jane@example.com" },
+                    type: "paused",
+                    timestamp: "2026-01-09T09:00:00Z",
+                    reason: "Paused",
+                },
+                {
+                    teammate: { type: "admin", id: 123, name: "Jane Example", email: "jane@example.com" },
+                    type: "resumed",
+                    timestamp: "2026-01-09T09:10:00Z",
+                    reason: "Paused",
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .get("/conversations/123/handling_events")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.unstable.conversations.listHandlingEvents({
+            id: "123",
+        });
+        expect(response).toEqual({
+            handling_events: [
+                {
+                    teammate: {
+                        type: "admin",
+                        id: 123,
+                        name: "Jane Example",
+                        email: "jane@example.com",
+                    },
+                    type: "paused",
+                    timestamp: "2026-01-09T09:00:00Z",
+                    reason: "Paused",
+                },
+                {
+                    teammate: {
+                        type: "admin",
+                        id: 123,
+                        name: "Jane Example",
+                        email: "jane@example.com",
+                    },
+                    type: "resumed",
+                    timestamp: "2026-01-09T09:10:00Z",
+                    reason: "Paused",
+                },
+            ],
+        });
+    });
+
+    test("listHandlingEvents (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new IntercomClient({
+            maxRetries: 0,
+            token: "test",
+            version: "2.14",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { type: "type", errors: [{ code: "code" }, { code: "code" }] };
+        server
+            .mockEndpoint()
+            .get("/conversations/id/handling_events")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.unstable.conversations.listHandlingEvents({
+                id: "id",
+            });
+        }).rejects.toThrow(Intercom.unstable.UnauthorizedError);
+    });
+
+    test("listHandlingEvents (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new IntercomClient({
+            maxRetries: 0,
+            token: "test",
+            version: "2.14",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/conversations/id/handling_events")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.unstable.conversations.listHandlingEvents({
+                id: "id",
+            });
+        }).rejects.toThrow(Intercom.unstable.NotFoundError);
+    });
+
     test("redactConversation (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new IntercomClient({
@@ -9523,6 +11621,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -9692,6 +11832,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
@@ -9918,6 +12111,48 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: { type: "plan", id: "269315", name: "Pro" },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: { type: "tag.list" },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        { type: "note", id: "17495962", created_at: 1674589321, body: "<p>Text for the note.</p>" },
+                    ],
+                },
+            },
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -10087,6 +12322,59 @@ describe("ConversationsClient", () => {
             admin_assignee_id: 0,
             team_assignee_id: "5017691",
             company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            company: {
+                type: "company",
+                id: "531ee472cce572a6ec000006",
+                name: "Blue Sun",
+                app_id: "ecahpwf5",
+                plan: {
+                    type: "plan",
+                    id: "269315",
+                    name: "Pro",
+                },
+                company_id: "6",
+                remote_created_at: 1663597223,
+                created_at: 1663597223,
+                updated_at: 1663597223,
+                last_request_at: 1663597223,
+                size: 100,
+                website: "https://www.intercom.com",
+                industry: "Software",
+                monthly_spend: 100,
+                session_count: 100,
+                user_count: 100,
+                custom_attributes: {
+                    paid_subscriber: "custom_attributes",
+                    monthly_spend: "custom_attributes",
+                    team_mates: "custom_attributes",
+                },
+                tags: {
+                    type: "tag.list",
+                },
+                segments: {
+                    type: "segment.list",
+                    segments: [
+                        {
+                            id: "56203d253cba154d39010062",
+                            name: "Active",
+                            created_at: 1394621988,
+                            updated_at: 1394622004,
+                            count: 3,
+                        },
+                    ],
+                },
+                notes: {
+                    type: "note.list",
+                    notes: [
+                        {
+                            type: "note",
+                            id: "17495962",
+                            created_at: 1674589321,
+                            body: "<p>Text for the note.</p>",
+                        },
+                    ],
+                },
+            },
             tags: {
                 type: "tag.list",
                 tags: [
