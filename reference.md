@@ -2455,6 +2455,132 @@ await client.internalArticles.searchInternalArticles({
 </dl>
 </details>
 
+## IP Allowlist
+<details><summary><code>client.ipAllowlist.<a href="/src/api/resources/ipAllowlist/client/Client.ts">getIpAllowlist</a>() -> Intercom.IpAllowlist</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the current IP allowlist configuration for the workspace.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.ipAllowlist.getIpAllowlist();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `IpAllowlistClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ipAllowlist.<a href="/src/api/resources/ipAllowlist/client/Client.ts">updateIpAllowlist</a>({ ...params }) -> Intercom.IpAllowlist</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the IP allowlist configuration for the workspace.
+
+{% admonition type="warning" name="Lockout Protection" %}
+  The API will reject updates that would lock out the caller's IP address. Ensure your current IP is included in the allowlist when enabling the feature.
+{% /admonition %}
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.ipAllowlist.updateIpAllowlist({
+    enabled: true,
+    ip_allowlist: ["192.168.1.0/24", "10.0.0.1"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.IpAllowlist` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `IpAllowlistClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Companies
 <details><summary><code>client.companies.<a href="/src/api/resources/companies/client/Client.ts">retrieve</a>({ ...params }) -> Intercom.CompaniesRetrieveResponse</code></summary>
 <dl>
@@ -16637,6 +16763,73 @@ await client.unstable.conversations.detachContactFromConversation({
 </dl>
 </details>
 
+<details><summary><code>client.unstable.conversations.<a href="/src/api/resources/unstable/resources/conversations/client/Client.ts">listHandlingEvents</a>({ ...params }) -> Intercom.HandlingEventList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all pause/resume events for a conversation. These events track when teammates paused or resumed handling a conversation.
+
+Requires the `read_conversations` OAuth scope.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.conversations.listHandlingEvents({
+    id: "123"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.ListHandlingEventsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ConversationsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.unstable.conversations.<a href="/src/api/resources/unstable/resources/conversations/client/Client.ts">redactConversation</a>({ ...params }) -> Intercom.Conversation</code></summary>
 <dl>
 <dd>
@@ -18143,6 +18336,78 @@ await client.unstable.dataExport.downloadDataExport({
 <dd>
 
 **requestOptions:** `DataExportClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Workflows
+<details><summary><code>client.unstable.workflows.<a href="/src/api/resources/unstable/resources/workflows/client/Client.ts">exportWorkflow</a>({ ...params }) -> Intercom.WorkflowExport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export a workflow configuration by its ID. This endpoint returns the complete workflow definition including its steps, targeting rules, and attributes.
+
+This endpoint is designed for EU Data Act compliance, allowing customers to export their workflow configurations.
+
+{% admonition type="warning" name="Unstable API" %}
+  This API is currently in the Unstable version. Its behavior may change in future releases.
+{% /admonition %}
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.unstable.workflows.exportWorkflow({
+    id: "12345"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Intercom.unstable.ExportWorkflowRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>

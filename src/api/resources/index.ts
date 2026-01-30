@@ -49,6 +49,7 @@ export * as helpCenters from "./helpCenters/index.js";
 export * from "./internalArticles/client/requests/index.js";
 export * as internalArticles from "./internalArticles/index.js";
 export * from "./internalArticles/types/index.js";
+export * as ipAllowlist from "./ipAllowlist/index.js";
 export * from "./jobs/client/requests/index.js";
 export * as jobs from "./jobs/index.js";
 export * from "./jobs/types/index.js";

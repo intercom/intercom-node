@@ -1162,6 +1162,87 @@ export class ConversationsClient {
     }
 
     /**
+     * List all pause/resume events for a conversation. These events track when teammates paused or resumed handling a conversation.
+     *
+     * Requires the `read_conversations` OAuth scope.
+     *
+     * @param {Intercom.unstable.ListHandlingEventsRequest} request
+     * @param {ConversationsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link Intercom.unstable.NotFoundError}
+     *
+     * @example
+     *     await client.unstable.conversations.listHandlingEvents({
+     *         id: "123"
+     *     })
+     */
+    public listHandlingEvents(
+        request: Intercom.unstable.ListHandlingEventsRequest,
+        requestOptions?: ConversationsClient.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.unstable.HandlingEventList> {
+        return core.HttpResponsePromise.fromPromise(this.__listHandlingEvents(request, requestOptions));
+    }
+
+    private async __listHandlingEvents(
+        request: Intercom.unstable.ListHandlingEventsRequest,
+        requestOptions?: ConversationsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Intercom.unstable.HandlingEventList>> {
+        const { id } = request;
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ "Intercom-Version": requestOptions?.version }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.IntercomEnvironment.UsProduction,
+                `conversations/${core.url.encodePathParam(id)}/handling_events`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Intercom.unstable.HandlingEventList, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Intercom.unstable.UnauthorizedError(
+                        _response.error.body as Intercom.unstable.Error_,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Intercom.unstable.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.IntercomError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/conversations/{id}/handling_events",
+        );
+    }
+
+    /**
      * You can redact a conversation part or the source message of a conversation (as seen in the source object).
      *
      * {% admonition type="info" name="Redacting parts and messages" %}

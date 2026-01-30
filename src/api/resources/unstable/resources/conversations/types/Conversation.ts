@@ -34,6 +34,8 @@ export interface Conversation {
     team_assignee_id?: string;
     /** The ID of the company that the conversation is associated with. The unique identifier for the company which is given by Intercom. */
     company_id?: string;
+    /** The company associated with the conversation. */
+    company?: Intercom.unstable.Company;
     tags?: Intercom.unstable.Tags;
     conversation_rating?: Intercom.unstable.ConversationRating;
     source?: Intercom.unstable.ConversationSource;

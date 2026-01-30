@@ -15,7 +15,9 @@ export namespace ConversationAttributeUpdatedByAdmin {
     }
 
     export interface Value {
-        /** Value of the CDA updated */
+        /** Current value of the CDA updated */
         name?: string;
+        /** Previous value of the CDA */
+        previous?: string;
     }
 }

@@ -41,6 +41,8 @@ export interface UpdateContactRequest {
     owner_id?: number;
     /** Whether the contact is unsubscribed from emails */
     unsubscribed_from_emails?: boolean;
+    /** A preferred language setting for the contact, used by Intercom as the language of Fin and the Messenger even if their browser has a different setting. Supports ISO 639-1 two-letter language codes. If an unsupported code is supplied, the field will be set to null. */
+    language_override?: string;
     /** The custom attributes which are set for the contact */
     custom_attributes?: Record<string, unknown>;
 }

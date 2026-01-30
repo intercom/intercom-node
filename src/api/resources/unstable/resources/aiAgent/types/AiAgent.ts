@@ -47,6 +47,7 @@ export namespace AiAgent {
         ConfirmedResolution: "confirmed_resolution",
         Escalated: "escalated",
         NegativeFeedback: "negative_feedback",
+        ProcedureHandoff: "procedure_handoff",
     } as const;
     export type ResolutionState = (typeof ResolutionState)[keyof typeof ResolutionState];
 }

@@ -35,6 +35,7 @@ import { TicketsClient } from "../resources/tickets/client/Client.js";
 import { TicketTypeAttributesClient } from "../resources/ticketTypeAttributes/client/Client.js";
 import { TicketTypesClient } from "../resources/ticketTypes/client/Client.js";
 import { VisitorsClient } from "../resources/visitors/client/Client.js";
+import { WorkflowsClient } from "../resources/workflows/client/Client.js";
 
 export declare namespace UnstableClient {
     export interface Options extends BaseClientOptions {}
@@ -60,6 +61,7 @@ export class UnstableClient {
     protected _dataAttributes: DataAttributesClient | undefined;
     protected _dataEvents: DataEventsClient | undefined;
     protected _dataExport: DataExportClient | undefined;
+    protected _workflows: WorkflowsClient | undefined;
     protected _jobs: JobsClient | undefined;
     protected _macros: MacrosClient | undefined;
     protected _messages: MessagesClient | undefined;
@@ -150,6 +152,10 @@ export class UnstableClient {
 
     public get dataExport(): DataExportClient {
         return (this._dataExport ??= new DataExportClient(this._options));
+    }
+
+    public get workflows(): WorkflowsClient {
+        return (this._workflows ??= new WorkflowsClient(this._options));
     }
 
     public get jobs(): JobsClient {

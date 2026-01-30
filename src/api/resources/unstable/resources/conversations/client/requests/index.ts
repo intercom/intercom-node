@@ -4,6 +4,7 @@ export type { CreateConversationRequest } from "./CreateConversationRequest.js";
 export type { DeleteConversationRequest } from "./DeleteConversationRequest.js";
 export type { DetachContactFromConversationRequest } from "./DetachContactFromConversationRequest.js";
 export type { ListConversationsRequest } from "./ListConversationsRequest.js";
+export type { ListHandlingEventsRequest } from "./ListHandlingEventsRequest.js";
 export type { ManageConversationRequest } from "./ManageConversationRequest.js";
 export type { ReplyConversationRequest } from "./ReplyConversationRequest.js";
 export type { RetrieveConversationRequest } from "./RetrieveConversationRequest.js";
