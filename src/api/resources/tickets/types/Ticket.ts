@@ -7,17 +7,17 @@ import type * as Intercom from "../../../index.js";
  */
 export interface Ticket {
     /** Always ticket */
-    type?: "ticket";
+    type: "ticket";
     /** The unique identifier for the ticket which is given by Intercom. */
-    id?: string;
+    id: string;
     /** The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries. */
-    ticket_id?: string;
+    ticket_id: string;
     /** Category of the Ticket. */
-    category?: Ticket.Category;
-    ticket_attributes?: Intercom.TicketCustomAttributes;
+    category: Ticket.Category;
+    ticket_attributes: Intercom.TicketCustomAttributes;
     ticket_state?: Intercom.TicketState;
     ticket_type?: Intercom.TicketType;
-    contacts?: Intercom.TicketContacts;
+    contacts: Intercom.TicketContacts;
     /** The id representing the admin assigned to the ticket. */
     admin_assignee_id?: string;
     /** The id representing the team assigned to the ticket. */

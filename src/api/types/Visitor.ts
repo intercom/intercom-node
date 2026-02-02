@@ -7,11 +7,11 @@ import type * as Intercom from "../index.js";
  */
 export interface Visitor {
     /** Value is 'visitor' */
-    type?: "visitor";
+    type: "visitor";
     /** The Intercom defined id representing the Visitor. */
-    id?: string;
+    id: string;
     /** Automatically generated identifier for the Visitor. */
-    user_id?: string;
+    user_id: string;
     /** Identifies if this visitor is anonymous. */
     anonymous?: boolean;
     /** The email of the visitor. */

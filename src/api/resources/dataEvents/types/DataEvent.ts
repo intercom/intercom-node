@@ -5,7 +5,7 @@
  */
 export interface DataEvent {
     /** The type of the object */
-    type?: "event";
+    type: "event";
     /** The name of the event that occurred. This is presented to your App's admins when filtering and creating segments - a good event name is typically a past tense 'verb-noun' combination, to improve readability, for example `updated-plan`. */
     event_name: string;
     /** The time the event occurred as a UTC Unix timestamp */

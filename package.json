@@ -1,6 +1,6 @@
 {
     "name": "intercom-client",
-    "version": "7.0.2",
+    "version": "7.0.3",
     "private": false,
     "repository": "github:intercom/intercom-node",
     "type": "commonjs",

@@ -7,15 +7,15 @@ import type * as Intercom from "../../../index.js";
  */
 export interface Contact {
     /** The type of object. */
-    type?: "contact";
+    type: "contact";
     /** The unique identifier for the contact which is given by Intercom. */
-    id?: string;
+    id: string;
     /** The unique identifier for the contact which is provided by the Client. */
     external_id?: string;
     /** The id of the workspace which the contact belongs to. */
-    workspace_id?: string;
+    workspace_id: string;
     /** The role of the contact. */
-    role?: string;
+    role: string;
     /** The contact's email. */
     email?: string;
     /** The contact's email domain. */
@@ -27,15 +27,15 @@ export interface Contact {
     /** The id of an admin that has been assigned account ownership of the contact. */
     owner_id?: number;
     /** Whether the contact has had an email sent to them hard bounce. */
-    has_hard_bounced?: boolean;
+    has_hard_bounced: boolean;
     /** Whether the contact has marked an email sent to them as spam. */
-    marked_email_as_spam?: boolean;
+    marked_email_as_spam: boolean;
     /** Whether the contact is unsubscribed from emails. */
-    unsubscribed_from_emails?: boolean;
+    unsubscribed_from_emails: boolean;
     /** (UNIX timestamp) The time when the contact was created. */
-    created_at?: number;
+    created_at: number;
     /** (UNIX timestamp) The time when the contact was last updated. */
-    updated_at?: number;
+    updated_at: number;
     /** (UNIX timestamp) The time specified for when a contact signed up. */
     signed_up_at?: number;
     /** (UNIX timestamp) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually). */

@@ -17,7 +17,7 @@ export interface Message {
     /** The type of message that was sent. Can be email, inapp, facebook or twitter. */
     message_type: Message.MessageType;
     /** The associated conversation_id */
-    conversation_id?: string;
+    conversation_id: string;
 }
 
 export namespace Message {

@@ -7,25 +7,25 @@ import type * as Intercom from "../../../index.js";
  */
 export interface Conversation {
     /** Always conversation. */
-    type?: string;
+    type: string;
     /** The id representing the conversation. */
-    id?: string;
+    id: string;
     /** The title given to the conversation. */
     title?: string;
     /** The time the conversation was created. */
-    created_at?: number;
+    created_at: number;
     /** The last time the conversation was updated. */
-    updated_at?: number;
+    updated_at: number;
     /** The last time a Contact responded to an Admin. In other words, the time a customer started waiting for a response. Set to null if last reply is from an Admin. */
     waiting_since?: number;
     /** If set this is the time in the future when this conversation will be marked as open. i.e. it will be in a snoozed state until this time. i.e. it will be in a snoozed state until this time. */
     snoozed_until?: number;
     /** Indicates whether a conversation is open (true) or closed (false). */
-    open?: boolean;
+    open: boolean;
     /** Can be set to "open", "closed" or "snoozed". */
-    state?: Conversation.State;
+    state: Conversation.State;
     /** Indicates whether a conversation has been read. */
-    read?: boolean;
+    read: boolean;
     /** If marked as priority, it will return priority or else not_priority. */
     priority?: Conversation.Priority;
     /** The id of the admin assigned to the conversation. If it's not assigned to an admin it will return null. */
@@ -36,10 +36,10 @@ export interface Conversation {
     company_id?: string;
     tags?: Intercom.Tags;
     conversation_rating?: Intercom.ConversationRating;
-    source?: Intercom.ConversationSource;
-    contacts?: Intercom.ConversationContacts;
+    source: Intercom.ConversationSource;
+    contacts: Intercom.ConversationContacts;
     teammates?: Intercom.ConversationTeammates;
-    custom_attributes?: Intercom.CustomAttributes;
+    custom_attributes: Intercom.CustomAttributes;
     first_contact_reply?: Intercom.ConversationFirstContactReply;
     sla_applied?: Intercom.SlaApplied;
     statistics?: Intercom.ConversationStatistics;
