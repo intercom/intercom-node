@@ -5,7 +5,7 @@
 
 The Intercom TypeScript library provides convenient access to the Intercom APIs from TypeScript.
 
-## Project Updates
+## Project Update
 
 The TypeScript SDK has been updated to support latest API version (2.11).
 
