@@ -5,9 +5,9 @@
  */
 export interface ConversationPartAuthor {
     /** The type of the author */
-    type?: string;
+    type: string;
     /** The id of the author */
-    id?: string;
+    id: string;
     /** The name of the author */
     name?: string;
     /** The email of the author */

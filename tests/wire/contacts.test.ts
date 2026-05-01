@@ -35,6 +35,19 @@ describe("ContactsClient", () => {
                     session_count: 100,
                     user_count: 100,
                     custom_attributes: { paid_subscriber: true, monthly_spend: 155.5, team_mates: 9 },
+                    segments: {
+                        segments: [
+                            {
+                                type: "segment",
+                                id: "56203d253cba154d39010062",
+                                name: "Active",
+                                created_at: 1394621988,
+                                updated_at: 1394622004,
+                                person_type: "contact",
+                                count: 3,
+                            },
+                        ],
+                    },
                 },
             ],
             total_count: 1,
@@ -76,6 +89,19 @@ describe("ContactsClient", () => {
                         paid_subscriber: true,
                         monthly_spend: 155.5,
                         team_mates: 9,
+                    },
+                    segments: {
+                        segments: [
+                            {
+                                type: "segment",
+                                id: "56203d253cba154d39010062",
+                                name: "Active",
+                                created_at: 1394621988,
+                                updated_at: 1394622004,
+                                person_type: "contact",
+                                count: 3,
+                            },
+                        ],
                     },
                 },
             ],
@@ -731,7 +757,7 @@ describe("ContactsClient", () => {
                     id: "80",
                     name: "Manual tag",
                     applied_at: 1663597223,
-                    applied_by: { type: "contact", id: "1a2b3c" },
+                    applied_by: { type: "admin", id: "456" },
                 },
             ],
         };
@@ -755,8 +781,8 @@ describe("ContactsClient", () => {
                     name: "Manual tag",
                     applied_at: 1663597223,
                     applied_by: {
-                        type: "contact",
-                        id: "1a2b3c",
+                        type: "admin",
+                        id: "456",
                     },
                 },
             ],

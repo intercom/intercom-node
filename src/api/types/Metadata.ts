@@ -2,4 +2,4 @@
 
 import type * as Intercom from "../index.js";
 
-export type Metadata = Intercom.unstable.ConversationPartMetadata;
+export type Metadata = Intercom.preview.ConversationPartMetadata;

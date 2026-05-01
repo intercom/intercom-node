@@ -22,4 +22,4 @@ export type IntercomVersion =
     | "2.12"
     | "2.13"
     | "2.14"
-    | "Unstable";
+    | "Preview";

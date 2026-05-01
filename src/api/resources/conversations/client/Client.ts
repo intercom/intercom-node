@@ -49,7 +49,7 @@ export class ConversationsClient {
     public async list(
         request: Intercom.ListConversationsRequest = {},
         requestOptions?: ConversationsClient.RequestOptions,
-    ): Promise<core.Page<Intercom.Conversation, Intercom.ConversationList>> {
+    ): Promise<core.Page<Intercom.ConversationListItem, Intercom.ConversationList>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
                 request: Intercom.ListConversationsRequest,
@@ -112,7 +112,7 @@ export class ConversationsClient {
             },
         );
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Page<Intercom.Conversation, Intercom.ConversationList>({
+        return new core.Page<Intercom.ConversationListItem, Intercom.ConversationList>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) =>
@@ -454,7 +454,11 @@ export class ConversationsClient {
     }
 
     /**
-     * You can delete a single conversation.
+     * {% admonition type="warning" name="Irreversible operation" %}
+     * Deleting a conversation is permanent and cannot be reversed.
+     * {% /admonition %}
+     *
+     * Deleting a conversation permanently removes it from the inbox. All sensitive data is deleted, including admin and user replies, conversation attributes, uploads, and related content. The conversation will still appear in reporting, though some data may be incomplete due to the deletion.
      *
      * @param {Intercom.DeleteConversationRequest} request
      * @param {ConversationsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -574,8 +578,8 @@ export class ConversationsClient {
      * | source.url                                | String                                                                                                                                                 |
      * | contact_ids                               | String                                                                                                                                                 |
      * | teammate_ids                              | String                                                                                                                                                 |
-     * | admin_assignee_id                         | String                                                                                                                                                 |
-     * | team_assignee_id                          | String                                                                                                                                                 |
+     * | admin_assignee_id                         | Integer                                                                                                                                                |
+     * | team_assignee_id                          | Integer                                                                                                                                                |
      * | channel_initiated                         | String                                                                                                                                                 |
      * | open                                      | Boolean                                                                                                                                                |
      * | read                                      | Boolean                                                                                                                                                |
@@ -654,7 +658,7 @@ export class ConversationsClient {
     public async search(
         request: Intercom.SearchRequest,
         requestOptions?: ConversationsClient.RequestOptions,
-    ): Promise<core.Page<Intercom.Conversation, Intercom.ConversationList>> {
+    ): Promise<core.Page<Intercom.ConversationListItem, Intercom.ConversationList>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Intercom.SearchRequest): Promise<core.WithRawResponse<Intercom.ConversationList>> => {
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -702,7 +706,7 @@ export class ConversationsClient {
             },
         );
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Page<Intercom.Conversation, Intercom.ConversationList>({
+        return new core.Page<Intercom.ConversationListItem, Intercom.ConversationList>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) =>

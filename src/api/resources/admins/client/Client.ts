@@ -256,20 +256,33 @@ export class AdminsClient {
     /**
      * You can fetch a list of admins for a given workspace.
      *
+     * @param {Intercom.ListAdminsRequest} request
      * @param {AdminsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
      *
      * @example
-     *     await client.admins.list()
+     *     await client.admins.list({
+     *         display_avatar: true
+     *     })
      */
-    public list(requestOptions?: AdminsClient.RequestOptions): core.HttpResponsePromise<Intercom.AdminList> {
-        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
+    public list(
+        request: Intercom.ListAdminsRequest = {},
+        requestOptions?: AdminsClient.RequestOptions,
+    ): core.HttpResponsePromise<Intercom.AdminList> {
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
+        request: Intercom.ListAdminsRequest = {},
         requestOptions?: AdminsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.AdminList>> {
+        const { display_avatar: displayAvatar } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (displayAvatar != null) {
+            _queryParams.display_avatar = displayAvatar.toString();
+        }
+
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -286,7 +299,7 @@ export class AdminsClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

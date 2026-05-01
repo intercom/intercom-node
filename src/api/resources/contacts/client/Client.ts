@@ -543,6 +543,10 @@ export class ContactsClient {
     /**
      * You can fetch the details of a single contact.
      *
+     * {% admonition type="warning" name="Merged contacts" %}
+     *   If a contact has been merged into another contact via the Merge endpoint (POST /contacts/merge), requesting it by its original ID will return a `404 Not Found` error. Use the merged-into contact's ID instead.
+     * {% /admonition %}
+     *
      * @param {Intercom.FindContactRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -777,6 +781,15 @@ export class ContactsClient {
     /**
      * You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
      *
+     * {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
+     *   Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
+     *   - **GET /contacts/{id}** — Requesting the source contact by its original ID will return a `404 Not Found` error.
+     *   - **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
+     *   - **GET /contacts** — The source contact will not appear in list results.
+     *
+     *   Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
+     * {% /admonition %}
+     *
      * @param {Intercom.MergeContactsRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -864,6 +877,10 @@ export class ContactsClient {
      *   pagination to limit the number of results returned. The default is `50` results per page.
      *   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
      * {% /admonition %}
+     * ### Merged Contacts
+     *
+     * Contacts that have been merged (via POST /contacts/merge) are excluded from search results. If a contact was recently merged into another, it will no longer appear in queries filtered by `updated_at` or any other field. Only the target contact from the merge remains searchable.
+     *
      * ### Contact Creation Delay
      *
      * If a contact has recently been created, there is a possibility that it will not yet be available when searching. This means that it may not appear in the response. This delay can take a few minutes. If you need to be instantly notified it is recommended to use webhooks and iterate to see if they match your search filters.
@@ -1046,6 +1063,9 @@ export class ContactsClient {
 
     /**
      * You can fetch a list of all contacts (ie. users or leads) in your workspace.
+     * {% admonition type="info" name="Merged contacts" %}
+     *   Contacts that have been merged (via POST /contacts/merge) will not appear in list results. Only the target contact from the merge remains accessible.
+     * {% /admonition %}
      * {% admonition type="warning" name="Pagination" %}
      *   You can use pagination to limit the number of results returned. The default is `50` results per page.
      *   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.

@@ -7,13 +7,13 @@ import type * as Intercom from "../../../index.js";
  */
 export interface Team {
     /** Value is always "team" */
-    type?: string;
+    type: string;
     /** The id of the team */
-    id?: string;
+    id: string;
     /** The name of the team */
-    name?: string;
+    name: string;
     /** The list of admin IDs that are a part of the team. */
-    admin_ids?: number[];
+    admin_ids: number[];
     admin_priority_level?: Intercom.AdminPriorityLevel;
     /** The assignment limit for the team. This field is only present when the team's distribution type is load balanced. */
     assignment_limit?: number;

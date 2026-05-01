@@ -12,7 +12,8 @@ export interface Tag {
     id: string;
     /** The name of the tag */
     name: string;
-    /** The time when the tag was applied to the object */
+    /** The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, or ticket. */
     applied_at?: number;
+    /** The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, or ticket. */
     applied_by?: Intercom.Reference;
 }

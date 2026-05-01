@@ -120,6 +120,7 @@ export namespace ActivityLog {
         TeamAssignmentLimitChange: "team_assignment_limit_change",
         TrustedDomainsSettingChange: "trusted_domains_setting_change",
         UnassignUnsnoozedAtCapacitySettingChange: "unassign_unsnoozed_at_capacity_setting_change",
+        UnassignUnsnoozedWhenAwaySettingChange: "unassign_unsnoozed_when_away_setting_change",
         UpfrontEmailCollectionChange: "upfront_email_collection_change",
         AllowedAttachmentFiletypesSettingChange: "allowed_attachment_filetypes_setting_change",
         AttachUploadsInlineSettingChange: "attach_uploads_inline_setting_change",

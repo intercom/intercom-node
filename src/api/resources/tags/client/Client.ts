@@ -470,14 +470,14 @@ export class TagsClient {
     public create(
         request: Intercom.TagsCreateRequestBody,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Tag> {
+    ): core.HttpResponsePromise<Intercom.TagBasic> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Intercom.TagsCreateRequestBody,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Tag>> {
+    ): Promise<core.WithRawResponse<Intercom.TagBasic>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -505,7 +505,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Tag, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.TagBasic, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -549,14 +549,14 @@ export class TagsClient {
     public find(
         request: Intercom.FindTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Tag> {
+    ): core.HttpResponsePromise<Intercom.TagBasic> {
         return core.HttpResponsePromise.fromPromise(this.__find(request, requestOptions));
     }
 
     private async __find(
         request: Intercom.FindTagRequest,
         requestOptions?: TagsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Tag>> {
+    ): Promise<core.WithRawResponse<Intercom.TagBasic>> {
         const { tag_id: tagId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -582,7 +582,7 @@ export class TagsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Tag, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.TagBasic, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

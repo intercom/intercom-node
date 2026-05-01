@@ -9,7 +9,7 @@ export interface ConversationList {
     /** Always conversation.list */
     type?: "conversation.list";
     /** The list of conversation objects */
-    conversations?: Intercom.Conversation[];
+    conversations?: Intercom.ConversationListItem[];
     /** A count of the total number of objects. */
     total_count?: number;
     pages?: Intercom.CursorPages;

@@ -61,6 +61,18 @@ export class TicketsClient {
      *     await client.tickets.reply({
      *         ticket_id: "123",
      *         body: {
+     *             message_type: "note",
+     *             type: "admin",
+     *             body: "This note will be cross-posted to all linked conversations.",
+     *             admin_id: "3156780",
+     *             cross_post: true
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.tickets.reply({
+     *         ticket_id: "123",
+     *         body: {
      *             message_type: "quick_reply",
      *             type: "admin",
      *             admin_id: "3156780",
@@ -484,12 +496,17 @@ export class TicketsClient {
     }
 
     /**
-     * You can delete a ticket using the Intercom provided ID.
+     * {% admonition type="warning" name="Irreversible operation" %}
+     * Deleting a ticket is permanent and cannot be reversed.
+     * {% /admonition %}
+     *
+     * Deleting a ticket permanently removes it from the inbox. All sensitive data is deleted, including admin and user replies, ticket attributes, uploads, and related content. The ticket will still appear in reporting, though some data may be incomplete due to the deletion.
      *
      * @param {Intercom.DeleteTicketRequest} request
      * @param {TicketsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link Intercom.ForbiddenError}
      * @throws {@link Intercom.NotFoundError}
      *
      * @example
@@ -500,14 +517,14 @@ export class TicketsClient {
     public deleteTicket(
         request: Intercom.DeleteTicketRequest,
         requestOptions?: TicketsClient.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.DeleteTicketResponse> {
+    ): core.HttpResponsePromise<Intercom.TicketDeleted> {
         return core.HttpResponsePromise.fromPromise(this.__deleteTicket(request, requestOptions));
     }
 
     private async __deleteTicket(
         request: Intercom.DeleteTicketRequest,
         requestOptions?: TicketsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.DeleteTicketResponse>> {
+    ): Promise<core.WithRawResponse<Intercom.TicketDeleted>> {
         const { ticket_id: ticketId } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -533,7 +550,7 @@ export class TicketsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.DeleteTicketResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.TicketDeleted, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -543,6 +560,8 @@ export class TicketsClient {
                         _response.error.body as Intercom.Error_,
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Intercom.ForbiddenError(_response.error.body as Intercom.Error_, _response.rawResponse);
                 case 404:
                     throw new Intercom.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 default:

@@ -1,4 +1,3 @@
-export * from "./DeleteTicketResponse.js";
 export * from "./Ticket.js";
 export * from "./TicketContacts.js";
 export * from "./TicketPart.js";

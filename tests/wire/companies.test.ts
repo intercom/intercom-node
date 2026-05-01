@@ -37,6 +37,19 @@ describe("CompaniesClient", () => {
                     session_count: 100,
                     user_count: 100,
                     custom_attributes: { paid_subscriber: true, monthly_spend: 155.5, team_mates: 9 },
+                    segments: {
+                        segments: [
+                            {
+                                type: "segment",
+                                id: "56203d253cba154d39010062",
+                                name: "Active",
+                                created_at: 1394621988,
+                                updated_at: 1394622004,
+                                person_type: "contact",
+                                count: 3,
+                            },
+                        ],
+                    },
                 },
             ],
         };
@@ -86,6 +99,19 @@ describe("CompaniesClient", () => {
                         paid_subscriber: true,
                         monthly_spend: 155.5,
                         team_mates: 9,
+                    },
+                    segments: {
+                        segments: [
+                            {
+                                type: "segment",
+                                id: "56203d253cba154d39010062",
+                                name: "Active",
+                                created_at: 1394621988,
+                                updated_at: 1394622004,
+                                person_type: "contact",
+                                count: 3,
+                            },
+                        ],
                     },
                 },
             ],
@@ -152,16 +178,18 @@ describe("CompaniesClient", () => {
             monthly_spend: 0,
             session_count: 0,
             user_count: 0,
-            custom_attributes: { creation_source: "api" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            custom_attributes: { industry: "manufacturing" },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -203,13 +231,15 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 0,
             custom_attributes: {
-                creation_source: "api",
+                industry: "manufacturing",
             },
             tags: {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -217,10 +247,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -254,16 +286,18 @@ describe("CompaniesClient", () => {
             monthly_spend: 0,
             session_count: 0,
             user_count: 0,
-            custom_attributes: { creation_source: "api" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            custom_attributes: { industry: "manufacturing" },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -294,13 +328,15 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 0,
             custom_attributes: {
-                creation_source: "api",
+                industry: "manufacturing",
             },
             tags: {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -308,10 +344,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -380,15 +418,17 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 1,
             custom_attributes: { key: "value" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -433,7 +473,9 @@ describe("CompaniesClient", () => {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -441,10 +483,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -529,15 +573,17 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 1,
             custom_attributes: { key: "value" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -587,7 +633,9 @@ describe("CompaniesClient", () => {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -595,10 +643,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -633,15 +683,17 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 1,
             custom_attributes: { key: "value" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -687,7 +739,9 @@ describe("CompaniesClient", () => {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -695,10 +749,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -1184,15 +1240,17 @@ describe("CompaniesClient", () => {
                     session_count: 0,
                     user_count: 4,
                     custom_attributes: { key: "value" },
-                    tags: { type: "tag.list" },
+                    tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
                     segments: {
                         type: "segment.list",
                         segments: [
                             {
+                                type: "segment",
                                 id: "56203d253cba154d39010062",
                                 name: "Active",
                                 created_at: 1394621988,
                                 updated_at: 1394622004,
+                                person_type: "contact",
                                 count: 3,
                             },
                         ],
@@ -1245,15 +1303,24 @@ describe("CompaniesClient", () => {
                     },
                     tags: {
                         type: "tag.list",
+                        tags: [
+                            {
+                                type: "tag",
+                                id: "123456",
+                                name: "Test tag",
+                            },
+                        ],
                     },
                     segments: {
                         type: "segment.list",
                         segments: [
                             {
+                                type: "segment",
                                 id: "56203d253cba154d39010062",
                                 name: "Active",
                                 created_at: 1394621988,
                                 updated_at: 1394622004,
+                                person_type: "contact",
                                 count: 3,
                             },
                         ],
@@ -1326,15 +1393,17 @@ describe("CompaniesClient", () => {
                     session_count: 0,
                     user_count: 4,
                     custom_attributes: { key: "value" },
-                    tags: { type: "tag.list" },
+                    tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
                     segments: {
                         type: "segment.list",
                         segments: [
                             {
+                                type: "segment",
                                 id: "56203d253cba154d39010062",
                                 name: "Active",
                                 created_at: 1394621988,
                                 updated_at: 1394622004,
+                                person_type: "contact",
                                 count: 3,
                             },
                         ],
@@ -1388,15 +1457,24 @@ describe("CompaniesClient", () => {
                     },
                     tags: {
                         type: "tag.list",
+                        tags: [
+                            {
+                                type: "tag",
+                                id: "123456",
+                                name: "Test tag",
+                            },
+                        ],
                     },
                     segments: {
                         type: "segment.list",
                         segments: [
                             {
+                                type: "segment",
                                 id: "56203d253cba154d39010062",
                                 name: "Active",
                                 created_at: 1394621988,
                                 updated_at: 1394622004,
+                                person_type: "contact",
                                 count: 3,
                             },
                         ],
@@ -1476,15 +1554,17 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 1,
             custom_attributes: { key: "value" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -1531,7 +1611,9 @@ describe("CompaniesClient", () => {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -1539,10 +1621,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -1577,15 +1661,17 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 1,
             custom_attributes: { key: "value" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -1632,7 +1718,9 @@ describe("CompaniesClient", () => {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -1640,10 +1728,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -1678,15 +1768,17 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 1,
             custom_attributes: { key: "value" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -1733,7 +1825,9 @@ describe("CompaniesClient", () => {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -1741,10 +1835,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -1860,15 +1956,17 @@ describe("CompaniesClient", () => {
             session_count: 0,
             user_count: 0,
             custom_attributes: { key: "value" },
-            tags: { type: "tag.list", tags: [{ key: "value" }] },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag" }] },
             segments: {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],
@@ -1914,7 +2012,9 @@ describe("CompaniesClient", () => {
                 type: "tag.list",
                 tags: [
                     {
-                        key: "value",
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
                     },
                 ],
             },
@@ -1922,10 +2022,12 @@ describe("CompaniesClient", () => {
                 type: "segment.list",
                 segments: [
                     {
+                        type: "segment",
                         id: "56203d253cba154d39010062",
                         name: "Active",
                         created_at: 1394621988,
                         updated_at: 1394622004,
+                        person_type: "contact",
                         count: 3,
                     },
                 ],

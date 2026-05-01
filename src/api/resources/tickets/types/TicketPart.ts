@@ -7,11 +7,11 @@ import type * as Intercom from "../../../index.js";
  */
 export interface TicketPart {
     /** Always ticket_part */
-    type?: string;
+    type: string;
     /** The id representing the ticket part. */
-    id?: string;
+    id: string;
     /** The type of ticket part. */
-    part_type?: string;
+    part_type: string;
     /** The message body, which may contain HTML. */
     body?: string;
     /** The previous state of the ticket. */
@@ -19,18 +19,18 @@ export interface TicketPart {
     /** The state of the ticket. */
     ticket_state?: TicketPart.TicketState;
     /** The time the ticket part was created. */
-    created_at?: number;
+    created_at: number;
     /** The last time the ticket part was updated. */
-    updated_at?: number;
+    updated_at: number;
     /** The id of the admin that was assigned the ticket by this ticket_part (null if there has been no change in assignment.) */
     assigned_to?: Intercom.Reference;
-    author?: Intercom.TicketPartAuthor;
+    author: Intercom.TicketPartAuthor;
     /** A list of attachments for the part. */
     attachments?: Intercom.PartAttachment[];
     /** The external id of the ticket part */
     external_id?: string;
     /** Whether or not the ticket part has been redacted. */
-    redacted?: boolean;
+    redacted: boolean;
     /** The app package code if this part was created via API. Note this field won't show if the part was not created via API. */
     app_package_code?: string;
     /** The updated attribute data of the ticket part. Only present for attribute update parts. */

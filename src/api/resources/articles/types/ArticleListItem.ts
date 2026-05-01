@@ -37,6 +37,7 @@ export interface ArticleListItem {
     /** The default locale of the help center. This field is only returned for multilingual help centers. */
     default_locale?: string;
     translated_content?: Intercom.ArticleTranslatedContent;
+    tags?: Intercom.Tags;
 }
 
 export namespace ArticleListItem {

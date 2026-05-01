@@ -45,7 +45,7 @@ export interface ConversationStatistics {
     /** Total number of conversation parts. */
     count_conversation_parts?: number;
     /** An array of conversation response time objects */
-    assigned_team_first_response_time_by_team?: Intercom.ConversationResponseTime[];
+    assigned_team_first_response_time?: Intercom.ConversationResponseTime[];
     /** An array of conversation response time objects within office hours */
     assigned_team_first_response_time_in_office_hours?: Intercom.ConversationResponseTime[];
     /** Time from conversation assignment to conversation close in seconds. */

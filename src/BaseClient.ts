@@ -32,7 +32,7 @@ export interface BaseClientOptions {
         | "2.12"
         | "2.13"
         | "2.14"
-        | "Unstable";
+        | "Preview";
     /** Additional headers to include in requests. */
     headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     /** The default maximum time to wait for a response in seconds. */
@@ -79,7 +79,7 @@ export interface BaseRequestOptions {
         | "2.12"
         | "2.13"
         | "2.14"
-        | "Unstable";
+        | "Preview";
 }
 
 export type NormalizedClientOptions<T extends BaseClientOptions> = T & {
@@ -96,8 +96,8 @@ export function normalizeClientOptions<T extends BaseClientOptions>(options: T):
         {
             "X-Fern-Language": "JavaScript",
             "X-Fern-SDK-Name": "intercom-client",
-            "X-Fern-SDK-Version": "7.0.3",
-            "User-Agent": "intercom-client/7.0.3",
+            "X-Fern-SDK-Version": "7.0.4",
+            "User-Agent": "intercom-client/7.0.4",
             "X-Fern-Runtime": core.RUNTIME.type,
             "X-Fern-Runtime-Version": core.RUNTIME.version,
             "Intercom-Version": options?.version ?? "2.14",

@@ -7,11 +7,11 @@ import type * as Intercom from "../index.js";
  */
 export interface ConversationRating {
     /** The rating, between 1 and 5, for the conversation. */
-    rating?: number;
+    rating: number;
     /** An optional field to add a remark to correspond to the number rating */
     remark?: string;
     /** The time the rating was requested in the conversation being rated. */
-    created_at?: number;
+    created_at: number;
     /** The time the rating was last updated. */
     updated_at?: number;
     contact?: Intercom.ContactReference;

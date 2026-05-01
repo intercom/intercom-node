@@ -29,9 +29,8 @@ describe("ConversationsClient", () => {
                     state: "closed",
                     read: false,
                     priority: "not_priority",
-                    admin_assignee_id: 0,
-                    team_assignee_id: "5017691",
-                    company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+                    admin_assignee_id: 991267715,
+                    team_assignee_id: 5017691,
                     tags: {
                         type: "tag.list",
                         tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }],
@@ -99,8 +98,12 @@ describe("ConversationsClient", () => {
                         handling_time: 2310,
                         adjusted_handling_time: 1800,
                     },
-                    conversation_parts: { total_count: 1 },
-                    linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+                    linked_objects: {
+                        type: "list",
+                        total_count: 0,
+                        has_more: false,
+                        data: [{ type: "ticket", id: "7583" }],
+                    },
                     ai_agent_participated: false,
                     ai_agent: {
                         source_title: "My AI Workflow",
@@ -143,9 +146,8 @@ describe("ConversationsClient", () => {
                     state: "closed",
                     read: false,
                     priority: "not_priority",
-                    admin_assignee_id: 0,
-                    team_assignee_id: "5017691",
-                    company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+                    admin_assignee_id: 991267715,
+                    team_assignee_id: 5017691,
                     tags: {
                         type: "tag.list",
                         tags: [
@@ -244,15 +246,13 @@ describe("ConversationsClient", () => {
                         handling_time: 2310,
                         adjusted_handling_time: 1800,
                     },
-                    conversation_parts: {
-                        total_count: 1,
-                    },
                     linked_objects: {
                         type: "list",
                         total_count: 0,
                         has_more: false,
                         data: [
                             {
+                                type: "ticket",
                                 id: "7583",
                             },
                         ],
@@ -537,9 +537,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -620,9 +619,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -771,7 +768,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 4,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -814,9 +811,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -927,7 +923,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -1135,6 +1131,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -1264,9 +1261,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -1336,9 +1332,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -1415,7 +1409,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 2,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -1470,9 +1464,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -1580,7 +1573,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -1677,6 +1670,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -1727,9 +1721,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -1815,9 +1808,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -1835,6 +1826,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -1842,7 +1852,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 0,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -1894,9 +1904,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -2020,7 +2029,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -2048,6 +2057,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -2061,6 +2089,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -2115,9 +2144,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -2187,9 +2215,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -2266,7 +2292,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 2,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -2321,9 +2347,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -2431,7 +2456,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -2528,6 +2553,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -2740,9 +2766,8 @@ describe("ConversationsClient", () => {
                     state: "closed",
                     read: false,
                     priority: "not_priority",
-                    admin_assignee_id: 0,
-                    team_assignee_id: "5017691",
-                    company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+                    admin_assignee_id: 991267715,
+                    team_assignee_id: 5017691,
                     tags: {
                         type: "tag.list",
                         tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }],
@@ -2810,8 +2835,12 @@ describe("ConversationsClient", () => {
                         handling_time: 2310,
                         adjusted_handling_time: 1800,
                     },
-                    conversation_parts: { total_count: 1 },
-                    linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+                    linked_objects: {
+                        type: "list",
+                        total_count: 0,
+                        has_more: false,
+                        data: [{ type: "ticket", id: "7583" }],
+                    },
                     ai_agent_participated: false,
                     ai_agent: {
                         source_title: "My AI Workflow",
@@ -2855,9 +2884,8 @@ describe("ConversationsClient", () => {
                     state: "closed",
                     read: false,
                     priority: "not_priority",
-                    admin_assignee_id: 0,
-                    team_assignee_id: "5017691",
-                    company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+                    admin_assignee_id: 991267715,
+                    team_assignee_id: 5017691,
                     tags: {
                         type: "tag.list",
                         tags: [
@@ -2956,15 +2984,13 @@ describe("ConversationsClient", () => {
                         handling_time: 2310,
                         adjusted_handling_time: 1800,
                     },
-                    conversation_parts: {
-                        total_count: 1,
-                    },
                     linked_objects: {
                         type: "list",
                         total_count: 0,
                         has_more: false,
                         data: [
                             {
+                                type: "ticket",
                                 id: "7583",
                             },
                         ],
@@ -3039,9 +3065,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -3111,9 +3136,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -3158,7 +3181,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -3212,9 +3235,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -3321,7 +3343,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -3384,6 +3406,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -3439,9 +3462,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -3511,9 +3533,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -3558,7 +3578,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -3612,9 +3632,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -3721,7 +3740,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -3784,6 +3803,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -3842,9 +3862,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -3914,9 +3933,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -3961,7 +3978,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -4024,9 +4041,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -4133,7 +4149,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -4196,6 +4212,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -4252,9 +4269,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -4324,9 +4340,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -4371,7 +4385,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -4431,9 +4445,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -4540,7 +4553,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -4603,6 +4616,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -4658,9 +4672,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -4730,9 +4743,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -4777,7 +4788,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -4831,9 +4842,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -4940,7 +4950,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -5003,6 +5013,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -5058,9 +5069,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -5130,9 +5140,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -5177,7 +5185,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -5231,9 +5239,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -5340,7 +5347,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -5403,6 +5410,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -5458,9 +5466,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -5530,9 +5537,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -5577,7 +5582,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -5631,9 +5636,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -5740,7 +5744,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -5803,6 +5807,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -5858,9 +5863,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -5930,9 +5934,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -5977,7 +5979,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -6031,9 +6033,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -6140,7 +6141,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -6203,6 +6204,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -6364,9 +6366,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -6436,9 +6437,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -6483,7 +6482,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -6536,9 +6535,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -6645,7 +6643,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -6708,6 +6706,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -6758,9 +6757,8 @@ describe("ConversationsClient", () => {
             state: "snoozed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -6830,9 +6828,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -6877,7 +6873,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -6930,9 +6926,8 @@ describe("ConversationsClient", () => {
             state: "snoozed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -7039,7 +7034,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -7102,6 +7097,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -7152,9 +7148,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -7224,9 +7219,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -7271,7 +7264,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -7323,9 +7316,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -7432,7 +7424,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -7495,6 +7487,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -7546,8 +7539,7 @@ describe("ConversationsClient", () => {
             read: false,
             priority: "not_priority",
             admin_assignee_id: 991267715,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -7617,9 +7609,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -7665,7 +7655,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -7720,8 +7710,7 @@ describe("ConversationsClient", () => {
             read: false,
             priority: "not_priority",
             admin_assignee_id: 991267715,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -7828,7 +7817,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -7895,6 +7884,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -7945,9 +7935,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -8017,9 +8006,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -8064,7 +8051,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -8117,9 +8104,8 @@ describe("ConversationsClient", () => {
             state: "closed",
             read: false,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -8226,7 +8212,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -8289,6 +8275,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -8433,8 +8420,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -8480,6 +8466,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -8507,9 +8496,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -8527,6 +8514,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -8534,7 +8540,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: true,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -8587,8 +8593,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -8670,6 +8675,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -8701,7 +8709,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -8729,6 +8737,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -8742,6 +8769,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -8793,8 +8821,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -8840,6 +8867,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -8867,9 +8897,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -8887,6 +8915,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -8894,7 +8941,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: true,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -8947,8 +8994,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -9030,6 +9076,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -9061,7 +9110,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -9089,6 +9138,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -9102,6 +9170,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -9231,8 +9300,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -9278,6 +9346,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -9305,9 +9376,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -9325,6 +9394,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -9332,7 +9420,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: true,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -9383,8 +9471,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -9466,6 +9553,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -9497,7 +9587,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -9525,6 +9615,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -9538,6 +9647,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -9589,8 +9699,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -9636,6 +9745,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -9663,9 +9775,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -9683,6 +9793,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -9690,7 +9819,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: true,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -9741,8 +9870,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -9824,6 +9952,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -9855,7 +9986,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -9883,6 +10014,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -9896,6 +10046,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -9947,8 +10098,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -9994,6 +10144,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -10021,9 +10174,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -10041,6 +10192,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -10048,7 +10218,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: true,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -10099,8 +10269,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -10182,6 +10351,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -10213,7 +10385,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -10241,6 +10413,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -10254,6 +10445,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -10305,8 +10497,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -10352,6 +10543,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -10379,9 +10573,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -10399,6 +10591,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -10406,7 +10617,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 100, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: true,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -10457,8 +10668,7 @@ describe("ConversationsClient", () => {
             read: true,
             priority: "priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -10540,6 +10750,9 @@ describe("ConversationsClient", () => {
                 team_mates: 9,
                 start_date_iso8601: "2023-03-04T09:46:14Z",
                 end_date_timestamp: 1677923174,
+                "CX Score rating": 4,
+                "CX Score explanation":
+                    "The conversation was resolved quickly and the customer expressed satisfaction with the outcome.",
             },
             first_contact_reply: {
                 created_at: 1663597223,
@@ -10571,7 +10784,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -10599,6 +10812,25 @@ describe("ConversationsClient", () => {
                         created_at: 1663597223,
                         updated_at: 1663597260,
                         notified_at: 1663597260,
+                        author: {
+                            type: "admin",
+                            id: "274",
+                            name: "Operator",
+                            email: "operator+abcd1234@intercom.io",
+                            from_ai_agent: true,
+                            is_ai_answer: false,
+                        },
+                        attachments: [
+                            {
+                                type: "upload",
+                                name: "example.png",
+                                url: "https://picsum.photos/200/300",
+                                content_type: "image/png",
+                                filesize: 100,
+                                width: 100,
+                                height: 100,
+                            },
+                        ],
                         external_id: "abcd1234",
                         redacted: false,
                         app_package_code: "test-integration",
@@ -10612,6 +10844,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -10778,9 +11011,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -10850,9 +11082,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -10897,7 +11127,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -10947,9 +11177,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -11056,7 +11285,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -11119,6 +11348,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -11173,9 +11403,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -11245,9 +11474,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -11292,7 +11519,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -11342,9 +11569,8 @@ describe("ConversationsClient", () => {
             state: "open",
             read: true,
             priority: "not_priority",
-            admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            admin_assignee_id: 991267715,
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -11451,7 +11677,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -11514,6 +11740,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -11653,7 +11880,7 @@ describe("ConversationsClient", () => {
             updated_at: 1734537737,
             open: true,
             snoozed_until: 1663597260,
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ticket_parts: {
                 type: "ticket_part.list",
                 ticket_parts: [
@@ -11790,6 +12017,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -11908,7 +12136,7 @@ describe("ConversationsClient", () => {
             updated_at: 1734537737,
             open: true,
             snoozed_until: 1663597260,
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ticket_parts: {
                 type: "ticket_part.list",
                 ticket_parts: [
@@ -12045,6 +12273,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -12166,8 +12395,7 @@ describe("ConversationsClient", () => {
             read: false,
             priority: "not_priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             conversation_rating: {
                 rating: 5,
@@ -12237,9 +12465,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
-                    { team_id: 100, team_name: "Team One", response_time: 2310 },
-                ],
+                assigned_team_first_response_time: [{ team_id: 100, team_name: "Team One", response_time: 2310 }],
                 assigned_team_first_response_time_in_office_hours: [
                     { team_id: 100, team_name: "Team One", response_time: 2310 },
                 ],
@@ -12284,7 +12510,7 @@ describe("ConversationsClient", () => {
                 ],
                 total_count: 1,
             },
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ai_agent_participated: false,
             ai_agent: {
                 source_type: "essentials_plan_setup",
@@ -12332,8 +12558,7 @@ describe("ConversationsClient", () => {
             read: false,
             priority: "not_priority",
             admin_assignee_id: 0,
-            team_assignee_id: "5017691",
-            company_id: "5f4d3c1c-7b1b-4d7d-a97e-6095715c6632",
+            team_assignee_id: 5017691,
             tags: {
                 type: "tag.list",
                 tags: [
@@ -12440,7 +12665,7 @@ describe("ConversationsClient", () => {
                 count_reopens: 1,
                 count_assignments: 1,
                 count_conversation_parts: 1,
-                assigned_team_first_response_time_by_team: [
+                assigned_team_first_response_time: [
                     {
                         team_id: 100,
                         team_name: "Team One",
@@ -12504,6 +12729,7 @@ describe("ConversationsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],

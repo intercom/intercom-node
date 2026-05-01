@@ -7,19 +7,19 @@ import type * as Intercom from "../../../index.js";
  */
 export interface NewsItem {
     /** The type of object. */
-    type?: "news-item";
+    type: "news-item";
     /** The unique identifier for the news item which is given by Intercom. */
-    id?: string;
+    id: string;
     /** The id of the workspace which the news item belongs to. */
-    workspace_id?: string;
+    workspace_id: string;
     /** The title of the news item. */
-    title?: string;
+    title: string;
     /** The news item body, which may contain HTML. */
     body?: string;
     /** The id of the sender of the news item. Must be a teammate on the workspace. */
     sender_id?: number;
     /** News items will not be visible to your users in the assigned newsfeeds until they are set live. */
-    state?: NewsItem.State;
+    state: NewsItem.State;
     /** A list of newsfeed_assignments to assign to the specified newsfeed. */
     newsfeed_assignments?: Intercom.NewsfeedAssignment[];
     /** Label names displayed to users to categorize the news item. */
@@ -31,9 +31,9 @@ export interface NewsItem {
     /** When set to true, the news item will appear in the messenger newsfeed without showing a notification badge. */
     deliver_silently?: boolean;
     /** Timestamp for when the news item was created. */
-    created_at?: number;
+    created_at: number;
     /** Timestamp for when the news item was last updated. */
-    updated_at?: number;
+    updated_at: number;
 }
 
 export namespace NewsItem {

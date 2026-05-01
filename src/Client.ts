@@ -8,12 +8,12 @@ import { CallsClient } from "./api/resources/calls/client/Client.js";
 import { CompaniesClient } from "./api/resources/companies/client/Client.js";
 import { ContactsClient } from "./api/resources/contacts/client/Client.js";
 import { ConversationsClient } from "./api/resources/conversations/client/Client.js";
-import { CustomChannelEventsClient } from "./api/resources/customChannelEvents/client/Client.js";
 import { CustomObjectInstancesClient } from "./api/resources/customObjectInstances/client/Client.js";
 import { DataAttributesClient } from "./api/resources/dataAttributes/client/Client.js";
 import { DataExportClient } from "./api/resources/dataExport/client/Client.js";
 import { EventsClient } from "./api/resources/events/client/Client.js";
 import { ExportClient } from "./api/resources/export/client/Client.js";
+import { FinAgentClient } from "./api/resources/finAgent/client/Client.js";
 import { HelpCentersClient } from "./api/resources/helpCenters/client/Client.js";
 import { InternalArticlesClient } from "./api/resources/internalArticles/client/Client.js";
 import { IpAllowlistClient } from "./api/resources/ipAllowlist/client/Client.js";
@@ -22,6 +22,7 @@ import { MessagesClient } from "./api/resources/messages/client/Client.js";
 import { NewsClient } from "./api/resources/news/client/Client.js";
 import { NotesClient } from "./api/resources/notes/client/Client.js";
 import { PhoneCallRedirectsClient } from "./api/resources/phoneCallRedirects/client/Client.js";
+import { PreviewClient } from "./api/resources/preview/client/Client.js";
 import { SegmentsClient } from "./api/resources/segments/client/Client.js";
 import { SubscriptionTypesClient } from "./api/resources/subscriptionTypes/client/Client.js";
 import { TagsClient } from "./api/resources/tags/client/Client.js";
@@ -29,7 +30,6 @@ import { TeamsClient } from "./api/resources/teams/client/Client.js";
 import { TicketStatesClient } from "./api/resources/ticketStates/client/Client.js";
 import { TicketsClient } from "./api/resources/tickets/client/Client.js";
 import { TicketTypesClient } from "./api/resources/ticketTypes/client/Client.js";
-import { UnstableClient } from "./api/resources/unstable/client/Client.js";
 import { VisitorsClient } from "./api/resources/visitors/client/Client.js";
 import type { BaseClientOptions, BaseRequestOptions } from "./BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "./BaseClient.js";
@@ -48,6 +48,7 @@ export class IntercomClient {
     protected _awayStatusReasons: AwayStatusReasonsClient | undefined;
     protected _export: ExportClient | undefined;
     protected _dataExport: DataExportClient | undefined;
+    protected _finAgent: FinAgentClient | undefined;
     protected _helpCenters: HelpCentersClient | undefined;
     protected _internalArticles: InternalArticlesClient | undefined;
     protected _ipAllowlist: IpAllowlistClient | undefined;
@@ -56,7 +57,6 @@ export class IntercomClient {
     protected _notes: NotesClient | undefined;
     protected _tags: TagsClient | undefined;
     protected _conversations: ConversationsClient | undefined;
-    protected _customChannelEvents: CustomChannelEventsClient | undefined;
     protected _customObjectInstances: CustomObjectInstancesClient | undefined;
     protected _dataAttributes: DataAttributesClient | undefined;
     protected _events: EventsClient | undefined;
@@ -72,7 +72,7 @@ export class IntercomClient {
     protected _tickets: TicketsClient | undefined;
     protected _visitors: VisitorsClient | undefined;
     protected _news: NewsClient | undefined;
-    protected _unstable: UnstableClient | undefined;
+    protected _preview: PreviewClient | undefined;
 
     constructor(options: IntercomClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
@@ -100,6 +100,10 @@ export class IntercomClient {
 
     public get dataExport(): DataExportClient {
         return (this._dataExport ??= new DataExportClient(this._options));
+    }
+
+    public get finAgent(): FinAgentClient {
+        return (this._finAgent ??= new FinAgentClient(this._options));
     }
 
     public get helpCenters(): HelpCentersClient {
@@ -132,10 +136,6 @@ export class IntercomClient {
 
     public get conversations(): ConversationsClient {
         return (this._conversations ??= new ConversationsClient(this._options));
-    }
-
-    public get customChannelEvents(): CustomChannelEventsClient {
-        return (this._customChannelEvents ??= new CustomChannelEventsClient(this._options));
     }
 
     public get customObjectInstances(): CustomObjectInstancesClient {
@@ -198,7 +198,7 @@ export class IntercomClient {
         return (this._news ??= new NewsClient(this._options));
     }
 
-    public get unstable(): UnstableClient {
-        return (this._unstable ??= new UnstableClient(this._options));
+    public get preview(): PreviewClient {
+        return (this._preview ??= new PreviewClient(this._options));
     }
 }

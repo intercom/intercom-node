@@ -61,7 +61,7 @@ export namespace Company {
     export interface Tags {
         /** The type of the object */
         type?: "tag.list";
-        tags?: unknown[];
+        tags?: Intercom.TagBasic[];
     }
 
     /**
