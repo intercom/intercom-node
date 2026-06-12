@@ -1,0 +1,84 @@
+# Release workflow for intercom-client.
+#
+# Publishing model: OIDC trusted publishing + npm staged publishing. CI authenticates to
+# npm with a short-lived OIDC token (no stored npm token) and stages the release; a
+# maintainer then promotes it from the npm staging area with 2FA. Replaces token-based publishing.
+#
+# Listed in .fernignore so it is not overwritten by code generation.
+name: Publish (staged)
+
+on:
+  release:
+    types: [published]        # cutting a Release creates the tag AND fires this
+
+permissions:
+  contents: read              # workflow default (least privilege); only stage-publish also needs id-token, granted on that job
+
+concurrency:
+  group: publish-${{ github.workflow }}   # serialize publishes; no dist-tag races
+  cancel-in-progress: false               # queue, don't kill an in-flight publish
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd   # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0                   # full history for the ancestry check below
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: '22'               # npm >= 11.15.0 needs Node >= 20; repo has no .nvmrc
+          package-manager-cache: false     # release-triggered: disable auto-cache (zizmor cache-poisoning)
+      - name: Assert Release tag matches package.json version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          PKG="$(node -p "require('./package.json').version")"
+          [ "${RELEASE_TAG#v}" = "$PKG" ] || { echo "tag $RELEASE_TAG != package.json v$PKG"; exit 1; }
+      - name: Refuse releases not on the default branch
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          git merge-base --is-ancestor "$GITHUB_SHA" "origin/$DEFAULT_BRANCH" \
+            || { echo "release $RELEASE_TAG not reachable from $DEFAULT_BRANCH — refusing"; exit 1; }
+
+  stage-publish:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15         # cap a hung publish
+    permissions:
+      contents: read
+      id-token: write           # OIDC trusted publishing: only this job mints the token
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd   # v6.0.2
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build    # mandatory: dist/ is gitignored, so the published artifact is built here
+      - run: npm install -g npm@11.15.0    # npm CLI: staged publishing needs npm >= 11.15.0
+      - name: Resolve dist-tag (a prerelease must never go to `latest`)
+        id: disttag
+        env:
+          ALPHA_TAG: alpha
+          BETA_TAG: beta
+          PRERELEASE_TAG: next
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          case "$VERSION" in
+            *-alpha.*) TAG="$ALPHA_TAG" ;;
+            *-beta.*)  TAG="$BETA_TAG" ;;
+            *-*)       TAG="$PRERELEASE_TAG" ;;
+            *)         TAG="latest" ;;
+          esac
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+      - name: Stage publish
+        env:
+          DIST_TAG: ${{ steps.disttag.outputs.tag }}
+        run: npm stage publish --tag "$DIST_TAG"
