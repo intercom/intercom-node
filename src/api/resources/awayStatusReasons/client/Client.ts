@@ -37,13 +37,13 @@ export class AwayStatusReasonsClient {
      */
     public listAwayStatusReasons(
         requestOptions?: AwayStatusReasonsClient.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.AwayStatusReason[]> {
+    ): core.HttpResponsePromise<Intercom.AwayStatusReasonList> {
         return core.HttpResponsePromise.fromPromise(this.__listAwayStatusReasons(requestOptions));
     }
 
     private async __listAwayStatusReasons(
         requestOptions?: AwayStatusReasonsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.AwayStatusReason[]>> {
+    ): Promise<core.WithRawResponse<Intercom.AwayStatusReasonList>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -68,7 +68,7 @@ export class AwayStatusReasonsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.AwayStatusReason[], rawResponse: _response.rawResponse };
+            return { data: _response.body as Intercom.AwayStatusReasonList, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

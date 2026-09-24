@@ -176,6 +176,89 @@ describe("TicketsClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = {
+            message_type: "note",
+            type: "admin",
+            body: "This note will be cross-posted to all linked conversations.",
+            admin_id: "3156780",
+            cross_post: true,
+        };
+        const rawResponseBody = {
+            type: "ticket_part",
+            id: "156",
+            part_type: "note",
+            body: "<h2>An Unordered HTML List</h2>\n<ul>\n<li>Coffee</li>\n<li>Tea</li>\n<li>Milk</li>\n</ul>\n<h2>An Ordered HTML List</h2>\n<ol>\n<li>Coffee</li>\n<li>Tea</li>\n<li>Milk</li>\n</ol>",
+            created_at: 1734537884,
+            updated_at: 1734537884,
+            author: { type: "admin", id: "991267943", name: "Ciaran419 Lee", email: "admin419@email.com" },
+            attachments: [
+                {
+                    type: "upload",
+                    name: "example.png",
+                    url: "https://picsum.photos/200/300",
+                    content_type: "image/png",
+                    filesize: 100,
+                    width: 100,
+                    height: 100,
+                },
+            ],
+            redacted: false,
+        };
+        server
+            .mockEndpoint()
+            .post("/tickets/123/reply")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.tickets.reply({
+            ticket_id: "123",
+            body: {
+                message_type: "note",
+                type: "admin",
+                body: "This note will be cross-posted to all linked conversations.",
+                admin_id: "3156780",
+                cross_post: true,
+            },
+        });
+        expect(response).toEqual({
+            type: "ticket_part",
+            id: "156",
+            part_type: "note",
+            body: "<h2>An Unordered HTML List</h2>\n<ul>\n<li>Coffee</li>\n<li>Tea</li>\n<li>Milk</li>\n</ul>\n<h2>An Ordered HTML List</h2>\n<ol>\n<li>Coffee</li>\n<li>Tea</li>\n<li>Milk</li>\n</ol>",
+            created_at: 1734537884,
+            updated_at: 1734537884,
+            author: {
+                type: "admin",
+                id: "991267943",
+                name: "Ciaran419 Lee",
+                email: "admin419@email.com",
+            },
+            attachments: [
+                {
+                    type: "upload",
+                    name: "example.png",
+                    url: "https://picsum.photos/200/300",
+                    content_type: "image/png",
+                    filesize: 100,
+                    width: 100,
+                    height: 100,
+                },
+            ],
+            redacted: false,
+        });
+    });
+
+    test("reply (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new IntercomClient({
+            maxRetries: 0,
+            token: "test",
+            version: "2.14",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
             message_type: "quick_reply",
             type: "admin",
             admin_id: "3156780",
@@ -260,7 +343,7 @@ describe("TicketsClient", () => {
         });
     });
 
-    test("reply (4)", async () => {
+    test("reply (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new IntercomClient({
             maxRetries: 0,
@@ -341,7 +424,7 @@ describe("TicketsClient", () => {
         });
     });
 
-    test("reply (5)", async () => {
+    test("reply (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new IntercomClient({
             maxRetries: 0,
@@ -422,7 +505,7 @@ describe("TicketsClient", () => {
         });
     });
 
-    test("reply (6)", async () => {
+    test("reply (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new IntercomClient({
             maxRetries: 0,
@@ -503,7 +586,7 @@ describe("TicketsClient", () => {
         });
     });
 
-    test("reply (7)", async () => {
+    test("reply (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new IntercomClient({
             maxRetries: 0,
@@ -540,7 +623,7 @@ describe("TicketsClient", () => {
         }).rejects.toThrow(Intercom.BadRequestError);
     });
 
-    test("reply (8)", async () => {
+    test("reply (9)", async () => {
         const server = mockServerPool.createServer();
         const client = new IntercomClient({
             maxRetries: 0,
@@ -577,7 +660,7 @@ describe("TicketsClient", () => {
         }).rejects.toThrow(Intercom.UnauthorizedError);
     });
 
-    test("reply (9)", async () => {
+    test("reply (10)", async () => {
         const server = mockServerPool.createServer();
         const client = new IntercomClient({
             maxRetries: 0,
@@ -660,7 +743,7 @@ describe("TicketsClient", () => {
             updated_at: 1734537946,
             open: true,
             snoozed_until: 1663597260,
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ticket_parts: {
                 type: "ticket_part.list",
                 ticket_parts: [
@@ -774,6 +857,7 @@ describe("TicketsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -1018,7 +1102,7 @@ describe("TicketsClient", () => {
             updated_at: 1734537976,
             open: true,
             snoozed_until: 1663597260,
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ticket_parts: {
                 type: "ticket_part.list",
                 ticket_parts: [
@@ -1117,6 +1201,7 @@ describe("TicketsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -1239,7 +1324,7 @@ describe("TicketsClient", () => {
             updated_at: 1734537955,
             open: true,
             snoozed_until: 1734627600,
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ticket_parts: {
                 type: "ticket_part.list",
                 ticket_parts: [
@@ -1498,6 +1583,7 @@ describe("TicketsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -1769,7 +1855,7 @@ describe("TicketsClient", () => {
             updated_at: 1734537955,
             open: true,
             snoozed_until: 1734627600,
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ticket_parts: {
                 type: "ticket_part.list",
                 ticket_parts: [
@@ -2026,6 +2112,7 @@ describe("TicketsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -2297,7 +2384,7 @@ describe("TicketsClient", () => {
             updated_at: 1734537955,
             open: true,
             snoozed_until: 1734627600,
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ticket_parts: {
                 type: "ticket_part.list",
                 ticket_parts: [
@@ -2554,6 +2641,7 @@ describe("TicketsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -2820,7 +2908,7 @@ describe("TicketsClient", () => {
             updated_at: 1734537955,
             open: true,
             snoozed_until: 1734627600,
-            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+            linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ type: "ticket", id: "7583" }] },
             ticket_parts: {
                 type: "ticket_part.list",
                 ticket_parts: [
@@ -3071,6 +3159,7 @@ describe("TicketsClient", () => {
                 has_more: false,
                 data: [
                     {
+                        type: "ticket",
                         id: "7583",
                     },
                 ],
@@ -3425,6 +3514,31 @@ describe("TicketsClient", () => {
             environment: server.baseUrl,
         });
 
+        const rawResponseBody = { type: "error.list", errors: [{ code: "code" }, { code: "code" }] };
+        server
+            .mockEndpoint()
+            .delete("/tickets/ticket_id")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tickets.deleteTicket({
+                ticket_id: "ticket_id",
+            });
+        }).rejects.toThrow(Intercom.ForbiddenError);
+    });
+
+    test("deleteTicket (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new IntercomClient({
+            maxRetries: 0,
+            token: "test",
+            version: "2.14",
+            environment: server.baseUrl,
+        });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -3498,7 +3612,12 @@ describe("TicketsClient", () => {
                     updated_at: 1734537992,
                     open: true,
                     snoozed_until: 1663597260,
-                    linked_objects: { type: "list", total_count: 0, has_more: false, data: [{ id: "7583" }] },
+                    linked_objects: {
+                        type: "list",
+                        total_count: 0,
+                        has_more: false,
+                        data: [{ type: "ticket", id: "7583" }],
+                    },
                     ticket_parts: {
                         type: "ticket_part.list",
                         ticket_parts: [
@@ -3611,6 +3730,7 @@ describe("TicketsClient", () => {
                         has_more: false,
                         data: [
                             {
+                                type: "ticket",
                                 id: "7583",
                             },
                         ],

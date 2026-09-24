@@ -1,2 +1,1 @@
-export * from "./InternalArticleListItem.js";
-export * from "./InternalArticleSearchResponse.js";
+export * from "./types.js";

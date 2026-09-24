@@ -213,6 +213,8 @@ export class ContactsClient {
      *   1.Opt-out subscription types that the user has opted-out from.
      *   2.Opt-in subscription types that the user has opted-in to receiving.
      *
+     * **Note:** This endpoint only returns subscriptions where the contact has explicitly configured their preference. Subscriptions that are in the default state — where the contact has not made an explicit opt-in or opt-out choice — are not included in the response.
+     *
      * @param {Intercom.ListAttachedSubscriptionsRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -543,6 +545,10 @@ export class ContactsClient {
     /**
      * You can fetch the details of a single contact.
      *
+     * {% admonition type="warning" name="Merged contacts" %}
+     *   If a contact has been merged into another contact via the Merge endpoint (POST /contacts/merge), requesting it by its original ID will return a `404 Not Found` error. Use the merged-into contact's ID instead.
+     * {% /admonition %}
+     *
      * @param {Intercom.FindContactRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -777,6 +783,15 @@ export class ContactsClient {
     /**
      * You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
      *
+     * {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
+     *   Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
+     *   - **GET /contacts/{id}** — Requesting the source contact by its original ID will return a `404 Not Found` error.
+     *   - **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
+     *   - **GET /contacts** — The source contact will not appear in list results.
+     *
+     *   Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
+     * {% /admonition %}
+     *
      * @param {Intercom.MergeContactsRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -789,14 +804,14 @@ export class ContactsClient {
      *     })
      */
     public mergeLeadInUser(
-        request: Intercom.MergeContactsRequest = {},
+        request: Intercom.MergeContactsRequest,
         requestOptions?: ContactsClient.RequestOptions,
     ): core.HttpResponsePromise<Intercom.ContactsMergeLeadInUserResponse> {
         return core.HttpResponsePromise.fromPromise(this.__mergeLeadInUser(request, requestOptions));
     }
 
     private async __mergeLeadInUser(
-        request: Intercom.MergeContactsRequest = {},
+        request: Intercom.MergeContactsRequest,
         requestOptions?: ContactsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.ContactsMergeLeadInUserResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -864,6 +879,10 @@ export class ContactsClient {
      *   pagination to limit the number of results returned. The default is `50` results per page.
      *   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
      * {% /admonition %}
+     * ### Merged Contacts
+     *
+     * Contacts that have been merged (via POST /contacts/merge) are excluded from search results. If a contact was recently merged into another, it will no longer appear in queries filtered by `updated_at` or any other field. Only the target contact from the merge remains searchable.
+     *
      * ### Contact Creation Delay
      *
      * If a contact has recently been created, there is a possibility that it will not yet be available when searching. This means that it may not appear in the response. This delay can take a few minutes. If you need to be instantly notified it is recommended to use webhooks and iterate to see if they match your search filters.
@@ -877,10 +896,23 @@ export class ContactsClient {
      *
      * ### Searching for Timestamp Fields
      *
-     * All timestamp fields (created_at, updated_at etc.) are indexed as Dates for Contact Search queries; Datetime queries are not currently supported. This means you can only query for timestamp fields by day - not hour, minute or second.
-     * For example, if you search for all Contacts with a created_at value greater (>) than 1577869200 (the UNIX timestamp for January 1st, 2020 9:00 AM), that will be interpreted as 1577836800 (January 1st, 2020 12:00 AM). The search results will then include Contacts created from January 2nd, 2020 12:00 AM onwards.
-     * If you'd like to get contacts created on January 1st, 2020 you should search with a created_at value equal (=) to 1577836800 (January 1st, 2020 12:00 AM).
-     * This behaviour applies only to timestamps used in search queries. The search results will still contain the full UNIX timestamp and be sorted accordingly.
+     * Timestamp fields (`created_at`, `updated_at` etc.) and Date custom attributes are matched by calendar day. Sub-day precision (hour, minute, second) is not supported.
+     *
+     * The day boundary uses **your workspace's timezone**, so the same query can return different results on two workspaces in different timezones.
+     *
+     * Because the value is truncated to a day:
+     *
+     * * `=` matches the whole day.
+     * * `>` matches from the start of the *next* day, not from the instant you passed.
+     * * `<` matches everything before the start of that day.
+     *
+     * The `!=`, `>=`, `<=`, `IN` and `NIN` operators are not supported on Date fields and return an error.
+     *
+     * **Example**, on a workspace set to UTC. Searching for `created_at` greater than `1577869200` (January 1st, 2020 9:00 AM UTC) truncates that value to `1577836800` (January 1st, 2020 12:00 AM UTC). Because `>` starts at the next day, the results begin from January 2nd, 2020 12:00 AM UTC - not from 9:00 AM on January 1st. On a workspace in another timezone, the boundaries fall on that timezone's midnight instead.
+     *
+     * To get contacts created on January 1st, 2020, search for `created_at` equal to `1577836800`.
+     *
+     * Only search queries behave this way. Responses still carry the full UNIX timestamp, and sorting uses the full value.
      *
      * ### Accepted Fields
      *
@@ -933,24 +965,26 @@ export class ContactsClient {
      *
      * ### Accepted Operators
      *
-     * {% admonition type="warning" name="Searching based on `created_at`" %}
-     *   You cannot use the `<=` or `>=` operators to search by `created_at`.
+     * {% admonition type="warning" name="Operators not supported on Date fields" %}
+     *   Date fields (`created_at`, `updated_at`, and any Date custom attribute) do not support the `!=`, `>=`, or `<=` operators. Using them returns an error.
      * {% /admonition %}
      *
-     * The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
+     * The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` supports only the `=` and `!=` operators.
      *
-     * | Operator | Valid Types                      | Description                                                      |
-     * | :------- | :------------------------------- | :--------------------------------------------------------------- |
-     * | =        | All                              | Equals                                                           |
-     * | !=       | All                              | Doesn't Equal                                                    |
-     * | IN       | All                              | In<br>Shortcut for `OR` queries<br>Values must be in Array       |
-     * | NIN      | All                              | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array |
-     * | >        | Integer<br>Date (UNIX Timestamp) | Greater than                                                     |
-     * | <       | Integer<br>Date (UNIX Timestamp) | Lower than                                                       |
-     * | ~        | String                           | Contains                                                         |
-     * | !~       | String                           | Doesn't Contain                                                  |
-     * | ^        | String                           | Starts With                                                      |
-     * | $        | String                           | Ends With                                                        |
+     * | Operator | Valid Types                        | Description                                                            |
+     * | :------- | :---------------------------------- | :----------------------------------------------------------------------|
+     * | =        | All                                  | Equals                                                                  |
+     * | !=       | All except Date                      | Doesn't Equal                                                           |
+     * | IN       | All except Date and tag_id           | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
+     * | NIN      | All except Date and tag_id           | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
+     * | >        | Integer<br>Date             | Greater than<br>On Date fields, matches from the start of the next day |
+     * | <        | Integer<br>Date             | Lower than<br>On Date fields, matches before the start of the day      |
+     * | >=       | Integer                     | Greater than or equal to<br>Not supported on Date fields               |
+     * | <=       | Integer                     | Lower than or equal to<br>Not supported on Date fields                 |
+     * | ~        | String                               | Contains                                                                |
+     * | !~       | String                               | Doesn't Contain                                                         |
+     * | ^        | String                               | Starts With                                                             |
+     * | $        | String                               | Ends With                                                               |
      *
      * @param {Intercom.SearchRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -1046,8 +1080,11 @@ export class ContactsClient {
 
     /**
      * You can fetch a list of all contacts (ie. users or leads) in your workspace.
+     * {% admonition type="info" name="Merged contacts" %}
+     *   Contacts that have been merged (via POST /contacts/merge) will not appear in list results. Only the target contact from the merge remains accessible.
+     * {% /admonition %}
      * {% admonition type="warning" name="Pagination" %}
-     *   You can use pagination to limit the number of results returned. The default is `50` results per page.
+     *   You can use pagination to limit the number of results returned. The default is `10` results per page, with a maximum of `150`.
      *   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
      * {% /admonition %}
      *

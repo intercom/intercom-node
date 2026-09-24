@@ -10,6 +10,7 @@
         "noSerdeLayer": true,
         "enableInlineTypes": true,
         "inlinePathParameters": true,
+        "consolidateTypeFiles": true,
         "timeoutInSeconds": 20,
         "packageJson": {
             "license": "Apache-2.0",

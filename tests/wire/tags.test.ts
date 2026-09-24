@@ -19,7 +19,7 @@ describe("TagsClient", () => {
             id: "81",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -40,8 +40,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -60,7 +60,7 @@ describe("TagsClient", () => {
             id: "81",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -81,8 +81,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -101,7 +101,7 @@ describe("TagsClient", () => {
             id: "81",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -122,8 +122,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -196,7 +196,7 @@ describe("TagsClient", () => {
             id: "84",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -216,8 +216,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -288,7 +288,7 @@ describe("TagsClient", () => {
             id: "86",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -310,8 +310,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -330,7 +330,7 @@ describe("TagsClient", () => {
             id: "86",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -352,8 +352,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -428,7 +428,7 @@ describe("TagsClient", () => {
             id: "89",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -450,8 +450,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -470,7 +470,7 @@ describe("TagsClient", () => {
             id: "89",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -492,8 +492,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -512,7 +512,7 @@ describe("TagsClient", () => {
             id: "89",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -534,8 +534,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -663,13 +663,7 @@ describe("TagsClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "test" };
-        const rawResponseBody = {
-            type: "tag",
-            id: "105",
-            name: "test",
-            applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
-        };
+        const rawResponseBody = { type: "tag", id: "105", name: "test" };
         server
             .mockEndpoint()
             .post("/tags")
@@ -686,11 +680,6 @@ describe("TagsClient", () => {
             type: "tag",
             id: "105",
             name: "test",
-            applied_at: 1663597223,
-            applied_by: {
-                type: "contact",
-                id: "1a2b3c",
-            },
         });
     });
 
@@ -703,13 +692,7 @@ describe("TagsClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "Independent" };
-        const rawResponseBody = {
-            type: "tag",
-            id: "105",
-            name: "test",
-            applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
-        };
+        const rawResponseBody = { type: "tag", id: "105", name: "test" };
         server
             .mockEndpoint()
             .post("/tags")
@@ -726,11 +709,6 @@ describe("TagsClient", () => {
             type: "tag",
             id: "105",
             name: "test",
-            applied_at: 1663597223,
-            applied_by: {
-                type: "contact",
-                id: "1a2b3c",
-            },
         });
     });
 
@@ -743,13 +721,7 @@ describe("TagsClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "test", companies: [{ company_id: "123" }] };
-        const rawResponseBody = {
-            type: "tag",
-            id: "105",
-            name: "test",
-            applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
-        };
+        const rawResponseBody = { type: "tag", id: "105", name: "test" };
         server
             .mockEndpoint()
             .post("/tags")
@@ -771,11 +743,6 @@ describe("TagsClient", () => {
             type: "tag",
             id: "105",
             name: "test",
-            applied_at: 1663597223,
-            applied_by: {
-                type: "contact",
-                id: "1a2b3c",
-            },
         });
     });
 
@@ -788,13 +755,7 @@ describe("TagsClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "test", users: [{ id: "123" }] };
-        const rawResponseBody = {
-            type: "tag",
-            id: "105",
-            name: "test",
-            applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
-        };
+        const rawResponseBody = { type: "tag", id: "105", name: "test" };
         server
             .mockEndpoint()
             .post("/tags")
@@ -816,11 +777,6 @@ describe("TagsClient", () => {
             type: "tag",
             id: "105",
             name: "test",
-            applied_at: 1663597223,
-            applied_by: {
-                type: "contact",
-                id: "1a2b3c",
-            },
         });
     });
 
@@ -911,13 +867,7 @@ describe("TagsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {
-            type: "tag",
-            id: "113",
-            name: "Manual tag",
-            applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
-        };
+        const rawResponseBody = { type: "tag", id: "113", name: "Manual tag" };
         server.mockEndpoint().get("/tags/123").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.tags.find({
@@ -927,11 +877,6 @@ describe("TagsClient", () => {
             type: "tag",
             id: "113",
             name: "Manual tag",
-            applied_at: 1663597223,
-            applied_by: {
-                type: "contact",
-                id: "1a2b3c",
-            },
         });
     });
 
@@ -1061,7 +1006,7 @@ describe("TagsClient", () => {
             id: "121",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -1083,8 +1028,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -1103,7 +1048,7 @@ describe("TagsClient", () => {
             id: "121",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -1125,8 +1070,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -1201,7 +1146,7 @@ describe("TagsClient", () => {
             id: "124",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -1223,8 +1168,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -1243,7 +1188,7 @@ describe("TagsClient", () => {
             id: "124",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -1265,8 +1210,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });
@@ -1285,7 +1230,7 @@ describe("TagsClient", () => {
             id: "124",
             name: "Manual tag",
             applied_at: 1663597223,
-            applied_by: { type: "contact", id: "1a2b3c" },
+            applied_by: { type: "admin", id: "456" },
         };
         server
             .mockEndpoint()
@@ -1307,8 +1252,8 @@ describe("TagsClient", () => {
             name: "Manual tag",
             applied_at: 1663597223,
             applied_by: {
-                type: "contact",
-                id: "1a2b3c",
+                type: "admin",
+                id: "456",
             },
         });
     });

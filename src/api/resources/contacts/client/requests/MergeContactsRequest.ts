@@ -9,7 +9,7 @@
  */
 export interface MergeContactsRequest {
     /** The unique identifier for the contact to merge away from. Must be a lead. */
-    from?: string;
+    from: string;
     /** The unique identifier for the contact to merge into. Must be a user. */
-    into?: string;
+    into: string;
 }

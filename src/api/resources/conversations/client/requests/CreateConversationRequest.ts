@@ -23,6 +23,10 @@ export interface CreateConversationRequest {
     from: CreateConversationRequest.From;
     /** The content of the message. HTML is not supported. */
     body: string;
+    /** The title of the email. Only applicable if the message type is email. */
+    subject?: string;
+    /** A list of image URLs that will be added as attachments. You can include up to 10 URLs. */
+    attachment_urls?: string[];
     /** The time the conversation was created as a UTC Unix timestamp. If not provided, the current time will be used. This field is only recommneded for migrating past conversations from another source into Intercom. */
     created_at?: number;
 }

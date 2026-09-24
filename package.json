@@ -1,6 +1,6 @@
 {
     "name": "intercom-client",
-    "version": "7.0.3",
+    "version": "7.0.5-beta.0",
     "private": false,
     "repository": "github:intercom/intercom-node",
     "type": "commonjs",
@@ -46,7 +46,7 @@
     "devDependencies": {
         "webpack": "^5.97.1",
         "ts-loader": "^9.5.1",
-        "vitest": "^4.1.0",
+        "vitest": "^3.2.4",
         "msw": "2.11.2",
         "@types/node": "^18.19.70",
         "typescript": "~5.7.2",

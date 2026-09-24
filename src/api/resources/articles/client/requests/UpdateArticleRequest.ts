@@ -28,7 +28,7 @@ export interface UpdateArticleRequest {
     body?: string;
     /** The id of the author of the article. For multilingual articles, this will be the id of the author of the default language's content. Must be a teammate on the help center's workspace. */
     author_id?: number;
-    /** Whether the article will be `published` or will be a `draft`. Defaults to draft. For multilingual articles, this will be the state of the default language's content. */
+    /** Whether the article will be `published` or will be a `draft`. Omitting this field leaves the publish state unchanged, so a draft stays a draft and an edit to a published article goes live immediately unless that article already has a pending draft. For multilingual articles, this will be the state of the default language's content. */
     state?: UpdateArticleRequest.State;
     /** The id of the article's parent collection or section. An article without this field stands alone. */
     parent_id?: string;
@@ -38,7 +38,7 @@ export interface UpdateArticleRequest {
 }
 
 export namespace UpdateArticleRequest {
-    /** Whether the article will be `published` or will be a `draft`. Defaults to draft. For multilingual articles, this will be the state of the default language's content. */
+    /** Whether the article will be `published` or will be a `draft`. Omitting this field leaves the publish state unchanged, so a draft stays a draft and an edit to a published article goes live immediately unless that article already has a pending draft. For multilingual articles, this will be the state of the default language's content. */
     export const State = {
         Published: "published",
         Draft: "draft",

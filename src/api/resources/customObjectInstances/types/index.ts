@@ -1,1 +1,1 @@
-export * from "./CustomObjectInstance.js";
+export * from "./types.js";

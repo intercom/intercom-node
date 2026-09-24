@@ -7,6 +7,11 @@
  *     }
  */
 export interface FindTicketRequest {
-    /** The unique identifier for the ticket which is given by Intercom. */
+    /**
+     * The unique identifier for the ticket which is given by Intercom.
+     * {% admonition type="info" name="Not the Inbox ticket ID" %}
+     * This is the internal `id` field from the API response, not the `ticket_id` displayed in the Intercom Inbox (e.g., #12345). Use the `id` value from the ticket object returned by the API.
+     * {% /admonition %}
+     */
     ticket_id: string;
 }
