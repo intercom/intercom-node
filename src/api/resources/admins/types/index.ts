@@ -1,1 +1,1 @@
-export * from "./Admin.js";
+export * from "./types.js";

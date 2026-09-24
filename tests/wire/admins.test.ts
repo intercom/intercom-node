@@ -359,6 +359,13 @@ describe("AdminsClient", () => {
                         source: "admin update from web - Admin id: 93",
                         update_by: 93,
                         update_by_name: "Joe Example",
+                        previous_state: "idle",
+                        new_state: "occupied",
+                        threshold_minutes: 15,
+                        last_activity_at: 1671028894,
+                        auto: true,
+                        setting_type: "teammate_occupancy",
+                        changes: { occupancy_window_minutes: { before: 15, after: 30 } },
                         conversation_assignment_limit: 15,
                         ticket_assignment_limit: 20,
                         team_assignment_limit: 50,
@@ -384,6 +391,13 @@ describe("AdminsClient", () => {
                         source: "admin update from web - Admin id: 93",
                         update_by: 93,
                         update_by_name: "Joe Example",
+                        previous_state: "idle",
+                        new_state: "occupied",
+                        threshold_minutes: 15,
+                        last_activity_at: 1671028894,
+                        auto: true,
+                        setting_type: "teammate_occupancy",
+                        changes: { occupancy_window_minutes: { before: 15, after: 30 } },
                         conversation_assignment_limit: 15,
                         ticket_assignment_limit: 20,
                         team_assignment_limit: 50,
@@ -442,6 +456,18 @@ describe("AdminsClient", () => {
                         source: "admin update from web - Admin id: 93",
                         update_by: 93,
                         update_by_name: "Joe Example",
+                        previous_state: "idle",
+                        new_state: "occupied",
+                        threshold_minutes: 15,
+                        last_activity_at: 1671028894,
+                        auto: true,
+                        setting_type: "teammate_occupancy",
+                        changes: {
+                            occupancy_window_minutes: {
+                                before: 15,
+                                after: 30,
+                            },
+                        },
                         conversation_assignment_limit: 15,
                         ticket_assignment_limit: 20,
                         team_assignment_limit: 50,
@@ -476,6 +502,18 @@ describe("AdminsClient", () => {
                         source: "admin update from web - Admin id: 93",
                         update_by: 93,
                         update_by_name: "Joe Example",
+                        previous_state: "idle",
+                        new_state: "occupied",
+                        threshold_minutes: 15,
+                        last_activity_at: 1671028894,
+                        auto: true,
+                        setting_type: "teammate_occupancy",
+                        changes: {
+                            occupancy_window_minutes: {
+                                before: 15,
+                                after: 30,
+                            },
+                        },
                         conversation_assignment_limit: 15,
                         ticket_assignment_limit: 20,
                         team_assignment_limit: 50,
@@ -553,7 +591,9 @@ describe("AdminsClient", () => {
         };
         server.mockEndpoint().get("/admins").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.admins.list();
+        const response = await client.admins.list({
+            display_avatar: true,
+        });
         expect(response).toEqual({
             type: "admin.list",
             admins: [

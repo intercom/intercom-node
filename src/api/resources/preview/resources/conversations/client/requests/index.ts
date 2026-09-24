@@ -1,0 +1,14 @@
+export type { ConvertConversationToTicketRequest } from "./ConvertConversationToTicketRequest.js";
+export type { CreateConversationRequest } from "./CreateConversationRequest.js";
+export type { DeleteConversationRequest } from "./DeleteConversationRequest.js";
+export type { ListConversationsRequest } from "./ListConversationsRequest.js";
+export type { ListDeletedConversationIdsRequest } from "./ListDeletedConversationIdsRequest.js";
+export type { ListHandlingEventsRequest } from "./ListHandlingEventsRequest.js";
+export type { ListHitlEventsRequest } from "./ListHitlEventsRequest.js";
+export type { ListSideConversationsRequest } from "./ListSideConversationsRequest.js";
+export type { ManageConversationRequest } from "./ManageConversationRequest.js";
+export type { MergeConversationsRequestBody } from "./MergeConversationsRequestBody.js";
+export type { ReplyConversationRequest } from "./ReplyConversationRequest.js";
+export type { RetrieveConversationRequest } from "./RetrieveConversationRequest.js";
+export type { SearchConversationsRequest } from "./SearchConversationsRequest.js";
+export type { UpdateConversationRequest } from "./UpdateConversationRequest.js";

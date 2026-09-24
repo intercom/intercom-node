@@ -14,18 +14,21 @@ describe("AwayStatusReasonsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = [
-            {
-                type: "away_status_reason",
-                id: "id",
-                label: "On a break",
-                emoji: "☕",
-                order: 1,
-                deleted: false,
-                created_at: 1734537243,
-                updated_at: 1734537243,
-            },
-        ];
+        const rawResponseBody = {
+            type: "list",
+            data: [
+                {
+                    type: "away_status_reason",
+                    id: "id",
+                    label: "On a break",
+                    emoji: "☕",
+                    order: 1,
+                    deleted: false,
+                    created_at: 1734537243,
+                    updated_at: 1734537243,
+                },
+            ],
+        };
         server
             .mockEndpoint()
             .get("/away_status_reasons")
@@ -35,18 +38,21 @@ describe("AwayStatusReasonsClient", () => {
             .build();
 
         const response = await client.awayStatusReasons.listAwayStatusReasons();
-        expect(response).toEqual([
-            {
-                type: "away_status_reason",
-                id: "id",
-                label: "On a break",
-                emoji: "\u2615",
-                order: 1,
-                deleted: false,
-                created_at: 1734537243,
-                updated_at: 1734537243,
-            },
-        ]);
+        expect(response).toEqual({
+            type: "list",
+            data: [
+                {
+                    type: "away_status_reason",
+                    id: "id",
+                    label: "On a break",
+                    emoji: "\u2615",
+                    order: 1,
+                    deleted: false,
+                    created_at: 1734537243,
+                    updated_at: 1734537243,
+                },
+            ],
+        });
     });
 
     test("listAwayStatusReasons (2)", async () => {

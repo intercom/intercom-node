@@ -445,6 +445,13 @@ describe("ArticlesClient", () => {
                             url: "url",
                         },
                     },
+                    tags: {
+                        type: "tag.list",
+                        tags: [
+                            { type: "tag", id: "id", name: "name", applied_at: 1, applied_by: {} },
+                            { type: "tag", id: "id", name: "name", applied_at: 1, applied_by: {} },
+                        ],
+                    },
                 },
                 {
                     type: "article",
@@ -871,6 +878,13 @@ describe("ArticlesClient", () => {
                             updated_at: 1,
                             url: "url",
                         },
+                    },
+                    tags: {
+                        type: "tag.list",
+                        tags: [
+                            { type: "tag", id: "id", name: "name", applied_at: 1, applied_by: {} },
+                            { type: "tag", id: "id", name: "name", applied_at: 1, applied_by: {} },
+                        ],
                     },
                 },
             ],
@@ -1316,6 +1330,25 @@ describe("ArticlesClient", () => {
                             url: "url",
                         },
                     },
+                    tags: {
+                        type: "tag.list",
+                        tags: [
+                            {
+                                type: "tag",
+                                id: "id",
+                                name: "name",
+                                applied_at: 1,
+                                applied_by: {},
+                            },
+                            {
+                                type: "tag",
+                                id: "id",
+                                name: "name",
+                                applied_at: 1,
+                                applied_by: {},
+                            },
+                        ],
+                    },
                 },
                 {
                     type: "article",
@@ -1742,6 +1775,25 @@ describe("ArticlesClient", () => {
                             updated_at: 1,
                             url: "url",
                         },
+                    },
+                    tags: {
+                        type: "tag.list",
+                        tags: [
+                            {
+                                type: "tag",
+                                id: "id",
+                                name: "name",
+                                applied_at: 1,
+                                applied_by: {},
+                            },
+                            {
+                                type: "tag",
+                                id: "id",
+                                name: "name",
+                                applied_at: 1,
+                                applied_by: {},
+                            },
+                        ],
                     },
                 },
             ],
@@ -2229,6 +2281,7 @@ describe("ArticlesClient", () => {
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
             },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             statistics: {
                 type: "article_statistics",
                 views: 0,
@@ -2692,6 +2745,17 @@ describe("ArticlesClient", () => {
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
             },
+            tags: {
+                type: "tag.list",
+                tags: [
+                    {
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
+                        applied_at: 1663597223,
+                    },
+                ],
+            },
             statistics: {
                 type: "article_statistics",
                 views: 0,
@@ -3145,6 +3209,7 @@ describe("ArticlesClient", () => {
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
             },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             statistics: {
                 type: "article_statistics",
                 views: 0,
@@ -3596,6 +3661,17 @@ describe("ArticlesClient", () => {
                     updated_at: 1663597260,
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
+            },
+            tags: {
+                type: "tag.list",
+                tags: [
+                    {
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
+                        applied_at: 1663597223,
+                    },
+                ],
             },
             statistics: {
                 type: "article_statistics",
@@ -4078,6 +4154,7 @@ describe("ArticlesClient", () => {
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
             },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             statistics: {
                 type: "article_statistics",
                 views: 0,
@@ -4518,6 +4595,17 @@ describe("ArticlesClient", () => {
                     updated_at: 1663597260,
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
+            },
+            tags: {
+                type: "tag.list",
+                tags: [
+                    {
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
+                        applied_at: 1663597223,
+                    },
+                ],
             },
             statistics: {
                 type: "article_statistics",
@@ -5004,6 +5092,7 @@ describe("ArticlesClient", () => {
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
             },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             statistics: {
                 type: "article_statistics",
                 views: 0,
@@ -5453,6 +5542,17 @@ describe("ArticlesClient", () => {
                     updated_at: 1663597260,
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
+            },
+            tags: {
+                type: "tag.list",
+                tags: [
+                    {
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
+                        applied_at: 1663597223,
+                    },
+                ],
             },
             statistics: {
                 type: "article_statistics",
@@ -5901,6 +6001,7 @@ describe("ArticlesClient", () => {
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
             },
+            tags: { type: "tag.list", tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }] },
             statistics: {
                 type: "article_statistics",
                 views: 0,
@@ -6351,6 +6452,17 @@ describe("ArticlesClient", () => {
                     url: "http://intercom.test/help/en/articles/3-default-language",
                 },
             },
+            tags: {
+                type: "tag.list",
+                tags: [
+                    {
+                        type: "tag",
+                        id: "123456",
+                        name: "Test tag",
+                        applied_at: 1663597223,
+                    },
+                ],
+            },
             statistics: {
                 type: "article_statistics",
                 views: 0,
@@ -6504,6 +6616,10 @@ describe("ArticlesClient", () => {
                         parent_ids: [18, 19],
                         parent_type: "collection",
                         default_locale: "en",
+                        tags: {
+                            type: "tag.list",
+                            tags: [{ type: "tag", id: "123456", name: "Test tag", applied_at: 1663597223 }],
+                        },
                     },
                 ],
                 highlights: [{ article_id: "123" }],
@@ -6544,6 +6660,17 @@ describe("ArticlesClient", () => {
                         parent_ids: [18, 19],
                         parent_type: "collection",
                         default_locale: "en",
+                        tags: {
+                            type: "tag.list",
+                            tags: [
+                                {
+                                    type: "tag",
+                                    id: "123456",
+                                    name: "Test tag",
+                                    applied_at: 1663597223,
+                                },
+                            ],
+                        },
                     },
                 ],
                 highlights: [

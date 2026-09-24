@@ -49,7 +49,7 @@ export class ConversationsClient {
     public async list(
         request: Intercom.ListConversationsRequest = {},
         requestOptions?: ConversationsClient.RequestOptions,
-    ): Promise<core.Page<Intercom.Conversation, Intercom.ConversationList>> {
+    ): Promise<core.Page<Intercom.ConversationListItem, Intercom.ConversationList>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
                 request: Intercom.ListConversationsRequest,
@@ -112,7 +112,7 @@ export class ConversationsClient {
             },
         );
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Page<Intercom.Conversation, Intercom.ConversationList>({
+        return new core.Page<Intercom.ConversationListItem, Intercom.ConversationList>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) =>
@@ -349,6 +349,10 @@ export class ConversationsClient {
      *   See _`update a conversation with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
      * {% /admonition %}
      *
+     * {% admonition type="danger" name="Breaking change: duplicate custom attribute names" %}
+     * The `PUT /conversations/{id}` endpoint now returns a `400 INVALID_PARAMETER` error when the request includes `custom_attributes` and your workspace contains multiple non-archived conversation custom attributes with the same name. Previously, the update would silently apply to a non-deterministic attribute. To resolve, rename or archive the duplicate attribute in your workspace settings, then retry the request.
+     * {% /admonition %}
+     *
      *
      * @param {Intercom.UpdateConversationRequest} request
      * @param {ConversationsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -454,7 +458,11 @@ export class ConversationsClient {
     }
 
     /**
-     * You can delete a single conversation.
+     * {% admonition type="warning" name="Irreversible operation" %}
+     * Deleting a conversation is permanent and cannot be reversed.
+     * {% /admonition %}
+     *
+     * Deleting a conversation permanently removes it from the inbox. All sensitive data is deleted, including admin and user replies, conversation attributes, uploads, and related content. The conversation will still appear in reporting, though some data may be incomplete due to the deletion.
      *
      * @param {Intercom.DeleteConversationRequest} request
      * @param {ConversationsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -574,8 +582,8 @@ export class ConversationsClient {
      * | source.url                                | String                                                                                                                                                 |
      * | contact_ids                               | String                                                                                                                                                 |
      * | teammate_ids                              | String                                                                                                                                                 |
-     * | admin_assignee_id                         | String                                                                                                                                                 |
-     * | team_assignee_id                          | String                                                                                                                                                 |
+     * | admin_assignee_id                         | Integer                                                                                                                                                |
+     * | team_assignee_id                          | Integer                                                                                                                                                |
      * | channel_initiated                         | String                                                                                                                                                 |
      * | open                                      | Boolean                                                                                                                                                |
      * | read                                      | Boolean                                                                                                                                                |
@@ -654,7 +662,7 @@ export class ConversationsClient {
     public async search(
         request: Intercom.SearchRequest,
         requestOptions?: ConversationsClient.RequestOptions,
-    ): Promise<core.Page<Intercom.Conversation, Intercom.ConversationList>> {
+    ): Promise<core.Page<Intercom.ConversationListItem, Intercom.ConversationList>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Intercom.SearchRequest): Promise<core.WithRawResponse<Intercom.ConversationList>> => {
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -702,7 +710,7 @@ export class ConversationsClient {
             },
         );
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Page<Intercom.Conversation, Intercom.ConversationList>({
+        return new core.Page<Intercom.ConversationListItem, Intercom.ConversationList>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) =>
@@ -722,6 +730,12 @@ export class ConversationsClient {
 
     /**
      * You can reply to a conversation with a message from an admin or on behalf of a contact, or with a note for admins.
+     *
+     * {% admonition type="warning" name="Bot replies to inbound email" %}
+     * By default, bot or Operator replies to an inbound email conversation aren't sent to your customer. The reply is stored as an unnotifiable bot comment, and no `seen` receipt is generated until an email is actually delivered.
+     *
+     * To send these replies as outbound emails, reach out to your accounts team to enable the email-reply feature flag for your workspace.
+     * {% /admonition %}
      *
      * @param {Intercom.ReplyToConversationRequest} request
      * @param {ConversationsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -1025,14 +1039,14 @@ export class ConversationsClient {
     public attachContactAsAdmin(
         request: Intercom.AttachContactToConversationRequest,
         requestOptions?: ConversationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.ConversationParticipantsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__attachContactAsAdmin(request, requestOptions));
     }
 
     private async __attachContactAsAdmin(
         request: Intercom.AttachContactToConversationRequest,
         requestOptions?: ConversationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
+    ): Promise<core.WithRawResponse<Intercom.ConversationParticipantsResponse>> {
         const { conversation_id: conversationId, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -1061,7 +1075,10 @@ export class ConversationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Intercom.ConversationParticipantsResponse,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -1093,10 +1110,10 @@ export class ConversationsClient {
     }
 
     /**
-     * You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
+     * You can remove participants who are contacts from a group conversation, on behalf of an admin.
      *
-     * {% admonition type="warning" name="Contacts without an email" %}
-     * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
+     * {% admonition type="warning" name="Removing the last participant" %}
+     * You cannot remove the last remaining contact from a conversation.
      * {% /admonition %}
      *
      *
@@ -1118,14 +1135,14 @@ export class ConversationsClient {
     public detachContactAsAdmin(
         request: Intercom.DetachContactFromConversationRequest,
         requestOptions?: ConversationsClient.RequestOptions,
-    ): core.HttpResponsePromise<Intercom.Conversation> {
+    ): core.HttpResponsePromise<Intercom.ConversationParticipantsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__detachContactAsAdmin(request, requestOptions));
     }
 
     private async __detachContactAsAdmin(
         request: Intercom.DetachContactFromConversationRequest,
         requestOptions?: ConversationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Intercom.Conversation>> {
+    ): Promise<core.WithRawResponse<Intercom.ConversationParticipantsResponse>> {
         const { conversation_id: conversationId, contact_id: contactId, ..._body } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -1154,7 +1171,10 @@ export class ConversationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Intercom.Conversation, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Intercom.ConversationParticipantsResponse,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {

@@ -1,2 +1,1 @@
-export * from "./CompaniesRetrieveResponse.js";
-export * from "./Company.js";
+export * from "./types.js";

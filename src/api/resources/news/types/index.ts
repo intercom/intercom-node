@@ -1,3 +1,1 @@
-export * from "./Newsfeed.js";
-export * from "./NewsfeedAssignment.js";
-export * from "./NewsItem.js";
+export * from "./types.js";

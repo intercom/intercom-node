@@ -1,0 +1,9 @@
+export type { CreateCollectionRequest } from "./CreateCollectionRequest.js";
+export type { CreateHelpCenterRedirectRequest } from "./CreateHelpCenterRedirectRequest.js";
+export type { DeleteCollectionRequest } from "./DeleteCollectionRequest.js";
+export type { DeleteHelpCenterRedirectRequest } from "./DeleteHelpCenterRedirectRequest.js";
+export type { ListHelpCenterRedirectsRequest } from "./ListHelpCenterRedirectsRequest.js";
+export type { RetrieveCollectionRequest } from "./RetrieveCollectionRequest.js";
+export type { RetrieveHelpCenterRedirectRequest } from "./RetrieveHelpCenterRedirectRequest.js";
+export type { RetrieveHelpCenterRequest } from "./RetrieveHelpCenterRequest.js";
+export type { UpdateCollectionRequest } from "./UpdateCollectionRequest.js";

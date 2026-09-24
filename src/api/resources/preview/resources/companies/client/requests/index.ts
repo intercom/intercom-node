@@ -1,0 +1,15 @@
+export type { AttachContactToACompanyRequest } from "./AttachContactToACompanyRequest.js";
+export type { BulkCreateCompaniesRequest } from "./BulkCreateCompaniesRequest.js";
+export type { BulkDeleteCompaniesRequest } from "./BulkDeleteCompaniesRequest.js";
+export type { BulkUpdateCompaniesRequest } from "./BulkUpdateCompaniesRequest.js";
+export type { CompanySearchRequest } from "./CompanySearchRequest.js";
+export type { DeleteCompanyRequest } from "./DeleteCompanyRequest.js";
+export type { DetachContactFromACompanyRequest } from "./DetachContactFromACompanyRequest.js";
+export type { ListAllCompaniesRequest } from "./ListAllCompaniesRequest.js";
+export type { ListAttachedContactsRequest } from "./ListAttachedContactsRequest.js";
+export type { ListAttachedSegmentsForCompaniesRequest } from "./ListAttachedSegmentsForCompaniesRequest.js";
+export type { RetrieveACompanyByIdRequest } from "./RetrieveACompanyByIdRequest.js";
+export type { RetrieveCompanyRequest } from "./RetrieveCompanyRequest.js";
+export type { ScrollOverAllCompaniesRequest } from "./ScrollOverAllCompaniesRequest.js";
+export type { ShowBulkCompaniesJobRequest } from "./ShowBulkCompaniesJobRequest.js";
+export type { UpdateCompanyRequest } from "./UpdateCompanyRequest.js";

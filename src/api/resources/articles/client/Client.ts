@@ -115,6 +115,10 @@ export class ArticlesClient {
     /**
      * You can create a new article by making a POST request to `https://api.intercom.io/articles`.
      *
+     * > 📘 Tags cannot be managed via the Articles API
+     * >
+     * > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+     *
      * @param {Intercom.CreateArticleRequest} request
      * @param {ArticlesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -288,6 +292,10 @@ export class ArticlesClient {
 
     /**
      * You can update the details of a single article by making a PUT request to `https://api.intercom.io/articles/<id>`.
+     *
+     * > 📘 Tags cannot be managed via the Articles API
+     * >
+     * > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
      *
      * @param {Intercom.UpdateArticleRequest} request
      * @param {ArticlesClient.RequestOptions} requestOptions - Request-specific configuration.

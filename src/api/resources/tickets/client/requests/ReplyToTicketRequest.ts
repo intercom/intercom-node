@@ -29,6 +29,18 @@ import type * as Intercom from "../../../../index.js";
  *     {
  *         ticket_id: "123",
  *         body: {
+ *             message_type: "note",
+ *             type: "admin",
+ *             body: "This note will be cross-posted to all linked conversations.",
+ *             admin_id: "3156780",
+ *             cross_post: true
+ *         }
+ *     }
+ *
+ * @example
+ *     {
+ *         ticket_id: "123",
+ *         body: {
  *             message_type: "quick_reply",
  *             type: "admin",
  *             admin_id: "3156780",

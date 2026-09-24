@@ -16,7 +16,7 @@ export declare namespace DataExportClient {
 }
 
 /**
- * Everything about your Data Exports
+ * Export message delivery and engagement statistics (opens, clicks, replies, completions, dismissals, unsubscribes, bounces) for outbound content such as Emails, Posts, Custom Bots, Surveys, Tours, and Series.
  */
 export class DataExportClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<DataExportClient.Options>;
@@ -189,6 +189,8 @@ export class DataExportClient {
 
     /**
      * To create your export job, you need to send a `POST` request to the export endpoint `https://api.intercom.io/export/content/data`.
+     *
+     * This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
      *
      * The only parameters you need to provide are the range of dates that you want exported.
      *

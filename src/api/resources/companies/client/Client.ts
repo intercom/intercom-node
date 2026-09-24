@@ -394,7 +394,15 @@ export class CompaniesClient {
     }
 
     /**
-     * You can delete a single company.
+     * Delete a single company.
+     *
+     * This endpoint does not permanently remove the company. It archives the company record and detaches any contacts attached to it; the contacts themselves are not deleted. A `company.deleted` webhook is sent once archival completes.
+     *
+     * The endpoint returns `200` with `"deleted": true` as soon as the request is accepted — archival is processed asynchronously.
+     *
+     * {% admonition type="warning" %}
+     * Third-party integrations that sync companies into Intercom (for example, Salesforce or Chargebee) will recreate any company deleted through this endpoint on their next sync. To prevent recreation, remove or filter the company at the source integration before deleting it via the API.
+     * {% /admonition %}
      *
      * @param {Intercom.DeleteCompanyRequest} request
      * @param {CompaniesClient.RequestOptions} requestOptions - Request-specific configuration.
