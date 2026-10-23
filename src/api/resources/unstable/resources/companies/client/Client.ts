@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as core from "../../../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as Intercom from "../../../../../index.js";
 
 export declare namespace CompaniesClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -43,6 +44,8 @@ export class CompaniesClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.retrieveCompany({
@@ -66,31 +69,14 @@ export class CompaniesClient {
         requestOptions?: CompaniesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.CompanyList>> {
         const { name, company_id: companyId, tag_id: tagId, segment_id: segmentId, page, per_page: perPage } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (name != null) {
-            _queryParams.name = name;
-        }
-
-        if (companyId != null) {
-            _queryParams.company_id = companyId;
-        }
-
-        if (tagId != null) {
-            _queryParams.tag_id = tagId;
-        }
-
-        if (segmentId != null) {
-            _queryParams.segment_id = segmentId;
-        }
-
-        if (page != null) {
-            _queryParams.page = page.toString();
-        }
-
-        if (perPage != null) {
-            _queryParams.per_page = perPage.toString();
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            name,
+            company_id: companyId,
+            tag_id: tagId,
+            segment_id: segmentId,
+            page,
+            per_page: perPage,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -107,7 +93,11 @@ export class CompaniesClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -155,6 +145,8 @@ export class CompaniesClient {
      *
      * @throws {@link Intercom.unstable.BadRequestError}
      * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.createOrUpdateCompany({
@@ -189,9 +181,9 @@ export class CompaniesClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -231,6 +223,8 @@ export class CompaniesClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.retrieveACompanyById({
@@ -261,11 +255,11 @@ export class CompaniesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `companies/${core.url.encodePathParam(id)}`,
+                `companies/${core.url.encodePathParam(id, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -309,6 +303,8 @@ export class CompaniesClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.updateCompany({
@@ -339,11 +335,11 @@ export class CompaniesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `companies/${core.url.encodePathParam(id)}`,
+                `companies/${core.url.encodePathParam(id, errors.IntercomError)}`,
             ),
             method: "PUT",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -383,6 +379,8 @@ export class CompaniesClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.deleteCompany({
@@ -413,11 +411,11 @@ export class CompaniesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `companies/${core.url.encodePathParam(id)}`,
+                `companies/${core.url.encodePathParam(id, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -460,6 +458,8 @@ export class CompaniesClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.listAttachedContacts({
@@ -490,11 +490,11 @@ export class CompaniesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `companies/${core.url.encodePathParam(id)}/contacts`,
+                `companies/${core.url.encodePathParam(id, errors.IntercomError)}/contacts`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -537,6 +537,8 @@ export class CompaniesClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.listAttachedSegmentsForCompanies({
@@ -567,11 +569,11 @@ export class CompaniesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `companies/${core.url.encodePathParam(id)}/segments`,
+                `companies/${core.url.encodePathParam(id, errors.IntercomError)}/segments`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -621,6 +623,8 @@ export class CompaniesClient {
      * @param {CompaniesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.listAllCompanies({
@@ -641,19 +645,11 @@ export class CompaniesClient {
         requestOptions?: CompaniesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.CompanyList>> {
         const { page, per_page: perPage, order } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (page != null) {
-            _queryParams.page = page.toString();
-        }
-
-        if (perPage != null) {
-            _queryParams.per_page = perPage.toString();
-        }
-
-        if (order != null) {
-            _queryParams.order = order;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            page,
+            per_page: perPage,
+            order,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -670,7 +666,11 @@ export class CompaniesClient {
             ),
             method: "POST",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -721,6 +721,8 @@ export class CompaniesClient {
      * @param {CompaniesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.scrollOverAllCompanies({
@@ -739,11 +741,9 @@ export class CompaniesClient {
         requestOptions?: CompaniesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.CompanyScroll | undefined>> {
         const { scroll_param: scrollParam } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (scrollParam != null) {
-            _queryParams.scroll_param = scrollParam;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            scroll_param: scrollParam,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -760,7 +760,11 @@ export class CompaniesClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -802,6 +806,8 @@ export class CompaniesClient {
      * @throws {@link Intercom.unstable.BadRequestError}
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.attachContactToACompany({
@@ -845,14 +851,14 @@ export class CompaniesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(id)}/companies`,
+                `contacts/${core.url.encodePathParam(id, errors.IntercomError)}/companies`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -894,6 +900,8 @@ export class CompaniesClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.companies.detachContactFromACompany({
@@ -925,11 +933,11 @@ export class CompaniesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/companies/${core.url.encodePathParam(id)}`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/companies/${core.url.encodePathParam(id, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

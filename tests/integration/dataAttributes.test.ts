@@ -1,6 +1,6 @@
-import { Intercom } from "../../src";
-import { randomString } from "./utils/random";
+import type { Intercom } from "../../src";
 import { createClient } from "./utils/createClient";
+import { randomString } from "./utils/random";
 
 describe("Data Attributes", () => {
     let randomDataAttribute: Intercom.DataAttribute | undefined;

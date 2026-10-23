@@ -5,9 +5,9 @@
  */
 export interface ConversationDeleted {
     /** The unique identifier for the conversation. */
-    id?: string;
+    id?: string | undefined;
     /** always conversation */
-    object?: "conversation";
+    object?: "conversation" | undefined;
     /** Whether the conversation is deleted or not. */
-    deleted?: boolean;
+    deleted?: boolean | undefined;
 }

@@ -52,28 +52,6 @@ import type * as Intercom from "../../../../index.js";
  *             intercom_user_id: "6762f2a41bb69f9f2193bc4c"
  *         }
  *     }
- *
- * @example
- *     {
- *         ticket_id: "123",
- *         body: {
- *             message_type: "comment",
- *             type: "user",
- *             body: "Thanks again :)",
- *             intercom_user_id: "6762f2971bb69f9f2193bc49"
- *         }
- *     }
- *
- * @example
- *     {
- *         ticket_id: "123",
- *         body: {
- *             message_type: "comment",
- *             type: "user",
- *             body: "Thanks again :)",
- *             intercom_user_id: "6762f2971bb69f9f2193bc49"
- *         }
- *     }
  */
 export interface ReplyToTicketRequest {
     ticket_id: string;

@@ -15,25 +15,25 @@ export interface Ticket {
     /** Category of the Ticket. */
     category: Ticket.Category;
     ticket_attributes: Intercom.TicketCustomAttributes;
-    ticket_state?: Intercom.TicketState;
-    ticket_type?: Intercom.TicketType;
+    ticket_state?: Intercom.TicketState | undefined;
+    ticket_type?: Intercom.TicketType | undefined;
     contacts: Intercom.TicketContacts;
     /** The id representing the admin assigned to the ticket. */
-    admin_assignee_id?: string;
+    admin_assignee_id?: string | undefined;
     /** The id representing the team assigned to the ticket. */
-    team_assignee_id?: string;
+    team_assignee_id?: string | undefined;
     /** The time the ticket was created as a UTC Unix timestamp. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The last time the ticket was updated as a UTC Unix timestamp. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** Whether or not the ticket is open. If false, the ticket is closed. */
-    open?: boolean;
+    open?: boolean | undefined;
     /** The time the ticket will be snoozed until as a UTC Unix timestamp. If null, the ticket is not currently snoozed. */
-    snoozed_until?: number;
-    linked_objects?: Intercom.LinkedObjectList;
-    ticket_parts?: Intercom.TicketParts;
+    snoozed_until?: number | undefined;
+    linked_objects?: Intercom.LinkedObjectList | undefined;
+    ticket_parts?: Intercom.TicketParts | undefined;
     /** Whether or not the ticket is shared with the customer. */
-    is_shared?: boolean;
+    is_shared?: boolean | undefined;
 }
 
 export namespace Ticket {

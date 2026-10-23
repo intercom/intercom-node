@@ -13,13 +13,13 @@ export interface ExternalPage {
     /** The body of the external page in HTML. */
     html: string;
     /** The URL of the external page. This will be used by Fin to link end users to the page it based its answer on. */
-    url?: string;
+    url?: string | undefined;
     /** Whether the external page should be used to answer questions by AI Agent. */
     ai_agent_availability: boolean;
     /** Whether the external page should be used to answer questions by AI Copilot. */
     ai_copilot_availability: boolean;
     /** Deprecated. Use ai_agent_availability and ai_copilot_availability instead. */
-    fin_availability?: boolean;
+    fin_availability?: boolean | undefined;
     /** Always en */
     locale: "en";
     /** The unique identifier for the source of the external page which was given by Intercom. Every external page must be associated with a Content Import Source which represents the place it comes from and from which it inherits a default audience (configured in the UI). For a new source, make a POST request to the Content Import Source endpoint and an ID for the source will be returned in the response. */

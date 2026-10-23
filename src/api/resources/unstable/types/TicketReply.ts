@@ -7,22 +7,22 @@ import type * as Intercom from "../../../index.js";
  */
 export interface TicketReply {
     /** Always ticket_part */
-    type?: "ticket_part";
+    type?: "ticket_part" | undefined;
     /** The id representing the part. */
-    id?: string;
+    id?: string | undefined;
     /** Type of the part */
-    part_type?: TicketReply.PartType;
+    part_type?: TicketReply.PartType | undefined;
     /** The message body, which may contain HTML. */
-    body?: string;
+    body?: string | undefined;
     /** The time the note was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The last time the note was updated. */
-    updated_at?: number;
-    author?: Intercom.unstable.TicketPartAuthor;
+    updated_at?: number | undefined;
+    author?: Intercom.unstable.TicketPartAuthor | undefined;
     /** A list of attachments for the part. */
-    attachments?: Intercom.unstable.PartAttachment[];
+    attachments?: Intercom.unstable.PartAttachment[] | undefined;
     /** Whether or not the ticket part has been redacted. */
-    redacted?: boolean;
+    redacted?: boolean | undefined;
 }
 
 export namespace TicketReply {

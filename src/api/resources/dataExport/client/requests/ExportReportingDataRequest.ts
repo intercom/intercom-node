@@ -7,13 +7,6 @@
  *         app_id: "app_id",
  *         client_id: "client_id"
  *     }
- *
- * @example
- *     {
- *         job_identifier: "job_identifier",
- *         app_id: "app_id",
- *         client_id: "client_id"
- *     }
  */
 export interface ExportReportingDataRequest {
     /** Unique identifier of the job. */

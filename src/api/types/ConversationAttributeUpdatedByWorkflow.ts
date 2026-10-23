@@ -4,24 +4,24 @@
  * Contains details about the workflow that was triggered and any Custom Data Attributes (CDAs) that were modified during the workflow execution for conversation part type <code>conversation_attribute_updated_by_workflow</code>.
  */
 export interface ConversationAttributeUpdatedByWorkflow {
-    workflow?: ConversationAttributeUpdatedByWorkflow.Workflow;
-    attribute?: ConversationAttributeUpdatedByWorkflow.Attribute;
-    value?: ConversationAttributeUpdatedByWorkflow.Value;
+    workflow?: ConversationAttributeUpdatedByWorkflow.Workflow | undefined;
+    attribute?: ConversationAttributeUpdatedByWorkflow.Attribute | undefined;
+    value?: ConversationAttributeUpdatedByWorkflow.Value | undefined;
 }
 
 export namespace ConversationAttributeUpdatedByWorkflow {
     export interface Workflow {
         /** Name of the workflow */
-        name?: string;
+        name?: string | undefined;
     }
 
     export interface Attribute {
         /** Name of the CDA updated */
-        name?: string;
+        name?: string | undefined;
     }
 
     export interface Value {
         /** Value of the CDA updated */
-        name?: string;
+        name?: string | undefined;
     }
 }

@@ -1,8 +1,8 @@
-import { Companies } from "../../src/api/resources/companies/client/Client";
-import { Contacts } from "../../src/api/resources/contacts/client/Client";
-import { Conversations } from "../../src/api/resources/conversations/client/Client";
-import { Collections } from "../../src/api/resources/helpCenters/resources/collections/client/Client";
-import { Notes } from "../../src/api/resources/notes/client/Client";
+import type { Companies } from "../../src/api/resources/companies/client/Client";
+import type { Contacts } from "../../src/api/resources/contacts/client/Client";
+import type { Conversations } from "../../src/api/resources/conversations/client/Client";
+import type { Collections } from "../../src/api/resources/helpCenters/resources/collections/client/Client";
+import type { Notes } from "../../src/api/resources/notes/client/Client";
 import { createClient } from "./utils/createClient";
 import { randomString } from "./utils/random";
 

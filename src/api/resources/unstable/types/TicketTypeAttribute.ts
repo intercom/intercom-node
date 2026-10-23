@@ -5,37 +5,37 @@
  */
 export interface TicketTypeAttribute {
     /** String representing the object's type. Always has the value `ticket_type_attribute`. */
-    type?: string;
+    type?: string | undefined;
     /** The id representing the ticket type attribute. */
-    id?: string;
+    id?: string | undefined;
     /** The id of the workspace that the ticket type attribute belongs to. */
-    workspace_id?: string;
+    workspace_id?: string | undefined;
     /** The name of the ticket type attribute */
-    name?: string;
+    name?: string | undefined;
     /** The description of the ticket type attribute */
-    description?: string;
+    description?: string | undefined;
     /** The type of the data attribute (allowed values: "string list integer decimal boolean datetime files") */
-    data_type?: string;
+    data_type?: string | undefined;
     /** Input options for the attribute */
-    input_options?: Record<string, unknown>;
+    input_options?: Record<string, unknown> | undefined;
     /** The order of the attribute against other attributes */
-    order?: number;
+    order?: number | undefined;
     /** Whether the attribute is required or not for teammates. */
-    required_to_create?: boolean;
+    required_to_create?: boolean | undefined;
     /** Whether the attribute is required or not for contacts. */
-    required_to_create_for_contacts?: boolean;
+    required_to_create_for_contacts?: boolean | undefined;
     /** Whether the attribute is visible or not to teammates. */
-    visible_on_create?: boolean;
+    visible_on_create?: boolean | undefined;
     /** Whether the attribute is visible or not to contacts. */
-    visible_to_contacts?: boolean;
+    visible_to_contacts?: boolean | undefined;
     /** Whether the attribute is built in or not. */
-    default?: boolean;
+    default?: boolean | undefined;
     /** The id of the ticket type that the attribute belongs to. */
-    ticket_type_id?: number;
+    ticket_type_id?: number | undefined;
     /** Whether the ticket type attribute is archived or not. */
-    archived?: boolean;
+    archived?: boolean | undefined;
     /** The date and time the ticket type attribute was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The date and time the ticket type attribute was last updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
 }

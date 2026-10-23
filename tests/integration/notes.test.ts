@@ -1,7 +1,7 @@
-import { Intercom } from "../../src";
+import type { Intercom } from "../../src";
 import { tryDeleteContact } from "./helpers";
-import { randomString } from "./utils/random";
 import { createClient } from "./utils/createClient";
+import { randomString } from "./utils/random";
 
 describe("Notes", () => {
     let adminId: string;

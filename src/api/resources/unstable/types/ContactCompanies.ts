@@ -7,11 +7,11 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ContactCompanies {
     /** An array of company data objects attached to the contact. */
-    data?: Intercom.unstable.CompanyData[];
+    data?: Intercom.unstable.CompanyData[] | undefined;
     /** Url to get more company resources for this contact */
-    url?: string;
+    url?: string | undefined;
     /** Integer representing the total number of companies attached to this contact */
-    total_count?: number;
+    total_count?: number | undefined;
     /** Whether there's more Addressable Objects to be viewed. If true, use the url to view all */
-    has_more?: boolean;
+    has_more?: boolean | undefined;
 }

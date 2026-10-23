@@ -5,11 +5,11 @@
  */
 export interface ArticleSearchHighlights {
     /** The ID of the corresponding article. */
-    article_id?: string;
+    article_id?: string | undefined;
     /** An Article title highlighted. */
-    highlighted_title?: ArticleSearchHighlights.HighlightedTitle.Item[];
+    highlighted_title?: ArticleSearchHighlights.HighlightedTitle.Item[] | undefined;
     /** An Article description and body text highlighted. */
-    highlighted_summary?: ArticleSearchHighlights.HighlightedSummary.Item[][];
+    highlighted_summary?: ArticleSearchHighlights.HighlightedSummary.Item[][] | undefined;
 }
 
 export namespace ArticleSearchHighlights {
@@ -21,9 +21,9 @@ export namespace ArticleSearchHighlights {
          */
         export interface Item {
             /** The type of text - `highlight` or `plain`. */
-            type?: Item.Type;
+            type?: Item.Type | undefined;
             /** The text of the title. */
-            text?: string;
+            text?: string | undefined;
         }
 
         export namespace Item {
@@ -44,9 +44,9 @@ export namespace ArticleSearchHighlights {
          */
         export interface Item {
             /** The type of text - `highlight` or `plain`. */
-            type?: Item.Type;
+            type?: Item.Type | undefined;
             /** The text of the title. */
-            text?: string;
+            text?: string | undefined;
         }
 
         export namespace Item {

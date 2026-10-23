@@ -7,15 +7,15 @@ export interface AdminReplyTicketRequest {
     message_type: AdminReplyTicketRequest.MessageType;
     type: "admin";
     /** The text body of the reply. Notes accept some HTML formatting. Must be present for comment and note message types. */
-    body?: string;
+    body?: string | undefined;
     /** The id of the admin who is authoring the comment. */
     admin_id: string;
     /** The time the reply was created. If not provided, the current time will be used. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The quick reply options to display. Must be present for quick_reply message types. */
-    reply_options?: AdminReplyTicketRequest.ReplyOptions.Item[];
+    reply_options?: AdminReplyTicketRequest.ReplyOptions.Item[] | undefined;
     /** A list of image URLs that will be added as attachments. You can include up to 10 URLs. */
-    attachment_urls?: string[];
+    attachment_urls?: string[] | undefined;
 }
 
 export namespace AdminReplyTicketRequest {

@@ -7,19 +7,19 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface TicketStateDetailed {
     /** String representing the object's type. Always has the value `ticket_state`. */
-    type?: string;
+    type?: string | undefined;
     /** The id of the ticket state */
-    id?: string;
+    id?: string | undefined;
     /** The category of the ticket state */
-    category?: TicketStateDetailed.Category;
+    category?: TicketStateDetailed.Category | undefined;
     /** The state the ticket is currently in, in a human readable form - visible in Intercom */
-    internal_label?: string;
+    internal_label?: string | undefined;
     /** The state the ticket is currently in, in a human readable form - visible to customers, in the messenger, email and tickets portal. */
-    external_label?: string;
+    external_label?: string | undefined;
     /** Whether the ticket state is archived */
-    archived?: boolean;
+    archived?: boolean | undefined;
     /** A list of ticket types associated with a given ticket state. */
-    ticket_types?: TicketStateDetailed.TicketTypes;
+    ticket_types?: TicketStateDetailed.TicketTypes | undefined;
 }
 
 export namespace TicketStateDetailed {
@@ -37,8 +37,8 @@ export namespace TicketStateDetailed {
      */
     export interface TicketTypes {
         /** String representing the object's type. Always has the value `list`. */
-        type?: string;
+        type?: string | undefined;
         /** A list of ticket type attributes associated with a given ticket type. */
-        data?: (Intercom.unstable.TicketType | undefined)[];
+        data?: (Intercom.unstable.TicketType | undefined)[] | undefined;
     }
 }

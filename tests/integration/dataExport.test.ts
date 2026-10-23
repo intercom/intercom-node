@@ -1,4 +1,4 @@
-import { Intercom, IntercomClient } from "../../src";
+import type { Intercom, IntercomClient } from "../../src";
 import { createClient } from "./utils/createClient";
 
 async function createDataExport(client: IntercomClient): Promise<Intercom.DataExport> {

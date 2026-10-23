@@ -1,6 +1,6 @@
-import { IntercomClient as Client } from "../../src";
-import { randomString } from "./utils/random";
+import type { IntercomClient as Client } from "../../src";
 import { createClient } from "./utils/createClient";
+import { randomString } from "./utils/random";
 
 async function createArticle(client: Client, parentId: number, adminId: number) {
     return await client.articles.create({

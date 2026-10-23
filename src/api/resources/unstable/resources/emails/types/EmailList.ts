@@ -7,6 +7,6 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface EmailList {
     /** The type of object */
-    type?: string;
-    data?: Intercom.unstable.EmailSetting[];
+    type?: string | undefined;
+    data?: Intercom.unstable.EmailSetting[] | undefined;
 }

@@ -7,20 +7,6 @@
  *         id: "7522907",
  *         admin_id: "123"
  *     }
- *
- * @example
- *     {
- *         conversation_id: "64619700005694",
- *         id: "7522907",
- *         admin_id: "123"
- *     }
- *
- * @example
- *     {
- *         conversation_id: "64619700005694",
- *         id: "7522907",
- *         admin_id: "123"
- *     }
  */
 export interface DetachTagFromConversationRequest {
     /** conversation_id */

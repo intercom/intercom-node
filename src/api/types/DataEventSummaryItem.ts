@@ -5,13 +5,13 @@
  */
 export interface DataEventSummaryItem {
     /** The name of the event */
-    name?: string;
+    name?: string | undefined;
     /** The first time the event was sent */
-    first?: string;
+    first?: string | undefined;
     /** The last time the event was sent */
-    last?: string;
+    last?: string | undefined;
     /** The number of times the event was sent */
-    count?: number;
+    count?: number | undefined;
     /** The description of the event */
-    description?: string;
+    description?: string | undefined;
 }

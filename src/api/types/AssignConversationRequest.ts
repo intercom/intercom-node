@@ -10,7 +10,7 @@ export interface AssignConversationRequest {
     /** The `id` of the `admin` or `team` which will be assigned the conversation. A conversation can be assigned both an admin and a team.\nSet `0` if you want this assign to no admin or team (ie. Unassigned). */
     assignee_id: string;
     /** Optionally you can send a response in the conversation when it is assigned. */
-    body?: string;
+    body?: string | undefined;
 }
 
 export namespace AssignConversationRequest {

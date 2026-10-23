@@ -4,20 +4,20 @@
  * Contains details about name of the workflow for conversation part type <code>operator_workflow_event</code>.
  */
 export interface OperatorWorkflowEvent {
-    workflow?: OperatorWorkflowEvent.Workflow;
-    event?: OperatorWorkflowEvent.Event;
+    workflow?: OperatorWorkflowEvent.Workflow | undefined;
+    event?: OperatorWorkflowEvent.Event | undefined;
 }
 
 export namespace OperatorWorkflowEvent {
     export interface Workflow {
         /** The name of the workflow */
-        name?: string;
+        name?: string | undefined;
     }
 
     export interface Event {
         /** Type of the workflow event initiated */
-        type?: string;
+        type?: string | undefined;
         /** Result of the workflow event */
-        result?: string;
+        result?: string | undefined;
     }
 }

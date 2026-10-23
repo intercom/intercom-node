@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClie
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as Intercom from "../../../index.js";
 
 export declare namespace CustomChannelEventsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -40,6 +41,8 @@ export class CustomChannelEventsClient {
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
      * @throws {@link Intercom.UnprocessableEntityError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.customChannelEvents.notifyNewConversation({
@@ -79,9 +82,9 @@ export class CustomChannelEventsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -136,6 +139,8 @@ export class CustomChannelEventsClient {
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
      * @throws {@link Intercom.UnprocessableEntityError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.customChannelEvents.notifyNewMessage({
@@ -176,9 +181,9 @@ export class CustomChannelEventsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -233,6 +238,8 @@ export class CustomChannelEventsClient {
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
      * @throws {@link Intercom.UnprocessableEntityError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.customChannelEvents.notifyQuickReplySelected({
@@ -275,9 +282,9 @@ export class CustomChannelEventsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -332,6 +339,8 @@ export class CustomChannelEventsClient {
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
      * @throws {@link Intercom.UnprocessableEntityError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.customChannelEvents.notifyAttributeCollected({
@@ -375,9 +384,9 @@ export class CustomChannelEventsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

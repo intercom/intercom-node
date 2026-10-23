@@ -68,7 +68,7 @@ import type * as Intercom from "../../../../../../index.js";
  *         }
  *     }
  */
-export interface ReplyConversationRequest {
+export interface ReplyConversationBody {
     /** The Intercom provisioned identifier for the conversation or the string "last" to reply to the last part of the conversation */
     id: string;
     body: Intercom.unstable.ReplyConversationRequestBody;

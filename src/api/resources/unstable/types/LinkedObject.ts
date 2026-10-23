@@ -5,11 +5,11 @@
  */
 export interface LinkedObject {
     /** ticket or conversation */
-    type?: LinkedObject.Type;
+    type?: LinkedObject.Type | undefined;
     /** The ID of the linked object */
-    id?: string;
+    id?: string | undefined;
     /** Category of the Linked Ticket Object. */
-    category?: LinkedObject.Category;
+    category?: LinkedObject.Category | undefined;
 }
 
 export namespace LinkedObject {

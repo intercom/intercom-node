@@ -6,11 +6,11 @@ export interface ContactReplyBaseRequest {
     /** The text body of the comment. */
     body: string;
     /** The time the reply was created. If not provided, the current time will be used. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** A list of image URLs that will be added as attachments. You can include up to 10 URLs. */
-    attachment_urls?: string[];
+    attachment_urls?: string[] | undefined;
     /** The quick reply selection the contact wishes to respond with. These map to buttons displayed in the Messenger UI if sent by a bot, or the reply options sent by an Admin via the API. */
-    reply_options?: ContactReplyBaseRequest.ReplyOptions.Item[];
+    reply_options?: ContactReplyBaseRequest.ReplyOptions.Item[] | undefined;
 }
 
 export namespace ContactReplyBaseRequest {

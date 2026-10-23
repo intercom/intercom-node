@@ -7,6 +7,6 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface BrandList {
     /** The type of object */
-    type?: string;
-    data?: Intercom.unstable.Brand[];
+    type?: string | undefined;
+    data?: Intercom.unstable.Brand[] | undefined;
 }

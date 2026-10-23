@@ -7,5 +7,5 @@ import type * as Intercom from "../index.js";
  */
 export interface ContactDeleted extends Intercom.ContactReference {
     /** Whether the contact is deleted or not. */
-    deleted?: boolean;
+    deleted?: boolean | undefined;
 }

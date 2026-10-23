@@ -6,50 +6,49 @@ import type * as Intercom from "../index.js";
  * A Statistics object containing all information required for reporting, with timestamps and calculated metrics.
  */
 export interface ConversationStatistics {
-    /** */
-    type?: string;
+    type?: string | undefined;
     /** Duration until last assignment before first admin reply. In seconds. */
-    time_to_assignment?: number;
+    time_to_assignment?: number | undefined;
     /** Duration until first admin reply. Subtracts out of business hours. In seconds. */
-    time_to_admin_reply?: number;
+    time_to_admin_reply?: number | undefined;
     /** Duration until conversation was closed first time. Subtracts out of business hours. In seconds. */
-    time_to_first_close?: number;
+    time_to_first_close?: number | undefined;
     /** Duration until conversation was closed last time. Subtracts out of business hours. In seconds. */
-    time_to_last_close?: number;
+    time_to_last_close?: number | undefined;
     /** Median based on all admin replies after a contact reply. Subtracts out of business hours. In seconds. */
-    median_time_to_reply?: number;
+    median_time_to_reply?: number | undefined;
     /** Time of first text conversation part from a contact. */
-    first_contact_reply_at?: number;
+    first_contact_reply_at?: number | undefined;
     /** Time of first assignment after first_contact_reply_at. */
-    first_assignment_at?: number;
+    first_assignment_at?: number | undefined;
     /** Time of first admin reply after first_contact_reply_at. */
-    first_admin_reply_at?: number;
+    first_admin_reply_at?: number | undefined;
     /** Time of first close after first_contact_reply_at. */
-    first_close_at?: number;
+    first_close_at?: number | undefined;
     /** Time of last assignment after first_contact_reply_at. */
-    last_assignment_at?: number;
+    last_assignment_at?: number | undefined;
     /** Time of first admin reply since most recent assignment. */
-    last_assignment_admin_reply_at?: number;
+    last_assignment_admin_reply_at?: number | undefined;
     /** Time of the last conversation part from a contact. */
-    last_contact_reply_at?: number;
+    last_contact_reply_at?: number | undefined;
     /** Time of the last conversation part from an admin. */
-    last_admin_reply_at?: number;
+    last_admin_reply_at?: number | undefined;
     /** Time of the last conversation close. */
-    last_close_at?: number;
+    last_close_at?: number | undefined;
     /** The last admin who closed the conversation. Returns a reference to an Admin object. */
-    last_closed_by_id?: string;
+    last_closed_by_id?: string | undefined;
     /** Number of reopens after first_contact_reply_at. */
-    count_reopens?: number;
+    count_reopens?: number | undefined;
     /** Number of assignments after first_contact_reply_at. */
-    count_assignments?: number;
+    count_assignments?: number | undefined;
     /** Total number of conversation parts. */
-    count_conversation_parts?: number;
+    count_conversation_parts?: number | undefined;
     /** An array of conversation response time objects */
-    assigned_team_first_response_time_by_team?: Intercom.ConversationResponseTime[];
+    assigned_team_first_response_time_by_team?: Intercom.ConversationResponseTime[] | undefined;
     /** An array of conversation response time objects within office hours */
-    assigned_team_first_response_time_in_office_hours?: Intercom.ConversationResponseTime[];
+    assigned_team_first_response_time_in_office_hours?: Intercom.ConversationResponseTime[] | undefined;
     /** Time from conversation assignment to conversation close in seconds. */
-    handling_time?: number;
+    handling_time?: number | undefined;
     /** Adjusted handling time for conversation in seconds. This is the active handling time excluding idle periods when teammates are not actively working on the conversation. */
-    adjusted_handling_time?: number;
+    adjusted_handling_time?: number | undefined;
 }

@@ -5,11 +5,11 @@
  */
 export interface SingleFilterSearchRequest {
     /** The accepted field that you want to search on. */
-    field?: string;
+    field?: string | undefined;
     /** The accepted operators you can use to define how you want to search for the value. */
-    operator?: SingleFilterSearchRequest.Operator;
+    operator?: SingleFilterSearchRequest.Operator | undefined;
     /** The value that you want to search on. */
-    value?: SingleFilterSearchRequest.Value;
+    value?: SingleFilterSearchRequest.Value | undefined;
 }
 
 export namespace SingleFilterSearchRequest {

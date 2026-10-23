@@ -10,7 +10,7 @@ import * as errors from "../../../../../../errors/index.js";
 import * as Intercom from "../../../../../index.js";
 
 export declare namespace AwayStatusReasonsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -31,6 +31,8 @@ export class AwayStatusReasonsClient {
      * @param {AwayStatusReasonsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.awayStatusReasons.listAwayStatusReasons()
@@ -60,7 +62,7 @@ export class AwayStatusReasonsClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

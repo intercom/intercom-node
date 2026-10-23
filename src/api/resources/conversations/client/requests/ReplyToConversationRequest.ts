@@ -67,39 +67,6 @@ import type * as Intercom from "../../../../index.js";
  *             intercom_user_id: "6762f1661bb69f9f2193bbbf"
  *         }
  *     }
- *
- * @example
- *     {
- *         conversation_id: "123 or \"last\"",
- *         body: {
- *             message_type: "comment",
- *             type: "user",
- *             body: "Thanks again :)",
- *             intercom_user_id: "6762f1571bb69f9f2193bbbb"
- *         }
- *     }
- *
- * @example
- *     {
- *         conversation_id: "123 or \"last\"",
- *         body: {
- *             message_type: "comment",
- *             type: "user",
- *             body: "Thanks again :)",
- *             intercom_user_id: "6762f1571bb69f9f2193bbbb"
- *         }
- *     }
- *
- * @example
- *     {
- *         conversation_id: "123 or \"last\"",
- *         body: {
- *             message_type: "comment",
- *             type: "user",
- *             body: "Thanks again :)",
- *             intercom_user_id: "6762f1571bb69f9f2193bbbb"
- *         }
- *     }
  */
 export interface ReplyToConversationRequest {
     /** The Intercom provisioned identifier for the conversation or the string "last" to reply to the last part of the conversation */

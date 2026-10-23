@@ -9,17 +9,17 @@ export interface AdminReplyConversationRequest {
     message_type: AdminReplyConversationRequest.MessageType;
     type: "admin";
     /** The text body of the reply. Notes accept some HTML formatting. Must be present for comment and note message types. */
-    body?: string;
+    body?: string | undefined;
     /** The id of the admin who is authoring the comment. */
     admin_id: string;
     /** The time the reply was created. If not provided, the current time will be used. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The quick reply options to display to the end user. Must be present for quick_reply message types. */
-    reply_options?: Intercom.QuickReplyOption[];
+    reply_options?: Intercom.QuickReplyOption[] | undefined;
     /** A list of image URLs that will be added as attachments. You can include up to 10 URLs. */
-    attachment_urls?: string[];
+    attachment_urls?: string[] | undefined;
     /** A list of files that will be added as attachments. You can include up to 10 files */
-    attachment_files?: Intercom.ConversationAttachmentFiles[];
+    attachment_files?: Intercom.ConversationAttachmentFiles[] | undefined;
 }
 
 export namespace AdminReplyConversationRequest {

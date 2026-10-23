@@ -7,10 +7,10 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ContactAttachedCompanies {
     /** The type of object */
-    type?: "list";
+    type?: "list" | undefined;
     /** An array containing Company Objects */
-    companies?: Intercom.unstable.Company[];
+    companies?: Intercom.unstable.Company[] | undefined;
     /** The total number of companies associated to this contact */
-    total_count?: number;
-    pages?: Intercom.unstable.PagesLink;
+    total_count?: number | undefined;
+    pages?: Intercom.unstable.PagesLink | undefined;
 }

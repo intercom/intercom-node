@@ -11,6 +11,11 @@ export class UnprocessableEntityError extends errors.IntercomError {
             body: body,
             rawResponse: rawResponse,
         });
-        Object.setPrototypeOf(this, UnprocessableEntityError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, this.constructor);
+        }
+
+        this.name = "UnprocessableEntityError";
     }
 }

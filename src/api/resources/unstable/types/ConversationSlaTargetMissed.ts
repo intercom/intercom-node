@@ -5,13 +5,13 @@
  */
 export interface ConversationSlaTargetMissed {
     /** Name of the SLA */
-    sla_name?: string;
+    sla_name?: string | undefined;
     /** Which specific target was missed */
-    sla_target_type?: ConversationSlaTargetMissed.SlaTargetType;
+    sla_target_type?: ConversationSlaTargetMissed.SlaTargetType | undefined;
     /** Overall SLA status */
-    current_sla_status?: ConversationSlaTargetMissed.CurrentSlaStatus;
+    current_sla_status?: ConversationSlaTargetMissed.CurrentSlaStatus | undefined;
     /** Status of all SLA targets at the time of breach */
-    sla_states?: Record<string, ConversationSlaTargetMissed.SlaStates.Value>;
+    sla_states?: Record<string, ConversationSlaTargetMissed.SlaStates.Value> | undefined;
 }
 
 export namespace ConversationSlaTargetMissed {
@@ -36,9 +36,9 @@ export namespace ConversationSlaTargetMissed {
     export namespace SlaStates {
         export interface Value {
             /** Status of this specific target */
-            status?: Value.Status;
+            status?: Value.Status | undefined;
             /** Time remaining for active/paused targets (null for hit/missed) */
-            seconds_remaining?: number;
+            seconds_remaining?: number | undefined;
         }
 
         export namespace Value {

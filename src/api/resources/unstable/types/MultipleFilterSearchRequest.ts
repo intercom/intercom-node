@@ -7,8 +7,8 @@ import type * as Intercom from "../../../index.js";
  */
 export interface MultipleFilterSearchRequest {
     /** An operator to allow boolean inspection between multiple fields. */
-    operator?: MultipleFilterSearchRequest.Operator;
-    value?: MultipleFilterSearchRequest.Value;
+    operator?: MultipleFilterSearchRequest.Operator | undefined;
+    value?: MultipleFilterSearchRequest.Value | undefined;
 }
 
 export namespace MultipleFilterSearchRequest {

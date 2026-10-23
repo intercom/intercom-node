@@ -5,9 +5,9 @@
  */
 export interface DeletedCompanyObject {
     /** The unique identifier for the company which is given by Intercom. */
-    id?: string;
+    id?: string | undefined;
     /** The type of object which was deleted. - `company` */
-    object?: "company";
+    object?: "company" | undefined;
     /** Whether the company was deleted successfully or not. */
-    deleted?: boolean;
+    deleted?: boolean | undefined;
 }

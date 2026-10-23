@@ -4,15 +4,15 @@
  * Contains details about final status of the completed action for conversation part type <code>custom_action_finished</code>.
  */
 export interface CustomActionFinished {
-    action?: CustomActionFinished.Action;
+    action?: CustomActionFinished.Action | undefined;
 }
 
 export namespace CustomActionFinished {
     export interface Action {
         /** Name of the action */
-        name?: string;
+        name?: string | undefined;
         /** Status of the action */
-        result?: Action.Result;
+        result?: Action.Result | undefined;
     }
 
     export namespace Action {

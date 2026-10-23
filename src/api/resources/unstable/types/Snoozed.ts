@@ -5,7 +5,7 @@
  */
 export interface Snoozed {
     /** Human-readable description of snooze duration */
-    until?: string;
+    until?: string | undefined;
     /** ISO timestamp for custom snooze times (null for general snoozes) */
-    custom_until_time?: string;
+    custom_until_time?: string | undefined;
 }

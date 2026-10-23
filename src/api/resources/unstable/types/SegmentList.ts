@@ -7,9 +7,9 @@ import type * as Intercom from "../../../index.js";
  */
 export interface SegmentList {
     /** The type of the object */
-    type?: "segment.list";
+    type?: "segment.list" | undefined;
     /** A list of Segment objects */
-    segments?: Intercom.unstable.Segment[];
+    segments?: Intercom.unstable.Segment[] | undefined;
     /** A pagination object, which may be empty, indicating no further pages to fetch. */
-    pages?: Record<string, unknown>;
+    pages?: Record<string, unknown> | undefined;
 }

@@ -11,7 +11,7 @@ import * as Intercom from "../../../index.js";
 import { CollectionsClient } from "../resources/collections/client/Client.js";
 
 export declare namespace HelpCentersClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -36,6 +36,8 @@ export class HelpCentersClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.helpCenters.find({
@@ -66,11 +68,11 @@ export class HelpCentersClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `help_center/help_centers/${core.url.encodePathParam(helpCenterId)}`,
+                `help_center/help_centers/${core.url.encodePathParam(helpCenterId, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -114,6 +116,8 @@ export class HelpCentersClient {
      * @param {HelpCentersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.helpCenters.list()
@@ -127,13 +131,10 @@ export class HelpCentersClient {
                 request: Intercom.ListHelpCentersRequest,
             ): Promise<core.WithRawResponse<Intercom.HelpCenterList>> => {
                 const { page, per_page: perPage } = request;
-                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-                if (page != null) {
-                    _queryParams.page = page.toString();
-                }
-                if (perPage != null) {
-                    _queryParams.per_page = perPage.toString();
-                }
+                const _queryParams: Record<string, unknown> = {
+                    page,
+                    per_page: perPage,
+                };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
@@ -150,7 +151,11 @@ export class HelpCentersClient {
                     ),
                     method: "GET",
                     headers: _headers,
-                    queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+                    queryString: core.url
+                        .queryBuilder()
+                        .addMany(_queryParams)
+                        .mergeAdditional(requestOptions?.queryParams)
+                        .build(),
                     timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
                     maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
                     abortSignal: requestOptions?.abortSignal,
@@ -191,8 +196,15 @@ export class HelpCentersClient {
             hasNextPage: (response) => (response?.data ?? []).length > 0,
             getItems: (response) => response?.data ?? [],
             loadPage: (_response) => {
-                _offset += 1;
-                return list(core.setObjectProperty(request, "page", _offset));
+                const _nextOffset = _offset + 1;
+                return core.HttpResponsePromise.fromPromise(
+                    list(core.setObjectProperty(request, "page", _nextOffset))
+                        .withRawResponse()
+                        .then((_pageResponse) => {
+                            _offset = _nextOffset;
+                            return _pageResponse;
+                        }),
+                );
             },
         });
     }

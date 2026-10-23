@@ -5,25 +5,25 @@
  */
 export interface ActivityLogMetadata {
     /** The way the admin signed in. */
-    sign_in_method?: string;
+    sign_in_method?: string | undefined;
     /** The unique identifier for the contact which is provided by the Client. */
-    external_id?: string;
+    external_id?: string | undefined;
     /** The away mode status which is set to true when away and false when returned. */
-    away_mode?: boolean;
+    away_mode?: boolean | undefined;
     /** The reason the Admin is away. */
-    away_status_reason?: string;
+    away_status_reason?: string | undefined;
     /** Indicates if conversations should be reassigned while an Admin is away. */
-    reassign_conversations?: boolean;
+    reassign_conversations?: boolean | undefined;
     /** The action that initiated the status change. */
-    source?: string;
+    source?: string | undefined;
     /** Indicates if the status was changed automatically or manually. */
-    auto_changed?: string;
+    auto_changed?: string | undefined;
     /** The ID of the Admin who initiated the activity. */
-    update_by?: number;
+    update_by?: number | undefined;
     /** The name of the Admin who initiated the activity. */
-    update_by_name?: string;
+    update_by_name?: string | undefined;
     /** The conversation assignment limit value for an admin. */
-    conversation_assignment_limit?: number;
+    conversation_assignment_limit?: number | undefined;
     /** The ticket assignment limit value for an admin. */
-    ticket_assignment_limit?: number;
+    ticket_assignment_limit?: number | undefined;
 }

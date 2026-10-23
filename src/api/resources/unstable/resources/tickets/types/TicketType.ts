@@ -7,28 +7,28 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface TicketType {
     /** String representing the object's type. Always has the value `ticket_type`. */
-    type?: string;
+    type?: string | undefined;
     /** The id representing the ticket type. */
-    id?: string;
+    id?: string | undefined;
     /** Category of the Ticket Type. */
-    category?: TicketType.Category;
+    category?: TicketType.Category | undefined;
     /** The name of the ticket type */
-    name?: string;
+    name?: string | undefined;
     /** The description of the ticket type */
-    description?: string;
+    description?: string | undefined;
     /** The icon of the ticket type */
-    icon?: string;
+    icon?: string | undefined;
     /** The id of the workspace that the ticket type belongs to. */
-    workspace_id?: string;
-    ticket_type_attributes?: Intercom.unstable.TicketTypeAttributeList;
+    workspace_id?: string | undefined;
+    ticket_type_attributes?: Intercom.unstable.TicketTypeAttributeList | undefined;
     /** A list of ticket states associated with a given ticket type. */
-    ticket_states?: TicketType.TicketStates;
+    ticket_states?: TicketType.TicketStates | undefined;
     /** Whether the ticket type is archived or not. */
-    archived?: boolean;
+    archived?: boolean | undefined;
     /** The date and time the ticket type was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The date and time the ticket type was last updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
 }
 
 export namespace TicketType {
@@ -45,8 +45,8 @@ export namespace TicketType {
      */
     export interface TicketStates {
         /** String representing the object's type. Always has the value `list`. */
-        type?: string;
+        type?: string | undefined;
         /** A list of ticket states associated with a given ticket type. */
-        data?: (Intercom.unstable.TicketState | undefined)[];
+        data?: (Intercom.unstable.TicketState | undefined)[] | undefined;
     }
 }

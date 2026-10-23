@@ -5,25 +5,25 @@
  */
 export interface Macro {
     /** String representing the object's type. Always has the value `macro`. */
-    type?: "macro";
+    type?: "macro" | undefined;
     /** The unique identifier for the macro. */
-    id?: string;
+    id?: string | undefined;
     /** The name of the macro. */
-    name?: string;
+    name?: string | undefined;
     /** The body of the macro in HTML format with placeholders transformed to XML-like format. */
-    body?: string;
+    body?: string | undefined;
     /** The plain text version of the macro body with original Intercom placeholder format. */
-    body_text?: string;
+    body_text?: string | undefined;
     /** The time the macro was created in ISO 8601 format. */
-    created_at?: string;
+    created_at?: string | undefined;
     /** The time the macro was last updated in ISO 8601 format. */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /** Who can view this macro. */
-    visible_to?: Macro.VisibleTo;
+    visible_to?: Macro.VisibleTo | undefined;
     /** The team IDs that can view this macro when visible_to is set to specific_teams. */
-    visible_to_team_ids?: string[];
+    visible_to_team_ids?: string[] | undefined;
     /** Where the macro is available for use. */
-    available_on?: Macro.AvailableOn.Item[];
+    available_on?: Macro.AvailableOn.Item[] | undefined;
 }
 
 export namespace Macro {

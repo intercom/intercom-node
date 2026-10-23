@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as core from "../../../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as Intercom from "../../../../../index.js";
 
 export declare namespace ConversationsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -39,6 +40,8 @@ export class ConversationsClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.listConversations({
@@ -58,15 +61,10 @@ export class ConversationsClient {
         requestOptions?: ConversationsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.ConversationList>> {
         const { per_page: perPage, starting_after: startingAfter } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (perPage != null) {
-            _queryParams.per_page = perPage.toString();
-        }
-
-        if (startingAfter != null) {
-            _queryParams.starting_after = startingAfter;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            per_page: perPage,
+            starting_after: startingAfter,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -83,7 +81,11 @@ export class ConversationsClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -136,6 +138,8 @@ export class ConversationsClient {
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.createConversation({
@@ -183,9 +187,9 @@ export class ConversationsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -240,6 +244,8 @@ export class ConversationsClient {
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.retrieveConversation({
@@ -260,15 +266,10 @@ export class ConversationsClient {
         requestOptions?: ConversationsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.Conversation>> {
         const { id, display_as: displayAs, include_translations: includeTranslations } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (displayAs != null) {
-            _queryParams.display_as = displayAs;
-        }
-
-        if (includeTranslations != null) {
-            _queryParams.include_translations = includeTranslations.toString();
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            display_as: displayAs,
+            include_translations: includeTranslations,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -281,11 +282,15 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(id)}`,
+                `conversations/${core.url.encodePathParam(id, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -343,6 +348,8 @@ export class ConversationsClient {
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.updateConversation({
@@ -377,11 +384,9 @@ export class ConversationsClient {
         requestOptions?: ConversationsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.Conversation>> {
         const { id, display_as: displayAs, ..._body } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (displayAs != null) {
-            _queryParams.display_as = displayAs;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            display_as: displayAs,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -394,14 +399,18 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(id)}`,
+                `conversations/${core.url.encodePathParam(id, errors.IntercomError)}`,
             ),
             method: "PUT",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -446,6 +455,8 @@ export class ConversationsClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.deleteConversation({
@@ -476,11 +487,11 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(id)}`,
+                `conversations/${core.url.encodePathParam(id, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -622,6 +633,9 @@ export class ConversationsClient {
      * @param {Intercom.unstable.SearchRequest} request
      * @param {ConversationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
+     *
      * @example
      *     await client.unstable.conversations.searchConversations({
      *         query: {
@@ -665,9 +679,9 @@ export class ConversationsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -692,12 +706,14 @@ export class ConversationsClient {
     /**
      * You can reply to a conversation with a message from an admin or on behalf of a contact, or with a note for admins.
      *
-     * @param {Intercom.unstable.ReplyConversationRequest} request
+     * @param {Intercom.unstable.ReplyConversationBody} request
      * @param {ConversationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.replyConversation({
@@ -765,14 +781,14 @@ export class ConversationsClient {
      *     })
      */
     public replyConversation(
-        request: Intercom.unstable.ReplyConversationRequest,
+        request: Intercom.unstable.ReplyConversationBody,
         requestOptions?: ConversationsClient.RequestOptions,
     ): core.HttpResponsePromise<Intercom.unstable.Conversation> {
         return core.HttpResponsePromise.fromPromise(this.__replyConversation(request, requestOptions));
     }
 
     private async __replyConversation(
-        request: Intercom.unstable.ReplyConversationRequest,
+        request: Intercom.unstable.ReplyConversationBody,
         requestOptions?: ConversationsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.Conversation>> {
         const { id, body: _body } = request;
@@ -788,14 +804,14 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(id)}/reply`,
+                `conversations/${core.url.encodePathParam(id, errors.IntercomError)}/reply`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -845,6 +861,8 @@ export class ConversationsClient {
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.manageConversation({
@@ -910,14 +928,14 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(id)}/parts`,
+                `conversations/${core.url.encodePathParam(id, errors.IntercomError)}/parts`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -968,6 +986,8 @@ export class ConversationsClient {
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.attachContactToConversation({
@@ -1011,14 +1031,14 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(id)}/customers`,
+                `conversations/${core.url.encodePathParam(id, errors.IntercomError)}/customers`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1075,6 +1095,8 @@ export class ConversationsClient {
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.NotFoundError}
      * @throws {@link Intercom.unstable.UnprocessableEntityError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.detachContactFromConversation({
@@ -1107,14 +1129,14 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(conversationId)}/customers/${core.url.encodePathParam(contactId)}`,
+                `conversations/${core.url.encodePathParam(conversationId, errors.IntercomError)}/customers/${core.url.encodePathParam(contactId, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1171,6 +1193,8 @@ export class ConversationsClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.listHandlingEvents({
@@ -1201,11 +1225,11 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(id)}/handling_events`,
+                `conversations/${core.url.encodePathParam(id, errors.IntercomError)}/handling_events`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1255,6 +1279,8 @@ export class ConversationsClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.redactConversation({
@@ -1298,9 +1324,9 @@ export class ConversationsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1339,6 +1365,8 @@ export class ConversationsClient {
      * @param {ConversationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.BadRequestError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.conversations.convertConversationToTicket({
@@ -1376,14 +1404,14 @@ export class ConversationsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(id)}/convert`,
+                `conversations/${core.url.encodePathParam(id, errors.IntercomError)}/convert`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

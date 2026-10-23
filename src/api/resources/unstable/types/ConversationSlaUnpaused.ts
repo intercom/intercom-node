@@ -5,5 +5,5 @@
  */
 export interface ConversationSlaUnpaused {
     /** Name of the SLA being unpaused */
-    sla_name?: string;
+    sla_name?: string | undefined;
 }

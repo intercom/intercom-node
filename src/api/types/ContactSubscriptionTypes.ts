@@ -7,11 +7,11 @@ import type * as Intercom from "../index.js";
  */
 export interface ContactSubscriptionTypes {
     /** This object represents the subscriptions attached to a contact. */
-    data?: Intercom.AddressableList[];
+    data?: Intercom.AddressableList[] | undefined;
     /** Url to get more subscription type resources for this contact */
-    url?: string;
+    url?: string | undefined;
     /** Int representing the total number of subscription types attached to this contact */
-    total_count?: number;
+    total_count?: number | undefined;
     /** Whether there's more Addressable Objects to be viewed. If true, use the url to view all */
-    has_more?: boolean;
+    has_more?: boolean | undefined;
 }

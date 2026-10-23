@@ -7,10 +7,10 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ContentImportSourcesList {
     /** The type of the object - `list`. */
-    type?: "list";
-    pages?: Intercom.PagesLink;
+    type?: "list" | undefined;
+    pages?: Intercom.PagesLink | undefined;
     /** A count of the total number of content import sources. */
-    total_count?: number;
+    total_count?: number | undefined;
     /** An array of Content Import Source objects */
-    data?: Intercom.ContentImportSource[];
+    data?: Intercom.ContentImportSource[] | undefined;
 }

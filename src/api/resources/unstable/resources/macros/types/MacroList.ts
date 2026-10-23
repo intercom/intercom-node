@@ -7,11 +7,11 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface MacroList {
     /** Always list */
-    type?: "list";
+    type?: "list" | undefined;
     /** The list of macro objects */
-    data?: (Intercom.unstable.Macro | undefined)[];
+    data?: (Intercom.unstable.Macro | undefined)[] | undefined;
     /** Pagination information */
-    pages?: MacroList.Pages;
+    pages?: MacroList.Pages | undefined;
 }
 
 export namespace MacroList {
@@ -20,11 +20,11 @@ export namespace MacroList {
      */
     export interface Pages {
         /** The type of pagination */
-        type?: "pages";
+        type?: "pages" | undefined;
         /** Number of results per page */
-        per_page?: number;
+        per_page?: number | undefined;
         /** Cursor for the next page */
-        next?: Pages.Next;
+        next?: Pages.Next | undefined;
     }
 
     export namespace Pages {
@@ -33,7 +33,7 @@ export namespace MacroList {
          */
         export interface Next {
             /** Base64-encoded cursor containing [updated_at, id] for pagination */
-            starting_after?: string;
+            starting_after?: string | undefined;
         }
     }
 }

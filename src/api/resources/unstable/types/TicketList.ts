@@ -7,10 +7,10 @@ import type * as Intercom from "../../../index.js";
  */
 export interface TicketList {
     /** Always ticket.list */
-    type?: "ticket.list";
+    type?: "ticket.list" | undefined;
     /** The list of ticket objects */
-    tickets?: (Intercom.unstable.Ticket | undefined)[];
+    tickets?: (Intercom.unstable.Ticket | undefined)[] | undefined;
     /** A count of the total number of objects. */
-    total_count?: number;
-    pages?: Intercom.unstable.CursorPages;
+    total_count?: number | undefined;
+    pages?: Intercom.unstable.CursorPages | undefined;
 }

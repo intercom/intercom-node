@@ -9,18 +9,18 @@ export interface CreateArticleRequest {
     /** The title of the article.For multilingual articles, this will be the title of the default language's content. */
     title: string;
     /** The description of the article. For multilingual articles, this will be the description of the default language's content. */
-    description?: string;
+    description?: string | undefined;
     /** The content of the article. For multilingual articles, this will be the body of the default language's content. */
-    body?: string;
+    body?: string | undefined;
     /** The id of the author of the article. For multilingual articles, this will be the id of the author of the default language's content. Must be a teammate on the help center's workspace. */
     author_id: number;
     /** Whether the article will be `published` or will be a `draft`. Defaults to draft. For multilingual articles, this will be the state of the default language's content. */
-    state?: CreateArticleRequest.State;
+    state?: CreateArticleRequest.State | undefined;
     /** The id of the article's parent collection or section. An article without this field stands alone. */
-    parent_id?: number;
+    parent_id?: number | undefined;
     /** The type of parent, which can either be a `collection` or `section`. */
-    parent_type?: CreateArticleRequest.ParentType;
-    translated_content?: Intercom.ArticleTranslatedContent;
+    parent_type?: CreateArticleRequest.ParentType | undefined;
+    translated_content?: Intercom.ArticleTranslatedContent | undefined;
 }
 
 export namespace CreateArticleRequest {

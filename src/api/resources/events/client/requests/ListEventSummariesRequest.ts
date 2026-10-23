@@ -17,12 +17,12 @@ export namespace ListEventSummariesRequest {
      */
     export interface EventSummaries {
         /** The name of the event that occurred. A good event name is typically a past tense 'verb-noun' combination, to improve readability, for example `updated-plan`. */
-        event_name?: string;
+        event_name?: string | undefined;
         /** The number of times the event occurred. */
-        count?: number;
+        count?: number | undefined;
         /** The first time the event was sent */
-        first?: number;
+        first?: number | undefined;
         /** The last time the event was sent */
-        last?: number;
+        last?: number | undefined;
     }
 }

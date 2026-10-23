@@ -5,9 +5,9 @@
  */
 export interface PriorityChanged {
     /** Current priority state */
-    current_priority?: PriorityChanged.CurrentPriority;
+    current_priority?: PriorityChanged.CurrentPriority | undefined;
     /** Previous priority state */
-    previous_priority?: PriorityChanged.PreviousPriority;
+    previous_priority?: PriorityChanged.PreviousPriority | undefined;
 }
 
 export namespace PriorityChanged {

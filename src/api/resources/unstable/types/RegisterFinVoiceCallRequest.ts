@@ -9,9 +9,9 @@ export interface RegisterFinVoiceCallRequest {
     /** External call identifier from the call provider */
     call_id: string;
     /** Source of the call. Can be "five9", "zoom_phone", or defaults to "aws_connect" */
-    source?: RegisterFinVoiceCallRequest.Source;
+    source?: RegisterFinVoiceCallRequest.Source | undefined;
     /** Additional metadata about the call */
-    data?: Record<string, unknown>;
+    data?: Record<string, unknown> | undefined;
 }
 
 export namespace RegisterFinVoiceCallRequest {

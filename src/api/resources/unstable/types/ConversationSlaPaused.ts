@@ -5,11 +5,11 @@
  */
 export interface ConversationSlaPaused {
     /** Name of the SLA being paused */
-    sla_name?: string;
+    sla_name?: string | undefined;
     /** Overall SLA status at pause time */
-    current_sla_status?: ConversationSlaPaused.CurrentSlaStatus;
+    current_sla_status?: ConversationSlaPaused.CurrentSlaStatus | undefined;
     /** Status of all SLA targets at pause time */
-    sla_states?: Record<string, ConversationSlaPaused.SlaStates.Value>;
+    sla_states?: Record<string, ConversationSlaPaused.SlaStates.Value> | undefined;
 }
 
 export namespace ConversationSlaPaused {
@@ -25,9 +25,9 @@ export namespace ConversationSlaPaused {
     export namespace SlaStates {
         export interface Value {
             /** Status of this specific target (always paused) */
-            status?: "paused";
+            status?: "paused" | undefined;
             /** Time remaining when paused */
-            seconds_remaining?: number;
+            seconds_remaining?: number | undefined;
         }
     }
 }

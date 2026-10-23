@@ -16,9 +16,9 @@ export namespace TagCompanyRequest {
     export namespace Companies {
         export interface Item {
             /** The Intercom defined id representing the company. */
-            id?: string;
+            id?: string | undefined;
             /** The company id you have defined for the company. */
-            company_id?: string;
+            company_id?: string | undefined;
         }
     }
 }

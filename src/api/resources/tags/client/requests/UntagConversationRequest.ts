@@ -7,20 +7,6 @@
  *         tag_id: "7522907",
  *         admin_id: "123"
  *     }
- *
- * @example
- *     {
- *         conversation_id: "64619700005694",
- *         tag_id: "7522907",
- *         admin_id: "123"
- *     }
- *
- * @example
- *     {
- *         conversation_id: "64619700005694",
- *         tag_id: "7522907",
- *         admin_id: "123"
- *     }
  */
 export interface UntagConversationRequest {
     /** conversation_id */

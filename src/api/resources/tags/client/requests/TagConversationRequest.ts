@@ -7,13 +7,6 @@
  *         id: "7522907",
  *         admin_id: "780"
  *     }
- *
- * @example
- *     {
- *         conversation_id: "64619700005694",
- *         id: "7522907",
- *         admin_id: "780"
- *     }
  */
 export interface TagConversationRequest {
     /** conversation_id */

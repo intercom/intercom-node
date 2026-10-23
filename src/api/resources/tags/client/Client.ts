@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClie
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as Intercom from "../../../index.js";
 
 export declare namespace TagsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -33,6 +34,8 @@ export class TagsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.tagContact({
@@ -70,14 +73,14 @@ export class TagsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/tags`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/tags`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -117,6 +120,8 @@ export class TagsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.untagContact({
@@ -148,11 +153,11 @@ export class TagsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/tags/${core.url.encodePathParam(tagId)}`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/tags/${core.url.encodePathParam(tagId, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -197,6 +202,8 @@ export class TagsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.tagConversation({
@@ -229,14 +236,14 @@ export class TagsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(conversationId)}/tags`,
+                `conversations/${core.url.encodePathParam(conversationId, errors.IntercomError)}/tags`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -281,6 +288,8 @@ export class TagsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.untagConversation({
@@ -313,14 +322,14 @@ export class TagsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `conversations/${core.url.encodePathParam(conversationId)}/tags/${core.url.encodePathParam(tagId)}`,
+                `conversations/${core.url.encodePathParam(conversationId, errors.IntercomError)}/tags/${core.url.encodePathParam(tagId, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -364,6 +373,8 @@ export class TagsClient {
      * @param {TagsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.list()
@@ -389,7 +400,7 @@ export class TagsClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -440,6 +451,8 @@ export class TagsClient {
      * @throws {@link Intercom.BadRequestError}
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.create({
@@ -495,9 +508,9 @@ export class TagsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -540,6 +553,8 @@ export class TagsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.find({
@@ -570,11 +585,11 @@ export class TagsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `tags/${core.url.encodePathParam(tagId)}`,
+                `tags/${core.url.encodePathParam(tagId, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -615,6 +630,8 @@ export class TagsClient {
      * @throws {@link Intercom.BadRequestError}
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.delete({
@@ -645,11 +662,11 @@ export class TagsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `tags/${core.url.encodePathParam(tagId)}`,
+                `tags/${core.url.encodePathParam(tagId, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -691,6 +708,8 @@ export class TagsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.tagTicket({
@@ -723,14 +742,14 @@ export class TagsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `tickets/${core.url.encodePathParam(ticketId)}/tags`,
+                `tickets/${core.url.encodePathParam(ticketId, errors.IntercomError)}/tags`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -770,6 +789,8 @@ export class TagsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.tags.untagTicket({
@@ -802,14 +823,14 @@ export class TagsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `tickets/${core.url.encodePathParam(ticketId)}/tags/${core.url.encodePathParam(tagId)}`,
+                `tickets/${core.url.encodePathParam(ticketId, errors.IntercomError)}/tags/${core.url.encodePathParam(tagId, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

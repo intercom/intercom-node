@@ -5,17 +5,17 @@
  */
 export interface UpdateCompanyRequestBody {
     /** The name of the Company */
-    name?: string;
+    name?: string | undefined;
     /** The name of the plan you have associated with the company. */
-    plan?: string;
+    plan?: string | undefined;
     /** The number of employees in this company. */
-    size?: number;
+    size?: number | undefined;
     /** The URL for this company's website. Please note that the value specified here is not validated. Accepts any string. */
-    website?: string;
+    website?: string | undefined;
     /** The industry that this company operates in. */
-    industry?: string;
+    industry?: string | undefined;
     /** A hash of key/value pairs containing any other data about the company you want Intercom to store. */
-    custom_attributes?: Record<string, string>;
+    custom_attributes?: Record<string, string> | undefined;
     /** How much revenue the company generates for your business. Note that this will truncate floats. i.e. it only allow for whole integers, 155.98 will be truncated to 155. Note that this has an upper limit of 2**31-1 or 2147483647.. */
-    monthly_spend?: number;
+    monthly_spend?: number | undefined;
 }

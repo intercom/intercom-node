@@ -18,7 +18,7 @@ export namespace WhatsappMessageStatusList {
         /** Total number of pages */
         total_pages: number;
         /** Information for fetching next page (null if no more pages) */
-        next?: Pages.Next;
+        next?: Pages.Next | undefined;
     }
 
     export namespace Pages {
@@ -27,7 +27,7 @@ export namespace WhatsappMessageStatusList {
          */
         export interface Next {
             /** Cursor for the next page */
-            starting_after?: string;
+            starting_after?: string | undefined;
         }
     }
 
@@ -50,7 +50,7 @@ export namespace WhatsappMessageStatusList {
             /** WhatsApp's message identifier */
             whatsapp_message_id: string;
             /** Name of the WhatsApp template used */
-            template_name?: string;
+            template_name?: string | undefined;
         }
 
         export namespace Item {

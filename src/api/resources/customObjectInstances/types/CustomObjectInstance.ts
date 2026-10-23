@@ -5,19 +5,19 @@
  */
 export interface CustomObjectInstance {
     /** The Intercom defined id representing the custom object instance. */
-    id?: string;
+    id?: string | undefined;
     /** The id you have defined for the custom object instance. */
-    external_id?: string;
+    external_id?: string | undefined;
     /** The time when the Custom Object instance was created in the external system it originated from. */
-    external_created_at?: number;
+    external_created_at?: number | undefined;
     /** The time when the Custom Object instance was last updated in the external system it originated from. */
-    external_updated_at?: number;
+    external_updated_at?: number | undefined;
     /** The time the attribute was created as a UTC Unix timestamp */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time the attribute was last updated as a UTC Unix timestamp */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** The identifier of the custom object type that defines the structure of the custom object instance. */
-    type?: string;
+    type?: string | undefined;
     /** The custom attributes you have set on the custom object instance. */
-    custom_attributes?: Record<string, string>;
+    custom_attributes?: Record<string, string> | undefined;
 }

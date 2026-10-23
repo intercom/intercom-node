@@ -5,6 +5,8 @@ import * as errors from "../../../../errors/index.js";
 import type * as Intercom from "../../../index.js";
 
 export class TooManyRequestsError extends errors.IntercomError {
+    public declare readonly body: Intercom.unstable.Error_;
+
     constructor(body: Intercom.unstable.Error_, rawResponse?: core.RawResponse) {
         super({
             message: "TooManyRequestsError",
@@ -12,6 +14,11 @@ export class TooManyRequestsError extends errors.IntercomError {
             body: body,
             rawResponse: rawResponse,
         });
-        Object.setPrototypeOf(this, TooManyRequestsError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, this.constructor);
+        }
+
+        this.name = "TooManyRequestsError";
     }
 }

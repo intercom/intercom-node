@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClie
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as Intercom from "../../../index.js";
 
 export declare namespace InternalArticlesClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -31,6 +32,8 @@ export class InternalArticlesClient {
      * @param {InternalArticlesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.internalArticles.listInternalArticles()
@@ -60,7 +63,7 @@ export class InternalArticlesClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -98,6 +101,8 @@ export class InternalArticlesClient {
      *
      * @throws {@link Intercom.BadRequestError}
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.internalArticles.createInternalArticle({
@@ -143,9 +148,9 @@ export class InternalArticlesClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request != null ? request : undefined,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -185,6 +190,8 @@ export class InternalArticlesClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.internalArticles.retrieveInternalArticle({
@@ -215,11 +222,11 @@ export class InternalArticlesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `internal_articles/${core.url.encodePathParam(internalArticleId)}`,
+                `internal_articles/${core.url.encodePathParam(internalArticleId, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -264,6 +271,8 @@ export class InternalArticlesClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.internalArticles.updateInternalArticle({
@@ -296,14 +305,14 @@ export class InternalArticlesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `internal_articles/${core.url.encodePathParam(internalArticleId)}`,
+                `internal_articles/${core.url.encodePathParam(internalArticleId, errors.IntercomError)}`,
             ),
             method: "PUT",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -348,6 +357,8 @@ export class InternalArticlesClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.internalArticles.deleteInternalArticle({
@@ -378,11 +389,11 @@ export class InternalArticlesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `internal_articles/${core.url.encodePathParam(internalArticleId)}`,
+                `internal_articles/${core.url.encodePathParam(internalArticleId, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -429,6 +440,8 @@ export class InternalArticlesClient {
      * @param {InternalArticlesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.internalArticles.searchInternalArticles({
@@ -447,11 +460,9 @@ export class InternalArticlesClient {
         requestOptions?: InternalArticlesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.InternalArticleSearchResponse>> {
         const { folder_id: folderId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (folderId != null) {
-            _queryParams.folder_id = folderId;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            folder_id: folderId,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -468,7 +479,11 @@ export class InternalArticlesClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

@@ -5,7 +5,7 @@
  */
 export interface AdminPriorityLevel {
     /** The primary admin ids for the team */
-    primary_admin_ids?: number[];
+    primary_admin_ids?: number[] | undefined;
     /** The secondary admin ids for the team */
-    secondary_admin_ids?: number[];
+    secondary_admin_ids?: number[] | undefined;
 }

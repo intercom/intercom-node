@@ -7,7 +7,7 @@ import type * as Intercom from "../../../index.js";
  */
 export interface CompanyAttachedSegments {
     /** The type of object - `list` */
-    type?: "list";
+    type?: "list" | undefined;
     /** An array containing Segment Objects */
-    data?: Intercom.unstable.Segment[];
+    data?: Intercom.unstable.Segment[] | undefined;
 }

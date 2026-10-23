@@ -5,21 +5,6 @@
  *     {
  *         id: "123"
  *     }
- *
- * @example
- *     {
- *         id: "123"
- *     }
- *
- * @example
- *     {
- *         id: "123"
- *     }
- *
- * @example
- *     {
- *         id: "123"
- *     }
  */
 export interface GetMacroRequest {
     /** The unique identifier of the macro */

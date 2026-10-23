@@ -7,5 +7,5 @@ export interface CreateOrUpdateTagRequest {
     /** The name of the tag, which will be created if not found, or the new name for the tag if this is an update request. Names are case insensitive. */
     name: string;
     /** The id of tag to updates. */
-    id?: string;
+    id?: string | undefined;
 }

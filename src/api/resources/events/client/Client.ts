@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClie
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as Intercom from "../../../index.js";
 
 export declare namespace EventsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -42,6 +43,8 @@ export class EventsClient {
      * @param {EventsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.events.list({
@@ -72,28 +75,14 @@ export class EventsClient {
             summary,
             per_page: perPage,
         } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (userId != null) {
-            _queryParams.user_id = userId;
-        }
-
-        if (intercomUserId != null) {
-            _queryParams.intercom_user_id = intercomUserId;
-        }
-
-        if (email != null) {
-            _queryParams.email = email;
-        }
-
-        _queryParams.type = type_;
-        if (summary != null) {
-            _queryParams.summary = summary.toString();
-        }
-
-        if (perPage != null) {
-            _queryParams.per_page = perPage.toString();
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            user_id: userId,
+            intercom_user_id: intercomUserId,
+            email,
+            type: type_,
+            summary,
+            per_page: perPage,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -110,7 +99,11 @@ export class EventsClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -188,6 +181,8 @@ export class EventsClient {
      * @param {EventsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.events.create({
@@ -224,9 +219,9 @@ export class EventsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -264,6 +259,8 @@ export class EventsClient {
      * @param {EventsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.events.summaries()
@@ -296,9 +293,9 @@ export class EventsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

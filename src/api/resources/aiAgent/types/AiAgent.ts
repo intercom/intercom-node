@@ -7,22 +7,22 @@ import type * as Intercom from "../../../index.js";
  */
 export interface AiAgent {
     /** The type of the source that triggered AI Agent involvement in the conversation. */
-    source_type?: AiAgent.SourceType;
+    source_type?: AiAgent.SourceType | undefined;
     /** The title of the source that triggered AI Agent involvement in the conversation. If this is `essentials_plan_setup` then it will return `null`. */
-    source_title?: string;
+    source_title?: string | undefined;
     /** The type of the last answer delivered by AI Agent. If no answer was delivered then this will return `null` */
-    last_answer_type?: AiAgent.LastAnswerType;
+    last_answer_type?: AiAgent.LastAnswerType | undefined;
     /** The resolution state of AI Agent. If no AI or custom answer has been delivered then this will return `null`. */
-    resolution_state?: AiAgent.ResolutionState;
+    resolution_state?: AiAgent.ResolutionState | undefined;
     /** The customer satisfaction rating given to AI Agent, from 1-5. */
-    rating?: number;
+    rating?: number | undefined;
     /** The customer satisfaction rating remark given to AI Agent. */
-    rating_remark?: string;
+    rating_remark?: string | undefined;
     /** The time when the AI agent rating was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time when the AI agent rating was last updated. */
-    updated_at?: number;
-    content_sources?: Intercom.ContentSourcesList;
+    updated_at?: number | undefined;
+    content_sources?: Intercom.ContentSourcesList | undefined;
 }
 
 export namespace AiAgent {

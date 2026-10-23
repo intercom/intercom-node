@@ -21,9 +21,9 @@ export namespace CreateMessageRequest {
         /** The sender of the message. If not provided, the default sender will be used. */
         to: CreateMessageRequestWithEmail.To;
         /** The time the message was created. If not provided, the current time will be used. */
-        created_at?: number;
+        created_at?: number | undefined;
         /** Whether a conversation should be opened in the inbox for the message without the contact replying. Defaults to false if not provided. */
-        create_conversation_without_contact_reply?: boolean;
+        create_conversation_without_contact_reply?: boolean | undefined;
     }
 
     export namespace CreateMessageRequestWithEmail {
@@ -60,19 +60,19 @@ export namespace CreateMessageRequest {
     export interface Inapp {
         message_type: "inapp";
         /** The title of the email. */
-        subject?: string;
+        subject?: string | undefined;
         /** The content of the message. HTML and plaintext are supported. */
         body: string;
         /** The style of the outgoing message. Possible values `plain` or `personal`. */
-        template?: string;
+        template?: string | undefined;
         /** The sender of the message. If not provided, the default sender will be used. */
         from: CreateMessageRequestWithInapp.From;
         /** The sender of the message. If not provided, the default sender will be used. */
         to: CreateMessageRequestWithInapp.To;
         /** The time the message was created. If not provided, the current time will be used. */
-        created_at?: number;
+        created_at?: number | undefined;
         /** Whether a conversation should be opened in the inbox for the message without the contact replying. Defaults to false if not provided. */
-        create_conversation_without_contact_reply?: boolean;
+        create_conversation_without_contact_reply?: boolean | undefined;
     }
 
     export namespace CreateMessageRequestWithInapp {

@@ -4,17 +4,17 @@
  * The value describing a file upload set for a custom attribute
  */
 export interface FileAttribute {
-    type?: string;
+    type?: string | undefined;
     /** The name of the file */
-    name?: string;
+    name?: string | undefined;
     /** The url of the file. This is a temporary URL and will expire after 30 minutes. */
-    url?: string;
+    url?: string | undefined;
     /** The type of file */
-    content_type?: string;
+    content_type?: string | undefined;
     /** The size of the file in bytes */
-    filesize?: number;
+    filesize?: number | undefined;
     /** The width of the file in pixels, if applicable */
-    width?: number;
+    width?: number | undefined;
     /** The height of the file in pixels, if applicable */
-    height?: number;
+    height?: number | undefined;
 }

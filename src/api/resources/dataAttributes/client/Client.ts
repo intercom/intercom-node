@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClie
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as Intercom from "../../../index.js";
 
 export declare namespace DataAttributesClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -32,6 +33,8 @@ export class DataAttributesClient {
      * @param {DataAttributesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.dataAttributes.list({
@@ -51,15 +54,10 @@ export class DataAttributesClient {
         requestOptions?: DataAttributesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.DataAttributeList>> {
         const { model, include_archived: includeArchived } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (model != null) {
-            _queryParams.model = model;
-        }
-
-        if (includeArchived != null) {
-            _queryParams.include_archived = includeArchived.toString();
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            model: model != null ? model : undefined,
+            include_archived: includeArchived,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -76,7 +74,11 @@ export class DataAttributesClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -114,6 +116,8 @@ export class DataAttributesClient {
      *
      * @throws {@link Intercom.BadRequestError}
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.dataAttributes.create({
@@ -160,9 +164,9 @@ export class DataAttributesClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -209,6 +213,8 @@ export class DataAttributesClient {
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
      * @throws {@link Intercom.UnprocessableEntityError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.dataAttributes.update({
@@ -267,14 +273,14 @@ export class DataAttributesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `data_attributes/${core.url.encodePathParam(dataAttributeId)}`,
+                `data_attributes/${core.url.encodePathParam(dataAttributeId, errors.IntercomError)}`,
             ),
             method: "PUT",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

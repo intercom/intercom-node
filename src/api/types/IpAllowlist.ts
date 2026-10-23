@@ -5,14 +5,14 @@
  */
 export interface IpAllowlist {
     /** String representing the object's type. Always has the value `ip_allowlist`. */
-    type?: string;
+    type?: string | undefined;
     /** Whether the IP allowlist is enabled for the workspace. */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * List of allowed IP addresses and/or IP ranges in CIDR notation.
      * Examples:
      * - Single IP: `192.168.0.1`
      * - IP range: `192.168.0.1/24` (allows 192.168.0.0 - 192.168.0.255)
      */
-    ip_allowlist?: string[];
+    ip_allowlist?: string[] | undefined;
 }

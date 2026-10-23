@@ -7,11 +7,11 @@ import type * as Intercom from "../../../index.js";
  */
 export interface CompanyScroll {
     /** The type of object - `list` */
-    type?: "list";
-    data?: Intercom.unstable.Company[];
-    pages?: Intercom.unstable.CursorPages;
+    type?: "list" | undefined;
+    data?: Intercom.unstable.Company[] | undefined;
+    pages?: Intercom.unstable.CursorPages | undefined;
     /** The total number of companies */
-    total_count?: number;
+    total_count?: number | undefined;
     /** The scroll parameter to use in the next request to fetch the next page of results. */
-    scroll_param?: string;
+    scroll_param?: string | undefined;
 }

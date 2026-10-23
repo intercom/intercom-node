@@ -8,12 +8,6 @@ import type * as Intercom from "../../../../../../index.js";
  *         collection_id: 1,
  *         name: "Update collection name"
  *     }
- *
- * @example
- *     {
- *         collection_id: 1,
- *         name: "Update collection name"
- *     }
  */
 export interface UpdateCollectionRequest {
     /** The unique identifier for the collection which is given by Intercom. */

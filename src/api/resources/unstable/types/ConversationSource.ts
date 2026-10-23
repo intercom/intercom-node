@@ -7,22 +7,22 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ConversationSource {
     /** This includes conversation, email, facebook, instagram, phone_call, phone_switch, push, sms, twitter and whatsapp. */
-    type?: ConversationSource.Type;
+    type?: ConversationSource.Type | undefined;
     /** The id representing the message. */
-    id?: string;
+    id?: string | undefined;
     /** The conversation's initiation type. Possible values are customer_initiated, campaigns_initiated (legacy campaigns), operator_initiated (Custom bot), automated (Series and other outbounds with dynamic audience message) and admin_initiated (fixed audience message, ticket initiated by an admin, group email). */
-    delivered_as?: string;
+    delivered_as?: string | undefined;
     /** Optional. The message subject. For Twitter, this will show a generic message regarding why the subject is obscured. */
-    subject?: string;
+    subject?: string | undefined;
     /** The message body, which may contain HTML. For Twitter, this will show a generic message regarding why the body is obscured. */
-    body?: string;
-    author?: Intercom.unstable.ConversationPartAuthor;
+    body?: string | undefined;
+    author?: Intercom.unstable.ConversationPartAuthor | undefined;
     /** A list of attachments for the part. */
-    attachments?: Intercom.unstable.PartAttachment[];
+    attachments?: Intercom.unstable.PartAttachment[] | undefined;
     /** The URL where the conversation was started. For Twitter, Email, and Bots, this will be blank. */
-    url?: string;
+    url?: string | undefined;
     /** Whether or not the source message has been redacted. Only applicable for contact initiated messages. */
-    redacted?: boolean;
+    redacted?: boolean | undefined;
 }
 
 export namespace ConversationSource {

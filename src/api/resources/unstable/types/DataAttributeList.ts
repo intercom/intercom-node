@@ -7,7 +7,7 @@ import type * as Intercom from "../../../index.js";
  */
 export interface DataAttributeList {
     /** The type of the object */
-    type?: "list";
+    type?: "list" | undefined;
     /** A list of data attributes */
-    data?: Intercom.unstable.DataAttribute[];
+    data?: Intercom.unstable.DataAttribute[] | undefined;
 }

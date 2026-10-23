@@ -12,7 +12,7 @@ export interface HandlingEvent {
     /** ISO8601 timestamp when the event occurred */
     timestamp: string;
     /** Optional reason for the event (e.g., "Paused", "Away") */
-    reason?: string;
+    reason?: string | undefined;
 }
 
 export namespace HandlingEvent {

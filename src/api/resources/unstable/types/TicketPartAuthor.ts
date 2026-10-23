@@ -5,13 +5,13 @@
  */
 export interface TicketPartAuthor {
     /** The type of the author */
-    type?: TicketPartAuthor.Type;
+    type?: TicketPartAuthor.Type | undefined;
     /** The id of the author */
-    id?: string;
+    id?: string | undefined;
     /** The name of the author */
-    name?: string;
+    name?: string | undefined;
     /** The email of the author */
-    email?: string;
+    email?: string | undefined;
 }
 
 export namespace TicketPartAuthor {

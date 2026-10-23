@@ -7,54 +7,54 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface Company {
     /** Value is `company` */
-    type?: "company";
+    type?: "company" | undefined;
     /** The Intercom defined id representing the company. */
-    id?: string;
+    id?: string | undefined;
     /** The name of the company. */
-    name?: string;
+    name?: string | undefined;
     /** The Intercom defined code of the workspace the company is associated to. */
-    app_id?: string;
-    plan?: Company.Plan;
+    app_id?: string | undefined;
+    plan?: Company.Plan | undefined;
     /** The company id you have defined for the company. */
-    company_id?: string;
+    company_id?: string | undefined;
     /** The time the company was created by you. */
-    remote_created_at?: number;
+    remote_created_at?: number | undefined;
     /** The time the company was added in Intercom. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The last time the company was updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** The time the company last recorded making a request. */
-    last_request_at?: number;
+    last_request_at?: number | undefined;
     /** The number of employees in the company. */
-    size?: number;
+    size?: number | undefined;
     /** The URL for the company website. */
-    website?: string;
+    website?: string | undefined;
     /** The industry that the company operates in. */
-    industry?: string;
+    industry?: string | undefined;
     /** How much revenue the company generates for your business. */
-    monthly_spend?: number;
+    monthly_spend?: number | undefined;
     /** How many sessions the company has recorded. */
-    session_count?: number;
+    session_count?: number | undefined;
     /** The number of users in the company. */
-    user_count?: number;
+    user_count?: number | undefined;
     /** The custom attributes you have set on the company. */
-    custom_attributes?: Record<string, string>;
+    custom_attributes?: Record<string, string> | undefined;
     /** The list of tags associated with the company */
-    tags?: Company.Tags;
+    tags?: Company.Tags | undefined;
     /** The list of segments associated with the company */
-    segments?: Company.Segments;
+    segments?: Company.Segments | undefined;
     /** The list of notes associated with the company */
-    notes?: Company.Notes;
+    notes?: Company.Notes | undefined;
 }
 
 export namespace Company {
     export interface Plan {
         /** Value is always "plan" */
-        type?: string;
+        type?: string | undefined;
         /** The id of the plan */
-        id?: string;
+        id?: string | undefined;
         /** The name of the plan */
-        name?: string;
+        name?: string | undefined;
     }
 
     /**
@@ -62,8 +62,8 @@ export namespace Company {
      */
     export interface Tags {
         /** The type of the object */
-        type?: "tag.list";
-        tags?: unknown[];
+        type?: "tag.list" | undefined;
+        tags?: unknown[] | undefined;
     }
 
     /**
@@ -71,8 +71,8 @@ export namespace Company {
      */
     export interface Segments {
         /** The type of the object */
-        type?: "segment.list";
-        segments?: Intercom.unstable.Segment[];
+        type?: "segment.list" | undefined;
+        segments?: Intercom.unstable.Segment[] | undefined;
     }
 
     /**
@@ -80,7 +80,7 @@ export namespace Company {
      */
     export interface Notes {
         /** The type of the object */
-        type?: "note.list";
-        notes?: Intercom.unstable.CompanyNote[];
+        type?: "note.list" | undefined;
+        notes?: Intercom.unstable.CompanyNote[] | undefined;
     }
 }

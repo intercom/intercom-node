@@ -7,13 +7,6 @@
  *         title: "Christmas is here!",
  *         body: "<p>New gifts in store for the jolly season</p>"
  *     }
- *
- * @example
- *     {
- *         id: 1,
- *         title: "Christmas is here!",
- *         body: "<p>New gifts in store for the jolly season</p>"
- *     }
  */
 export interface UpdateInternalArticleRequestBody {
     /** The unique identifier for the internal article which is given by Intercom. */

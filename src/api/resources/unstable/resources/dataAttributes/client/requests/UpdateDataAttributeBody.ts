@@ -9,7 +9,7 @@
  *         }
  *     }
  */
-export interface UpdateDataAttributeRequest {
+export interface UpdateDataAttributeBody {
     /** The data attribute id */
     id: number;
     body?: unknown;

@@ -15,12 +15,12 @@ export interface CreateTicketRequestBody {
      *  - conversation | tracker ticket
      *  - customer ticket | tracker ticket
      */
-    conversation_to_link_id?: string;
+    conversation_to_link_id?: string | undefined;
     /** The ID of the company that the ticket is associated with. The unique identifier for the company which is given by Intercom */
-    company_id?: string;
+    company_id?: string | undefined;
     /** The time the ticket was created. If not provided, the current time will be used. */
-    created_at?: number;
-    assignment?: CreateTicketRequestBody.Assignment;
+    created_at?: number | undefined;
+    assignment?: CreateTicketRequestBody.Assignment | undefined;
 }
 
 export namespace CreateTicketRequestBody {
@@ -41,8 +41,8 @@ export namespace CreateTicketRequestBody {
 
     export interface Assignment {
         /** The ID of the admin to which the ticket is assigned. If not provided, the ticket will be unassigned. */
-        admin_assignee_id?: string;
+        admin_assignee_id?: string | undefined;
         /** The ID of the team to which the ticket is assigned. If not provided, the ticket will be unassigned. */
-        team_assignee_id?: string;
+        team_assignee_id?: string | undefined;
     }
 }

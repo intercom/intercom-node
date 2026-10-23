@@ -7,20 +7,6 @@
  *         id: "7522907",
  *         admin_id: "123"
  *     }
- *
- * @example
- *     {
- *         ticket_id: "64619700005694",
- *         id: "7522907",
- *         admin_id: "123"
- *     }
- *
- * @example
- *     {
- *         ticket_id: "64619700005694",
- *         id: "7522907",
- *         admin_id: "123"
- *     }
  */
 export interface DetachTagFromTicketRequest {
     /** ticket_id */

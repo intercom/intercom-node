@@ -6,8 +6,7 @@ import type * as Intercom from "../../../index.js";
  * The list of contacts (users or leads) involved in this conversation. This will only contain one customer unless more were added via the group conversation feature.
  */
 export interface ConversationContacts {
-    /** */
-    type?: "contact.list";
+    type?: "contact.list" | undefined;
     /** The list of contacts (users or leads) involved in this conversation. This will only contain one customer unless more were added via the group conversation feature. */
-    contacts?: Intercom.unstable.ContactReference[];
+    contacts?: Intercom.unstable.ContactReference[] | undefined;
 }

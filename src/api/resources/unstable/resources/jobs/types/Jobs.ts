@@ -5,19 +5,19 @@
  */
 export interface Jobs {
     /** The type of the object */
-    type?: "job";
+    type?: "job" | undefined;
     /** The id of the job that's currently being processed or has completed. */
     id: string;
     /** API endpoint URL to check the job status. */
-    url?: string;
+    url?: string | undefined;
     /** The status of the job execution. */
-    status?: Jobs.Status;
+    status?: Jobs.Status | undefined;
     /** The type of resource created during job execution. */
-    resource_type?: string;
+    resource_type?: string | undefined;
     /** The id of the resource created during job execution (e.g. ticket id) */
-    resource_id?: string;
+    resource_id?: string | undefined;
     /** The url of the resource created during job exeuction. Use this url to fetch the resource. */
-    resource_url?: string;
+    resource_url?: string | undefined;
 }
 
 export namespace Jobs {

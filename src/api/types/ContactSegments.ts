@@ -7,7 +7,7 @@ import type * as Intercom from "../index.js";
  */
 export interface ContactSegments {
     /** The type of the object */
-    type?: "list";
+    type?: "list" | undefined;
     /** Segment objects associated with the contact. */
-    data?: Intercom.Segment[];
+    data?: Intercom.Segment[] | undefined;
 }

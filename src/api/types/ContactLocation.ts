@@ -5,11 +5,11 @@
  */
 export interface ContactLocation {
     /** Always location */
-    type?: string;
+    type?: string | undefined;
     /** The country that the contact is located in */
-    country?: string;
+    country?: string | undefined;
     /** The overal region that the contact is located in */
-    region?: string;
+    region?: string | undefined;
     /** The city that the contact is located in */
-    city?: string;
+    city?: string | undefined;
 }

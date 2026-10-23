@@ -5,9 +5,9 @@
  */
 export interface CompanyData {
     /** The unique identifier for the company which is given by Intercom. */
-    id?: string;
+    id?: string | undefined;
     /** The type of the object. Always company. */
-    type?: "company";
+    type?: "company" | undefined;
     /** The relative URL of the company. */
-    url?: string;
+    url?: string | undefined;
 }

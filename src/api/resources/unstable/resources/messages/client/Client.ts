@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as core from "../../../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as Intercom from "../../../../../index.js";
 
 export declare namespace MessagesClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -38,13 +39,15 @@ export class MessagesClient {
      * >
      * > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
      *
-     * @param {Intercom.unstable.CreateMessageRequest | undefined} request
+     * @param {Intercom.unstable.CreateMessageRequest} request
      * @param {MessagesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.BadRequestError}
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.UnprocessableEntityError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.messages.createMessage({
@@ -203,14 +206,14 @@ export class MessagesClient {
      *     })
      */
     public createMessage(
-        request?: Intercom.unstable.CreateMessageRequest | undefined,
+        request?: Intercom.unstable.CreateMessageRequest,
         requestOptions?: MessagesClient.RequestOptions,
     ): core.HttpResponsePromise<Intercom.unstable.Message> {
         return core.HttpResponsePromise.fromPromise(this.__createMessage(request, requestOptions));
     }
 
     private async __createMessage(
-        request?: Intercom.unstable.CreateMessageRequest | undefined,
+        request?: Intercom.unstable.CreateMessageRequest,
         requestOptions?: MessagesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.Message>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -230,9 +233,9 @@ export class MessagesClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request != null ? request : undefined,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -288,6 +291,8 @@ export class MessagesClient {
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.InternalServerError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.messages.getWhatsAppMessageStatus({
@@ -308,16 +313,11 @@ export class MessagesClient {
         requestOptions?: MessagesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.WhatsappMessageStatusList>> {
         const { ruleset_id: rulesetId, per_page: perPage, starting_after: startingAfter } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        _queryParams.ruleset_id = rulesetId;
-        if (perPage != null) {
-            _queryParams.per_page = perPage.toString();
-        }
-
-        if (startingAfter != null) {
-            _queryParams.starting_after = startingAfter;
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            ruleset_id: rulesetId,
+            per_page: perPage,
+            starting_after: startingAfter,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -334,7 +334,11 @@ export class MessagesClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

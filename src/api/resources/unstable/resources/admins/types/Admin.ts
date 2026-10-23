@@ -7,26 +7,26 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface Admin {
     /** String representing the object's type. Always has the value `admin`. */
-    type?: string;
+    type?: string | undefined;
     /** The id representing the admin. */
-    id?: string;
+    id?: string | undefined;
     /** The name of the admin. */
-    name?: string;
+    name?: string | undefined;
     /** The email of the admin. */
-    email?: string;
+    email?: string | undefined;
     /** The job title of the admin. */
-    job_title?: string;
+    job_title?: string | undefined;
     /** Identifies if this admin is currently set in away mode. */
-    away_mode_enabled?: boolean;
+    away_mode_enabled?: boolean | undefined;
     /** Identifies if this admin is set to automatically reassign new conversations to the apps default inbox. */
-    away_mode_reassign?: boolean;
+    away_mode_reassign?: boolean | undefined;
     /** The unique identifier of the away status reason */
-    away_status_reason_id?: number;
+    away_status_reason_id?: number | undefined;
     /** Identifies if this admin has a paid inbox seat to restrict/allow features that require them. */
-    has_inbox_seat?: boolean;
+    has_inbox_seat?: boolean | undefined;
     /** This object represents the avatar associated with the admin. */
-    team_ids?: number[];
+    team_ids?: number[] | undefined;
     /** Image for the associated team or teammate */
-    avatar?: string;
-    team_priority_level?: Intercom.unstable.TeamPriorityLevel;
+    avatar?: string | undefined;
+    team_priority_level?: Intercom.unstable.TeamPriorityLevel | undefined;
 }

@@ -5,9 +5,9 @@
  */
 export interface TagBasic {
     /** value is "tag" */
-    type?: string;
+    type?: string | undefined;
     /** The id of the tag */
-    id?: string;
+    id?: string | undefined;
     /** The name of the tag */
-    name?: string;
+    name?: string | undefined;
 }

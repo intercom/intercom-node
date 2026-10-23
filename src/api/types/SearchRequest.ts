@@ -7,7 +7,7 @@ import type * as Intercom from "../index.js";
  */
 export interface SearchRequest {
     query: SearchRequest.Query;
-    pagination?: Intercom.StartingAfterPaging;
+    pagination?: Intercom.StartingAfterPaging | undefined;
 }
 
 export namespace SearchRequest {

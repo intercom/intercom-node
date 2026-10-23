@@ -7,9 +7,9 @@ import type * as Intercom from "../../../index.js";
  */
 export interface EmailMessageMetadata {
     /** The subject of the email */
-    subject?: string;
+    subject?: string | undefined;
     /** A list of an email address headers. */
-    email_address_headers?: Intercom.unstable.EmailAddressHeader[];
+    email_address_headers?: Intercom.unstable.EmailAddressHeader[] | undefined;
     /** The unique identifier for the email message as specified in the Message-ID header */
-    message_id?: string;
+    message_id?: string | undefined;
 }

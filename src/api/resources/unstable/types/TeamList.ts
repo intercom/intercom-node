@@ -7,7 +7,7 @@ import type * as Intercom from "../../../index.js";
  */
 export interface TeamList {
     /** The type of the object */
-    type?: "team.list";
+    type?: "team.list" | undefined;
     /** A list of team objects */
-    teams?: Intercom.unstable.Team[];
+    teams?: Intercom.unstable.Team[] | undefined;
 }

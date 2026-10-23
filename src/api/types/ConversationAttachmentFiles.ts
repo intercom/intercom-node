@@ -5,9 +5,9 @@
  */
 export interface ConversationAttachmentFiles {
     /** The content type of the file */
-    content_type?: string;
+    content_type?: string | undefined;
     /** The base64 encoded file data. */
-    data?: string;
+    data?: string | undefined;
     /** The name of the file. */
-    name?: string;
+    name?: string | undefined;
 }

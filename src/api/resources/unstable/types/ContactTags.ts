@@ -7,11 +7,11 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ContactTags {
     /** This object represents the tags attached to a contact. */
-    data?: Intercom.unstable.AddressableList[];
+    data?: Intercom.unstable.AddressableList[] | undefined;
     /** url to get more tag resources for this contact */
-    url?: string;
+    url?: string | undefined;
     /** Int representing the total number of tags attached to this contact */
-    total_count?: number;
+    total_count?: number | undefined;
     /** Whether there's more Addressable Objects to be viewed. If true, use the url to view all */
-    has_more?: boolean;
+    has_more?: boolean | undefined;
 }

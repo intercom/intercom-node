@@ -4,5 +4,5 @@ import type * as Intercom from "../../../../../index.js";
 
 export interface MergeContactResponse extends Intercom.unstable.Contact {
     /** If the user has enabled push messaging. */
-    enabled_push_messaging?: boolean;
+    enabled_push_messaging?: boolean | undefined;
 }

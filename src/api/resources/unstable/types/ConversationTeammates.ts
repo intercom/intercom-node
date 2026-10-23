@@ -7,7 +7,7 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ConversationTeammates {
     /** The type of the object - `admin.list`. */
-    type?: string;
+    type?: string | undefined;
     /** The list of teammates who participated in the conversation (wrote at least one conversation part). */
-    teammates?: Intercom.unstable.Reference[];
+    teammates?: Intercom.unstable.Reference[] | undefined;
 }

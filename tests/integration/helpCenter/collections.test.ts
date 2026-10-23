@@ -1,5 +1,5 @@
-import { IntercomClient as Client } from "../../../src";
-import { Collection } from "../../../src/api/resources/helpCenter/types";
+import type { IntercomClient as Client } from "../../../src";
+import type { Collection } from "../../../src/api/resources/helpCenter/types";
 import { createClient } from "../utils/createClient";
 
 async function createCollection(client: Client): Promise<Collection> {

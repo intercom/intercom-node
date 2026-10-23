@@ -7,6 +7,5 @@
  *     }
  */
 export interface ScrollCompaniesRequest {
-    /** */
     scroll_param?: string;
 }

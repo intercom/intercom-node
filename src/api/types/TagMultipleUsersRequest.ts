@@ -15,7 +15,7 @@ export namespace TagMultipleUsersRequest {
     export namespace Users {
         export interface Item {
             /** The Intercom defined id representing the user. */
-            id?: string;
+            id?: string | undefined;
         }
     }
 }

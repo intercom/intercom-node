@@ -5,19 +5,19 @@
  */
 export interface Brand {
     /** The type of object */
-    type?: string;
+    type?: string | undefined;
     /** Unique brand identifier. For default brand, matches the workspace ID */
-    id?: string;
+    id?: string | undefined;
     /** Display name of the brand */
-    name?: string;
+    name?: string | undefined;
     /** Whether this is the workspace's default brand */
-    is_default?: boolean;
+    is_default?: boolean | undefined;
     /** Unix timestamp of brand creation */
-    created_at?: number;
+    created_at?: number | undefined;
     /** Unix timestamp of last modification */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** Associated help center identifier */
-    help_center_id?: string;
+    help_center_id?: string | undefined;
     /** Default email settings ID for this brand */
-    default_address_settings_id?: string;
+    default_address_settings_id?: string | undefined;
 }

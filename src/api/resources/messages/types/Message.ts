@@ -11,7 +11,7 @@ export interface Message {
     /** The time the conversation was created. */
     created_at: number;
     /** The subject of the message. Only present if message_type: email. */
-    subject?: string;
+    subject?: string | undefined;
     /** The message body, which may contain HTML. */
     body: string;
     /** The type of message that was sent. Can be email, inapp, facebook or twitter. */

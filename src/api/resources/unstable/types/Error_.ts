@@ -6,8 +6,7 @@
 export interface Error_ {
     /** The type is error.list */
     type: string;
-    /** */
-    request_id?: string;
+    request_id?: string | undefined;
     /** An array of one or more error objects */
     errors: Error_.Errors.Item[];
 }
@@ -20,9 +19,9 @@ export namespace Error_ {
             /** A string indicating the kind of error, used to further qualify the HTTP response code */
             code: string;
             /** Optional. Human readable description of the error. */
-            message?: string;
+            message?: string | undefined;
             /** Optional. Used to identify a particular field or query parameter that was in error. */
-            field?: string;
+            field?: string | undefined;
         }
     }
 }

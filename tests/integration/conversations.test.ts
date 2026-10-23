@@ -1,4 +1,4 @@
-import { Intercom } from "../../src";
+import type { Intercom } from "../../src";
 import { createConversation, tryDeleteContact } from "./helpers";
 import { createClient } from "./utils/createClient";
 import { randomString } from "./utils/random";
@@ -12,7 +12,7 @@ describe("Conversations", () => {
     let adminId: string;
     let secondAdminId: string;
     let conversationId: string;
-    let conversation: Intercom.Conversation;
+    let _conversation: Intercom.Conversation;
 
     const client = createClient();
 
@@ -49,7 +49,7 @@ describe("Conversations", () => {
         // Give Intercom a few seconds to index conversation
         await wait(5000);
 
-        conversation = await client.conversations.find({
+        _conversation = await client.conversations.find({
             conversation_id: conversationId,
         });
     }, 20_000);
@@ -124,7 +124,7 @@ describe("Conversations", () => {
                 type: "admin",
                 body: "test",
                 admin_id: adminId,
-            }
+            },
         });
 
         // assert
@@ -140,7 +140,7 @@ describe("Conversations", () => {
                 type: "user",
                 body: "*click* Nice!",
                 intercom_user_id: user.id,
-            }
+            },
         });
 
         // assert
@@ -160,7 +160,7 @@ describe("Conversations", () => {
                 admin_id: adminId,
                 assignee_id: secondAdminId,
                 body: "Goodbye :)",
-            }
+            },
         });
 
         // assert
@@ -189,7 +189,7 @@ describe("Conversations", () => {
                 message_type: "snoozed",
                 admin_id: adminId,
                 snoozed_until: new Date("2040.06.19").getTime() / 1000,
-            }
+            },
         });
 
         // assert
@@ -203,7 +203,7 @@ describe("Conversations", () => {
             body: {
                 message_type: "open",
                 admin_id: adminId,
-            }
+            },
         });
 
         // assert
@@ -260,7 +260,7 @@ describe("Conversations", () => {
                 message_type: "close",
                 admin_id: adminId,
                 body: "Hasta la vista, baby",
-            }
+            },
         });
 
         // assert

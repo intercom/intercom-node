@@ -4,18 +4,17 @@
  * App is a workspace on Intercom
  */
 export interface App {
-    /** */
-    type?: string;
+    type?: string | undefined;
     /** The id of the app. */
-    id_code?: string;
+    id_code?: string | undefined;
     /** The name of the app. */
-    name?: string;
+    name?: string | undefined;
     /** The Intercom region the app is located in. */
-    region?: string;
+    region?: string | undefined;
     /** The timezone of the region where the app is located. */
-    timezone?: string;
+    timezone?: string | undefined;
     /** When the app was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** Whether or not the app uses identity verification. */
-    identity_verification?: boolean;
+    identity_verification?: boolean | undefined;
 }

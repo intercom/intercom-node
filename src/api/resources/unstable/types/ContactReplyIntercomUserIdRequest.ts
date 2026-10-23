@@ -9,5 +9,5 @@ export interface ContactReplyIntercomUserIdRequest extends Intercom.unstable.Con
     /** The identifier for the contact as given by Intercom. */
     intercom_user_id: string;
     /** A list of files that will be added as attachments. */
-    attachment_files?: Intercom.unstable.ConversationAttachmentFiles[];
+    attachment_files?: Intercom.unstable.ConversationAttachmentFiles[] | undefined;
 }

@@ -7,7 +7,7 @@ import type * as Intercom from "../index.js";
  */
 export interface TagList {
     /** The type of the object */
-    type?: "list";
+    type?: "list" | undefined;
     /** A list of tags objects associated with the workspace . */
-    data?: Intercom.Tag[];
+    data?: Intercom.Tag[] | undefined;
 }

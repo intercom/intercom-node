@@ -9,5 +9,5 @@ export interface ContactReplyEmailRequest extends Intercom.unstable.ContactReply
     /** The email you have defined for the user. */
     email: string;
     /** A list of files that will be added as attachments. */
-    attachment_files?: Intercom.unstable.ConversationAttachmentFiles[];
+    attachment_files?: Intercom.unstable.ConversationAttachmentFiles[] | undefined;
 }

@@ -5,23 +5,23 @@
  */
 export interface AiCallResponse {
     /** The unique identifier for the external reference */
-    id?: number;
+    id?: number | undefined;
     /** The workspace identifier */
-    app_id?: number;
+    app_id?: number | undefined;
     /** Phone number in E.164 format for the call */
-    user_phone_number?: string;
+    user_phone_number?: string | undefined;
     /** Status of the call. Can be "registered", "in-progress", or a resolution state */
-    status?: string;
+    status?: string | undefined;
     /** The Intercom call identifier, if the call has been matched */
-    intercom_call_id?: string;
+    intercom_call_id?: string | undefined;
     /** The external call identifier from the call provider */
-    external_call_id?: string;
+    external_call_id?: string | undefined;
     /** The Intercom conversation identifier, if a conversation has been created */
-    intercom_conversation_id?: string;
+    intercom_conversation_id?: string | undefined;
     /** Array of transcript entries for the call */
-    call_transcript?: Record<string, unknown>[];
+    call_transcript?: Record<string, unknown>[] | undefined;
     /** Summary of the call conversation, truncated to 256 characters. Empty string if no summary available. */
-    call_summary?: string;
+    call_summary?: string | undefined;
     /** Array of intent classifications for the call */
-    intent?: Record<string, unknown>[];
+    intent?: Record<string, unknown>[] | undefined;
 }

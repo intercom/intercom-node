@@ -5,9 +5,9 @@
  */
 export interface DeleteTicketResponse {
     /** The unique identifier for the ticket. */
-    id?: string;
+    id?: string | undefined;
     /** always ticket */
-    object?: "ticket";
+    object?: "ticket" | undefined;
     /** Whether the ticket is deleted or not. */
-    deleted?: boolean;
+    deleted?: boolean | undefined;
 }

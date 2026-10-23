@@ -1,7 +1,7 @@
-import { Intercom } from "../../src";
-import { dateToUnixTimestamp } from "./utils/date";
+import type { Intercom } from "../../src";
 import { createCompany, tryDeleteCompany } from "./helpers";
 import { createClient } from "./utils/createClient";
+import { dateToUnixTimestamp } from "./utils/date";
 
 describe("Companies", () => {
     let contactId: string;

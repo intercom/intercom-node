@@ -9,13 +9,6 @@ import type * as Intercom from "../../../../index.js";
  *         title: "Christmas is here!",
  *         body: "<p>New gifts in store for the jolly season</p>"
  *     }
- *
- * @example
- *     {
- *         article_id: 1,
- *         title: "Christmas is here!",
- *         body: "<p>New gifts in store for the jolly season</p>"
- *     }
  */
 export interface UpdateArticleRequest {
     /** The unique identifier for the article which is given by Intercom. */

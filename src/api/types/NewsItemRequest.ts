@@ -9,19 +9,19 @@ export interface NewsItemRequest {
     /** The title of the news item. */
     title: string;
     /** The news item body, which may contain HTML. */
-    body?: string;
+    body?: string | undefined;
     /** The id of the sender of the news item. Must be a teammate on the workspace. */
     sender_id: number;
     /** News items will not be visible to your users in the assigned newsfeeds until they are set live. */
-    state?: NewsItemRequest.State;
+    state?: NewsItemRequest.State | undefined;
     /** When set to `true`, the news item will appear in the messenger newsfeed without showing a notification badge. */
-    deliver_silently?: boolean;
+    deliver_silently?: boolean | undefined;
     /** Label names displayed to users to categorize the news item. */
-    labels?: string[];
+    labels?: string[] | undefined;
     /** Ordered list of emoji reactions to the news item. When empty, reactions are disabled. */
-    reactions?: (string | undefined)[];
+    reactions?: (string | undefined)[] | undefined;
     /** A list of newsfeed_assignments to assign to the specified newsfeed. */
-    newsfeed_assignments?: Intercom.NewsfeedAssignment[];
+    newsfeed_assignments?: Intercom.NewsfeedAssignment[] | undefined;
 }
 
 export namespace NewsItemRequest {

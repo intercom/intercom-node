@@ -7,9 +7,9 @@ import type * as Intercom from "../index.js";
  */
 export interface NoteList {
     /** String representing the object's type. Always has the value `list`. */
-    type?: string;
+    type?: string | undefined;
     /** An array of notes. */
-    data?: Intercom.Note[];
+    data?: Intercom.Note[] | undefined;
     /** A count of the total number of notes. */
-    total_count?: number;
+    total_count?: number | undefined;
 }

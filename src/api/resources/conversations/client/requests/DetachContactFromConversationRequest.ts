@@ -7,27 +7,6 @@
  *         contact_id: "123",
  *         admin_id: "5017690"
  *     }
- *
- * @example
- *     {
- *         conversation_id: "123",
- *         contact_id: "123",
- *         admin_id: "5017690"
- *     }
- *
- * @example
- *     {
- *         conversation_id: "123",
- *         contact_id: "123",
- *         admin_id: "5017690"
- *     }
- *
- * @example
- *     {
- *         conversation_id: "123",
- *         contact_id: "123",
- *         admin_id: "5017690"
- *     }
  */
 export interface DetachContactFromConversationRequest {
     /** The identifier for the conversation as given by Intercom. */

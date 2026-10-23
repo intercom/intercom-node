@@ -5,9 +5,9 @@
  */
 export interface ConversationResponseTime {
     /** Id of the assigned team. */
-    team_id?: number;
+    team_id?: number | undefined;
     /** Name of the assigned Team, null if team does not exist, Unassigned if no team is assigned. */
-    team_name?: string;
+    team_name?: string | undefined;
     /** First response time of assigned team in seconds. */
-    response_time?: number;
+    response_time?: number | undefined;
 }

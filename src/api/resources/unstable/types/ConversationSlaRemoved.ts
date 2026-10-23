@@ -5,5 +5,5 @@
  */
 export interface ConversationSlaRemoved {
     /** Name of the SLA that was removed */
-    sla_name?: string;
+    sla_name?: string | undefined;
 }

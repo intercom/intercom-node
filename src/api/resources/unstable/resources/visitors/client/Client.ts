@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as core from "../../../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as Intercom from "../../../../../index.js";
 
 export declare namespace VisitorsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -33,6 +34,8 @@ export class VisitorsClient {
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.visitors.retrieveVisitorWithUserId({
@@ -51,8 +54,9 @@ export class VisitorsClient {
         requestOptions?: VisitorsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.Visitor | undefined>> {
         const { user_id: userId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        _queryParams.user_id = userId;
+        const _queryParams: Record<string, unknown> = {
+            user_id: userId,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -69,7 +73,11 @@ export class VisitorsClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -111,11 +119,13 @@ export class VisitorsClient {
      *
      * **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
      *
-     * @param {Intercom.UpdateVisitorRequestOne} request
+     * @param {Intercom.unstable.UpdateVisitorRequest} request
      * @param {VisitorsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.visitors.updateVisitor({
@@ -130,14 +140,14 @@ export class VisitorsClient {
      *     })
      */
     public updateVisitor(
-        request?: Intercom.UpdateVisitorRequestOne,
+        request: Intercom.unstable.UpdateVisitorRequest,
         requestOptions?: VisitorsClient.RequestOptions,
     ): core.HttpResponsePromise<Intercom.unstable.Visitor | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__updateVisitor(request, requestOptions));
     }
 
     private async __updateVisitor(
-        request?: Intercom.UpdateVisitorRequestOne,
+        request: Intercom.unstable.UpdateVisitorRequest,
         requestOptions?: VisitorsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.Visitor | undefined>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -157,9 +167,9 @@ export class VisitorsClient {
             method: "PUT",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -205,6 +215,8 @@ export class VisitorsClient {
      * @param {VisitorsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.visitors.convertVisitor({
@@ -245,9 +257,9 @@ export class VisitorsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

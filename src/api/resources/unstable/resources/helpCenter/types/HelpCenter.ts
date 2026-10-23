@@ -5,21 +5,21 @@
  */
 export interface HelpCenter {
     /** The unique identifier for the Help Center which is given by Intercom. */
-    id?: string;
+    id?: string | undefined;
     /** The id of the workspace which the Help Center belongs to. */
-    workspace_id?: string;
+    workspace_id?: string | undefined;
     /** The time when the Help Center was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time when the Help Center was last updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** The identifier of the Help Center. This is used in the URL of the Help Center. */
-    identifier?: string;
+    identifier?: string | undefined;
     /** Whether the Help Center is turned on or not. This is controlled in your Help Center settings. */
-    website_turned_on?: boolean;
+    website_turned_on?: boolean | undefined;
     /** The display name of the Help Center only seen by teammates. */
-    display_name?: string;
+    display_name?: string | undefined;
     /** The URL for the help center, if you have a custom domain then this will show the URL using the custom domain. */
-    url?: string;
+    url?: string | undefined;
     /** Custom domain configured for the help center */
-    custom_domain?: string;
+    custom_domain?: string | undefined;
 }

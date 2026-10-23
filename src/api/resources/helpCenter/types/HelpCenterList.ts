@@ -7,7 +7,7 @@ import type * as Intercom from "../../../index.js";
  */
 export interface HelpCenterList {
     /** The type of the object - `list`. */
-    type?: "list";
+    type?: "list" | undefined;
     /** An array of Help Center objects */
-    data?: Intercom.HelpCenter[];
+    data?: Intercom.HelpCenter[] | undefined;
 }

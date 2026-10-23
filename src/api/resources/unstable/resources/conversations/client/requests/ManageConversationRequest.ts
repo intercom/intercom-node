@@ -42,16 +42,6 @@ import type * as Intercom from "../../../../../../index.js";
  *             assignee_id: "4324241"
  *         }
  *     }
- *
- * @example
- *     {
- *         id: "123",
- *         body: {
- *             message_type: "close",
- *             type: "admin",
- *             admin_id: "12345"
- *         }
- *     }
  */
 export interface ManageConversationRequest {
     /** The identifier for the conversation as given by Intercom. */

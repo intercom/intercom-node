@@ -7,98 +7,98 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface Contact {
     /** The type of object. */
-    type?: string;
+    type?: string | undefined;
     /** The unique identifier for the contact which is given by Intercom. */
-    id?: string;
+    id?: string | undefined;
     /** The unique identifier for the contact which is provided by the Client. */
-    external_id?: string;
+    external_id?: string | undefined;
     /** The id of the workspace which the contact belongs to. */
-    workspace_id?: string;
+    workspace_id?: string | undefined;
     /** The role of the contact. */
-    role?: string;
+    role?: string | undefined;
     /** The contact's email. */
-    email?: string;
+    email?: string | undefined;
     /** The contact's email domain. */
-    email_domain?: string;
+    email_domain?: string | undefined;
     /** The contacts phone. */
-    phone?: string;
+    phone?: string | undefined;
     /** The contacts phone number normalized to the E164 format */
-    formatted_phone?: string;
+    formatted_phone?: string | undefined;
     /** The contacts name. */
-    name?: string;
+    name?: string | undefined;
     /** The id of an admin that has been assigned account ownership of the contact. */
-    owner_id?: number;
+    owner_id?: number | undefined;
     /** Whether the contact has had an email sent to them hard bounce. */
-    has_hard_bounced?: boolean;
+    has_hard_bounced?: boolean | undefined;
     /** Whether the contact has marked an email sent to them as spam. */
-    marked_email_as_spam?: boolean;
+    marked_email_as_spam?: boolean | undefined;
     /** Whether the contact is unsubscribed from emails. */
-    unsubscribed_from_emails?: boolean;
+    unsubscribed_from_emails?: boolean | undefined;
     /** (UNIX timestamp) The time when the contact was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** (UNIX timestamp) The time when the contact was last updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** (UNIX timestamp) The time specified for when a contact signed up. */
-    signed_up_at?: number;
+    signed_up_at?: number | undefined;
     /** (UNIX timestamp) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually). */
-    last_seen_at?: number;
+    last_seen_at?: number | undefined;
     /** (UNIX timestamp) The time when the contact last messaged in. */
-    last_replied_at?: number;
+    last_replied_at?: number | undefined;
     /** (UNIX timestamp) The time when the contact was last messaged. */
-    last_contacted_at?: number;
+    last_contacted_at?: number | undefined;
     /** (UNIX timestamp) The time when the contact last opened an email. */
-    last_email_opened_at?: number;
+    last_email_opened_at?: number | undefined;
     /** (UNIX timestamp) The time when the contact last clicked a link in an email. */
-    last_email_clicked_at?: number;
+    last_email_clicked_at?: number | undefined;
     /** A preferred language setting for the contact, used by Intercom as the language of Fin and the Messenger even if their browser has a different setting. Supports ISO 639-1 two-letter language codes. If an unsupported code is supplied, the field will be set to null. */
-    language_override?: string;
+    language_override?: string | undefined;
     /** The name of the browser which the contact is using. */
-    browser?: string;
+    browser?: string | undefined;
     /** The version of the browser which the contact is using. */
-    browser_version?: string;
+    browser_version?: string | undefined;
     /** The language set by the browser which the contact is using. */
-    browser_language?: string;
+    browser_language?: string | undefined;
     /** The operating system which the contact is using. */
-    os?: string;
+    os?: string | undefined;
     /** The name of the Android app which the contact is using. */
-    android_app_name?: string;
+    android_app_name?: string | undefined;
     /** The version of the Android app which the contact is using. */
-    android_app_version?: string;
+    android_app_version?: string | undefined;
     /** The Android device which the contact is using. */
-    android_device?: string;
+    android_device?: string | undefined;
     /** The version of the Android OS which the contact is using. */
-    android_os_version?: string;
+    android_os_version?: string | undefined;
     /** The version of the Android SDK which the contact is using. */
-    android_sdk_version?: string;
+    android_sdk_version?: string | undefined;
     /** (UNIX timestamp) The time when the contact was last seen on an Android device. */
-    android_last_seen_at?: number;
+    android_last_seen_at?: number | undefined;
     /** The name of the iOS app which the contact is using. */
-    ios_app_name?: string;
+    ios_app_name?: string | undefined;
     /** The version of the iOS app which the contact is using. */
-    ios_app_version?: string;
+    ios_app_version?: string | undefined;
     /** The iOS device which the contact is using. */
-    ios_device?: string;
+    ios_device?: string | undefined;
     /** The version of iOS which the contact is using. */
-    ios_os_version?: string;
+    ios_os_version?: string | undefined;
     /** The version of the iOS SDK which the contact is using. */
-    ios_sdk_version?: string;
+    ios_sdk_version?: string | undefined;
     /** (UNIX timestamp) The last time the contact used the iOS app. */
-    ios_last_seen_at?: number;
+    ios_last_seen_at?: number | undefined;
     /** The custom attributes which are set for the contact. */
-    custom_attributes?: Record<string, unknown>;
-    avatar?: Contact.Avatar;
-    tags?: Intercom.unstable.ContactTags;
-    notes?: Intercom.unstable.ContactNotes;
-    companies?: Intercom.unstable.ContactCompanies;
-    location?: Intercom.unstable.ContactLocation;
-    social_profiles?: Intercom.unstable.ContactSocialProfiles;
+    custom_attributes?: Record<string, unknown> | undefined;
+    avatar?: Contact.Avatar | undefined;
+    tags?: Intercom.unstable.ContactTags | undefined;
+    notes?: Intercom.unstable.ContactNotes | undefined;
+    companies?: Intercom.unstable.ContactCompanies | undefined;
+    location?: Intercom.unstable.ContactLocation | undefined;
+    social_profiles?: Intercom.unstable.ContactSocialProfiles | undefined;
 }
 
 export namespace Contact {
     export interface Avatar {
         /** The type of object */
-        type?: string;
+        type?: string | undefined;
         /** An image URL containing the avatar of a contact. */
-        image_url?: string;
+        image_url?: string | undefined;
     }
 }

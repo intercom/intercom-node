@@ -7,7 +7,7 @@ import type * as Intercom from "../../../index.js";
  */
 export interface Admin {
     /** String representing the object's type. Always has the value `admin`. */
-    type?: string;
+    type?: string | undefined;
     /** The id representing the admin. */
     id: string;
     /** The name of the admin. */
@@ -15,20 +15,20 @@ export interface Admin {
     /** The email of the admin. */
     email: string;
     /** The job title of the admin. */
-    job_title?: string;
+    job_title?: string | undefined;
     /** Identifies if this admin is currently set in away mode. */
     away_mode_enabled: boolean;
     /** Identifies if this admin is set to automatically reassign new conversations to the apps default inbox. */
     away_mode_reassign: boolean;
     /** The unique identifier of the away status reason */
-    away_status_reason_id?: number;
+    away_status_reason_id?: number | undefined;
     /** Identifies if this admin has a paid inbox seat to restrict/allow features that require them. */
     has_inbox_seat: boolean;
     /** This object represents the avatar associated with the admin. */
     team_ids: number[];
     /** The avatar object associated with the admin */
-    avatar?: Admin.Avatar;
-    team_priority_level?: Intercom.TeamPriorityLevel;
+    avatar?: Admin.Avatar | undefined;
+    team_priority_level?: Intercom.TeamPriorityLevel | undefined;
 }
 
 export namespace Admin {

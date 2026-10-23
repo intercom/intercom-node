@@ -6,10 +6,8 @@ import type * as Intercom from "../index.js";
  * A list of Conversation Part objects for each part message in the conversation. This is only returned when Retrieving a Conversation, and ignored when Listing all Conversations. There is a limit of 500 parts.
  */
 export interface ConversationParts {
-    /** */
-    type?: "conversation_part.list";
+    type?: "conversation_part.list" | undefined;
     /** A list of Conversation Part objects for each part message in the conversation. This is only returned when Retrieving a Conversation, and ignored when Listing all Conversations. There is a limit of 500 parts. */
-    conversation_parts?: Intercom.ConversationPart[];
-    /** */
-    total_count?: number;
+    conversation_parts?: Intercom.ConversationPart[] | undefined;
+    total_count?: number | undefined;
 }

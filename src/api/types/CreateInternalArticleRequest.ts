@@ -7,7 +7,7 @@ export interface CreateInternalArticleRequest {
     /** The title of the article. */
     title: string;
     /** The content of the article. */
-    body?: string;
+    body?: string | undefined;
     /** The id of the author of the article. */
     author_id: number;
     /** The id of the owner of the article. */

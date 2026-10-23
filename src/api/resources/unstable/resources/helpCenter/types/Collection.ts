@@ -7,28 +7,28 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface Collection {
     /** The unique identifier for the collection which is given by Intercom. */
-    id?: string;
+    id?: string | undefined;
     /** The id of the workspace which the collection belongs to. */
-    workspace_id?: string;
+    workspace_id?: string | undefined;
     /** The name of the collection. For multilingual collections, this will be the name of the default language's content. */
-    name?: string;
+    name?: string | undefined;
     /** The description of the collection. For multilingual help centers, this will be the description of the collection for the default language. */
-    description?: string;
+    description?: string | undefined;
     /** The time when the article was created (seconds). For multilingual articles, this will be the timestamp of creation of the default language's content. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time when the article was last updated (seconds). For multilingual articles, this will be the timestamp of last update of the default language's content. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** The URL of the collection. For multilingual help centers, this will be the URL of the collection for the default language. */
-    url?: string;
+    url?: string | undefined;
     /** The icon of the collection. */
-    icon?: string;
+    icon?: string | undefined;
     /** The order of the section in relation to others sections within a collection. Values go from `0` upwards. `0` is the default if there's no order. */
-    order?: number;
+    order?: number | undefined;
     /** The default locale of the help center. This field is only returned for multilingual help centers. */
-    default_locale?: string;
-    translated_content?: Intercom.unstable.GroupTranslatedContent;
+    default_locale?: string | undefined;
+    translated_content?: Intercom.unstable.GroupTranslatedContent | undefined;
     /** The id of the parent collection. If `null` then it is the first level collection. */
-    parent_id?: string;
+    parent_id?: string | undefined;
     /** The id of the help center the collection is in. */
-    help_center_id?: number;
+    help_center_id?: number | undefined;
 }

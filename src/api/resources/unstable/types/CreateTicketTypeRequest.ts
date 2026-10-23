@@ -8,13 +8,13 @@ export interface CreateTicketTypeRequest {
     /** The name of the ticket type. */
     name: string;
     /** The description of the ticket type. */
-    description?: string;
+    description?: string | undefined;
     /** Category of the Ticket Type. */
-    category?: CreateTicketTypeRequest.Category;
+    category?: CreateTicketTypeRequest.Category | undefined;
     /** The icon of the ticket type. */
-    icon?: string;
+    icon?: string | undefined;
     /** Whether the tickets associated with this ticket type are intended for internal use only or will be shared with customers. This is currently a limited attribute. */
-    is_internal?: boolean;
+    is_internal?: boolean | undefined;
 }
 
 export namespace CreateTicketTypeRequest {

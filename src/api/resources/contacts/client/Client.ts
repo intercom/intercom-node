@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClie
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as Intercom from "../../../index.js";
 
 export declare namespace ContactsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -33,6 +34,8 @@ export class ContactsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.listAttachedCompanies({
@@ -50,13 +53,10 @@ export class ContactsClient {
                 request: Intercom.ListAttachedCompaniesRequest,
             ): Promise<core.WithRawResponse<Intercom.ContactAttachedCompanies>> => {
                 const { contact_id: contactId, page, per_page: perPage } = request;
-                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-                if (page != null) {
-                    _queryParams.page = page.toString();
-                }
-                if (perPage != null) {
-                    _queryParams.per_page = perPage.toString();
-                }
+                const _queryParams: Record<string, unknown> = {
+                    page,
+                    per_page: perPage,
+                };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
@@ -69,11 +69,15 @@ export class ContactsClient {
                         (await core.Supplier.get(this._options.baseUrl)) ??
                             (await core.Supplier.get(this._options.environment)) ??
                             environments.IntercomEnvironment.UsProduction,
-                        `contacts/${core.url.encodePathParam(contactId)}/companies`,
+                        `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/companies`,
                     ),
                     method: "GET",
                     headers: _headers,
-                    queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+                    queryString: core.url
+                        .queryBuilder()
+                        .addMany(_queryParams)
+                        .mergeAdditional(requestOptions?.queryParams)
+                        .build(),
                     timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
                     maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
                     abortSignal: requestOptions?.abortSignal,
@@ -119,8 +123,15 @@ export class ContactsClient {
             hasNextPage: (response) => (response?.companies ?? []).length > 0,
             getItems: (response) => response?.companies ?? [],
             loadPage: (_response) => {
-                _offset += 1;
-                return list(core.setObjectProperty(request, "page", _offset));
+                const _nextOffset = _offset + 1;
+                return core.HttpResponsePromise.fromPromise(
+                    list(core.setObjectProperty(request, "page", _nextOffset))
+                        .withRawResponse()
+                        .then((_pageResponse) => {
+                            _offset = _nextOffset;
+                            return _pageResponse;
+                        }),
+                );
             },
         });
     }
@@ -133,6 +144,8 @@ export class ContactsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.listAttachedSegments({
@@ -163,11 +176,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/segments`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/segments`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -218,6 +231,8 @@ export class ContactsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.listAttachedSubscriptions({
@@ -248,11 +263,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/subscriptions`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/subscriptions`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -303,6 +318,8 @@ export class ContactsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.attachSubscription({
@@ -342,14 +359,14 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/subscriptions`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/subscriptions`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -394,6 +411,8 @@ export class ContactsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.detachSubscription({
@@ -425,11 +444,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/subscriptions/${core.url.encodePathParam(subscriptionId)}`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/subscriptions/${core.url.encodePathParam(subscriptionId, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -474,6 +493,8 @@ export class ContactsClient {
      *
      * @throws {@link Intercom.UnauthorizedError}
      * @throws {@link Intercom.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.listAttachedTags({
@@ -504,11 +525,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/tags`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/tags`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -547,6 +568,8 @@ export class ContactsClient {
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.find({
@@ -577,11 +600,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -624,6 +647,8 @@ export class ContactsClient {
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.update({
@@ -666,14 +691,14 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}`,
             ),
             method: "PUT",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -710,6 +735,8 @@ export class ContactsClient {
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.delete({
@@ -740,11 +767,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}`,
             ),
             method: "DELETE",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -781,6 +808,8 @@ export class ContactsClient {
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.mergeLeadInUser({
@@ -816,9 +845,9 @@ export class ContactsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -956,6 +985,8 @@ export class ContactsClient {
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.search({
@@ -995,9 +1026,9 @@ export class ContactsClient {
                     method: "POST",
                     headers: _headers,
                     contentType: "application/json",
-                    queryParameters: requestOptions?.queryParams,
+                    queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
                     requestType: "json",
-                    body: request,
+                    body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
                     timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
                     maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
                     abortSignal: requestOptions?.abortSignal,
@@ -1055,6 +1086,8 @@ export class ContactsClient {
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.list()
@@ -1066,16 +1099,11 @@ export class ContactsClient {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Intercom.ListContactsRequest): Promise<core.WithRawResponse<Intercom.ContactList>> => {
                 const { page, per_page: perPage, starting_after: startingAfter } = request;
-                const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-                if (page != null) {
-                    _queryParams.page = page.toString();
-                }
-                if (perPage != null) {
-                    _queryParams.per_page = perPage.toString();
-                }
-                if (startingAfter != null) {
-                    _queryParams.starting_after = startingAfter;
-                }
+                const _queryParams: Record<string, unknown> = {
+                    page,
+                    per_page: perPage,
+                    starting_after: startingAfter,
+                };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
@@ -1092,7 +1120,11 @@ export class ContactsClient {
                     ),
                     method: "GET",
                     headers: _headers,
-                    queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+                    queryString: core.url
+                        .queryBuilder()
+                        .addMany(_queryParams)
+                        .mergeAdditional(requestOptions?.queryParams)
+                        .build(),
                     timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
                     maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
                     abortSignal: requestOptions?.abortSignal,
@@ -1144,6 +1176,8 @@ export class ContactsClient {
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.create({
@@ -1178,9 +1212,9 @@ export class ContactsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1217,6 +1251,8 @@ export class ContactsClient {
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.contacts.showContactByExternalId({
@@ -1247,11 +1283,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/find_by_external_id/${core.url.encodePathParam(externalId)}`,
+                `contacts/find_by_external_id/${core.url.encodePathParam(externalId, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1295,6 +1331,9 @@ export class ContactsClient {
      * @param {Intercom.ArchiveContactRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
+     *
      * @example
      *     await client.contacts.archive({
      *         contact_id: "63a07ddf05a32042dffac965"
@@ -1324,11 +1363,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/archive`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/archive`,
             ),
             method: "POST",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1361,6 +1400,9 @@ export class ContactsClient {
      * @param {Intercom.UnarchiveContactRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
+     *
      * @example
      *     await client.contacts.unarchive({
      *         contact_id: "63a07ddf05a32042dffac965"
@@ -1390,11 +1432,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/unarchive`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/unarchive`,
             ),
             method: "POST",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1427,6 +1469,9 @@ export class ContactsClient {
      * @param {Intercom.BlockContactRequest} request
      * @param {ContactsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
+     *
      * @example
      *     await client.contacts.blockContact({
      *         contact_id: "63a07ddf05a32042dffac965"
@@ -1456,11 +1501,11 @@ export class ContactsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `contacts/${core.url.encodePathParam(contactId)}/block`,
+                `contacts/${core.url.encodePathParam(contactId, errors.IntercomError)}/block`,
             ),
             method: "POST",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

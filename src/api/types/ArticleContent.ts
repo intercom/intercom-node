@@ -5,23 +5,23 @@
  */
 export interface ArticleContent {
     /** The type of object - `article_content` . */
-    type?: "article_content";
+    type?: "article_content" | undefined;
     /** The title of the article. */
-    title?: string;
+    title?: string | undefined;
     /** The description of the article. */
-    description?: string;
+    description?: string | undefined;
     /** The body of the article. */
-    body?: string;
+    body?: string | undefined;
     /** The ID of the author of the article. */
-    author_id?: number;
+    author_id?: number | undefined;
     /** Whether the article is `published` or is a `draft` . */
-    state?: ArticleContent.State;
+    state?: ArticleContent.State | undefined;
     /** The time when the article was created (seconds). */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time when the article was last updated (seconds). */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** The URL of the article. */
-    url?: string;
+    url?: string | undefined;
 }
 
 export namespace ArticleContent {
