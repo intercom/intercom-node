@@ -112,8 +112,8 @@ export function normalizeClientOptions<T extends BaseClientOptions = BaseClientO
         {
             "X-Fern-Language": "JavaScript",
             "X-Fern-SDK-Name": "intercom-client",
-            "X-Fern-SDK-Version": "7.0.4",
-            "User-Agent": "intercom-client/7.0.4",
+            "X-Fern-SDK-Version": "7.1.0",
+            "User-Agent": "intercom-client/7.1.0",
             "X-Fern-Runtime": core.RUNTIME.type,
             "X-Fern-Runtime-Version": core.RUNTIME.version,
             "Intercom-Version": options?.version ?? "2.14",
