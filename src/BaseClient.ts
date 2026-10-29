@@ -3,7 +3,7 @@
 import { BearerAuthProvider } from "./auth/BearerAuthProvider.js";
 import { mergeHeaders } from "./core/headers.js";
 import * as core from "./core/index.js";
-import type * as environments from "./environments.js";
+import * as environments from "./environments.js";
 
 export type AuthOption =
     | false
@@ -105,6 +105,28 @@ export type NormalizedClientOptionsWithAuth<T extends BaseClientOptions = BaseCl
         authProvider: core.AuthProvider;
     };
 
+const queryParameterFetchers = new WeakSet<object>();
+
+// Generated clients only send `queryString`; custom fetchers written against 7.0.x read `queryParameters`.
+function withQueryParameters(fetcher: core.FetchFunction): core.FetchFunction {
+    if (queryParameterFetchers.has(fetcher)) {
+        return fetcher;
+    }
+    const wrapped: core.FetchFunction = (args) => {
+        if (args.queryParameters != null || !args.queryString) {
+            return fetcher(args);
+        }
+        const queryParameters: Record<string, unknown> = {};
+        for (const [key, value] of new URLSearchParams(args.queryString)) {
+            const existing = queryParameters[key];
+            queryParameters[key] = existing === undefined ? value : [...(existing as string[]), value].flat();
+        }
+        return fetcher({ ...args, queryParameters });
+    };
+    queryParameterFetchers.add(wrapped);
+    return wrapped;
+}
+
 export function normalizeClientOptions<T extends BaseClientOptions = BaseClientOptions>(
     options: T,
 ): NormalizedClientOptions<T> {
@@ -123,6 +145,9 @@ export function normalizeClientOptions<T extends BaseClientOptions = BaseClientO
 
     return {
         ...options,
+        // Resolve the default here so the passthrough `fetch()` matches generated endpoints.
+        environment: options?.environment ?? environments.IntercomEnvironment.UsProduction,
+        ...(options?.fetcher != null ? { fetcher: withQueryParameters(options.fetcher) } : {}),
         logging: core.logging.createLogger(options?.logging),
         headers,
     } as NormalizedClientOptions<T>;

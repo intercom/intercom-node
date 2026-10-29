@@ -205,6 +205,22 @@ describe("QueryStringBuilder", () => {
         });
     });
 
+    describe("mergeAdditional() removal semantics (7.0.x parity)", () => {
+        it("removes the endpoint param when the override is undefined", () => {
+            const qs = queryBuilder()
+                .add("type", "user")
+                .add("per_page", 5)
+                .mergeAdditional({ per_page: undefined })
+                .build();
+            expect(qs).toBe("type=user");
+        });
+
+        it("removes the endpoint param when the override is an empty array", () => {
+            const qs = queryBuilder().add("type", "user").add("tags", ["a"]).mergeAdditional({ tags: [] }).build();
+            expect(qs).toBe("type=user");
+        });
+    });
+
     describe("end-to-end scenarios", () => {
         it("matches expected query-parameters-openapi output pattern", () => {
             const params: Record<string, unknown> = {

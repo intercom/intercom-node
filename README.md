@@ -1,11 +1,13 @@
 # Intercom TypeScript Library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Intercom%2FTypeScript)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fintercom%2Fintercom-node)
+[![npm shield](https://img.shields.io/npm/v/intercom-client)](https://www.npmjs.com/package/intercom-client)
 
 The Intercom TypeScript library provides convenient access to the Intercom APIs from TypeScript.
 
 ## Table of Contents
 
+- [Installation](#installation)
 - [Reference](#reference)
 - [Usage](#usage)
 - [Environments](#environments)
@@ -13,7 +15,6 @@ The Intercom TypeScript library provides convenient access to the Intercom APIs 
 - [Exception Handling](#exception-handling)
 - [Pagination](#pagination)
 - [Advanced](#advanced)
-  - [Subpackage Exports](#subpackage-exports)
   - [Additional Headers](#additional-headers)
   - [Additional Query String Parameters](#additional-query-string-parameters)
   - [Retries](#retries)
@@ -26,6 +27,12 @@ The Intercom TypeScript library provides convenient access to the Intercom APIs 
   - [Runtime Compatibility](#runtime-compatibility)
 - [Contributing](#contributing)
 
+## Installation
+
+```sh
+npm i -s intercom-client
+```
+
 ## Reference
 
 A full reference for this library is available [here](./reference.md).
@@ -35,7 +42,7 @@ A full reference for this library is available [here](./reference.md).
 Instantiate and use the client with the following:
 
 ```typescript
-import { IntercomClient } from "./src/Client";
+import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({ token: "YOUR_TOKEN" });
 await client.aiContent.createContentImportSource({
@@ -48,7 +55,7 @@ await client.aiContent.createContentImportSource({
 This SDK allows you to configure different environments for API requests.
 
 ```typescript
-import { IntercomClient, IntercomEnvironment } from "Intercom";
+import { IntercomClient, IntercomEnvironment } from "intercom-client";
 
 const client = new IntercomClient({
     environment: IntercomEnvironment.UsProduction,
@@ -61,7 +68,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Intercom } from "Intercom";
+import { Intercom } from "intercom-client";
 
 const request: Intercom.ConfigureAwayAdminRequest = {
     ...
@@ -74,7 +81,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { IntercomError } from "Intercom";
+import { IntercomError } from "intercom-client";
 
 try {
     await client.aiContent.createContentImportSource(...);
@@ -93,7 +100,7 @@ try {
 List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
 
 ```typescript
-import { IntercomClient } from "./src/Client";
+import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({ token: "YOUR_TOKEN" });
 const pageableResponse = await client.articles.list();
@@ -113,22 +120,12 @@ const response = page.response;
 
 ## Advanced
 
-### Subpackage Exports
-
-This SDK supports direct imports of subpackage clients, which allows JavaScript bundlers to tree-shake and include only the imported subpackage code. This results in much smaller bundle sizes.
-
-```typescript
-import { AdminsClient } from 'Intercom/admins';
-
-const client = new AdminsClient({...});
-```
-
 ### Additional Headers
 
 If you would like to send additional headers as part of the request, use the `headers` request option.
 
 ```typescript
-import { IntercomClient } from "Intercom";
+import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({
     ...
@@ -162,19 +159,10 @@ The SDK is instrumented with automatic retries with exponential backoff. A reque
 as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
 retry limit (default: 2).
 
-Which status codes are retried depends on the `retryStatusCodes` generator configuration:
-
-**`legacy`** (current default): retries on
+Requests are retried on:
 - [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
 - [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
 - [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (All server errors, including 500)
-
-**`recommended`**: retries on
-- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
-- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
-- [502](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502) (Bad Gateway)
-- [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) (Service Unavailable)
-- [504](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504) (Gateway Timeout)
 
 Use the `maxRetries` request option to configure this behavior.
 
@@ -186,7 +174,7 @@ const response = await client.aiContent.createContentImportSource(..., {
 
 ### Timeouts
 
-The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
+The SDK defaults to a 20 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
 const response = await client.aiContent.createContentImportSource(..., {
@@ -223,7 +211,7 @@ console.log(rawResponse.headers['X-My-Header']);
 The SDK supports logging. You can configure the logger by passing in a `logging` object to the client options.
 
 ```typescript
-import { IntercomClient, logging } from "Intercom";
+import { IntercomClient, logging } from "intercom-client";
 
 const client = new IntercomClient({
     ...
@@ -307,7 +295,7 @@ The SDK provides a way for you to customize the underlying HTTP client / Fetch f
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { IntercomClient } from "Intercom";
+import { IntercomClient } from "intercom-client";
 
 const client = new IntercomClient({
     ...

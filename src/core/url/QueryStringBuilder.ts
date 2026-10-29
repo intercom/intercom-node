@@ -60,17 +60,21 @@ class QueryStringBuilder {
 
     /**
      * Merges additional query parameters supplied at call-time via
-     * `requestOptions.queryParams`. Overrides existing keys (last-write-wins).
+     * `requestOptions.queryParams`. Overrides existing keys (last-write-wins);
+     * `undefined` or an empty array removes the key, `null` is ignored.
      */
     mergeAdditional(additionalParams?: Record<string, unknown>): this {
         if (additionalParams != null) {
             for (const [key, value] of Object.entries(additionalParams)) {
-                if (value === undefined || value === null) {
+                if (value === null) {
                     continue;
                 }
+                // Like 7.0.x, an override that serialises to nothing (undefined, []) removes the endpoint param.
                 const serialized = toQueryString({ [key]: value }, { arrayFormat: "repeat" });
                 if (serialized.length > 0) {
                     this.parts.set(key, serialized);
+                } else {
+                    this.parts.delete(key);
                 }
             }
         }

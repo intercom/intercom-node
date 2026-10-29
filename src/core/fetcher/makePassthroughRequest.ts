@@ -69,21 +69,21 @@ export async function makePassthroughRequest(
     let effectiveInit: RequestInit | undefined = init;
     if (input instanceof Request) {
         url = input.url;
-        // If no explicit init provided, extract properties from the Request object
-        if (init == null) {
-            effectiveInit = {
-                method: input.method,
-                headers: Object.fromEntries(input.headers.entries()),
-                body: input.body,
-                signal: input.signal,
-                credentials: input.credentials,
-                cache: input.cache as RequestCache,
-                redirect: input.redirect,
-                referrer: input.referrer,
-                integrity: input.integrity,
-                mode: input.mode,
-            };
-        }
+        // Match `new Request(req, init)`: the Request supplies the defaults and `init` only overrides what it sets.
+        const fromRequest: RequestInit = {
+            method: input.method,
+            headers: Object.fromEntries(input.headers.entries()),
+            body: input.body != null ? await input.arrayBuffer() : undefined,
+            signal: input.signal,
+            credentials: input.credentials,
+            cache: input.cache as RequestCache,
+            redirect: input.redirect,
+            referrer: input.referrer,
+            integrity: input.integrity,
+            mode: input.mode,
+        };
+        const overrides = Object.fromEntries(Object.entries(init ?? {}).filter(([, value]) => value !== undefined));
+        effectiveInit = { ...fromRequest, ...overrides };
     } else {
         url = input instanceof URL ? input.toString() : input;
     }
@@ -98,7 +98,10 @@ export async function makePassthroughRequest(
     if (url.startsWith("http://") || url.startsWith("https://")) {
         fullUrl = url;
     } else if (baseUrl != null) {
-        fullUrl = join(baseUrl, url);
+        // Keep the query string and hash out of the path join so they are not percent-encoded into it.
+        const suffixStart = url.search(/[?#]/);
+        const [path, suffix] = suffixStart === -1 ? [url, ""] : [url.slice(0, suffixStart), url.slice(suffixStart)];
+        fullUrl = join(baseUrl, path) + suffix;
     } else {
         fullUrl = url;
     }
