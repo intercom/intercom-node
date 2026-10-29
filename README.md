@@ -273,6 +273,8 @@ const logger: logging.ILogger = {
 
 The SDK provides a low-level `fetch` method for making custom HTTP requests while still
 benefiting from SDK-level configuration like authentication, retries, timeouts, and logging.
+The auth header is only sent to the client's configured environment, so set `environment` to
+call a regional host such as `https://api.eu.intercom.io`.
 This is useful for calling API endpoints not yet supported in the SDK.
 
 ```typescript

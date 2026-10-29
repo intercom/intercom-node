@@ -119,7 +119,8 @@ function withQueryParameters(fetcher: core.FetchFunction): core.FetchFunction {
         const queryParameters: Record<string, unknown> = {};
         for (const [key, value] of new URLSearchParams(args.queryString)) {
             const existing = queryParameters[key];
-            queryParameters[key] = existing === undefined ? value : [...(existing as string[]), value].flat();
+            queryParameters[key] =
+                existing === undefined ? value : Array.isArray(existing) ? [...existing, value] : [existing, value];
         }
         return fetcher({ ...args, queryParameters });
     };

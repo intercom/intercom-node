@@ -73,7 +73,7 @@ export async function makePassthroughRequest(
         const fromRequest: RequestInit = {
             method: input.method,
             headers: Object.fromEntries(input.headers.entries()),
-            body: input.body != null ? await input.arrayBuffer() : undefined,
+            body: input.body != null && init?.body === undefined ? await input.arrayBuffer() : undefined,
             signal: input.signal,
             credentials: input.credentials,
             cache: input.cache as RequestCache,

@@ -50,6 +50,14 @@ describe("makePassthroughRequest", () => {
         expect(calls[0]?.init.method).toBe("PUT");
     });
 
+    it("leaves the Request body unread when init replaces it", async () => {
+        const { calls, fetch } = capture();
+        const request = new Request(`${BASE_URL}/contacts`, { method: "POST", body: "x" });
+        await makePassthroughRequest(request, { body: "y" }, { baseUrl: BASE_URL, fetch });
+        expect(calls[0]?.init.body).toBe("y");
+        expect(request.bodyUsed).toBe(false);
+    });
+
     describe("client.fetch default environment", () => {
         it("resolves a relative path and sends auth without an explicit environment", async () => {
             const { calls, fetch } = capture();

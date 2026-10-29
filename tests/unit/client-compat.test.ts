@@ -30,9 +30,9 @@ describe("7.0.x compatibility", () => {
             const client = new IntercomClient({ token: "t", fetcher });
             await client.events.list(
                 { type: "user", per_page: 5 },
-                { queryParams: { per_page: undefined, tags: ["a", "b"] } },
+                { queryParams: { per_page: undefined, tags: ["ab", "cd", "ef"] } },
             );
-            expect(received[0]?.queryParameters).toEqual({ type: "user", tags: ["a", "b"] });
+            expect(received[0]?.queryParameters).toEqual({ type: "user", tags: ["ab", "cd", "ef"] });
         });
 
         it("does not wrap an already wrapped fetcher again", () => {
