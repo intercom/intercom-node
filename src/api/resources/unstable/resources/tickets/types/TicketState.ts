@@ -5,15 +5,15 @@
  */
 export interface TicketState {
     /** String representing the object's type. Always has the value `ticket_state`. */
-    type?: string;
+    type?: string | undefined;
     /** The id of the ticket state */
-    id?: string;
+    id?: string | undefined;
     /** The category of the ticket state */
-    category?: TicketState.Category;
+    category?: TicketState.Category | undefined;
     /** The state the ticket is currently in, in a human readable form - visible in Intercom */
-    internal_label?: string;
+    internal_label?: string | undefined;
     /** The state the ticket is currently in, in a human readable form - visible to customers, in the messenger, email and tickets portal. */
-    external_label?: string;
+    external_label?: string | undefined;
 }
 
 export namespace TicketState {

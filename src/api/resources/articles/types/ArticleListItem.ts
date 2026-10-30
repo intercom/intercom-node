@@ -7,7 +7,7 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ArticleListItem {
     /** The type of object - `article`. */
-    type?: "article";
+    type?: "article" | undefined;
     /** The unique identifier for the article which is given by Intercom. */
     id: string;
     /** The id of the workspace which the article belongs to. */
@@ -15,9 +15,9 @@ export interface ArticleListItem {
     /** The title of the article. For multilingual articles, this will be the title of the default language's content. */
     title: string;
     /** The description of the article. For multilingual articles, this will be the description of the default language's content. */
-    description?: string;
+    description?: string | undefined;
     /** The body of the article in HTML. For multilingual articles, this will be the body of the default language's content. */
-    body?: string;
+    body?: string | undefined;
     /** The id of the author of the article. For multilingual articles, this will be the id of the author of the default language's content. Must be a teammate on the help center's workspace. */
     author_id: number;
     /** Whether the article is `published` or is a `draft`. For multilingual articles, this will be the state of the default language's content. */
@@ -27,16 +27,16 @@ export interface ArticleListItem {
     /** The time when the article was last updated. For multilingual articles, this will be the timestamp of last update of the default language's content in seconds. */
     updated_at: number;
     /** The URL of the article. For multilingual articles, this will be the URL of the default language's content. */
-    url?: string;
+    url?: string | undefined;
     /** The id of the article's parent collection or section. An article without this field stands alone. */
-    parent_id?: number;
+    parent_id?: number | undefined;
     /** The ids of the article's parent collections or sections. An article without this field stands alone. */
-    parent_ids?: number[];
+    parent_ids?: number[] | undefined;
     /** The type of parent, which can either be a `collection` or `section`. */
-    parent_type?: string;
+    parent_type?: string | undefined;
     /** The default locale of the help center. This field is only returned for multilingual help centers. */
-    default_locale?: string;
-    translated_content?: Intercom.ArticleTranslatedContent;
+    default_locale?: string | undefined;
+    translated_content?: Intercom.ArticleTranslatedContent | undefined;
 }
 
 export namespace ArticleListItem {

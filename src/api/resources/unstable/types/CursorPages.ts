@@ -8,12 +8,12 @@ import type * as Intercom from "../../../index.js";
  */
 export interface CursorPages {
     /** the type of object `pages`. */
-    type?: "pages";
+    type?: "pages" | undefined;
     /** The current page */
-    page?: number;
-    next?: Intercom.unstable.StartingAfterPaging;
+    page?: number | undefined;
+    next?: Intercom.unstable.StartingAfterPaging | undefined;
     /** Number of results per page */
-    per_page?: number;
+    per_page?: number | undefined;
     /** Total number of pages */
-    total_pages?: number;
+    total_pages?: number | undefined;
 }

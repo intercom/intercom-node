@@ -4,20 +4,20 @@
  * Contains details about Custom Data Attributes (CDAs) that were modified by a user for conversation part type <code>conversation_attribute_updated_by_user</code>.
  */
 export interface ConversationAttributeUpdatedByUser {
-    attribute?: ConversationAttributeUpdatedByUser.Attribute;
-    value?: ConversationAttributeUpdatedByUser.Value;
+    attribute?: ConversationAttributeUpdatedByUser.Attribute | undefined;
+    value?: ConversationAttributeUpdatedByUser.Value | undefined;
 }
 
 export namespace ConversationAttributeUpdatedByUser {
     export interface Attribute {
         /** Name of the CDA updated */
-        name?: string;
+        name?: string | undefined;
     }
 
     export interface Value {
         /** Current value of the CDA updated */
-        name?: string;
+        name?: string | undefined;
         /** Previous value of the CDA (null for older events) */
-        previous?: string;
+        previous?: string | undefined;
     }
 }

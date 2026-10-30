@@ -5,23 +5,23 @@
  */
 export interface EmailSetting {
     /** The type of object */
-    type?: string;
+    type?: string | undefined;
     /** Unique email setting identifier */
-    id?: string;
+    id?: string | undefined;
     /** Full sender email address */
-    email?: string;
+    email?: string | undefined;
     /** Whether the email address has been verified */
-    verified?: boolean;
+    verified?: boolean | undefined;
     /** Domain portion of the email address */
-    domain?: string;
+    domain?: string | undefined;
     /** Associated brand identifier */
-    brand_id?: string;
+    brand_id?: string | undefined;
     /** Whether email forwarding is active */
-    forwarding_enabled?: boolean;
+    forwarding_enabled?: boolean | undefined;
     /** Unix timestamp of last forwarded email received (null if never) */
-    forwarded_email_last_received_at?: number;
+    forwarded_email_last_received_at?: number | undefined;
     /** Unix timestamp of creation */
-    created_at?: number;
+    created_at?: number | undefined;
     /** Unix timestamp of last modification */
-    updated_at?: number;
+    updated_at?: number | undefined;
 }

@@ -10,12 +10,6 @@
  * @example
  *     {
  *         contact_id: "63a07ddf05a32042dffac965",
- *         id: "7522907"
- *     }
- *
- * @example
- *     {
- *         contact_id: "63a07ddf05a32042dffac965",
  *         id: "123"
  *     }
  */

@@ -23,18 +23,6 @@ import type * as Intercom from "../../../../index.js";
  *             "order": {}
  *         }
  *     }
- *
- * @example
- *     {
- *         conversation_id: "conversation_id",
- *         display_as: "plaintext",
- *         read: true,
- *         title: "new conversation title",
- *         custom_attributes: {
- *             "issue_type": "Billing",
- *             "priority": "High"
- *         }
- *     }
  */
 export interface UpdateConversationRequest {
     /** The id of the conversation to target */

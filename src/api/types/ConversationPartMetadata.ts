@@ -7,9 +7,9 @@ import type * as Intercom from "../index.js";
  */
 export interface ConversationPartMetadata {
     /** The quick reply options sent by the Admin or bot, presented in this conversation part. */
-    quick_reply_options?: ConversationPartMetadata.QuickReplyOptions.Item[];
+    quick_reply_options?: ConversationPartMetadata.QuickReplyOptions.Item[] | undefined;
     /** The unique identifier for the quick reply option that was clicked by the end user. */
-    quick_reply_uuid?: string;
+    quick_reply_uuid?: string | undefined;
 }
 
 export namespace ConversationPartMetadata {
@@ -18,7 +18,7 @@ export namespace ConversationPartMetadata {
     export namespace QuickReplyOptions {
         export interface Item extends Intercom.QuickReplyOption {
             /** The translations for the quick reply option. */
-            translations?: Record<string, unknown>;
+            translations?: Record<string, unknown> | undefined;
         }
     }
 }

@@ -5,9 +5,9 @@
  */
 export interface Translation {
     /** The localised name of the subscription type. */
-    name?: string;
+    name?: string | undefined;
     /** The localised description of the subscription type. */
-    description?: string;
+    description?: string | undefined;
     /** The two character identifier for the language of the translation object. */
-    locale?: string;
+    locale?: string | undefined;
 }

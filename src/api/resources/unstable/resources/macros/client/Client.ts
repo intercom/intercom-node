@@ -10,7 +10,7 @@ import * as errors from "../../../../../../errors/index.js";
 import * as Intercom from "../../../../../index.js";
 
 export declare namespace MacrosClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -46,6 +46,8 @@ export class MacrosClient {
      * @throws {@link Intercom.unstable.BadRequestError}
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.macros.listMacros({
@@ -66,19 +68,11 @@ export class MacrosClient {
         requestOptions?: MacrosClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.MacroList>> {
         const { per_page: perPage, starting_after: startingAfter, updated_since: updatedSince } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (perPage != null) {
-            _queryParams.per_page = perPage.toString();
-        }
-
-        if (startingAfter != null) {
-            _queryParams.starting_after = startingAfter;
-        }
-
-        if (updatedSince != null) {
-            _queryParams.updated_since = updatedSince.toString();
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            per_page: perPage,
+            starting_after: startingAfter,
+            updated_since: updatedSince,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -95,7 +89,11 @@ export class MacrosClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -157,6 +155,8 @@ export class MacrosClient {
      * @throws {@link Intercom.unstable.UnauthorizedError}
      * @throws {@link Intercom.unstable.ForbiddenError}
      * @throws {@link Intercom.unstable.NotFoundError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.macros.getMacro({
@@ -187,11 +187,11 @@ export class MacrosClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `macros/${core.url.encodePathParam(id)}`,
+                `macros/${core.url.encodePathParam(id, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

@@ -15,13 +15,6 @@
  *         away_mode_enabled: true,
  *         away_mode_reassign: true
  *     }
- *
- * @example
- *     {
- *         admin_id: 1,
- *         away_mode_enabled: true,
- *         away_mode_reassign: true
- *     }
  */
 export interface ConfigureAwayAdminRequest {
     /** The unique identifier of a given admin */

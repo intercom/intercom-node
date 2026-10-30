@@ -5,9 +5,9 @@
  */
 export interface ConversationSlaAppliedByRule {
     /** Name of the SLA that was applied */
-    sla_name?: string;
+    sla_name?: string | undefined;
     /** Target times configured for the SLA (in seconds) */
-    sla_definition?: ConversationSlaAppliedByRule.SlaDefinition;
+    sla_definition?: ConversationSlaAppliedByRule.SlaDefinition | undefined;
 }
 
 export namespace ConversationSlaAppliedByRule {
@@ -16,12 +16,12 @@ export namespace ConversationSlaAppliedByRule {
      */
     export interface SlaDefinition {
         /** First response time target in seconds */
-        first_reply_time?: number;
+        first_reply_time?: number | undefined;
         /** Next reply time target in seconds */
-        next_reply_time?: number;
+        next_reply_time?: number | undefined;
         /** Resolution time target in seconds */
-        resolution_time?: number;
+        resolution_time?: number | undefined;
         /** Time to close target in seconds */
-        time_to_close?: number;
+        time_to_close?: number | undefined;
     }
 }

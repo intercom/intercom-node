@@ -4,8 +4,7 @@
  * Phone Switch Response
  */
 export interface PhoneSwitch {
-    /** */
-    type?: "phone_call_redirect";
+    type?: "phone_call_redirect" | undefined;
     /** Phone number in E.164 format, that has received the SMS to continue the conversation in the Messenger. */
-    phone?: string;
+    phone?: string | undefined;
 }

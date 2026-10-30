@@ -8,5 +8,5 @@ import type * as Intercom from "../../../index.js";
 export interface CreatePhoneSwitchRequest {
     /** Phone number in E.164 format, that will receive the SMS to continue the conversation in the Messenger. */
     phone: string;
-    custom_attributes?: Intercom.unstable.CustomAttributes;
+    custom_attributes?: Intercom.unstable.CustomAttributes | undefined;
 }

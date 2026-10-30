@@ -7,7 +7,7 @@ import type * as Intercom from "../index.js";
  */
 export interface SubscriptionTypeList {
     /** The type of the object */
-    type?: "list";
+    type?: "list" | undefined;
     /** A list of subscription type objects associated with the workspace . */
-    data?: Intercom.SubscriptionType[];
+    data?: Intercom.SubscriptionType[] | undefined;
 }

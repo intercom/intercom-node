@@ -7,3 +7,10 @@ REPO_OWNER
 tests/integration
 .github/workflows/ci.yml
 .github/workflows/publish.yml
+README.md
+src/BaseClient.ts
+src/auth/BearerAuthProvider.ts
+src/core/fetcher/makePassthroughRequest.ts
+src/core/url/QueryStringBuilder.ts
+src/api/index.ts
+src/api/types/compat.ts

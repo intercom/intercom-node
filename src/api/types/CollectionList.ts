@@ -7,10 +7,10 @@ import type * as Intercom from "../index.js";
  */
 export interface CollectionList {
     /** The type of the object - `list`. */
-    type?: "list";
-    pages?: Intercom.OffsetPages;
+    type?: "list" | undefined;
+    pages?: Intercom.OffsetPages | undefined;
     /** A count of the total number of collections. */
-    total_count?: number;
+    total_count?: number | undefined;
     /** An array of collection objects */
-    data?: Intercom.Collection[];
+    data?: Intercom.Collection[] | undefined;
 }

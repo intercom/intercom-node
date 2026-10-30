@@ -1,11 +1,10 @@
-import { IntercomClient as Client } from "../../src";
+import { createClient } from "./utils/createClient";
 import { dateToUnixTimestamp } from "./utils/date";
 import { randomString } from "./utils/random";
-import { createClient } from "./utils/createClient";
 
 describe("Events", () => {
     let userId: string;
-    let eventId = randomString();
+    const eventId = randomString();
 
     const client = createClient();
 
@@ -51,7 +50,7 @@ describe("Events", () => {
                         wereall: "gonna make it",
                         price: "9001",
                     },
-                })
+                }),
         ).not.toThrowError();
     });
 

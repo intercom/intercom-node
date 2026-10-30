@@ -5,9 +5,9 @@
  */
 export interface DeletedInternalArticleObject {
     /** The unique identifier for the internal article which you provided in the URL. */
-    id?: string;
+    id?: string | undefined;
     /** The type of object which was deleted. - internal_article */
-    object?: "internal_article";
+    object?: "internal_article" | undefined;
     /** Whether the internal article was deleted successfully or not. */
-    deleted?: boolean;
+    deleted?: boolean | undefined;
 }

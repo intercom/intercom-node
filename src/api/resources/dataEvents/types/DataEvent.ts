@@ -11,13 +11,13 @@ export interface DataEvent {
     /** The time the event occurred as a UTC Unix timestamp */
     created_at: number;
     /** Your identifier for the user. */
-    user_id?: string;
+    user_id?: string | undefined;
     /** Your identifier for a lead or a user. */
-    id?: string;
+    id?: string | undefined;
     /** The Intercom identifier for the user. */
-    intercom_user_id?: string;
+    intercom_user_id?: string | undefined;
     /** An email address for your user. An email should only be used where your application uses email to uniquely identify users. */
-    email?: string;
+    email?: string | undefined;
     /** Optional metadata about the event. */
-    metadata?: Record<string, string>;
+    metadata?: Record<string, string> | undefined;
 }

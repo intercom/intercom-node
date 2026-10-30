@@ -1,8 +1,8 @@
-import { Intercom } from "../../src";
+import type { Intercom } from "../../src";
 import { tryDeleteContact } from "./helpers";
+import { createClient } from "./utils/createClient";
 import { randomString } from "./utils/random";
 import { wait } from "./utils/wait";
-import { createClient } from "./utils/createClient";
 
 describe("Messages", () => {
     let adminId: string;

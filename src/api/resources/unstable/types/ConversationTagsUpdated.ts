@@ -5,7 +5,7 @@
  */
 export interface ConversationTagsUpdated {
     /** Array of tag names that were added */
-    tags_added?: string[];
+    tags_added?: string[] | undefined;
     /** Array of tag names that were removed */
-    tags_removed?: string[];
+    tags_removed?: string[] | undefined;
 }

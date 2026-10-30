@@ -5,19 +5,19 @@
  */
 export interface Segment {
     /** The type of object. */
-    type?: "segment";
+    type?: "segment" | undefined;
     /** The unique identifier representing the segment. */
-    id?: string;
+    id?: string | undefined;
     /** The name of the segment. */
-    name?: string;
+    name?: string | undefined;
     /** The time the segment was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time the segment was updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** Type of the contact: contact (lead) or user. */
-    person_type?: Segment.PersonType;
+    person_type?: Segment.PersonType | undefined;
     /** The number of items in the user segment. It's returned when `include_count=true` is included in the request. */
-    count?: number;
+    count?: number | undefined;
 }
 
 export namespace Segment {

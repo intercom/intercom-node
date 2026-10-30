@@ -11,15 +11,15 @@ export interface Conversation {
     /** The id representing the conversation. */
     id: string;
     /** The title given to the conversation. */
-    title?: string;
+    title?: string | undefined;
     /** The time the conversation was created. */
     created_at: number;
     /** The last time the conversation was updated. */
     updated_at: number;
     /** The last time a Contact responded to an Admin. In other words, the time a customer started waiting for a response. Set to null if last reply is from an Admin. */
-    waiting_since?: number;
+    waiting_since?: number | undefined;
     /** If set this is the time in the future when this conversation will be marked as open. i.e. it will be in a snoozed state until this time. i.e. it will be in a snoozed state until this time. */
-    snoozed_until?: number;
+    snoozed_until?: number | undefined;
     /** Indicates whether a conversation is open (true) or closed (false). */
     open: boolean;
     /** Can be set to "open", "closed" or "snoozed". */
@@ -27,27 +27,27 @@ export interface Conversation {
     /** Indicates whether a conversation has been read. */
     read: boolean;
     /** If marked as priority, it will return priority or else not_priority. */
-    priority?: Conversation.Priority;
+    priority?: Conversation.Priority | undefined;
     /** The id of the admin assigned to the conversation. If it's not assigned to an admin it will return null. */
-    admin_assignee_id?: number;
+    admin_assignee_id?: number | undefined;
     /** The id of the team assigned to the conversation. If it's not assigned to a team it will return null. */
-    team_assignee_id?: string;
+    team_assignee_id?: string | undefined;
     /** The ID of the company that the conversation is associated with. The unique identifier for the company which is given by Intercom. */
-    company_id?: string;
-    tags?: Intercom.Tags;
-    conversation_rating?: Intercom.ConversationRating;
+    company_id?: string | undefined;
+    tags?: Intercom.Tags | undefined;
+    conversation_rating?: Intercom.ConversationRating | undefined;
     source: Intercom.ConversationSource;
     contacts: Intercom.ConversationContacts;
-    teammates?: Intercom.ConversationTeammates;
+    teammates?: Intercom.ConversationTeammates | undefined;
     custom_attributes: Intercom.CustomAttributes;
-    first_contact_reply?: Intercom.ConversationFirstContactReply;
-    sla_applied?: Intercom.SlaApplied;
-    statistics?: Intercom.ConversationStatistics;
-    conversation_parts?: Intercom.ConversationParts;
-    linked_objects?: Intercom.LinkedObjectList;
+    first_contact_reply?: Intercom.ConversationFirstContactReply | undefined;
+    sla_applied?: Intercom.SlaApplied | undefined;
+    statistics?: Intercom.ConversationStatistics | undefined;
+    conversation_parts?: Intercom.ConversationParts | undefined;
+    linked_objects?: Intercom.LinkedObjectList | undefined;
     /** Indicates whether the AI Agent participated in the conversation. */
-    ai_agent_participated?: boolean;
-    ai_agent?: Intercom.AiAgent;
+    ai_agent_participated?: boolean | undefined;
+    ai_agent?: Intercom.AiAgent | undefined;
 }
 
 export namespace Conversation {

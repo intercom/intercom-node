@@ -7,11 +7,13 @@ import { EndpointSupplier } from "./EndpointSupplier.js";
 import { getErrorResponseBody } from "./getErrorResponseBody.js";
 import { getFetchFn } from "./getFetchFn.js";
 import { getRequestBody } from "./getRequestBody.js";
-import { getResponseBody } from "./getResponseBody.js";
+import { getResponseBody, isResponseBodyError } from "./getResponseBody.js";
 import { Headers } from "./Headers.js";
-import { makeRequest } from "./makeRequest.js";
+import { clearResponseTimeout, makeRequest } from "./makeRequest.js";
 import { abortRawResponse, toRawResponse, unknownRawResponse } from "./RawResponse.js";
+import { redactUrl, SENSITIVE_QUERY_PARAMS } from "./redactUrl.js";
 import { requestWithRetries } from "./requestWithRetries.js";
+import { TIMEOUT } from "./signals.js";
 
 export type FetchFunction = <R = unknown>(args: Fetcher.Args) => Promise<APIResponse<R, Fetcher.Error>>;
 
@@ -20,8 +22,14 @@ export declare namespace Fetcher {
         url: string;
         method: string;
         contentType?: string;
-        headers?: Record<string, string | EndpointSupplier<string | null | undefined> | null | undefined>;
+        headers?: Record<string, unknown>;
+        /**
+         * @deprecated Prefer `queryString` (produced by `core.url.queryBuilder()`).
+         * Retained for backwards compatibility with custom fetchers and callers that
+         * still construct request args with a query-parameter object.
+         */
         queryParameters?: Record<string, unknown>;
+        queryString?: string;
         body?: unknown;
         timeoutMs?: number;
         maxRetries?: number;
@@ -56,11 +64,13 @@ export declare namespace Fetcher {
 
     export interface TimeoutError {
         reason: "timeout";
+        cause?: unknown;
     }
 
     export interface UnknownError {
         reason: "unknown";
         errorMessage: string;
+        cause?: unknown;
     }
 }
 
@@ -95,122 +105,17 @@ function redactHeaders(headers: Headers | Record<string, string>): Record<string
     return filtered;
 }
 
-const SENSITIVE_QUERY_PARAMS = new Set([
-    "api_key",
-    "api-key",
-    "apikey",
-    "token",
-    "access_token",
-    "access-token",
-    "auth_token",
-    "auth-token",
-    "password",
-    "passwd",
-    "secret",
-    "api_secret",
-    "api-secret",
-    "apisecret",
-    "key",
-    "session",
-    "session_id",
-    "session-id",
-]);
-
-function redactQueryParameters(queryParameters?: Record<string, unknown>): Record<string, unknown> | undefined {
+function redactQueryParameters(
+    queryParameters: Record<string, unknown> | undefined,
+): Record<string, unknown> | undefined {
     if (queryParameters == null) {
-        return queryParameters;
+        return undefined;
     }
     const redacted: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(queryParameters)) {
-        if (SENSITIVE_QUERY_PARAMS.has(key.toLowerCase())) {
-            redacted[key] = "[REDACTED]";
-        } else {
-            redacted[key] = value;
-        }
+        redacted[key] = SENSITIVE_QUERY_PARAMS.has(key.toLowerCase()) ? "[REDACTED]" : value;
     }
     return redacted;
-}
-
-function redactUrl(url: string): string {
-    const protocolIndex = url.indexOf("://");
-    if (protocolIndex === -1) return url;
-
-    const afterProtocol = protocolIndex + 3;
-
-    // Find the first delimiter that marks the end of the authority section
-    const pathStart = url.indexOf("/", afterProtocol);
-    let queryStart = url.indexOf("?", afterProtocol);
-    let fragmentStart = url.indexOf("#", afterProtocol);
-
-    const firstDelimiter = Math.min(
-        pathStart === -1 ? url.length : pathStart,
-        queryStart === -1 ? url.length : queryStart,
-        fragmentStart === -1 ? url.length : fragmentStart,
-    );
-
-    // Find the LAST @ before the delimiter (handles multiple @ in credentials)
-    let atIndex = -1;
-    for (let i = afterProtocol; i < firstDelimiter; i++) {
-        if (url[i] === "@") {
-            atIndex = i;
-        }
-    }
-
-    if (atIndex !== -1) {
-        url = `${url.slice(0, afterProtocol)}[REDACTED]@${url.slice(atIndex + 1)}`;
-    }
-
-    // Recalculate queryStart since url might have changed
-    queryStart = url.indexOf("?");
-    if (queryStart === -1) return url;
-
-    fragmentStart = url.indexOf("#", queryStart);
-    const queryEnd = fragmentStart !== -1 ? fragmentStart : url.length;
-    const queryString = url.slice(queryStart + 1, queryEnd);
-
-    if (queryString.length === 0) return url;
-
-    // FAST PATH: Quick check if any sensitive keywords present
-    // Using indexOf is faster than regex for simple substring matching
-    const lower = queryString.toLowerCase();
-    const hasSensitive =
-        lower.includes("token") ||
-        lower.includes("key") ||
-        lower.includes("password") ||
-        lower.includes("passwd") ||
-        lower.includes("secret") ||
-        lower.includes("session") ||
-        lower.includes("auth");
-
-    if (!hasSensitive) {
-        return url;
-    }
-
-    // SLOW PATH: Parse and redact
-    const redactedParams: string[] = [];
-    const params = queryString.split("&");
-
-    for (const param of params) {
-        const equalIndex = param.indexOf("=");
-        if (equalIndex === -1) {
-            redactedParams.push(param);
-            continue;
-        }
-
-        const key = param.slice(0, equalIndex);
-        let shouldRedact = SENSITIVE_QUERY_PARAMS.has(key.toLowerCase());
-
-        if (!shouldRedact && key.includes("%")) {
-            try {
-                const decodedKey = decodeURIComponent(key);
-                shouldRedact = SENSITIVE_QUERY_PARAMS.has(decodedKey.toLowerCase());
-            } catch {}
-        }
-
-        redactedParams.push(shouldRedact ? `${key}=[REDACTED]` : param);
-    }
-
-    return url.slice(0, queryStart + 1) + redactedParams.join("&") + url.slice(queryEnd);
 }
 
 async function getHeaders(args: Fetcher.Args): Promise<Headers> {
@@ -218,7 +123,13 @@ async function getHeaders(args: Fetcher.Args): Promise<Headers> {
 
     newHeaders.set(
         "Accept",
-        args.responseType === "json" ? "application/json" : args.responseType === "text" ? "text/plain" : "*/*",
+        args.responseType === "json"
+            ? "application/json"
+            : args.responseType === "text"
+              ? "text/plain"
+              : args.responseType === "sse"
+                ? "text/event-stream"
+                : "*/*",
     );
     if (args.body !== undefined && args.contentType != null) {
         newHeaders.set("Content-Type", args.contentType);
@@ -242,8 +153,18 @@ async function getHeaders(args: Fetcher.Args): Promise<Headers> {
     return newHeaders;
 }
 
+function isJsonContentType(contentType: string | null): boolean {
+    const mediaType = contentType?.split(";")[0]?.trim().toLowerCase() ?? "";
+    return mediaType === "application/json" || mediaType === "text/json" || mediaType.endsWith("+json");
+}
+
 export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse<R, Fetcher.Error>> {
-    const url = createRequestUrl(args.url, args.queryParameters);
+    let url = args.url;
+    if (args.queryString != null && args.queryString.length > 0) {
+        url = `${url}?${args.queryString}`;
+    } else {
+        url = createRequestUrl(args.url, args.queryParameters);
+    }
     const requestBody: BodyInit | undefined = await getRequestBody({
         body: args.body,
         type: args.requestType ?? "other",
@@ -263,10 +184,18 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
         logger.debug("Making HTTP request", metadata);
     }
 
+    // Bodies that are read in full here stay covered by the timeout; streamed bodies are read by the caller.
+    const keepTimeoutUntilBodyRead =
+        args.responseType !== "streaming" && args.responseType !== "sse" && args.responseType !== "binary-response";
+    const attemptResponses: Response[] = [];
     try {
         const response = await requestWithRetries(
-            async () =>
-                makeRequest(
+            async () => {
+                // A retry means the previous attempt is over; stop its timer now rather than at the end.
+                for (const previousResponse of attemptResponses) {
+                    clearResponseTimeout(previousResponse);
+                }
+                const attemptResponse = await makeRequest(
                     fetchFn,
                     url,
                     args.method,
@@ -276,8 +205,14 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                     args.abortSignal,
                     args.withCredentials,
                     args.duplex,
-                ),
+                    args.responseType === "streaming" || args.responseType === "sse",
+                    keepTimeoutUntilBodyRead,
+                );
+                attemptResponses.push(attemptResponse);
+                return attemptResponse;
+            },
             args.maxRetries,
+            args.abortSignal,
         );
 
         if (response.status >= 200 && response.status < 400) {
@@ -291,6 +226,18 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                 logger.debug("HTTP request succeeded", metadata);
             }
             const body = await getResponseBody(response, args.responseType);
+            // Only a body the server labelled as JSON is an error here; void endpoints may return plain text.
+            if (
+                isResponseBodyError(body) &&
+                body.error.reason === "non-json" &&
+                isJsonContentType(response.headers.get("Content-Type"))
+            ) {
+                return {
+                    ok: false,
+                    error: body.error,
+                    rawResponse: toRawResponse(response),
+                };
+            }
             return {
                 ok: true,
                 body: body as R,
@@ -331,10 +278,11 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                 error: {
                     reason: "unknown",
                     errorMessage: "The user aborted a request",
+                    cause: error,
                 },
                 rawResponse: abortRawResponse,
             };
-        } else if (error instanceof Error && error.name === "AbortError") {
+        } else if (error === TIMEOUT || (error instanceof Error && error.name === "AbortError")) {
             if (logger.isError()) {
                 const metadata = {
                     method: args.method,
@@ -347,6 +295,7 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                 ok: false,
                 error: {
                     reason: "timeout",
+                    cause: error,
                 },
                 rawResponse: abortRawResponse,
             };
@@ -364,6 +313,7 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                 error: {
                     reason: "unknown",
                     errorMessage: error.message,
+                    cause: error,
                 },
                 rawResponse: unknownRawResponse,
             };
@@ -382,9 +332,14 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
             error: {
                 reason: "unknown",
                 errorMessage: toJson(error),
+                cause: error,
             },
             rawResponse: unknownRawResponse,
         };
+    } finally {
+        for (const attemptResponse of attemptResponses) {
+            clearResponseTimeout(attemptResponse);
+        }
     }
 }
 

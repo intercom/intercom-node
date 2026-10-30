@@ -5,9 +5,9 @@
  */
 export interface EmailAddressHeader {
     /** The type of email address header */
-    type?: string;
+    type?: string | undefined;
     /** The email address */
-    email_address?: string;
+    email_address?: string | undefined;
     /** The name associated with the email address */
-    name?: string;
+    name?: string | undefined;
 }

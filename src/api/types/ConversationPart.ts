@@ -7,37 +7,37 @@ import type * as Intercom from "../index.js";
  */
 export interface ConversationPart {
     /** Always conversation_part */
-    type?: string;
+    type?: string | undefined;
     /** The id representing the conversation part. */
-    id?: string;
+    id?: string | undefined;
     /** The type of conversation part. */
-    part_type?: string;
+    part_type?: string | undefined;
     /** The message body, which may contain HTML. For Twitter, this will show a generic message regarding why the body is obscured. */
-    body?: string;
+    body?: string | undefined;
     /** The time the conversation part was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The last time the conversation part was updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** The time the user was notified with the conversation part. */
-    notified_at?: number;
+    notified_at?: number | undefined;
     /** The id of the admin that was assigned the conversation by this conversation_part (null if there has been no change in assignment.) */
-    assigned_to?: Intercom.Reference;
-    author?: Intercom.ConversationPartAuthor;
+    assigned_to?: Intercom.Reference | undefined;
+    author?: Intercom.ConversationPartAuthor | undefined;
     /** A list of attachments for the part. */
-    attachments?: Intercom.PartAttachment[];
+    attachments?: Intercom.PartAttachment[] | undefined;
     /** The external id of the conversation part */
-    external_id?: string;
+    external_id?: string | undefined;
     /** Whether or not the conversation part has been redacted. */
-    redacted?: boolean;
-    email_message_metadata?: Intercom.EmailMessageMetadata;
-    metadata?: Intercom.ConversationPartMetadata;
+    redacted?: boolean | undefined;
+    email_message_metadata?: Intercom.EmailMessageMetadata | undefined;
+    metadata?: Intercom.ConversationPartMetadata | undefined;
     /** Indicates the current state of conversation when the conversation part was created. */
-    state?: ConversationPart.State;
+    state?: ConversationPart.State | undefined;
     /** A list of tags objects associated with the conversation part. */
-    tags?: Intercom.TagBasic[];
-    event_details?: Intercom.EventDetails;
+    tags?: Intercom.TagBasic[] | undefined;
+    event_details?: Intercom.EventDetails | undefined;
     /** The app package code if this part was created via API. null if the part was not created via API. */
-    app_package_code?: string;
+    app_package_code?: string | undefined;
 }
 
 export namespace ConversationPart {

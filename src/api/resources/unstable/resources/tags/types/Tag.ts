@@ -7,12 +7,12 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface Tag {
     /** value is "tag" */
-    type?: string;
+    type?: string | undefined;
     /** The id of the tag */
-    id?: string;
+    id?: string | undefined;
     /** The name of the tag */
-    name?: string;
+    name?: string | undefined;
     /** The time when the tag was applied to the object */
-    applied_at?: number;
-    applied_by?: Intercom.unstable.Reference;
+    applied_at?: number | undefined;
+    applied_by?: Intercom.unstable.Reference | undefined;
 }

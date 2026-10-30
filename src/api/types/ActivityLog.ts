@@ -7,15 +7,15 @@ import type * as Intercom from "../index.js";
  */
 export interface ActivityLog {
     /** The id representing the activity. */
-    id?: string;
+    id?: string | undefined;
     /** Details about the Admin involved in the activity. */
-    performed_by?: ActivityLog.PerformedBy;
-    metadata?: Intercom.ActivityLogMetadata;
+    performed_by?: ActivityLog.PerformedBy | undefined;
+    metadata?: Intercom.ActivityLogMetadata | undefined;
     /** The time the activity was created. */
-    created_at?: number;
-    activity_type?: ActivityLog.ActivityType;
+    created_at?: number | undefined;
+    activity_type?: ActivityLog.ActivityType | undefined;
     /** A sentence or two describing the activity. */
-    activity_description?: string;
+    activity_description?: string | undefined;
 }
 
 export namespace ActivityLog {
@@ -24,13 +24,13 @@ export namespace ActivityLog {
      */
     export interface PerformedBy {
         /** String representing the object's type. Always has the value `admin`. */
-        type?: string;
+        type?: string | undefined;
         /** The id representing the admin. */
-        id?: string;
+        id?: string | undefined;
         /** The email of the admin. */
-        email?: string;
+        email?: string | undefined;
         /** The IP address of the admin. */
-        ip?: string;
+        ip?: string | undefined;
     }
 
     export const ActivityType = {

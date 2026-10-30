@@ -6,7 +6,7 @@ import type * as Intercom from "../../../index.js";
  * The list of associated custom object instances for a given reference attribute on the parent object.
  */
 export interface CustomObjectInstanceList {
-    type?: string;
+    type?: string | undefined;
     /** The list of associated custom object instances for a given reference attribute on the parent object. */
-    instances?: (Intercom.unstable.CustomObjectInstance | undefined)[];
+    instances?: (Intercom.unstable.CustomObjectInstance | undefined)[] | undefined;
 }

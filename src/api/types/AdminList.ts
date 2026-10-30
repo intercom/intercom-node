@@ -7,7 +7,7 @@ import type * as Intercom from "../index.js";
  */
 export interface AdminList {
     /** String representing the object's type. Always has the value `admin.list`. */
-    type?: string;
+    type?: string | undefined;
     /** A list of admins associated with a given workspace. */
-    admins?: (Intercom.Admin | undefined)[];
+    admins?: (Intercom.Admin | undefined)[] | undefined;
 }

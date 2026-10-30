@@ -7,79 +7,79 @@ import type * as Intercom from "../index.js";
  */
 export interface GroupTranslatedContent {
     /** The type of object - group_translated_content. */
-    type?: "group_translated_content";
+    type?: "group_translated_content" | undefined;
     /** The content of the group in Arabic */
-    ar?: Intercom.GroupContent;
+    ar?: Intercom.GroupContent | undefined;
     /** The content of the group in Bulgarian */
-    bg?: Intercom.GroupContent;
+    bg?: Intercom.GroupContent | undefined;
     /** The content of the group in Bosnian */
-    bs?: Intercom.GroupContent;
+    bs?: Intercom.GroupContent | undefined;
     /** The content of the group in Catalan */
-    ca?: Intercom.GroupContent;
+    ca?: Intercom.GroupContent | undefined;
     /** The content of the group in Czech */
-    cs?: Intercom.GroupContent;
+    cs?: Intercom.GroupContent | undefined;
     /** The content of the group in Danish */
-    da?: Intercom.GroupContent;
+    da?: Intercom.GroupContent | undefined;
     /** The content of the group in German */
-    de?: Intercom.GroupContent;
+    de?: Intercom.GroupContent | undefined;
     /** The content of the group in Greek */
-    el?: Intercom.GroupContent;
+    el?: Intercom.GroupContent | undefined;
     /** The content of the group in English */
-    en?: Intercom.GroupContent;
+    en?: Intercom.GroupContent | undefined;
     /** The content of the group in Spanish */
-    es?: Intercom.GroupContent;
+    es?: Intercom.GroupContent | undefined;
     /** The content of the group in Estonian */
-    et?: Intercom.GroupContent;
+    et?: Intercom.GroupContent | undefined;
     /** The content of the group in Finnish */
-    fi?: Intercom.GroupContent;
+    fi?: Intercom.GroupContent | undefined;
     /** The content of the group in French */
-    fr?: Intercom.GroupContent;
+    fr?: Intercom.GroupContent | undefined;
     /** The content of the group in Hebrew */
-    he?: Intercom.GroupContent;
+    he?: Intercom.GroupContent | undefined;
     /** The content of the group in Croatian */
-    hr?: Intercom.GroupContent;
+    hr?: Intercom.GroupContent | undefined;
     /** The content of the group in Hungarian */
-    hu?: Intercom.GroupContent;
+    hu?: Intercom.GroupContent | undefined;
     /** The content of the group in Indonesian */
-    id?: Intercom.GroupContent;
+    id?: Intercom.GroupContent | undefined;
     /** The content of the group in Italian */
-    it?: Intercom.GroupContent;
+    it?: Intercom.GroupContent | undefined;
     /** The content of the group in Japanese */
-    ja?: Intercom.GroupContent;
+    ja?: Intercom.GroupContent | undefined;
     /** The content of the group in Korean */
-    ko?: Intercom.GroupContent;
+    ko?: Intercom.GroupContent | undefined;
     /** The content of the group in Lithuanian */
-    lt?: Intercom.GroupContent;
+    lt?: Intercom.GroupContent | undefined;
     /** The content of the group in Latvian */
-    lv?: Intercom.GroupContent;
+    lv?: Intercom.GroupContent | undefined;
     /** The content of the group in Mongolian */
-    mn?: Intercom.GroupContent;
+    mn?: Intercom.GroupContent | undefined;
     /** The content of the group in Norwegian */
-    nb?: Intercom.GroupContent;
+    nb?: Intercom.GroupContent | undefined;
     /** The content of the group in Dutch */
-    nl?: Intercom.GroupContent;
+    nl?: Intercom.GroupContent | undefined;
     /** The content of the group in Polish */
-    pl?: Intercom.GroupContent;
+    pl?: Intercom.GroupContent | undefined;
     /** The content of the group in Portuguese (Portugal) */
-    pt?: Intercom.GroupContent;
+    pt?: Intercom.GroupContent | undefined;
     /** The content of the group in Romanian */
-    ro?: Intercom.GroupContent;
+    ro?: Intercom.GroupContent | undefined;
     /** The content of the group in Russian */
-    ru?: Intercom.GroupContent;
+    ru?: Intercom.GroupContent | undefined;
     /** The content of the group in Slovenian */
-    sl?: Intercom.GroupContent;
+    sl?: Intercom.GroupContent | undefined;
     /** The content of the group in Serbian */
-    sr?: Intercom.GroupContent;
+    sr?: Intercom.GroupContent | undefined;
     /** The content of the group in Swedish */
-    sv?: Intercom.GroupContent;
+    sv?: Intercom.GroupContent | undefined;
     /** The content of the group in Turkish */
-    tr?: Intercom.GroupContent;
+    tr?: Intercom.GroupContent | undefined;
     /** The content of the group in Vietnamese */
-    vi?: Intercom.GroupContent;
+    vi?: Intercom.GroupContent | undefined;
     /** The content of the group in Portuguese (Brazil) */
-    "pt-BR"?: Intercom.GroupContent;
+    "pt-BR"?: Intercom.GroupContent | undefined;
     /** The content of the group in Chinese (China) */
-    "zh-CN"?: Intercom.GroupContent;
+    "zh-CN"?: Intercom.GroupContent | undefined;
     /** The content of the group in Chinese (Taiwan) */
-    "zh-TW"?: Intercom.GroupContent;
+    "zh-TW"?: Intercom.GroupContent | undefined;
 }

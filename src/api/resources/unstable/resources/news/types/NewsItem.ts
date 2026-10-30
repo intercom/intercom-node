@@ -7,33 +7,33 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface NewsItem {
     /** The type of object. */
-    type?: "news-item";
+    type?: "news-item" | undefined;
     /** The unique identifier for the news item which is given by Intercom. */
-    id?: string;
+    id?: string | undefined;
     /** The id of the workspace which the news item belongs to. */
-    workspace_id?: string;
+    workspace_id?: string | undefined;
     /** The title of the news item. */
-    title?: string;
+    title?: string | undefined;
     /** The news item body, which may contain HTML. */
-    body?: string;
+    body?: string | undefined;
     /** The id of the sender of the news item. Must be a teammate on the workspace. */
-    sender_id?: number;
+    sender_id?: number | undefined;
     /** News items will not be visible to your users in the assigned newsfeeds until they are set live. */
-    state?: NewsItem.State;
+    state?: NewsItem.State | undefined;
     /** A list of newsfeed_assignments to assign to the specified newsfeed. */
-    newsfeed_assignments?: Intercom.unstable.NewsfeedAssignment[];
+    newsfeed_assignments?: Intercom.unstable.NewsfeedAssignment[] | undefined;
     /** Label names displayed to users to categorize the news item. */
-    labels?: (string | undefined)[];
+    labels?: (string | undefined)[] | undefined;
     /** URL of the image used as cover. Must have .jpg or .png extension. */
-    cover_image_url?: string;
+    cover_image_url?: string | undefined;
     /** Ordered list of emoji reactions to the news item. When empty, reactions are disabled. */
-    reactions?: (string | undefined)[];
+    reactions?: (string | undefined)[] | undefined;
     /** When set to true, the news item will appear in the messenger newsfeed without showing a notification badge. */
-    deliver_silently?: boolean;
+    deliver_silently?: boolean | undefined;
     /** Timestamp for when the news item was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** Timestamp for when the news item was last updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
 }
 
 export namespace NewsItem {

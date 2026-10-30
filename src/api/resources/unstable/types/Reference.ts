@@ -4,8 +4,6 @@
  * reference to another object
  */
 export interface Reference {
-    /** */
-    type?: string;
-    /** */
-    id?: string;
+    type?: string | undefined;
+    id?: string | undefined;
 }

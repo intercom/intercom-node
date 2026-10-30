@@ -1,7 +1,7 @@
 export type { AttachContactToConversationRequest } from "./AttachContactToConversationRequest.js";
 export type { AutoAssignConversationRequest } from "./AutoAssignConversationRequest.js";
 export type { ConvertConversationToTicketRequest } from "./ConvertConversationToTicketRequest.js";
-export type { CreateConversationRequest } from "./CreateConversationRequest.js";
+export { CreateConversationRequest } from "./CreateConversationRequest.js";
 export type { DeleteConversationRequest } from "./DeleteConversationRequest.js";
 export type { DetachContactFromConversationRequest } from "./DetachContactFromConversationRequest.js";
 export type { FindConversationRequest } from "./FindConversationRequest.js";

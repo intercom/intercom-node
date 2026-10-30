@@ -5,13 +5,13 @@
  */
 export interface ContentSource {
     /** The type of the content source. */
-    content_type?: ContentSource.ContentType;
+    content_type?: ContentSource.ContentType | undefined;
     /** The internal URL linking to the content source for teammates. */
-    url?: string;
+    url?: string | undefined;
     /** The title of the content source. */
-    title?: string;
+    title?: string | undefined;
     /** The ISO 639 language code of the content source. */
-    locale?: string;
+    locale?: string | undefined;
 }
 
 export namespace ContentSource {

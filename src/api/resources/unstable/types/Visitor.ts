@@ -7,110 +7,108 @@ import type * as Intercom from "../../../index.js";
  */
 export interface Visitor {
     /** Value is 'visitor' */
-    type?: string;
+    type?: string | undefined;
     /** The Intercom defined id representing the Visitor. */
-    id?: string;
+    id?: string | undefined;
     /** Automatically generated identifier for the Visitor. */
-    user_id?: string;
+    user_id?: string | undefined;
     /** Identifies if this visitor is anonymous. */
-    anonymous?: boolean;
+    anonymous?: boolean | undefined;
     /** The email of the visitor. */
-    email?: string;
+    email?: string | undefined;
     /** The phone number of the visitor. */
-    phone?: string;
+    phone?: string | undefined;
     /** The name of the visitor. */
-    name?: string;
+    name?: string | undefined;
     /** The pseudonym of the visitor. */
-    pseudonym?: string;
-    avatar?: Visitor.Avatar;
+    pseudonym?: string | undefined;
+    avatar?: Visitor.Avatar | undefined;
     /** The id of the app the visitor is associated with. */
-    app_id?: string;
-    companies?: Visitor.Companies;
-    location_data?: Visitor.LocationData;
+    app_id?: string | undefined;
+    companies?: Visitor.Companies | undefined;
+    location_data?: Visitor.LocationData | undefined;
     /** The time the Lead last recorded making a request. */
-    las_request_at?: number;
+    las_request_at?: number | undefined;
     /** The time the Visitor was added to Intercom. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time the Visitor was added to Intercom. */
-    remote_created_at?: number;
+    remote_created_at?: number | undefined;
     /** The time the Visitor signed up for your product. */
-    signed_up_at?: number;
+    signed_up_at?: number | undefined;
     /** The last time the Visitor was updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** The number of sessions the Visitor has had. */
-    session_count?: number;
-    social_profiles?: Visitor.SocialProfiles;
+    session_count?: number | undefined;
+    social_profiles?: Visitor.SocialProfiles | undefined;
     /** The id of the admin that owns the Visitor. */
-    owner_id?: string;
+    owner_id?: string | undefined;
     /** Whether the Visitor is unsubscribed from emails. */
-    unsubscribed_from_emails?: boolean;
+    unsubscribed_from_emails?: boolean | undefined;
     /** Identifies if this visitor has marked an email as spam. */
-    marked_email_as_spam?: boolean;
+    marked_email_as_spam?: boolean | undefined;
     /** Identifies if this visitor has had a hard bounce. */
-    has_hard_bounced?: boolean;
-    tags?: Visitor.Tags;
-    segments?: Visitor.Segments;
+    has_hard_bounced?: boolean | undefined;
+    tags?: Visitor.Tags | undefined;
+    segments?: Visitor.Segments | undefined;
     /** The custom attributes you have set on the Visitor. */
-    custom_attributes?: Record<string, string>;
+    custom_attributes?: Record<string, string> | undefined;
     /** The referer of the visitor. */
-    referrer?: string;
+    referrer?: string | undefined;
     /** The utm_campaign of the visitor. */
-    utm_campaign?: string;
+    utm_campaign?: string | undefined;
     /** The utm_content of the visitor. */
-    utm_content?: string;
+    utm_content?: string | undefined;
     /** The utm_medium of the visitor. */
-    utm_medium?: string;
+    utm_medium?: string | undefined;
     /** The utm_source of the visitor. */
-    utm_source?: string;
+    utm_source?: string | undefined;
     /** The utm_term of the visitor. */
-    utm_term?: string;
+    utm_term?: string | undefined;
     /** Identifies if this visitor has do not track enabled. */
-    do_not_track?: boolean;
+    do_not_track?: boolean | undefined;
 }
 
 export namespace Visitor {
     export interface Avatar {
-        /** */
-        type?: string;
+        type?: string | undefined;
         /** This object represents the avatar associated with the visitor. */
-        image_url?: string;
+        image_url?: string | undefined;
     }
 
     export interface Companies {
         /** The type of the object */
-        type?: "company.list";
-        companies?: Intercom.unstable.Company[];
+        type?: "company.list" | undefined;
+        companies?: Intercom.unstable.Company[] | undefined;
     }
 
     export interface LocationData {
-        /** */
-        type?: string;
+        type?: string | undefined;
         /** The city name of the visitor. */
-        city_name?: string;
+        city_name?: string | undefined;
         /** The continent code of the visitor. */
-        continent_code?: string;
+        continent_code?: string | undefined;
         /** The country code of the visitor. */
-        country_code?: string;
+        country_code?: string | undefined;
         /** The country name of the visitor. */
-        country_name?: string;
+        country_name?: string | undefined;
         /** The postal code of the visitor. */
-        postal_code?: string;
+        postal_code?: string | undefined;
         /** The region name of the visitor. */
-        region_name?: string;
+        region_name?: string | undefined;
         /** The timezone of the visitor. */
-        timezone?: string;
+        timezone?: string | undefined;
     }
 
     export interface SocialProfiles {
         /** The type of the object */
-        type?: "social_profile.list";
-        social_profiles?: string[];
+        type?: "social_profile.list" | undefined;
+        social_profiles?: string[] | undefined;
     }
 
     export interface Tags {
         /** The type of the object */
-        type?: "tag.list";
-        tags?: Tags.Tags.Item[];
+        type?: "tag.list" | undefined;
+        tags?: Tags.Tags.Item[] | undefined;
     }
 
     export namespace Tags {
@@ -119,18 +117,18 @@ export namespace Visitor {
         export namespace Tags {
             export interface Item {
                 /** The type of the object */
-                type?: "tag";
+                type?: "tag" | undefined;
                 /** The id of the tag. */
-                id?: string;
+                id?: string | undefined;
                 /** The name of the tag. */
-                name?: string;
+                name?: string | undefined;
             }
         }
     }
 
     export interface Segments {
         /** The type of the object */
-        type?: "segment.list";
-        segments?: string[];
+        type?: "segment.list" | undefined;
+        segments?: string[] | undefined;
     }
 }

@@ -3,4 +3,4 @@
 /**
  * You can create a message
  */
-export type CreateMessageRequest = unknown | undefined;
+export type CreateMessageRequest = unknown;

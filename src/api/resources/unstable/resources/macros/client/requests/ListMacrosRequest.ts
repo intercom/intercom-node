@@ -7,41 +7,6 @@
  *         starting_after: "WzE3MTk0OTM3NTcuMCwgIjEyMyJd",
  *         updated_since: 1000000
  *     }
- *
- * @example
- *     {
- *         per_page: 1,
- *         starting_after: "WzE3MTk0OTM3NTcuMCwgIjEyMyJd",
- *         updated_since: 1000000
- *     }
- *
- * @example
- *     {
- *         per_page: 1,
- *         starting_after: "WzE3MTk0OTM3NTcuMCwgIjEyMyJd",
- *         updated_since: 1000000
- *     }
- *
- * @example
- *     {
- *         per_page: 1,
- *         starting_after: "WzE3MTk0OTM3NTcuMCwgIjEyMyJd",
- *         updated_since: 1000000
- *     }
- *
- * @example
- *     {
- *         per_page: 1,
- *         starting_after: "WzE3MTk0OTM3NTcuMCwgIjEyMyJd",
- *         updated_since: 1000000
- *     }
- *
- * @example
- *     {
- *         per_page: 1,
- *         starting_after: "WzE3MTk0OTM3NTcuMCwgIjEyMyJd",
- *         updated_since: 1000000
- *     }
  */
 export interface ListMacrosRequest {
     /** The number of results per page */

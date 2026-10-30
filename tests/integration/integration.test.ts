@@ -1,7 +1,7 @@
-import { Intercom } from "../../src";
-import { randomString } from "./utils/random";
+import type { Intercom } from "../../src";
 import { createCompany, tryDeleteCompany, tryDeleteContact, tryDeleteTag } from "./helpers";
 import { createClient } from "./utils/createClient";
+import { randomString } from "./utils/random";
 
 describe("Integration between Contact, Conversation, Company and Tag APIs", () => {
     let adminId: string;

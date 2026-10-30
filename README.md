@@ -5,9 +5,27 @@
 
 The Intercom TypeScript library provides convenient access to the Intercom APIs from TypeScript.
 
-## Project Updates
+## Table of Contents
 
-The TypeScript SDK has been updated to support latest API version (2.11).
+- [Installation](#installation)
+- [Reference](#reference)
+- [Usage](#usage)
+- [Environments](#environments)
+- [Request and Response Types](#request-and-response-types)
+- [Exception Handling](#exception-handling)
+- [Pagination](#pagination)
+- [Advanced](#advanced)
+  - [Additional Headers](#additional-headers)
+  - [Additional Query String Parameters](#additional-query-string-parameters)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+  - [Aborting Requests](#aborting-requests)
+  - [Access Raw Response Data](#access-raw-response-data)
+  - [Logging](#logging)
+  - [Custom Fetch](#custom-fetch)
+  - [Custom Fetcher](#custom-fetcher)
+  - [Runtime Compatibility](#runtime-compatibility)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -17,7 +35,7 @@ npm i -s intercom-client
 
 ## Reference
 
-A full reference for this library is available [here](https://github.com/intercom/intercom-node/blob/HEAD/./reference.md).
+A full reference for this library is available [here](./reference.md).
 
 ## Usage
 
@@ -32,7 +50,19 @@ await client.aiContent.createContentImportSource({
 });
 ```
 
-## Request And Response Types
+## Environments
+
+This SDK allows you to configure different environments for API requests.
+
+```typescript
+import { IntercomClient, IntercomEnvironment } from "intercom-client";
+
+const client = new IntercomClient({
+    environment: IntercomEnvironment.UsProduction,
+});
+```
+
+## Request and Response Types
 
 The SDK exports all request and response types as TypeScript interfaces. Simply import them with the
 following namespace:
@@ -81,7 +111,7 @@ for await (const item of pageableResponse) {
 // Or you can manually iterate page-by-page
 let page = await client.articles.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -95,6 +125,15 @@ const response = page.response;
 If you would like to send additional headers as part of the request, use the `headers` request option.
 
 ```typescript
+import { IntercomClient } from "intercom-client";
+
+const client = new IntercomClient({
+    ...
+    headers: {
+        'X-Custom-Header': 'custom value'
+    }
+});
+
 const response = await client.aiContent.createContentImportSource(..., {
     headers: {
         'X-Custom-Header': 'custom value'
@@ -120,11 +159,10 @@ The SDK is instrumented with automatic retries with exponential backoff. A reque
 as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
 retry limit (default: 2).
 
-A request is deemed retryable when any of the following HTTP status codes is returned:
-
+Requests are retried on:
 - [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
 - [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
-- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (All server errors, including 500)
 
 Use the `maxRetries` request option to configure this behavior.
 
@@ -136,7 +174,7 @@ const response = await client.aiContent.createContentImportSource(..., {
 
 ### Timeouts
 
-The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
+The SDK defaults to a 20 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
 const response = await client.aiContent.createContentImportSource(..., {
@@ -231,6 +269,42 @@ const logger: logging.ILogger = {
 </details>
 
 
+### Custom Fetch
+
+The SDK provides a low-level `fetch` method for making custom HTTP requests while still
+benefiting from SDK-level configuration like authentication, retries, timeouts, and logging.
+The auth header is only sent to the client's configured environment, so set `environment` to
+call a regional host such as `https://api.eu.intercom.io`.
+This is useful for calling API endpoints not yet supported in the SDK.
+
+```typescript
+const response = await client.fetch("/v1/custom/endpoint", {
+    method: "GET",
+}, {
+    timeoutInSeconds: 30,
+    maxRetries: 3,
+    headers: {
+        "X-Custom-Header": "custom-value",
+    },
+});
+
+const data = await response.json();
+```
+
+### Custom Fetcher
+
+The SDK provides a way for you to customize the underlying HTTP client / Fetch function. If you're running in an
+unsupported environment, this provides a way for you to break glass and ensure the SDK works.
+
+```typescript
+import { IntercomClient } from "intercom-client";
+
+const client = new IntercomClient({
+    ...
+    fetcher: // provide your implementation here
+});
+```
+
 ### Runtime Compatibility
 
 
@@ -245,19 +319,6 @@ The SDK works in the following runtimes:
 - Bun 1.0+
 - React Native
 
-### Customizing Fetch Client
-
-The SDK provides a way for you to customize the underlying HTTP client / Fetch function. If you're running in an
-unsupported environment, this provides a way for you to break glass and ensure the SDK works.
-
-```typescript
-import { IntercomClient } from "intercom-client";
-
-const client = new IntercomClient({
-    ...
-    fetcher: // provide your implementation here
-});
-```
 
 ## Contributing
 

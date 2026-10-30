@@ -30,18 +30,6 @@
  * @example
  *     {
  *         ticket_id: "ticket_id",
- *         ticket_attributes: {
- *             "_default_title_": "example",
- *             "_default_description_": "there is a problem"
- *         },
- *         ticket_state_id: "123",
- *         admin_id: 991268011,
- *         assignee_id: "123"
- *     }
- *
- * @example
- *     {
- *         ticket_id: "ticket_id",
  *         ticket_state_id: "123"
  *     }
  */

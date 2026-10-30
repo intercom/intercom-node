@@ -6,9 +6,9 @@ export interface CustomChannelContact {
     /** External identifier for the contact. Intercom will take care of the mapping of your external_id with our internal ones so you don't have to worry about it. */
     external_id: string;
     /** Name of the contact. Required for user type. */
-    name?: string;
+    name?: string | undefined;
     /** Email address of the contact. Required for user type. */
-    email?: string;
+    email?: string | undefined;
 }
 
 export namespace CustomChannelContact {

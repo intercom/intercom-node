@@ -4,12 +4,12 @@
  * Contains details about name of the action that was initiated for conversation part type <code>custom_action_started</code>.
  */
 export interface CustomActionStarted {
-    action?: CustomActionStarted.Action;
+    action?: CustomActionStarted.Action | undefined;
 }
 
 export namespace CustomActionStarted {
     export interface Action {
         /** Name of the action */
-        name?: string;
+        name?: string | undefined;
     }
 }

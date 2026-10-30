@@ -5,55 +5,55 @@
  */
 export interface DataExportCsv {
     /** The user_id of the user who was sent the message. */
-    user_id?: string;
+    user_id?: string | undefined;
     /** The external_user_id of the user who was sent the message */
-    user_external_id?: string;
+    user_external_id?: string | undefined;
     /** The company ID of the user in relation to the message that was sent. Will return -1 if no company is present. */
-    company_id?: string;
+    company_id?: string | undefined;
     /** The users email who was sent the message. */
-    email?: string;
+    email?: string | undefined;
     /** The full name of the user receiving the message */
-    name?: string;
+    name?: string | undefined;
     /** The id of the message. */
-    ruleset_id?: string;
+    ruleset_id?: string | undefined;
     /** The specific content that was received. In an A/B test each version has its own Content ID. */
-    content_id?: string;
+    content_id?: string | undefined;
     /** Email, Chat, Post etc. */
-    content_type?: string;
+    content_type?: string | undefined;
     /** The title of the content you see in your Intercom workspace. */
-    content_title?: string;
+    content_title?: string | undefined;
     /** As you edit content we record new versions. This ID can help you determine which version of a piece of content that was received. */
-    ruleset_version_id?: string;
+    ruleset_version_id?: string | undefined;
     /** ID for this receipt. Will be included with any related stats in other files to identify this specific delivery of a message. */
-    receipt_id?: string;
+    receipt_id?: string | undefined;
     /** Timestamp for when the receipt was recorded. */
-    received_at?: number;
+    received_at?: number | undefined;
     /** The id of the series that this content is part of. Will return -1 if not part of a series. */
-    series_id?: string;
+    series_id?: string | undefined;
     /** The title of the series that this content is part of. */
-    series_title?: string;
+    series_title?: string | undefined;
     /** The id of the series node that this ruleset is associated with. Each block in a series has a corresponding node_id. */
-    node_id?: string;
+    node_id?: string | undefined;
     /** The first time a user replied to this message if the content was able to receive replies. */
-    first_reply?: number;
+    first_reply?: number | undefined;
     /** The first time a user completed this message if the content was able to be completed e.g. Tours, Surveys. */
-    first_completion?: number;
+    first_completion?: number | undefined;
     /** The first time the series this message was a part of was completed by the user. */
-    first_series_completion?: number;
+    first_series_completion?: number | undefined;
     /** The first time the series this message was a part of was disengaged by the user. */
-    first_series_disengagement?: number;
+    first_series_disengagement?: number | undefined;
     /** The first time the series this message was a part of was exited by the user. */
-    first_series_exit?: number;
+    first_series_exit?: number | undefined;
     /** The first time the user met this messages associated goal if one exists. */
-    first_goal_success?: number;
+    first_goal_success?: number | undefined;
     /** The first time the user opened this message. */
-    first_open?: number;
+    first_open?: number | undefined;
     /** The first time the series the user clicked on a link within this message. */
-    first_click?: number;
+    first_click?: number | undefined;
     /** The first time the series the user dismissed this message. */
-    first_dismisall?: number;
+    first_dismisall?: number | undefined;
     /** The first time the user unsubscribed from this message. */
-    first_unsubscribe?: number;
+    first_unsubscribe?: number | undefined;
     /** The first time this message hard bounced for this user */
-    first_hard_bounce?: number;
+    first_hard_bounce?: number | undefined;
 }

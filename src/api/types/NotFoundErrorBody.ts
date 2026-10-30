@@ -3,8 +3,7 @@
 export interface NotFoundErrorBody {
     /** The type is error.list */
     type: string;
-    /** */
-    request_id?: string;
+    request_id?: string | undefined;
     /** An array of one or more error objects */
     errors: NotFoundErrorBody.Errors.Item[];
 }
@@ -17,7 +16,7 @@ export namespace NotFoundErrorBody {
             /** ticket_not_found */
             code: string;
             /** Ticket not found */
-            message?: string;
+            message?: string | undefined;
         }
     }
 }

@@ -3,8 +3,8 @@
 import type * as Intercom from "../../../index.js";
 
 export interface ListCallsWithTranscriptsResponse {
-    type?: string;
-    data?: ListCallsWithTranscriptsResponse.Data.Item[];
+    type?: string | undefined;
+    data?: ListCallsWithTranscriptsResponse.Data.Item[] | undefined;
 }
 
 export namespace ListCallsWithTranscriptsResponse {
@@ -13,9 +13,9 @@ export namespace ListCallsWithTranscriptsResponse {
     export namespace Data {
         export interface Item extends Intercom.Call {
             /** The call transcript if available, otherwise an empty array. */
-            transcript?: Record<string, unknown>[];
+            transcript?: Record<string, unknown>[] | undefined;
             /** The status of the transcript if available. */
-            transcript_status?: string;
+            transcript_status?: string | undefined;
         }
     }
 }

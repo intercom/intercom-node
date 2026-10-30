@@ -11,7 +11,7 @@ export interface TeammateReference {
     /** The display name of the teammate */
     name: string;
     /** The email address of the teammate (optional for teams/bots) */
-    email?: string;
+    email?: string | undefined;
 }
 
 export namespace TeammateReference {

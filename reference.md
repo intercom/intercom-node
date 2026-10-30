@@ -943,7 +943,7 @@ await client.aiContent.deleteExternalPage({
 </details>
 
 ## Articles
-<details><summary><code>client.articles.<a href="/src/api/resources/articles/client/Client.ts">list</a>({ ...params }) -> core.Page<Intercom.ArticleListItem, Intercom.ArticleList></code></summary>
+<details><summary><code>client.articles.<a href="/src/api/resources/articles/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Intercom.ArticleListItem, Intercom.ArticleList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -982,7 +982,7 @@ for await (const item of pageableResponse) {
 // Or you can manually iterate page-by-page
 let page = await client.articles.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1994,7 +1994,7 @@ await client.helpCenters.find({
 </dl>
 </details>
 
-<details><summary><code>client.helpCenters.<a href="/src/api/resources/helpCenters/client/Client.ts">list</a>({ ...params }) -> core.Page<Intercom.HelpCenter, Intercom.HelpCenterList></code></summary>
+<details><summary><code>client.helpCenters.<a href="/src/api/resources/helpCenters/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Intercom.HelpCenter, Intercom.HelpCenterList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -2029,7 +2029,7 @@ for await (const item of pageableResponse) {
 // Or you can manually iterate page-by-page
 let page = await client.helpCenters.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -3070,7 +3070,7 @@ await client.companies.listAttachedSegments({
 </dl>
 </details>
 
-<details><summary><code>client.companies.<a href="/src/api/resources/companies/client/Client.ts">list</a>({ ...params }) -> core.Page<Intercom.Company, Intercom.CompanyList></code></summary>
+<details><summary><code>client.companies.<a href="/src/api/resources/companies/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Intercom.Company, Intercom.CompanyList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -3121,7 +3121,7 @@ let page = await client.companies.list({
     order: "desc"
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -3161,7 +3161,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.companies.<a href="/src/api/resources/companies/client/Client.ts">scroll</a>({ ...params }) -> core.Page<Intercom.Company, Intercom.CompanyScroll | undefined></code></summary>
+<details><summary><code>client.companies.<a href="/src/api/resources/companies/client/Client.ts">scroll</a>({ ...params }) -> core.Page&lt;Intercom.Company, Intercom.CompanyScroll | undefined&gt;</code></summary>
 <dl>
 <dd>
 
@@ -3214,7 +3214,7 @@ let page = await client.companies.scroll({
     scroll_param: "scroll_param"
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -3387,7 +3387,7 @@ await client.companies.detachContact({
 </details>
 
 ## Contacts
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">listAttachedCompanies</a>({ ...params }) -> core.Page<Intercom.Company, Intercom.ContactAttachedCompanies></code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">listAttachedCompanies</a>({ ...params }) -> core.Page&lt;Intercom.Company, Intercom.ContactAttachedCompanies&gt;</code></summary>
 <dl>
 <dd>
 
@@ -3430,7 +3430,7 @@ let page = await client.contacts.listAttachedCompanies({
     per_page: 1
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -4079,7 +4079,7 @@ await client.contacts.mergeLeadInUser({
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">search</a>({ ...params }) -> core.Page<Intercom.Contact, Intercom.ContactList></code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">search</a>({ ...params }) -> core.Page&lt;Intercom.Contact, Intercom.ContactList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -4236,7 +4236,7 @@ let page = await client.contacts.search({
     }
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -4276,7 +4276,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">list</a>({ ...params }) -> core.Page<Intercom.Contact, Intercom.ContactList></code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Intercom.Contact, Intercom.ContactList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -4315,7 +4315,7 @@ for await (const item of pageableResponse) {
 // Or you can manually iterate page-by-page
 let page = await client.contacts.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -4681,7 +4681,7 @@ await client.contacts.blockContact({
 </details>
 
 ## Notes
-<details><summary><code>client.notes.<a href="/src/api/resources/notes/client/Client.ts">list</a>({ ...params }) -> core.Page<Intercom.Note, Intercom.NoteList></code></summary>
+<details><summary><code>client.notes.<a href="/src/api/resources/notes/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Intercom.Note, Intercom.NoteList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -4720,7 +4720,7 @@ let page = await client.notes.list({
     contact_id: "contact_id"
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -5558,7 +5558,7 @@ await client.tags.untagTicket({
 </details>
 
 ## Conversations
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">list</a>({ ...params }) -> core.Page<Intercom.Conversation, Intercom.ConversationList></code></summary>
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Intercom.Conversation, Intercom.ConversationList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -5605,7 +5605,7 @@ let page = await client.conversations.list({
     starting_after: "starting_after"
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -5948,7 +5948,7 @@ await client.conversations.deleteConversation({
 </dl>
 </details>
 
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">search</a>({ ...params }) -> core.Page<Intercom.Conversation, Intercom.ConversationList></code></summary>
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">search</a>({ ...params }) -> core.Page&lt;Intercom.Conversation, Intercom.ConversationList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -6105,7 +6105,7 @@ let page = await client.conversations.search({
     }
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -9334,7 +9334,7 @@ await client.tickets.deleteTicket({
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">search</a>({ ...params }) -> core.Page<(Intercom.Ticket | undefined), Intercom.TicketList></code></summary>
+<details><summary><code>client.tickets.<a href="/src/api/resources/tickets/client/Client.ts">search</a>({ ...params }) -> core.Page&lt;(Intercom.Ticket | undefined), Intercom.TicketList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -9461,7 +9461,7 @@ let page = await client.tickets.search({
     }
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -9714,7 +9714,7 @@ await client.visitors.mergeToContact({
 </details>
 
 ## HelpCenters Collections
-<details><summary><code>client.helpCenters.collections.<a href="/src/api/resources/helpCenters/resources/collections/client/Client.ts">list</a>({ ...params }) -> core.Page<Intercom.Collection, Intercom.CollectionList></code></summary>
+<details><summary><code>client.helpCenters.collections.<a href="/src/api/resources/helpCenters/resources/collections/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Intercom.Collection, Intercom.CollectionList&gt;</code></summary>
 <dl>
 <dd>
 
@@ -9751,7 +9751,7 @@ for await (const item of pageableResponse) {
 // Or you can manually iterate page-by-page
 let page = await client.helpCenters.collections.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -14783,7 +14783,7 @@ await client.unstable.contacts.createContact({
 <dl>
 <dd>
 
-**request:** `Intercom.CreateContactRequestTwo` 
+**request:** `Intercom.CreateContactRequest` 
     
 </dd>
 </dl>
@@ -16523,7 +16523,7 @@ await client.unstable.conversations.replyConversation({
 <dl>
 <dd>
 
-**request:** `Intercom.unstable.ReplyConversationRequest` 
+**request:** `Intercom.unstable.ReplyConversationBody` 
     
 </dd>
 </dl>
@@ -17789,7 +17789,7 @@ await client.unstable.dataAttributes.updateDataAttribute({
 <dl>
 <dd>
 
-**request:** `Intercom.unstable.UpdateDataAttributeRequest` 
+**request:** `Intercom.unstable.UpdateDataAttributeBody` 
     
 </dd>
 </dl>
@@ -17977,7 +17977,7 @@ await client.unstable.dataEvents.createDataEvent({
 <dl>
 <dd>
 
-**request:** `Intercom.CreateDataEventRequestTwo` 
+**request:** `Intercom.CreateDataEventRequest` 
     
 </dd>
 </dl>
@@ -18707,7 +18707,7 @@ await client.unstable.messages.createMessage({
 <dl>
 <dd>
 
-**request:** `Intercom.CreateMessageRequest | undefined` 
+**request:** `Intercom.CreateMessageRequest` 
     
 </dd>
 </dl>
@@ -21205,7 +21205,7 @@ await client.unstable.visitors.updateVisitor({
 <dl>
 <dd>
 
-**request:** `Intercom.UpdateVisitorRequestOne` 
+**request:** `Intercom.UpdateVisitorRequest` 
     
 </dd>
 </dl>
@@ -21542,3 +21542,4 @@ await client.unstable.emails.retrieveEmail({
 </dd>
 </dl>
 </details>
+

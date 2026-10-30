@@ -5,9 +5,9 @@
  */
 export interface AddressableList {
     /** The addressable object type */
-    type?: string;
+    type?: string | undefined;
     /** The id of the addressable object */
-    id?: string;
+    id?: string | undefined;
     /** Url to get more company resources for this contact */
-    url?: string;
+    url?: string | undefined;
 }

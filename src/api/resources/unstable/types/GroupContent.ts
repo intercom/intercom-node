@@ -5,9 +5,9 @@
  */
 export interface GroupContent {
     /** The type of object - `group_content` . */
-    type?: "group_content";
+    type?: "group_content" | undefined;
     /** The name of the collection or section. */
-    name?: string;
+    name?: string | undefined;
     /** The description of the collection. Only available for collections. */
-    description?: string;
+    description?: string | undefined;
 }

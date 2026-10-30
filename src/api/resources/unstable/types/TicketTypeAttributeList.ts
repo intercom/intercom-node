@@ -7,7 +7,7 @@ import type * as Intercom from "../../../index.js";
  */
 export interface TicketTypeAttributeList {
     /** String representing the object's type. Always has the value `ticket_type_attributes.list`. */
-    type?: string;
+    type?: string | undefined;
     /** A list of ticket type attributes associated with a given ticket type. */
-    ticket_type_attributes?: (Intercom.unstable.TicketTypeAttribute | undefined)[];
+    ticket_type_attributes?: (Intercom.unstable.TicketTypeAttribute | undefined)[] | undefined;
 }

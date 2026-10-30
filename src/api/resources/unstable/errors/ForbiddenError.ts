@@ -5,6 +5,8 @@ import * as errors from "../../../../errors/index.js";
 import type * as Intercom from "../../../index.js";
 
 export class ForbiddenError extends errors.IntercomError {
+    public declare readonly body: Intercom.unstable.Error_;
+
     constructor(body: Intercom.unstable.Error_, rawResponse?: core.RawResponse) {
         super({
             message: "ForbiddenError",
@@ -12,6 +14,11 @@ export class ForbiddenError extends errors.IntercomError {
             body: body,
             rawResponse: rawResponse,
         });
-        Object.setPrototypeOf(this, ForbiddenError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, this.constructor);
+        }
+
+        this.name = "ForbiddenError";
     }
 }

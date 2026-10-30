@@ -7,23 +7,52 @@ export class IntercomError extends Error {
     public readonly statusCode?: number;
     public readonly body?: unknown;
     public readonly rawResponse?: core.RawResponse;
+    public readonly cause?: unknown;
 
     constructor({
         message,
         statusCode,
         body,
         rawResponse,
+        cause,
     }: {
         message?: string;
         statusCode?: number;
         body?: unknown;
         rawResponse?: core.RawResponse;
+        cause?: unknown;
     }) {
         super(buildMessage({ message, statusCode, body }));
-        Object.setPrototypeOf(this, IntercomError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, this.constructor);
+        }
+
+        this.name = "IntercomError";
         this.statusCode = statusCode;
         this.body = body;
         this.rawResponse = rawResponse;
+        if (cause != null) {
+            this.cause = cause;
+        }
+    }
+
+    public get requestId(): string | undefined {
+        const headers = this.rawResponse?.headers;
+        if (headers == null) {
+            return undefined;
+        }
+        const requestId = headers.get("X-Request-Id");
+        if (requestId != null) {
+            return requestId;
+        }
+        let fallback: string | undefined;
+        headers.forEach((value, name) => {
+            if (fallback === undefined && /request[-_]?id$/i.test(name)) {
+                fallback = value;
+            }
+        });
+        return fallback;
     }
 }
 

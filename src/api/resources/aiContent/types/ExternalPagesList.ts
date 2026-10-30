@@ -7,10 +7,10 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ExternalPagesList {
     /** The type of the object - `list`. */
-    type?: "list";
-    pages?: Intercom.PagesLink;
+    type?: "list" | undefined;
+    pages?: Intercom.PagesLink | undefined;
     /** A count of the total number of external pages. */
-    total_count?: number;
+    total_count?: number | undefined;
     /** An array of External Page objects */
-    data?: Intercom.ExternalPage[];
+    data?: Intercom.ExternalPage[] | undefined;
 }

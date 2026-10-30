@@ -7,10 +7,10 @@ import type * as Intercom from "../../../index.js";
  */
 export interface InternalArticleList {
     /** The type of the object - `list`. */
-    type?: "list";
-    pages?: Intercom.unstable.CursorPages;
+    type?: "list" | undefined;
+    pages?: Intercom.unstable.CursorPages | undefined;
     /** A count of the total number of internal articles. */
-    total_count?: number;
+    total_count?: number | undefined;
     /** An array of Internal Article objects */
-    data?: Intercom.unstable.InternalArticleListItem[];
+    data?: Intercom.unstable.InternalArticleListItem[] | undefined;
 }

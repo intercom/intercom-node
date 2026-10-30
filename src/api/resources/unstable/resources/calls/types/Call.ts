@@ -7,36 +7,36 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface Call {
     /** String representing the object's type. Always has the value `call`. */
-    type?: string;
+    type?: string | undefined;
     /** The id of the call. */
-    id?: string;
+    id?: string | undefined;
     /** The id of the conversation associated with the call, if any. */
-    conversation_id?: string;
+    conversation_id?: string | undefined;
     /** The id of the admin associated with the call, if any. */
-    admin_id?: string;
+    admin_id?: string | undefined;
     /** The id of the contact associated with the call, if any. */
-    contact_id?: string;
+    contact_id?: string | undefined;
     /** The current state of the call. */
-    state?: string;
-    initiated_at?: Intercom.unstable.Datetime;
-    answered_at?: Intercom.unstable.Datetime;
-    ended_at?: Intercom.unstable.Datetime;
-    created_at?: Intercom.unstable.Datetime;
-    updated_at?: Intercom.unstable.Datetime;
+    state?: string | undefined;
+    initiated_at?: Intercom.unstable.Datetime | undefined;
+    answered_at?: Intercom.unstable.Datetime | undefined;
+    ended_at?: Intercom.unstable.Datetime | undefined;
+    created_at?: Intercom.unstable.Datetime | undefined;
+    updated_at?: Intercom.unstable.Datetime | undefined;
     /** API URL to download or redirect to the call recording if available. */
-    recording_url?: string;
+    recording_url?: string | undefined;
     /** API URL to the call transcript if available. */
-    transcription_url?: string;
+    transcription_url?: string | undefined;
     /** The type of call. */
-    call_type?: string;
+    call_type?: string | undefined;
     /** The direction of the call. */
-    direction?: string;
+    direction?: string | undefined;
     /** The reason for the call end, if applicable. */
-    ended_reason?: string;
+    ended_reason?: string | undefined;
     /** The phone number involved in the call, in E.164 format. */
-    phone?: string;
+    phone?: string | undefined;
     /** API URL to the AI Agent (Fin) call recording if available. */
-    fin_recording_url?: string;
+    fin_recording_url?: string | undefined;
     /** API URL to the AI Agent (Fin) call transcript if available. */
-    fin_transcription_url?: string;
+    fin_transcription_url?: string | undefined;
 }

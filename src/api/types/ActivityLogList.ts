@@ -7,8 +7,8 @@ import type * as Intercom from "../index.js";
  */
 export interface ActivityLogList {
     /** String representing the object's type. Always has the value `activity_log.list`. */
-    type?: string;
-    pages?: Intercom.CursorPages;
+    type?: string | undefined;
+    pages?: Intercom.CursorPages | undefined;
     /** An array of activity logs */
-    activity_logs?: (Intercom.ActivityLog | undefined)[];
+    activity_logs?: (Intercom.ActivityLog | undefined)[] | undefined;
 }

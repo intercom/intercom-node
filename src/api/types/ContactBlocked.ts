@@ -7,5 +7,5 @@ import type * as Intercom from "../index.js";
  */
 export interface ContactBlocked extends Intercom.ContactReference {
     /** Always true. */
-    blocked?: boolean;
+    blocked?: boolean | undefined;
 }

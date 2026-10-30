@@ -5,13 +5,14 @@ import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } 
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as core from "../../../../../../core/index.js";
 import { toJson } from "../../../../../../core/json.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as Intercom from "../../../../../index.js";
 
 export declare namespace DataEventsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -46,6 +47,8 @@ export class DataEventsClient {
      * @param {DataEventsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.dataEvents.lisDataEvents({
@@ -67,13 +70,15 @@ export class DataEventsClient {
         requestOptions?: DataEventsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Intercom.unstable.DataEventSummary>> {
         const { filter, type: type_, summary } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        _queryParams.filter = typeof filter === "string" ? filter : toJson(filter);
-        _queryParams.type = type_;
-        if (summary != null) {
-            _queryParams.summary = summary.toString();
-        }
-
+        const _queryParams: Record<string, unknown> = {
+            filter: Array.isArray(filter)
+                ? filter.map((item) => (typeof item === "string" ? item : toJson(item)))
+                : typeof filter === "string"
+                  ? filter
+                  : toJson(filter),
+            type: type_,
+            summary,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -90,7 +95,11 @@ export class DataEventsClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -164,10 +173,12 @@ export class DataEventsClient {
      * - Server errors will return a `500` response code and may contain an error message in the body.
      *
      *
-     * @param {Intercom.CreateDataEventRequestTwo} request
+     * @param {Intercom.unstable.CreateDataEventRequest} request
      * @param {DataEventsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.dataEvents.createDataEvent({
@@ -175,14 +186,14 @@ export class DataEventsClient {
      *     })
      */
     public createDataEvent(
-        request?: Intercom.CreateDataEventRequestTwo,
+        request: Intercom.unstable.CreateDataEventRequest,
         requestOptions?: DataEventsClient.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__createDataEvent(request, requestOptions));
     }
 
     private async __createDataEvent(
-        request?: Intercom.CreateDataEventRequestTwo,
+        request: Intercom.unstable.CreateDataEventRequest,
         requestOptions?: DataEventsClient.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -202,9 +213,9 @@ export class DataEventsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -242,6 +253,8 @@ export class DataEventsClient {
      * @param {DataEventsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Intercom.unstable.UnauthorizedError}
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.dataEvents.dataEventSummaries()
@@ -274,9 +287,9 @@ export class DataEventsClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

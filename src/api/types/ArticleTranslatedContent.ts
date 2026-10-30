@@ -7,79 +7,79 @@ import type * as Intercom from "../index.js";
  */
 export interface ArticleTranslatedContent {
     /** The type of object - article_translated_content. */
-    type?: "article_translated_content";
+    type?: "article_translated_content" | undefined;
     /** The content of the article in Arabic */
-    ar?: Intercom.ArticleContent;
+    ar?: Intercom.ArticleContent | undefined;
     /** The content of the article in Bulgarian */
-    bg?: Intercom.ArticleContent;
+    bg?: Intercom.ArticleContent | undefined;
     /** The content of the article in Bosnian */
-    bs?: Intercom.ArticleContent;
+    bs?: Intercom.ArticleContent | undefined;
     /** The content of the article in Catalan */
-    ca?: Intercom.ArticleContent;
+    ca?: Intercom.ArticleContent | undefined;
     /** The content of the article in Czech */
-    cs?: Intercom.ArticleContent;
+    cs?: Intercom.ArticleContent | undefined;
     /** The content of the article in Danish */
-    da?: Intercom.ArticleContent;
+    da?: Intercom.ArticleContent | undefined;
     /** The content of the article in German */
-    de?: Intercom.ArticleContent;
+    de?: Intercom.ArticleContent | undefined;
     /** The content of the article in Greek */
-    el?: Intercom.ArticleContent;
+    el?: Intercom.ArticleContent | undefined;
     /** The content of the article in English */
-    en?: Intercom.ArticleContent;
+    en?: Intercom.ArticleContent | undefined;
     /** The content of the article in Spanish */
-    es?: Intercom.ArticleContent;
+    es?: Intercom.ArticleContent | undefined;
     /** The content of the article in Estonian */
-    et?: Intercom.ArticleContent;
+    et?: Intercom.ArticleContent | undefined;
     /** The content of the article in Finnish */
-    fi?: Intercom.ArticleContent;
+    fi?: Intercom.ArticleContent | undefined;
     /** The content of the article in French */
-    fr?: Intercom.ArticleContent;
+    fr?: Intercom.ArticleContent | undefined;
     /** The content of the article in Hebrew */
-    he?: Intercom.ArticleContent;
+    he?: Intercom.ArticleContent | undefined;
     /** The content of the article in Croatian */
-    hr?: Intercom.ArticleContent;
+    hr?: Intercom.ArticleContent | undefined;
     /** The content of the article in Hungarian */
-    hu?: Intercom.ArticleContent;
+    hu?: Intercom.ArticleContent | undefined;
     /** The content of the article in Indonesian */
-    id?: Intercom.ArticleContent;
+    id?: Intercom.ArticleContent | undefined;
     /** The content of the article in Italian */
-    it?: Intercom.ArticleContent;
+    it?: Intercom.ArticleContent | undefined;
     /** The content of the article in Japanese */
-    ja?: Intercom.ArticleContent;
+    ja?: Intercom.ArticleContent | undefined;
     /** The content of the article in Korean */
-    ko?: Intercom.ArticleContent;
+    ko?: Intercom.ArticleContent | undefined;
     /** The content of the article in Lithuanian */
-    lt?: Intercom.ArticleContent;
+    lt?: Intercom.ArticleContent | undefined;
     /** The content of the article in Latvian */
-    lv?: Intercom.ArticleContent;
+    lv?: Intercom.ArticleContent | undefined;
     /** The content of the article in Mongolian */
-    mn?: Intercom.ArticleContent;
+    mn?: Intercom.ArticleContent | undefined;
     /** The content of the article in Norwegian */
-    nb?: Intercom.ArticleContent;
+    nb?: Intercom.ArticleContent | undefined;
     /** The content of the article in Dutch */
-    nl?: Intercom.ArticleContent;
+    nl?: Intercom.ArticleContent | undefined;
     /** The content of the article in Polish */
-    pl?: Intercom.ArticleContent;
+    pl?: Intercom.ArticleContent | undefined;
     /** The content of the article in Portuguese (Portugal) */
-    pt?: Intercom.ArticleContent;
+    pt?: Intercom.ArticleContent | undefined;
     /** The content of the article in Romanian */
-    ro?: Intercom.ArticleContent;
+    ro?: Intercom.ArticleContent | undefined;
     /** The content of the article in Russian */
-    ru?: Intercom.ArticleContent;
+    ru?: Intercom.ArticleContent | undefined;
     /** The content of the article in Slovenian */
-    sl?: Intercom.ArticleContent;
+    sl?: Intercom.ArticleContent | undefined;
     /** The content of the article in Serbian */
-    sr?: Intercom.ArticleContent;
+    sr?: Intercom.ArticleContent | undefined;
     /** The content of the article in Swedish */
-    sv?: Intercom.ArticleContent;
+    sv?: Intercom.ArticleContent | undefined;
     /** The content of the article in Turkish */
-    tr?: Intercom.ArticleContent;
+    tr?: Intercom.ArticleContent | undefined;
     /** The content of the article in Vietnamese */
-    vi?: Intercom.ArticleContent;
+    vi?: Intercom.ArticleContent | undefined;
     /** The content of the article in Portuguese (Brazil) */
-    "pt-BR"?: Intercom.ArticleContent;
+    "pt-BR"?: Intercom.ArticleContent | undefined;
     /** The content of the article in Chinese (China) */
-    "zh-CN"?: Intercom.ArticleContent;
+    "zh-CN"?: Intercom.ArticleContent | undefined;
     /** The content of the article in Chinese (Taiwan) */
-    "zh-TW"?: Intercom.ArticleContent;
+    "zh-TW"?: Intercom.ArticleContent | undefined;
 }

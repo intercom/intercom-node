@@ -7,10 +7,10 @@ import type * as Intercom from "../../../index.js";
  */
 export interface NoteList {
     /** String representing the object's type. Always has the value `list`. */
-    type?: string;
+    type?: string | undefined;
     /** An array of notes. */
-    data?: Intercom.unstable.Note[];
+    data?: Intercom.unstable.Note[] | undefined;
     /** A count of the total number of notes. */
-    total_count?: number;
-    pages?: Intercom.unstable.CursorPages;
+    total_count?: number | undefined;
+    pages?: Intercom.unstable.CursorPages | undefined;
 }

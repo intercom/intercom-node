@@ -7,29 +7,29 @@ import type * as Intercom from "../../../index.js";
  */
 export interface AdminWithApp {
     /** String representing the object's type. Always has the value `admin`. */
-    type?: string;
+    type?: string | undefined;
     /** The id representing the admin. */
-    id?: string;
+    id?: string | undefined;
     /** The name of the admin. */
-    name?: string;
+    name?: string | undefined;
     /** The email of the admin. */
-    email?: string;
+    email?: string | undefined;
     /** The job title of the admin. */
-    job_title?: string;
+    job_title?: string | undefined;
     /** Identifies if this admin is currently set in away mode. */
-    away_mode_enabled?: boolean;
+    away_mode_enabled?: boolean | undefined;
     /** Identifies if this admin is set to automatically reassign new conversations to the apps default inbox. */
-    away_mode_reassign?: boolean;
+    away_mode_reassign?: boolean | undefined;
     /** Identifies if this admin has a paid inbox seat to restrict/allow features that require them. */
-    has_inbox_seat?: boolean;
+    has_inbox_seat?: boolean | undefined;
     /** This is a list of ids of the teams that this admin is part of. */
-    team_ids?: number[];
+    team_ids?: number[] | undefined;
     /** This object represents the avatar associated with the admin. */
-    avatar?: AdminWithApp.Avatar;
+    avatar?: AdminWithApp.Avatar | undefined;
     /** Identifies if this admin's email is verified. */
-    email_verified?: boolean;
+    email_verified?: boolean | undefined;
     /** App that the admin belongs to. */
-    app?: Intercom.unstable.App;
+    app?: Intercom.unstable.App | undefined;
 }
 
 export namespace AdminWithApp {
@@ -38,8 +38,8 @@ export namespace AdminWithApp {
      */
     export interface Avatar {
         /** This is a string that identifies the type of the object. It will always have the value `avatar`. */
-        type?: string;
+        type?: string | undefined;
         /** This object represents the avatar associated with the admin. */
-        image_url?: string;
+        image_url?: string | undefined;
     }
 }

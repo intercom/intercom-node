@@ -7,10 +7,10 @@ import type * as Intercom from "../../../index.js";
  */
 export interface CallList {
     /** String representing the object's type. Always has the value `list`. */
-    type?: string;
+    type?: string | undefined;
     /** A list of calls. */
-    data?: Intercom.unstable.Call[];
+    data?: Intercom.unstable.Call[] | undefined;
     /** Total number of items available. */
-    total_count?: number;
-    pages?: Intercom.unstable.CursorPages;
+    total_count?: number | undefined;
+    pages?: Intercom.unstable.CursorPages | undefined;
 }

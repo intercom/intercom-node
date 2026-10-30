@@ -7,10 +7,10 @@ import type * as Intercom from "../index.js";
  */
 export interface CompanyList {
     /** The type of object - `list`. */
-    type?: "list";
-    pages?: Intercom.OffsetPages;
+    type?: "list" | undefined;
+    pages?: Intercom.OffsetPages | undefined;
     /** The total number of companies. */
-    total_count?: number;
+    total_count?: number | undefined;
     /** An array containing Company Objects. */
-    data?: Intercom.Company[];
+    data?: Intercom.Company[] | undefined;
 }

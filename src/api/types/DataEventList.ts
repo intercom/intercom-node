@@ -7,11 +7,11 @@ import type * as Intercom from "../index.js";
  */
 export interface DataEventList {
     /** The type of the object */
-    type?: "event.list";
+    type?: "event.list" | undefined;
     /** A list of data events */
-    events?: Intercom.DataEvent[];
+    events?: Intercom.DataEvent[] | undefined;
     /** Pagination */
-    pages?: DataEventList.Pages;
+    pages?: DataEventList.Pages | undefined;
 }
 
 export namespace DataEventList {
@@ -19,7 +19,7 @@ export namespace DataEventList {
      * Pagination
      */
     export interface Pages {
-        next?: string;
-        since?: string;
+        next?: string | undefined;
+        since?: string | undefined;
     }
 }

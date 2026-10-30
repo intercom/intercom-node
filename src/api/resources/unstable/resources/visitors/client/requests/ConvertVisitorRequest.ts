@@ -15,6 +15,19 @@
 export interface ConvertVisitorRequest {
     /** Represents the role of the Contact model. Accepts `lead` or `user`. */
     type: string;
-    user?: unknown;
-    visitor?: unknown;
+    /** The unique identifiers retained after converting or merging. */
+    user: ConvertVisitorRequest.User;
+    /** The unique identifiers to convert a single Visitor. */
+    visitor: ConvertVisitorRequest.Visitor;
+}
+
+export namespace ConvertVisitorRequest {
+    /**
+     * The unique identifiers retained after converting or merging.
+     */
+    export type User = unknown;
+    /**
+     * The unique identifiers to convert a single Visitor.
+     */
+    export type Visitor = unknown;
 }

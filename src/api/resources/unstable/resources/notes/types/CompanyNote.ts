@@ -7,17 +7,17 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface CompanyNote {
     /** String representing the object's type. Always has the value `note`. */
-    type?: string;
+    type?: string | undefined;
     /** The id of the note. */
-    id?: string;
+    id?: string | undefined;
     /** The time the note was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** Represents the company that the note was created about. */
-    company?: CompanyNote.Company;
+    company?: CompanyNote.Company | undefined;
     /** Optional. Represents the Admin that created the note. */
-    author?: Intercom.unstable.Admin;
+    author?: Intercom.unstable.Admin | undefined;
     /** The body text of the note. */
-    body?: string;
+    body?: string | undefined;
 }
 
 export namespace CompanyNote {
@@ -26,8 +26,8 @@ export namespace CompanyNote {
      */
     export interface Company {
         /** String representing the object's type. Always has the value `company`. */
-        type?: string;
+        type?: string | undefined;
         /** The id of the company. */
-        id?: string;
+        id?: string | undefined;
     }
 }

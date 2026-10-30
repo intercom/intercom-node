@@ -7,12 +7,12 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface Team {
     /** Value is always "team" */
-    type?: string;
+    type?: string | undefined;
     /** The id of the team */
-    id?: string;
+    id?: string | undefined;
     /** The name of the team */
-    name?: string;
+    name?: string | undefined;
     /** The list of admin IDs that are a part of the team. */
-    admin_ids?: number[];
-    admin_priority_level?: Intercom.unstable.AdminPriorityLevel;
+    admin_ids?: number[] | undefined;
+    admin_priority_level?: Intercom.unstable.AdminPriorityLevel | undefined;
 }

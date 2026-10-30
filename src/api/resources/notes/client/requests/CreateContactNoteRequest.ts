@@ -7,20 +7,6 @@
  *         body: "Hello",
  *         admin_id: "123"
  *     }
- *
- * @example
- *     {
- *         contact_id: "123",
- *         body: "Hello",
- *         admin_id: "123"
- *     }
- *
- * @example
- *     {
- *         contact_id: "123",
- *         body: "Hello",
- *         admin_id: "123"
- *     }
  */
 export interface CreateContactNoteRequest {
     /** The unique identifier of a given contact. */

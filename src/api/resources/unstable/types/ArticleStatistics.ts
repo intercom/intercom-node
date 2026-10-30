@@ -5,17 +5,17 @@
  */
 export interface ArticleStatistics {
     /** The type of object - `article_statistics`. */
-    type?: "article_statistics";
+    type?: "article_statistics" | undefined;
     /** The number of total views the article has received. */
-    views?: number;
+    views?: number | undefined;
     /** The number of conversations started from the article. */
-    conversions?: number;
+    conversions?: number | undefined;
     /** The number of total reactions the article has received. */
-    reactions?: number;
+    reactions?: number | undefined;
     /** The percentage of happy reactions the article has received against other types of reaction. */
-    happy_reaction_percentage?: number;
+    happy_reaction_percentage?: number | undefined;
     /** The percentage of neutral reactions the article has received against other types of reaction. */
-    neutral_reaction_percentage?: number;
+    neutral_reaction_percentage?: number | undefined;
     /** The percentage of sad reactions the article has received against other types of reaction. */
-    sad_reaction_percentage?: number;
+    sad_reaction_percentage?: number | undefined;
 }

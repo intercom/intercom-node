@@ -5,7 +5,7 @@
  */
 export interface TeamPriorityLevel {
     /** The primary team ids for the team */
-    primary_team_ids?: number[];
+    primary_team_ids?: number[] | undefined;
     /** The secondary team ids for the team */
-    secondary_team_ids?: number[];
+    secondary_team_ids?: number[] | undefined;
 }

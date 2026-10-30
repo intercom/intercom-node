@@ -4,13 +4,14 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as core from "../../../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import type * as Intercom from "../../../../../index.js";
 
 export declare namespace DataExportClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -44,6 +45,9 @@ export class DataExportClient {
      *
      * @param {Intercom.unstable.CreateDataExportsRequest} request
      * @param {DataExportClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
      *
      * @example
      *     await client.unstable.dataExport.createDataExport({
@@ -79,9 +83,9 @@ export class DataExportClient {
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -113,6 +117,9 @@ export class DataExportClient {
      * @param {Intercom.unstable.GetDataExportRequest} request
      * @param {DataExportClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
+     *
      * @example
      *     await client.unstable.dataExport.getDataExport({
      *         job_identifier: "job_identifier"
@@ -142,11 +149,11 @@ export class DataExportClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `export/content/data/${core.url.encodePathParam(jobIdentifier)}`,
+                `export/content/data/${core.url.encodePathParam(jobIdentifier, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -179,6 +186,9 @@ export class DataExportClient {
      * @param {Intercom.unstable.CancelDataExportRequest} request
      * @param {DataExportClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
+     *
      * @example
      *     await client.unstable.dataExport.cancelDataExport({
      *         job_identifier: "job_identifier"
@@ -208,11 +218,11 @@ export class DataExportClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `export/cancel/${core.url.encodePathParam(jobIdentifier)}`,
+                `export/cancel/${core.url.encodePathParam(jobIdentifier, errors.IntercomError)}`,
             ),
             method: "POST",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -251,6 +261,9 @@ export class DataExportClient {
      * @param {Intercom.unstable.DownloadDataExportRequest} request
      * @param {DataExportClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.IntercomError}
+     * @throws {@link errors.IntercomTimeoutError}
+     *
      * @example
      *     await client.unstable.dataExport.downloadDataExport({
      *         job_identifier: "job_identifier"
@@ -280,11 +293,11 @@ export class DataExportClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.IntercomEnvironment.UsProduction,
-                `download/content/data/${core.url.encodePathParam(jobIdentifier)}`,
+                `download/content/data/${core.url.encodePathParam(jobIdentifier, errors.IntercomError)}`,
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 20) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

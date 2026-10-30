@@ -7,13 +7,13 @@ import type * as Intercom from "../index.js";
  */
 export interface DataEventSummary {
     /** The type of the object */
-    type?: "event.summary";
+    type?: "event.summary" | undefined;
     /** The email address of the user */
-    email?: string;
+    email?: string | undefined;
     /** The Intercom user ID of the user */
-    intercom_user_id?: string;
+    intercom_user_id?: string | undefined;
     /** The user ID of the user */
-    user_id?: string;
+    user_id?: string | undefined;
     /** A summary of data events */
     events: (Intercom.DataEventSummaryItem | undefined)[];
 }

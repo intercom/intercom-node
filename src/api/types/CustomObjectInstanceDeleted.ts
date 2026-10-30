@@ -5,9 +5,9 @@
  */
 export interface CustomObjectInstanceDeleted {
     /** The unique identifier of the Custom Object type that defines the structure of the Custom Object instance. */
-    object?: string;
+    object?: string | undefined;
     /** The Intercom defined id representing the Custom Object instance. */
-    id?: string;
+    id?: string | undefined;
     /** Whether the Custom Object instance is deleted or not. */
-    deleted?: boolean;
+    deleted?: boolean | undefined;
 }

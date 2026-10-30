@@ -3,9 +3,9 @@
 import type * as Intercom from "../../../index.js";
 
 export interface ContentSourcesList {
-    type?: "content_source.list";
+    type?: "content_source.list" | undefined;
     /** The total number of content sources used by AI Agent in the conversation. */
-    total_count?: number;
+    total_count?: number | undefined;
     /** The content sources used by AI Agent in the conversation. */
-    content_sources?: Intercom.unstable.ContentSource[];
+    content_sources?: Intercom.unstable.ContentSource[] | undefined;
 }

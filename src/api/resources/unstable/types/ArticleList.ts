@@ -7,10 +7,10 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ArticleList {
     /** The type of the object - `list`. */
-    type?: "list";
-    pages?: Intercom.unstable.CursorPages;
+    type?: "list" | undefined;
+    pages?: Intercom.unstable.CursorPages | undefined;
     /** A count of the total number of articles. */
-    total_count?: number;
+    total_count?: number | undefined;
     /** An array of Article objects */
-    data?: Intercom.unstable.ArticleListItem[];
+    data?: Intercom.unstable.ArticleListItem[] | undefined;
 }

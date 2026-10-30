@@ -6,7 +6,7 @@ import { FeedsClient } from "../resources/feeds/client/Client.js";
 import { ItemsClient } from "../resources/items/client/Client.js";
 
 export declare namespace NewsClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 }
 
 export class NewsClient {

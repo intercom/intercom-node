@@ -38,7 +38,7 @@ import { VisitorsClient } from "../resources/visitors/client/Client.js";
 import { WorkflowsClient } from "../resources/workflows/client/Client.js";
 
 export declare namespace UnstableClient {
-    export interface Options extends BaseClientOptions {}
+    export type Options = BaseClientOptions;
 }
 
 export class UnstableClient {

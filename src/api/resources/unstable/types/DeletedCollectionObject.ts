@@ -5,9 +5,9 @@
  */
 export interface DeletedCollectionObject {
     /** The unique identifier for the collection which you provided in the URL. */
-    id?: string;
+    id?: string | undefined;
     /** The type of object which was deleted. - `collection` */
-    object?: "collection";
+    object?: "collection" | undefined;
     /** Whether the collection was deleted successfully or not. */
-    deleted?: boolean;
+    deleted?: boolean | undefined;
 }

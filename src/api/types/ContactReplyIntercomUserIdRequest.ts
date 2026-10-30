@@ -9,5 +9,5 @@ export interface ContactReplyIntercomUserIdRequest extends Intercom.ContactReply
     /** The identifier for the contact as given by Intercom. */
     intercom_user_id: string;
     /** A list of files that will be added as attachments. */
-    attachment_files?: Intercom.ConversationAttachmentFiles[];
+    attachment_files?: Intercom.ConversationAttachmentFiles[] | undefined;
 }

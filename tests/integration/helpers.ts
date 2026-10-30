@@ -1,4 +1,4 @@
-import { Intercom, IntercomClient } from "../../src";
+import type { Intercom, IntercomClient } from "../../src";
 import { dateToUnixTimestamp } from "./utils/date";
 import { randomString } from "./utils/random";
 
@@ -66,7 +66,7 @@ export async function tryUntagConversation(
     client: IntercomClient,
     conversationId: string,
     tagId: string,
-    adminId: string
+    adminId: string,
 ) {
     try {
         await client.tags.untagConversation({ conversation_id: conversationId, tag_id: tagId, admin_id: adminId });

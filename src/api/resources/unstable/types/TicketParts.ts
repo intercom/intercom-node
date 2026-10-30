@@ -6,10 +6,8 @@ import type * as Intercom from "../../../index.js";
  * A list of Ticket Part objects for each note and event in the ticket. There is a limit of 500 parts.
  */
 export interface TicketParts {
-    /** */
-    type?: "ticket_part.list";
+    type?: "ticket_part.list" | undefined;
     /** A list of Ticket Part objects for each ticket. There is a limit of 500 parts. */
-    ticket_parts?: Intercom.unstable.TicketPart[];
-    /** */
-    total_count?: number;
+    ticket_parts?: Intercom.unstable.TicketPart[] | undefined;
+    total_count?: number | undefined;
 }

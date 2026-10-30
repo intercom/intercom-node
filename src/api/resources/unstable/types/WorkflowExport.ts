@@ -5,13 +5,13 @@
  */
 export interface WorkflowExport {
     /** The version of the export format. */
-    export_version?: string;
+    export_version?: string | undefined;
     /** The timestamp when the export was generated. */
-    exported_at?: string;
+    exported_at?: string | undefined;
     /** The workspace identifier. */
-    app_id?: number;
+    app_id?: number | undefined;
     /** The workflow configuration. */
-    workflow?: WorkflowExport.Workflow;
+    workflow?: WorkflowExport.Workflow | undefined;
 }
 
 export namespace WorkflowExport {
@@ -20,31 +20,31 @@ export namespace WorkflowExport {
      */
     export interface Workflow {
         /** The unique identifier for the workflow. */
-        id?: string;
+        id?: string | undefined;
         /** The title of the workflow. */
-        title?: string;
+        title?: string | undefined;
         /** The description of the workflow. */
-        description?: string;
+        description?: string | undefined;
         /** The type of trigger that starts this workflow. */
-        trigger_type?: string;
+        trigger_type?: string | undefined;
         /** The current state of the workflow. */
-        state?: Workflow.State;
+        state?: Workflow.State | undefined;
         /** The channels this workflow targets. */
-        target_channels?: string[];
+        target_channels?: string[] | undefined;
         /** The preferred devices for this workflow. */
-        preferred_devices?: string[];
+        preferred_devices?: string[] | undefined;
         /** When the workflow was created. */
-        created_at?: string;
+        created_at?: string | undefined;
         /** When the workflow was last updated. */
-        updated_at?: string;
+        updated_at?: string | undefined;
         /** The targeting rules for this workflow. */
-        targeting?: Record<string, unknown>;
+        targeting?: Record<string, unknown> | undefined;
         /** The current snapshot of workflow steps and configuration. */
-        snapshot?: Record<string, unknown>;
+        snapshot?: Record<string, unknown> | undefined;
         /** Custom attributes defined for this workflow. */
-        attributes?: Record<string, unknown>[];
+        attributes?: Record<string, unknown>[] | undefined;
         /** Rules embedded within the workflow steps. */
-        embedded_rules?: Record<string, unknown>[];
+        embedded_rules?: Record<string, unknown>[] | undefined;
     }
 
     export namespace Workflow {

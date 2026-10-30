@@ -7,12 +7,12 @@ import type * as Intercom from "../../../index.js";
  */
 export interface PaginatedResponse {
     /** The type of object */
-    type?: PaginatedResponse.Type;
-    pages?: Intercom.unstable.CursorPages;
+    type?: PaginatedResponse.Type | undefined;
+    pages?: Intercom.unstable.CursorPages | undefined;
     /** A count of the total number of objects. */
-    total_count?: number;
+    total_count?: number | undefined;
     /** An array of Objects */
-    data?: Intercom.unstable.PaginatedResponseDataItem[];
+    data?: Intercom.unstable.PaginatedResponseDataItem[] | undefined;
 }
 
 export namespace PaginatedResponse {

@@ -7,9 +7,9 @@ export interface DataAttribute {
     /** Value is `data_attribute`. */
     type: "data_attribute";
     /** The unique identifier for the data attribute which is given by Intercom. Only available for custom attributes. */
-    id?: number;
+    id?: number | undefined;
     /** Value is `contact` for user/lead attributes and `company` for company attributes. */
-    model?: DataAttribute.Model;
+    model?: DataAttribute.Model | undefined;
     /** Name of the attribute. */
     name: string;
     /** Full name of the attribute. Should match the name unless it's a nested attribute. We can split full_name on `.` to access nested user object values. */
@@ -17,27 +17,27 @@ export interface DataAttribute {
     /** Readable name of the attribute (i.e. name you see in the UI) */
     label: string;
     /** Readable description of the attribute. */
-    description?: string;
+    description?: string | undefined;
     /** The data type of the attribute. */
     data_type: DataAttribute.DataType;
     /** List of predefined options for attribute value. */
-    options?: string[];
+    options?: string[] | undefined;
     /** Can this attribute be updated through API */
-    api_writable?: boolean;
+    api_writable?: boolean | undefined;
     /** Can this attribute be updated by the Messenger */
-    messenger_writable?: boolean;
+    messenger_writable?: boolean | undefined;
     /** Can this attribute be updated in the UI */
-    ui_writable?: boolean;
+    ui_writable?: boolean | undefined;
     /** Set to true if this is a CDA */
-    custom?: boolean;
+    custom?: boolean | undefined;
     /** Is this attribute archived. (Only applicable to CDAs) */
-    archived?: boolean;
+    archived?: boolean | undefined;
     /** The time the attribute was created as a UTC Unix timestamp */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time the attribute was last updated as a UTC Unix timestamp */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** Teammate who created the attribute. Only applicable to CDAs */
-    admin_id?: string;
+    admin_id?: string | undefined;
 }
 
 export namespace DataAttribute {

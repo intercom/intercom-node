@@ -7,7 +7,7 @@ import type * as Intercom from "../index.js";
  */
 export interface TicketStateList {
     /** String representing the object's type. Always has the value `list`. */
-    type?: string;
+    type?: string | undefined;
     /** A list of ticket states associated with a given ticket type. */
-    data?: (Intercom.TicketStateDetailed | undefined)[];
+    data?: (Intercom.TicketStateDetailed | undefined)[] | undefined;
 }

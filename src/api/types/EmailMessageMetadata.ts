@@ -7,7 +7,7 @@ import type * as Intercom from "../index.js";
  */
 export interface EmailMessageMetadata {
     /** The subject of the email */
-    subject?: string;
+    subject?: string | undefined;
     /** A list of an email address headers. */
-    email_address_headers?: Intercom.EmailAddressHeader[];
+    email_address_headers?: Intercom.EmailAddressHeader[] | undefined;
 }

@@ -7,12 +7,12 @@ import type * as Intercom from "../../../index.js";
  */
 export interface ArticleSearchResponse {
     /** The type of the object - `list`. */
-    type?: "list";
+    type?: "list" | undefined;
     /** The total number of Articles matching the search query */
-    total_count?: number;
+    total_count?: number | undefined;
     /** An object containing the results of the search. */
-    data?: ArticleSearchResponse.Data;
-    pages?: Intercom.CursorPages;
+    data?: ArticleSearchResponse.Data | undefined;
+    pages?: Intercom.CursorPages | undefined;
 }
 
 export namespace ArticleSearchResponse {
@@ -21,8 +21,8 @@ export namespace ArticleSearchResponse {
      */
     export interface Data {
         /** An array of Article objects */
-        articles?: Intercom.Article[];
+        articles?: Intercom.Article[] | undefined;
         /** A corresponding array of highlighted Article content */
-        highlights?: Intercom.ArticleSearchHighlights[];
+        highlights?: Intercom.ArticleSearchHighlights[] | undefined;
     }
 }

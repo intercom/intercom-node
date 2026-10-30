@@ -1,7 +1,7 @@
 {
-    "cliVersion": "3.0.2",
+    "cliVersion": "5.65.3",
     "generatorName": "fernapi/fern-typescript-sdk",
-    "generatorVersion": "3.35.8",
+    "generatorVersion": "3.107.1",
     "generatorConfig": {
         "namespaceExport": "Intercom",
         "allowCustomFetcher": true,

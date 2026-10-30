@@ -9,5 +9,5 @@ export interface ContactReplyUserIdRequest extends Intercom.ContactReplyBaseRequ
     /** The external_id you have defined for the contact. */
     user_id: string;
     /** A list of files that will be added as attachments. You can include up to 10 files. */
-    attachment_files?: Intercom.ConversationAttachmentFiles[];
+    attachment_files?: Intercom.ConversationAttachmentFiles[] | undefined;
 }

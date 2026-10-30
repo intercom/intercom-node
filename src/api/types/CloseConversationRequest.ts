@@ -8,5 +8,5 @@ export interface CloseConversationRequest {
     /** The id of the admin who is performing the action. */
     admin_id: string;
     /** Optionally you can leave a message in the conversation to provide additional context to the user and other teammates. */
-    body?: string;
+    body?: string | undefined;
 }

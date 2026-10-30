@@ -5,41 +5,41 @@
  */
 export interface ActivityLogMetadata {
     /** The way the admin signed in. */
-    sign_in_method?: string;
+    sign_in_method?: string | undefined;
     /** The unique identifier for the contact which is provided by the Client. */
-    external_id?: string;
+    external_id?: string | undefined;
     /** The away mode status which is set to true when away and false when returned. */
-    away_mode?: boolean;
+    away_mode?: boolean | undefined;
     /** The reason the Admin is away. */
-    away_status_reason?: string;
+    away_status_reason?: string | undefined;
     /** Indicates if conversations should be reassigned while an Admin is away. */
-    reassign_conversations?: boolean;
+    reassign_conversations?: boolean | undefined;
     /** The action that initiated the status change. */
-    source?: string;
+    source?: string | undefined;
     /** Indicates if the status was changed automatically or manually. */
-    auto_changed?: string;
+    auto_changed?: string | undefined;
     /** The ID of the Admin who initiated the activity. */
-    update_by?: number;
+    update_by?: number | undefined;
     /** The name of the Admin who initiated the activity. */
-    update_by_name?: string;
+    update_by_name?: string | undefined;
     /** The conversation assignment limit value for an admin. */
-    conversation_assignment_limit?: number;
+    conversation_assignment_limit?: number | undefined;
     /** The ticket assignment limit value for an admin. */
-    ticket_assignment_limit?: number;
+    ticket_assignment_limit?: number | undefined;
     /** Details about the team whose assignment limit was changed. */
-    team?: ActivityLogMetadata.Team;
+    team?: ActivityLogMetadata.Team | undefined;
     /** The team assignment limit value (null if limit was removed). */
-    team_assignment_limit?: number;
+    team_assignment_limit?: number | undefined;
     /** Indicates if the setting is enabled or disabled. */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /** The ID of the impersonation consent. */
-    consent_id?: number;
+    consent_id?: number | undefined;
     /** The timestamp when the impersonation consent expires. */
-    expired_at?: string;
+    expired_at?: string | undefined;
     /** The state of settings or values before the change. Structure varies by activity type. */
-    before?: Record<string, unknown>;
+    before?: Record<string, unknown> | undefined;
     /** The state of settings or values after the change. Structure varies by activity type. */
-    after?: Record<string, unknown>;
+    after?: Record<string, unknown> | undefined;
 }
 
 export namespace ActivityLogMetadata {
@@ -48,8 +48,8 @@ export namespace ActivityLogMetadata {
      */
     export interface Team {
         /** The ID of the team. */
-        id?: number;
+        id?: number | undefined;
         /** The name of the team. */
-        name?: string;
+        name?: string | undefined;
     }
 }

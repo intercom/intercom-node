@@ -7,5 +7,5 @@ import type * as Intercom from "../index.js";
  */
 export interface ContactUnarchived extends Intercom.ContactReference {
     /** Whether the contact is archived or not. */
-    archived?: boolean;
+    archived?: boolean | undefined;
 }

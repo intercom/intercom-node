@@ -31,18 +31,6 @@ import type * as Intercom from "../../../../index.js";
  *     {
  *         data_attribute_id: 1,
  *         body: {
- *             options: [{
- *                     value: "1-10"
- *                 }, {
- *                     value: "11-20"
- *                 }]
- *         }
- *     }
- *
- * @example
- *     {
- *         data_attribute_id: 1,
- *         body: {
  *             "description": "Trying to archieve",
  *             "archived": true
  *         }

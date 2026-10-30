@@ -6,5 +6,5 @@ import type * as Intercom from "../../../../../index.js";
  * The Articles API is a central place to gather all information and take actions on your articles. Articles can live within collections and sections, or alternatively they can stand alone.
  */
 export interface Article extends Intercom.unstable.ArticleListItem {
-    statistics?: Intercom.unstable.ArticleStatistics;
+    statistics?: Intercom.unstable.ArticleStatistics | undefined;
 }

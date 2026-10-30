@@ -7,5 +7,5 @@ import type * as Intercom from "../../../index.js";
  */
 export interface HandlingEventList {
     /** Array of handling events */
-    handling_events?: Intercom.unstable.HandlingEvent[];
+    handling_events?: Intercom.unstable.HandlingEvent[] | undefined;
 }

@@ -7,7 +7,7 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface TicketContacts {
     /** always contact.list */
-    type?: "contact.list";
+    type?: "contact.list" | undefined;
     /** The list of contacts affected by this ticket. */
-    contacts?: Intercom.unstable.ContactReference[];
+    contacts?: Intercom.unstable.ContactReference[] | undefined;
 }

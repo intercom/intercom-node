@@ -7,79 +7,79 @@ import type * as Intercom from "../../../index.js";
  */
 export interface GroupTranslatedContent {
     /** The type of object - group_translated_content. */
-    type?: "group_translated_content";
+    type?: "group_translated_content" | undefined;
     /** The content of the group in Arabic */
-    ar?: Intercom.unstable.GroupContent;
+    ar?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Bulgarian */
-    bg?: Intercom.unstable.GroupContent;
+    bg?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Bosnian */
-    bs?: Intercom.unstable.GroupContent;
+    bs?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Catalan */
-    ca?: Intercom.unstable.GroupContent;
+    ca?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Czech */
-    cs?: Intercom.unstable.GroupContent;
+    cs?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Danish */
-    da?: Intercom.unstable.GroupContent;
+    da?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in German */
-    de?: Intercom.unstable.GroupContent;
+    de?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Greek */
-    el?: Intercom.unstable.GroupContent;
+    el?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in English */
-    en?: Intercom.unstable.GroupContent;
+    en?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Spanish */
-    es?: Intercom.unstable.GroupContent;
+    es?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Estonian */
-    et?: Intercom.unstable.GroupContent;
+    et?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Finnish */
-    fi?: Intercom.unstable.GroupContent;
+    fi?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in French */
-    fr?: Intercom.unstable.GroupContent;
+    fr?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Hebrew */
-    he?: Intercom.unstable.GroupContent;
+    he?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Croatian */
-    hr?: Intercom.unstable.GroupContent;
+    hr?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Hungarian */
-    hu?: Intercom.unstable.GroupContent;
+    hu?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Indonesian */
-    id?: Intercom.unstable.GroupContent;
+    id?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Italian */
-    it?: Intercom.unstable.GroupContent;
+    it?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Japanese */
-    ja?: Intercom.unstable.GroupContent;
+    ja?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Korean */
-    ko?: Intercom.unstable.GroupContent;
+    ko?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Lithuanian */
-    lt?: Intercom.unstable.GroupContent;
+    lt?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Latvian */
-    lv?: Intercom.unstable.GroupContent;
+    lv?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Mongolian */
-    mn?: Intercom.unstable.GroupContent;
+    mn?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Norwegian */
-    nb?: Intercom.unstable.GroupContent;
+    nb?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Dutch */
-    nl?: Intercom.unstable.GroupContent;
+    nl?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Polish */
-    pl?: Intercom.unstable.GroupContent;
+    pl?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Portuguese (Portugal) */
-    pt?: Intercom.unstable.GroupContent;
+    pt?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Romanian */
-    ro?: Intercom.unstable.GroupContent;
+    ro?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Russian */
-    ru?: Intercom.unstable.GroupContent;
+    ru?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Slovenian */
-    sl?: Intercom.unstable.GroupContent;
+    sl?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Serbian */
-    sr?: Intercom.unstable.GroupContent;
+    sr?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Swedish */
-    sv?: Intercom.unstable.GroupContent;
+    sv?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Turkish */
-    tr?: Intercom.unstable.GroupContent;
+    tr?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Vietnamese */
-    vi?: Intercom.unstable.GroupContent;
+    vi?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Portuguese (Brazil) */
-    "pt-BR"?: Intercom.unstable.GroupContent;
+    "pt-BR"?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Chinese (China) */
-    "zh-CN"?: Intercom.unstable.GroupContent;
+    "zh-CN"?: Intercom.unstable.GroupContent | undefined;
     /** The content of the group in Chinese (Taiwan) */
-    "zh-TW"?: Intercom.unstable.GroupContent;
+    "zh-TW"?: Intercom.unstable.GroupContent | undefined;
 }

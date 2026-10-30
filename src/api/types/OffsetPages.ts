@@ -4,10 +4,10 @@ export interface OffsetPages {
     /** the type of object `offset_pages` */
     type: "offset_pages";
     /** The current offset */
-    page?: number;
-    next?: string;
+    page?: number | undefined;
+    next?: string | undefined;
     /** Number of results per page */
-    per_page?: number;
+    per_page?: number | undefined;
     /** Total number of pages */
-    total_pages?: number;
+    total_pages?: number | undefined;
 }

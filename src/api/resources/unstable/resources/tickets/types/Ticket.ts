@@ -7,33 +7,33 @@ import type * as Intercom from "../../../../../index.js";
  */
 export interface Ticket {
     /** Always ticket */
-    type?: "ticket";
+    type?: "ticket" | undefined;
     /** The unique identifier for the ticket which is given by Intercom. */
-    id?: string;
+    id?: string | undefined;
     /** The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries. */
-    ticket_id?: string;
+    ticket_id?: string | undefined;
     /** Category of the Ticket. */
-    category?: Ticket.Category;
-    ticket_attributes?: Intercom.unstable.TicketCustomAttributes;
-    ticket_state?: Intercom.unstable.TicketState;
-    ticket_type?: Intercom.unstable.TicketType;
-    contacts?: Intercom.unstable.TicketContacts;
+    category?: Ticket.Category | undefined;
+    ticket_attributes?: Intercom.unstable.TicketCustomAttributes | undefined;
+    ticket_state?: Intercom.unstable.TicketState | undefined;
+    ticket_type?: Intercom.unstable.TicketType | undefined;
+    contacts?: Intercom.unstable.TicketContacts | undefined;
     /** The id representing the admin assigned to the ticket. */
-    admin_assignee_id?: string;
+    admin_assignee_id?: string | undefined;
     /** The id representing the team assigned to the ticket. */
-    team_assignee_id?: string;
+    team_assignee_id?: string | undefined;
     /** The time the ticket was created as a UTC Unix timestamp. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The last time the ticket was updated as a UTC Unix timestamp. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** Whether or not the ticket is open. If false, the ticket is closed. */
-    open?: boolean;
+    open?: boolean | undefined;
     /** The time the ticket will be snoozed until as a UTC Unix timestamp. If null, the ticket is not currently snoozed. */
-    snoozed_until?: number;
-    linked_objects?: Intercom.unstable.LinkedObjectList;
-    ticket_parts?: Intercom.unstable.TicketParts;
+    snoozed_until?: number | undefined;
+    linked_objects?: Intercom.unstable.LinkedObjectList | undefined;
+    ticket_parts?: Intercom.unstable.TicketParts | undefined;
     /** Whether or not the ticket is shared with the customer. */
-    is_shared?: boolean;
+    is_shared?: boolean | undefined;
 }
 
 export namespace Ticket {

@@ -1,18 +1,17 @@
-import { Intercom } from "../../src";
+import type { Intercom } from "../../src";
 import {
-    tryDeleteTag,
+    createCompany,
     createContact,
-    tryDeleteContact,
     createConversation,
     tryDeleteCompany,
-    createCompany,
+    tryDeleteContact,
+    tryDeleteTag,
+    tryUntagCompany,
     tryUntagContact,
     tryUntagConversation,
-    tryUntagCompany,
 } from "./helpers";
 import { createClient } from "./utils/createClient";
 import { randomString } from "./utils/random";
-import { wait } from "./utils/wait";
 
 describe("Tags", () => {
     let adminId: string;

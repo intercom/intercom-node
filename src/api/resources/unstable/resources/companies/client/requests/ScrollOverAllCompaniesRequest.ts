@@ -7,6 +7,5 @@
  *     }
  */
 export interface ScrollOverAllCompaniesRequest {
-    /** */
     scroll_param?: string;
 }

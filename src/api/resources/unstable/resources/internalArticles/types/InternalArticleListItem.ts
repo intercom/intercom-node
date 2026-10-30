@@ -5,21 +5,21 @@
  */
 export interface InternalArticleListItem {
     /** The type of object - `internal_article`. */
-    type?: "internal_article";
+    type?: "internal_article" | undefined;
     /** The unique identifier for the article which is given by Intercom. */
-    id?: string;
+    id?: string | undefined;
     /** The title of the article. */
-    title?: string;
+    title?: string | undefined;
     /** The body of the article in HTML. */
-    body?: string;
+    body?: string | undefined;
     /** The id of the owner of the article. */
-    owner_id?: number;
+    owner_id?: number | undefined;
     /** The id of the author of the article. */
-    author_id?: number;
+    author_id?: number | undefined;
     /** The time when the article was created. */
-    created_at?: number;
+    created_at?: number | undefined;
     /** The time when the article was last updated. */
-    updated_at?: number;
+    updated_at?: number | undefined;
     /** The default locale of the article. */
-    locale?: string;
+    locale?: string | undefined;
 }

@@ -1,8 +1,8 @@
-import { Intercom } from "../../src";
-import { dateToUnixTimestamp } from "./utils/date";
-import { randomString } from "./utils/random";
+import type { Intercom } from "../../src";
 import { createContact, tryDeleteCompany, tryDeleteContact, tryUntagContact } from "./helpers";
 import { createClient } from "./utils/createClient";
+import { dateToUnixTimestamp } from "./utils/date";
+import { randomString } from "./utils/random";
 
 describe("Contacts", () => {
     let subscriptionId: string;

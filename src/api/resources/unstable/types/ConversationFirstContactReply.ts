@@ -4,10 +4,7 @@
  * An object containing information on the first users message. For a contact initiated message this will represent the users original message.
  */
 export interface ConversationFirstContactReply {
-    /** */
-    created_at?: number;
-    /** */
-    type?: string;
-    /** */
-    url?: string;
+    created_at?: number | undefined;
+    type?: string | undefined;
+    url?: string | undefined;
 }
