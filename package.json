@@ -46,6 +46,7 @@
     "devDependencies": {
         "webpack": "^5.97.1",
         "ts-loader": "^9.5.1",
+        "vite": "^7.3.8",
         "vitest": "^4.1.0",
         "msw": "2.11.2",
         "@types/node": "^18.19.70",
